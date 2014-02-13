@@ -1,0 +1,25 @@
+# .bashrc files
+- from: ~/.bashrc
+  to: bashrc
+- from: ~/.bash_misc
+  to: bash_misc
+- from: ~/.bash_prompt
+  to: bash_prompt
+- from: ~/.bash_functions
+  to: bash_functions
+- from: ~/.bash_pyconf
+  to: bash_pyconf
+
+# git files
+- from: ~/.gitconfig
+  to: gitconfig
+- from: ~/.gitignore
+  to: gitignore
+
+# python
+- from: ~/.pythonrc.py
+  to: pythonrc.py
+
+# misc
+- from: ~/.vimperatorrc
+  to: vimperatorrc
