@@ -1,0 +1,34 @@
+# Example gitconfig
+#
+# Your real gitconfig usually holds a lot of sensitive information 
+# such as name, email, github username and token, etc, and is therefore
+# ignored in the .gitignore.
+# 
+# To set up, copy/rename this file without the `.example`, and fill
+# inn the missing information.
+
+[user]
+    name = Kjetil Valle
+    email = kjetil.valle@gmail.com
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+[core]
+    editor = vim
+    excludesfile = ~/.gitignore
+    pager = less -FXRS -x2 # two-space tabs
+    whitespace = fix,space-before-tab,tab-in-indent,trailing-space,blank-at-eof
+[push]
+    default = current
+[github]
+    user = kvalle
+[alias]
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    wdiff = diff \n--color-words
+    st = status -s
+    rank = shortlog -sn --no-merges
+    praise = blame
+    w = whatchanged --oneline
+    co = checkout
+
