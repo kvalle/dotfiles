@@ -1,0 +1,6 @@
+"2.3.1 (created: 2010/04/07 18:25:13)
+
+set complete=l
+set runtimepath=~/.vimperator
+source! ~/.vimperatorrc.local
+set gui=noaddons,bookmarks,menu,nonavigation,tabs
