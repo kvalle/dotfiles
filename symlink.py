@@ -4,7 +4,7 @@ import yaml
 import datetime
 
 from os.path import exists, expanduser, islink, realpath, dirname
-from os import rename, readlink, symlink
+from os import rename, readlink, symlink, utime
 
 def info(msg):
     print "> \33[1;39m%s\33[0m" % msg
@@ -30,6 +30,12 @@ def print_result(item):
     if "from" in item and "to" in item:
         info("linked %(from)s -> %(to)s" % item)
 
+def touch(filename):
+    try:
+        utime(filename, None)
+    except:
+        open(filename, 'a').close()
+
 def configure(item):
     item["from"] = expanduser(item["from"])
     item["to"] = dirname(realpath(__file__)) + "/" + item["to"]
@@ -52,3 +58,5 @@ if __name__ == '__main__':
 
     for item in config:
         configure(item)
+
+    touch("success")
