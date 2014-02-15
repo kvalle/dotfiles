@@ -1,12 +1,3 @@
-# Example gitconfig
-#
-# Your real gitconfig usually holds a lot of sensitive information 
-# such as name, email, github username and token, etc, and is therefore
-# ignored in the .gitignore.
-# 
-# To set up, copy/rename this file without the `.example`, and fill
-# inn the missing information.
-
 [user]
     name = Kjetil Valle
     email = kjetil.valle@gmail.com
