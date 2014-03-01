@@ -19,4 +19,6 @@ Vagrant::Config.run do |config|
   # computers to access the VM, whereas host only networking does not.
   config.vm.forward_port 80, 8080
 
+  # Provision script to run after the image is up.
+  config.vm.provision :shell, :path => "bootstrap.sh"
 end
