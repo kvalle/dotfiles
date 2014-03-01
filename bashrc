@@ -35,7 +35,7 @@ fi
 
 # Include settings from other files
 if [ -d ~/.bashrc.d ]; then
-    for rc_file in ~/.bashrc.d/*.bash; do
+    for rc_file in ~/.bashrc.d/*.sh; do
         [ -x $rc_file ] && . $rc_file
     done
     unset rc_file
