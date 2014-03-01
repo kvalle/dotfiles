@@ -30,12 +30,6 @@ def print_result(item):
     if "from" in item and "to" in item:
         info("linked %(from)s -> %(to)s" % item)
 
-def touch(filename):
-    try:
-        utime(filename, None)
-    except:
-        open(filename, 'a').close()
-
 def configure(item):
     item["from"] = expanduser(item["from"])
     item["to"] = dirname(realpath(__file__)) + "/" + item["to"]
@@ -58,5 +52,3 @@ if __name__ == '__main__':
 
     for item in config:
         configure(item)
-
-    touch("success")
