@@ -35,54 +35,10 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# Set compose key to left "windows" key
-if [ -f /usr/bin/setxkbmap ]; then
-	setxkbmap -option compose:lwin
-fi
-
 # Include settings from other files
 if [ -d ~/.bashrc.d ]; then
-    for component in ~/.bashrc.d/*.bash; do
-        [ -x $component ] && . $component
+    for rc_file in ~/.bashrc.d/*.bash; do
+        [ -x $rc_file ] && . $rc_file
     done
-    unset component
-fi
-
-# LESS man page colors (makes Man pages more readable).
-export PAGER=less
-export LESS_TERMCAP_mb=$'\E[01;31m' 
-export LESS_TERMCAP_md=$'\E[01;31m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;32m'
-
-# Less cows from Ansible, please
-export ANSIBLE_NOCOWS=1
-
-# Some useful aliases
-alias dunnet='emacs -batch -l dunnet'
-alias subl=sublime_text
-alias ll='ls -lh'
-alias la='ls -lAh'
-alias lg='la | grep '
-alias findg='find . | grep '
-alias c=clear
-alias gief='sudo apt-get install'
-alias ..='cd ..'
-alias linode='ssh kjetil@kjetilvalle.com'
-alias j='jobs -l'
-alias which='type -a'
-alias path='echo -e ${PATH//:/\\n}'
-alias more='less' # less is more
-alias serve="python -m SimpleHTTPServer"
-
-# add some color to various commands
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+    unset rc_file
 fi
