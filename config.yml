@@ -1,14 +1,11 @@
+# Configuration of where to symlink the various dotfiles.
+# Paths are relative to the dotfiles folder.
+
 # .bashrc files
 - from: ~/.bashrc
   to: bashrc
-- from: ~/.bash_misc
-  to: bash_misc
-- from: ~/.bash_prompt
-  to: bash_prompt
-- from: ~/.bash_functions
-  to: bash_functions
-- from: ~/.bash_pyconf
-  to: bash_pyconf
+- from: ~/.bashrc.d
+  to: bashrc.d
 
 # git files
 - from: ~/.gitconfig

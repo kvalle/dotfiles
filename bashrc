@@ -41,11 +41,12 @@ if [ -f /usr/bin/setxkbmap ]; then
 fi
 
 # Include settings from other files
-if [ -f ~/.bash_prompt ]; then . ~/.bash_prompt; fi
-if [ -f ~/.bash_aliases ]; then . ~/.bash_aliases; fi
-if [ -f ~/.bash_functions ]; then . ~/.bash_functions; fi
-if [ -f ~/.bash_pyconf ]; then . ~/.bash_pyconf; fi
-if [ -f ~/.bash_misc ]; then . ~/.bash_misc; fi
+if [ -d ~/.bashrc.d ]; then
+    for component in ~/.bashrc.d/*.bash; do
+        [ -x $component ] && . $component
+    done
+    unset component
+fi
 
 # LESS man page colors (makes Man pages more readable).
 export PAGER=less
