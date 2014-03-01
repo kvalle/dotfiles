@@ -1,36 +1,34 @@
 # If not running interactively, don't do anything
 #[ -z "$PS1" ] && return
 
-# Don't put duplicate lines in the history. See bash(1) for more options
-# ... or force ignoredups and ignorespace
+# Don't put duplicates or lines beginning with spaces in the history.
 HISTCONTROL=ignoredups:ignorespace
 
-# Append to the history file, don't overwrite it
+# Append to the history file, don't overwrite it.
 shopt -s histappend
 
-# Allow alias expansion in non-interactive mode
+# Allow alias expansion in non-interactive mode.
 shopt -s expand_aliases
 
-# If set, Bash attempts to save all lines of a multiple-line command in the 
-# same history entry. This allows easy re-editing of multi-line commands.
+# Save all lines of a multiple-line command in the same history entry.
 shopt -s cmdhist
 
-# Increasing size of bash history.
-# For setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+# Mores sensible settings for bash history size.
 HISTSIZE=10000
-HISTFILESIZE=50000
+HISTFILESIZE=$HISTSIZE
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+# Check the window size after each command and, if necessary, update the 
+# values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+# Enable recursive globbing with `**`:
+shopt -s globstar 2>/dev/null
 
 # If set, and Readline is being used, Bash will not attempt to search the PATH
 # for possible completions when completion is attempted on an empty line.
 shopt -s no_empty_cmd_completion
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
+# Make sure programmable completion features is enabled.
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
