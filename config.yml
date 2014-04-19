@@ -19,3 +19,6 @@
 
 - from: ~/.irssi
   to: irssi
+
+- from: ~/.ghci
+  to: ghci
