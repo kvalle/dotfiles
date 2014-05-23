@@ -5,6 +5,8 @@
   to: bashrc
 - from: ~/.bashrc.d
   to: bashrc.d
+- from: ~/.bash_profile
+  to: bash_profile
 
 - from: ~/.gitconfig
   to: gitconfig
