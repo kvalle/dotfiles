@@ -33,6 +33,9 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+# Set default editor
+export EDITOR=vim
+
 # Include settings from other files
 if [ -d ~/.bashrc.d ]; then
     for rc_file in ~/.bashrc.d/*.sh; do

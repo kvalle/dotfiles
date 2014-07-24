@@ -7,8 +7,6 @@ export PATH=/cygdrive/c/dev/applications/apache-maven-3.2.1/bin:$PATH
 export JAVA_HOME=/cygdrive/c/dev/applications/java/jdk1.7.0_25
 export PATH=$JAVA_HOME/bin:$PATH
 
-export EDITOR=vim
-
 # Useful aliases
 alias subl=sublime_text
 alias byggserver='ssh extt04@svvuenobygg01'
