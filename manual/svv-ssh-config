@@ -1,0 +1,7 @@
+# ~/.ssh/config
+
+# Config file for use at svv.
+# Must be copied manually.
+
+Host github.com kjetilvalle.com
+	ProxyCommand /usr/bin/corkscrew proxy.vegvesen.no 8080 %h %p 
