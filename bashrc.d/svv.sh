@@ -48,9 +48,11 @@ function java7(){
 }
 
 function pcd (){
-	FOLDER=$(find /cygdrive/c/dev/prosjekter -type d | grep $1 | head -1)
+	pattern=$(sed 's/\//.*\/.*/' <<<"$1")
+	FOLDER=$(find /cygdrive/c/dev/prosjekter -type d | grep $pattern | head -1)
 	cd $FOLDER
-	echo "You ended up in `pwd`"
+	echo "Boom! Teleported to:"
+	echo -e " \033[39;1m`pwd`\033[0m"
 }
 
 function share() {
