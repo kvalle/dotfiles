@@ -1,5 +1,5 @@
 # Ask for permission to do something.
-# For example usage, see clean() below.
+# For example usage, see `clean.sh`.
 function ask {
     echo -n "$@" '[y/N] ' ; read ans
     case "$ans" in
