@@ -48,11 +48,25 @@ function java7(){
 }
 
 function pcd (){
-	pattern=$(sed 's/\//.*\/.*/' <<<"$1")
-	FOLDER=$(find /cygdrive/c/dev/prosjekter -type d | grep $pattern | head -1)
-	cd $FOLDER
-	echo "Boom! Teleported to:"
-	echo -e " \033[39;1m`pwd`\033[0m"
+	if [ $# -ne 2 ]; then
+		echo "pcd - cd to folder matching PATTERN"
+		echo
+		echo "usage: pcd PATTERN [ROOT FOLDER]"
+		return 1
+	fi
+
+	PATTERN=$(sed 's/\//.*\/.*/' <<<"$1")
+	ROOT=${2:-"/cygdrive/c/dev/prosjekter"}
+	FOLDER=$(find $ROOT -type d | grep $PATTERN | head -1)
+	
+	if [ $FOLDER ]; then
+		cd $FOLDER
+		echo "Boom! Teleported to:"
+		echo -e "\033[39;1m`pwd`\033[0m"
+	else
+		echo -e "\033[39;1mI'm sorry, Dave. I'm afraid I can't do that.\033[0m"
+		echo "(Also, I couldn't find '$1' anywhere.)"
+	fi
 }
 
 function share() {
