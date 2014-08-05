@@ -48,7 +48,7 @@ function java7(){
 }
 
 function pcd (){
-	if [ $# -ne 2 ]; then
+	if [ $# -lt 1 ]; then
 		echo "pcd - cd to folder matching PATTERN"
 		echo
 		echo "usage: pcd PATTERN [ROOT FOLDER]"
