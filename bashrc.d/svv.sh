@@ -12,7 +12,7 @@ alias subl=sublime_text
 alias byggserver='ssh extt04@svvuenobygg01'
 alias ujapp08='ssh exthte@svvujapp08'
 alias inst='mvn clean install'
-alias pint='mvn clean install -PintegrationTests'
+alias pint='mvn clean install -Pintegrationtests'
 
 # SSH aliases KREG + kunde
 alias kregum='ssh habor@139.116.11.11'
