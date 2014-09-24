@@ -83,6 +83,7 @@ function proxyon() {
 	export ftp_proxy=$http_proxy
 	export rsync_proxy=$http_proxy
 	export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+	export no_proxy="evstjenester.test.vegvesen.no,evstjenester.utv.vegvesen.no,evstjenester.vegvesen.no,$no_proxy"
 }
 
 function proxyoff() {
@@ -91,5 +92,4 @@ function proxyoff() {
 
 ## Stuff to do at startup
 proxyon
-printf '\n%s\n\n' "$(quote)"
 cd /cygdrive/c/dev
