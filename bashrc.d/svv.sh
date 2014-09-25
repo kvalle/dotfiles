@@ -32,7 +32,7 @@ alias kregbygg='ssh au2sys@139.116.11.6'
 ## Useful functions
 
 function java6(){
-	export JAVA_HOME=/cygdrive/c/dev/applications/java/jdk1.6.0_24
+	export JAVA_HOME=/cygdrive/c/Java/jdk1.6.0_24
 	export PATH=$JAVA_HOME/bin:$PATH
 	java -version
 	javac -version
@@ -40,7 +40,7 @@ function java6(){
 }
 
 function java7(){
-	export JAVA_HOME=/cygdrive/c/dev/applications/java/jdk1.7.0_25
+	export JAVA_HOME=/cygdrive/c/Java/jdk1.7.0_25
 	export PATH=$JAVA_HOME/bin:$PATH
 	java -version
 	javac -version
