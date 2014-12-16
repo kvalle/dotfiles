@@ -6,7 +6,7 @@
     status = auto
     branch = auto
 [core]
-    editor = vim
+    editor = vi
     excludesfile = /opt/boxen/config/git/gitignore
     pager = less -FXRS -x2 # two-space tabs
     whitespace = fix,space-before-tab,tab-in-indent,trailing-space,blank-at-eof
