@@ -4,13 +4,19 @@ export CYGWIN=nodosfilewarning
 # Add to PATH
 export PATH=/cygdrive/c/dev/applications/Sublime-Text-2:$PATH
 export PATH=/cygdrive/c/dev/applications/apache-maven-3.2.1/bin:$PATH
-export JAVA_HOME=/cygdrive/c/dev/applications/java/jdk1.7.0_25
 export PATH=$JAVA_HOME/bin:$PATH
+export PATH=/cygdrive/c/dev/apps/nodejs:$PATH
+export PATH=/cygdrive/c/dev/prosjekter/utils/scripts:$PATH
+
+export JAVA6_HOME=/cygdrive/c/Java/jdk1.7.0_25
+export JAVA7_HOME=/cygdrive/c/Java/jdk1.6.0_24
+export JAVA_HOME=$JAVA7_HOME
 
 # Useful aliases
 alias subl=sublime_text
 alias byggserver='ssh extt04@svvuenobygg01'
 alias ujapp08='ssh exthte@svvujapp08'
+alias ujapp15='ssh extt04@svvujapp15'
 alias inst='mvn clean install'
 alias pint='mvn clean install -Pintegrationtests'
 
@@ -32,7 +38,7 @@ alias kregbygg='ssh au2sys@139.116.11.6'
 ## Useful functions
 
 function java6(){
-	export JAVA_HOME=/cygdrive/c/Java/jdk1.6.0_24
+	export JAVA_HOME=$JAVA7_HOME
 	export PATH=$JAVA_HOME/bin:$PATH
 	java -version
 	javac -version
@@ -40,7 +46,7 @@ function java6(){
 }
 
 function java7(){
-	export JAVA_HOME=/cygdrive/c/Java/jdk1.7.0_25
+	export JAVA_HOME=$JAVA6_HOME
 	export PATH=$JAVA_HOME/bin:$PATH
 	java -version
 	javac -version
