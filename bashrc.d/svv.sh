@@ -1,16 +1,16 @@
 # Subpress cygwin warnings about windows style paths
 export CYGWIN=nodosfilewarning
 
+# Java
+export JAVA6_HOME=/cygdrive/c/Java/jdk1.6.0_24
+export JAVA7_HOME=/cygdrive/c/Java/jdk1.7.0_25
+export JAVA_HOME=$JAVA7_HOME
+
 # Add to PATH
 export PATH=/cygdrive/c/dev/applications/Sublime-Text-2:$PATH
 export PATH=/cygdrive/c/dev/applications/apache-maven-3.2.1/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=/cygdrive/c/dev/apps/nodejs:$PATH
-export PATH=/cygdrive/c/dev/prosjekter/utils/scripts:$PATH
-
-export JAVA6_HOME=/cygdrive/c/Java/jdk1.7.0_25
-export JAVA7_HOME=/cygdrive/c/Java/jdk1.6.0_24
-export JAVA_HOME=$JAVA7_HOME
 
 # Useful aliases
 alias subl=sublime_text
@@ -35,10 +35,22 @@ alias kundeprod1='ssh svv_logg@139.116.10.20'
 alias kundeprod2='ssh svv_logg@139.116.10.21'
 alias kregbygg='ssh au2sys@139.116.11.6'
 
+
+# Selvbetjening utilities
+export UTILITIES_SCRIPTS=/cygdrive/c/dev/prosjekter/utils/scripts
+export PATH=$PATH:$UTILITIES_SCRIPTS
+
+if [ -d $UTILITIES_SCRIPTS/felles ]; then
+    for srcfile in $UTILITIES_SCRIPTS/felles/*.sh; do
+        [ -x $srcfile ] && . $srcfile
+    done
+    unset srcfile
+fi
+
 ## Useful functions
 
 function java6(){
-	export JAVA_HOME=$JAVA7_HOME
+	export JAVA_HOME=$JAVA6_HOME
 	export PATH=$JAVA_HOME/bin:$PATH
 	java -version
 	javac -version
@@ -46,7 +58,7 @@ function java6(){
 }
 
 function java7(){
-	export JAVA_HOME=$JAVA6_HOME
+	export JAVA_HOME=$JAVA7_HOME
 	export PATH=$JAVA_HOME/bin:$PATH
 	java -version
 	javac -version
@@ -81,19 +93,6 @@ function share() {
 
 function jetty() {
 	mvn jetty:run -Djetty.port=${1:-1337}
-}
-
-function proxyon() {
-	export http_proxy=http://proxy.vegvesen.no:8080/
-	export https_proxy=$http_proxy
-	export ftp_proxy=$http_proxy
-	export rsync_proxy=$http_proxy
-	export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
-	export no_proxy="evstjenester.test.vegvesen.no,evstjenester.utv.vegvesen.no,evstjenester.vegvesen.no,$no_proxy"
-}
-
-function proxyoff() {
-	unset http_proxy
 }
 
 ## Stuff to do at startup
