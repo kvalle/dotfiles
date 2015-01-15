@@ -22,6 +22,7 @@
     praise = blame
     w = whatchanged --oneline
     co = checkout
+    pr = pull --rebase
 
 
 [hub]
