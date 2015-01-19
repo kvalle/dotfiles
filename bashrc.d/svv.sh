@@ -37,7 +37,7 @@ alias kregbygg='ssh au2sys@139.116.11.6'
 
 
 # Selvbetjening utilities
-export UTILITIES_SCRIPTS=/cygdrive/c/dev/prosjekter/utils/scripts
+export UTILITIES_SCRIPTS=/cygdrive/c/dev/prosjekter/utilities/scripts
 export PATH=$PATH:$UTILITIES_SCRIPTS
 
 if [ -d $UTILITIES_SCRIPTS/felles ]; then
