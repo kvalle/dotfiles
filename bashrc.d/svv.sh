@@ -4,11 +4,11 @@ export CYGWIN=nodosfilewarning
 # Java
 export JAVA6_HOME=/cygdrive/c/Java/jdk1.6.0_24
 export JAVA7_HOME=/cygdrive/c/Java/jdk1.7.0_25
-export JAVA_HOME=$JAVA7_HOME
+export JAVA8_HOME=/cygdrive/c/Java/jdk1.8.0_40
+export JAVA_HOME=$JAVA8_HOME
 
 # Add to PATH
-export PATH=/cygdrive/c/dev/applications/Sublime-Text-2:$PATH
-export PATH=/cygdrive/c/dev/applications/apache-maven-3.2.1/bin:$PATH
+export PATH=/cygdrive/c/dev/apps/gradle-2.3/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=/cygdrive/c/dev/apps/nodejs:$PATH
 
@@ -59,6 +59,14 @@ function java6(){
 
 function java7(){
 	export JAVA_HOME=$JAVA7_HOME
+	export PATH=$JAVA_HOME/bin:$PATH
+	java -version
+	javac -version
+	mvn --version
+}
+
+function java8(){
+	export JAVA_HOME=$JAVA8_HOME
 	export PATH=$JAVA_HOME/bin:$PATH
 	java -version
 	javac -version
