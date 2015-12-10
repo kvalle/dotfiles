@@ -24,14 +24,11 @@
     w = whatchanged --oneline
     co = checkout
     pr = pull --rebase
-
-
 [hub]
-protocol = https
-
+    protocol = https
 [credential]
-helper = /opt/boxen/bin/boxen-git-credential
+    helper = /opt/boxen/bin/boxen-git-credential
 [rerere]
-	enabled = true
+    enabled = true
 [clean]
-	requireForce = false
+    requireForce = false
