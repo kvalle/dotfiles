@@ -1,6 +1,6 @@
 # Remove clutter from directory
 function clean {
-    dirty=`ls \#* *~ .*~ *.beam *.class *.bak .*.bak *.pyc *.tmp .*.tmp core a.out 2>/dev/null`
+    dirty=`ls \#* *~ .*~ *.beam *.hi *.o *.class *.bak .*.bak *.pyc *.tmp .*.tmp core a.out 2>/dev/null`
 
     if [ -z "$dirty" ]; then
         echo "Nothing to clean"
