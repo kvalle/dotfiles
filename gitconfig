@@ -7,7 +7,6 @@
     branch = auto
 [core]
     editor = vi
-    excludesfile = /opt/boxen/config/git/gitignore
     pager = less -FXRS -x2 # two-space tabs
     whitespace = fix,space-before-tab,tab-in-indent,trailing-space,blank-at-eof
 	autocrlf = false
@@ -26,8 +25,6 @@
     pr = pull --rebase
 [hub]
     protocol = https
-[credential]
-    helper = /opt/boxen/bin/boxen-git-credential
 [rerere]
     enabled = true
 [clean]
