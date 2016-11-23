@@ -43,3 +43,7 @@ if [ -d ~/.bashrc.d ]; then
     done
     unset rc_file
 fi
+
+# source nsb_env file
+[[ -s ~/.nsb_env ]] && . ~/.nsb_env
+
