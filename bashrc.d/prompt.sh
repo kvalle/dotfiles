@@ -172,7 +172,7 @@ function _update_ps1 {
 
     unset PS1_GIT PS1_HOST PS1_DIR
 
-    [ -n "$(git_branch)" ] && PS1_GIT=" ${C_FADED}on${C_RESET} $(get_git_info)$(get_git_progress)"
+    is_on_git && PS1_GIT=" ${C_FADED}on${C_RESET} $(get_git_info)$(get_git_progress)"
     [ -n "${SSH_CONNECTION}" ] && PS1_HOST=" ${C_FADED}at${C_RESET} ${C_BLUE}\h${C_RESET}"
     [ $rc -eq 0 -o $rc -eq 130 ] && C_DIR=$C_GREEN || C_DIR=$C_RED
     PS1_DIR=" ${C_FADED}»${C_RESET} ${C_DIR}\W${C_RESET} "
