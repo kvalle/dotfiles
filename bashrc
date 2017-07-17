@@ -47,3 +47,4 @@ fi
 # source nsb_env file
 [[ -s ~/.nsb_env ]] && . ~/.nsb_env
 
+export PATH="~/.bin:$PATH"

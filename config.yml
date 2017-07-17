@@ -1,6 +1,9 @@
 # Configuration of where to symlink the various dotfiles.
 # Paths are relative to the dotfiles folder.
 
+- from: ~/.bin
+  to: bin
+
 - from: ~/.bashrc
   to: bashrc
 - from: ~/.bashrc.d

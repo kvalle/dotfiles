@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+args=""
+for var in "$@"; do
+	args+="-v $var "
+done
+
+human=$(date $args)
+ts=$(date $args +%s)
+
+echo "For humans:      ${human}"
+echo "Timestamp:       ${ts}"
+echo "Timestamp in ms: ${ts}000"
