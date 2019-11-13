@@ -48,3 +48,6 @@ fi
 [[ -s ~/.nsb_env ]] && . ~/.nsb_env
 
 export PATH="~/.bin:$PATH"
+
+# added by travis gem
+[ -f /Users/kjetilvalle/.travis/travis.sh ] && source /Users/kjetilvalle/.travis/travis.sh
