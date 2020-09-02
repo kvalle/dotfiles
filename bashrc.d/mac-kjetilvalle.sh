@@ -2,7 +2,7 @@ export PATH=$PATH:/Applications/Sublime\ Text.app/Contents/SharedSupport/bin
 export PATH=$PATH:/Users/kjetilvalle/Library/Python/2.7/bin
 export PATH=$PATH:/Users/kjetilvalle/.local/bin
 
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+export JAVA_HOME=`/usr/libexec/java_home -v 14`
 
 export M2_REPO="/Users/kjetilvalle/.m2/repository"
 
@@ -10,4 +10,3 @@ export M2_REPO="/Users/kjetilvalle/.m2/repository"
 { eval `ssh-agent`; ssh-add -A; } &>/dev/null
 
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-
