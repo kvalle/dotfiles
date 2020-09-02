@@ -7,3 +7,5 @@ export NSB_SSH_CONFIG_DIR="/Users/kjetilvalle/nsb/dev/infrastructure/ssh_config"
 
 
 alias bd="cd backend && mvn clean install && cd .. && echo | envchain aws ./deploy.sh"
+
+alias ij="SPRING_PROFILES_ACTIVE=local AWS_REGION=eu-central-1 envchain aws idea"
