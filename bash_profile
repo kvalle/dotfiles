@@ -7,3 +7,7 @@ if [[ -s $NSB_SCRIPT ]]; then
 else
 	print "Error: Didn't find nsb script at '$NSB_SCRIPT'"
 fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/kjetilvalle/.sdkman"
+[[ -s "/Users/kjetilvalle/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/kjetilvalle/.sdkman/bin/sdkman-init.sh"

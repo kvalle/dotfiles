@@ -1,8 +1,8 @@
 export PATH=$PATH:/Applications/Sublime\ Text.app/Contents/SharedSupport/bin
-export PATH=$PATH:/Users/kjetilvalle/Library/Python/2.7/bin
+#export PATH=$PATH:/Users/kjetilvalle/Library/Python/2.7/bin
 export PATH=$PATH:/Users/kjetilvalle/.local/bin
 
-export JAVA_HOME=`/usr/libexec/java_home -v 14`
+export JAVA_HOME=`/usr/libexec/java_home -v 15`
 
 export M2_REPO="/Users/kjetilvalle/.m2/repository"
 
