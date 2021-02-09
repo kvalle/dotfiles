@@ -7,7 +7,7 @@ from os.path import exists, expanduser, islink, realpath, dirname
 from os import rename, readlink, symlink, utime
 
 def info(msg):
-    print "> \33[1;39m%s\33[0m" % msg
+    print("> \33[1;39m%s\33[0m" % msg)
 
 def linked(link, dest):
     return islink(link) and readlink(link) == dest
