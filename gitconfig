@@ -29,3 +29,5 @@
     enabled = true
 [clean]
     requireForce = false
+[init]
+	defaultBranch = main
