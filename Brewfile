@@ -2,6 +2,7 @@ tap "homebrew/cask-fonts"
 tap "1password/tap"
 tap "jakehilborn/jakehilborn"
 
+brew "youtube-dl"
 brew "diff-so-fancy"
 brew "pyenv"
 brew "pyenv-virtualenv"
