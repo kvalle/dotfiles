@@ -7,7 +7,7 @@
     branch = auto
 [core]
     editor = vi
-    pager = less -FXRS -x2 # two-space tabs
+	pager = diff-so-fancy | less --tabs=4 -RF
     whitespace = fix,space-before-tab,tab-in-indent,trailing-space,blank-at-eof
 	autocrlf = false
 [push]
@@ -31,3 +31,5 @@
     requireForce = false
 [init]
 	defaultBranch = main
+[interactive]
+	diffFilter = diff-so-fancy --patch
