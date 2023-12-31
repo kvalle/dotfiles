@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+osascript -e 'tell application "System Preferences" to quit'
+
 # Make the app switcher (cmd+tab) visible on all displays
 defaults write com.apple.Dock appswitcher-all-displays -bool true && killall Dock
 
@@ -27,6 +29,9 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 10
 # Repeat character when a key is held down for a long time, instead of showing character accents menu
 defaults delete NSGlobalDomain "ApplePressAndHoldEnabled"
 
+# Save to disk (not to iCloud) by default
+defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+
 # Disable annoying option-space keybinding from making nonbreaking spaces
 keybindings_file="/Users/kjetil/Library/KeyBindings/DefaultKeyBinding.dict"
 keybindings_contents='{
@@ -39,4 +44,17 @@ if [ -s ${keybindings_file} ]; then
 	echo "${keybindings_contents}"
 else
 	echo "${keybindings_contents}" > ${keybindings_file}
+fi
+
+
+# Remove the Cmd + Shift + / shortcut (show help menu)
+# Main reason: 
+# - https://stackoverflow.com/questions/38144396/intellij-comment-shortcut-opens-help-tab-on-the-mac-menu-bar/55679637#55679637
+# Sources:
+# - https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
+# - https://stackoverflow.com/questions/23253479/how-do-i-add-values-to-nested-arrays-or-dicts-using-the-defaults-write-command
+if defaults read com.apple.symbolichotkeys > /dev/null; then 
+	defaults write com.apple.symbolichotkeys "$(defaults export com.apple.symbolichotkeys - | plutil -replace AppleSymbolicHotKeys.98.enabled -bool false - -o -)"
+else
+	echo "Unable to remove shortcut since com.apple.symbolichotkeys plist dosn't exist yet. Please"
 fi
