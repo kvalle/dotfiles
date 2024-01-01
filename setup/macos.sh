@@ -38,10 +38,14 @@ keybindings_contents='{
 "~ " = ("insertText:", " ");
 }'
 if [ -s ${keybindings_file} ]; then
-	echo "${keybindings_file} already exists."
-	echo "Please add the following contents manually:"
-	echo
-	echo "${keybindings_contents}"
+	if ! cat ${keybindings_file} | grep '"~ " = ("insertText:", " ");'> /dev/null; then
+
+		grep '"~ " = ("insertText:", " ");'
+		echo "${keybindings_file} already exists."
+		echo "Please add the following contents manually:"
+		echo
+		echo "${keybindings_contents}"
+	fi
 else
 	echo "${keybindings_contents}" > ${keybindings_file}
 fi
