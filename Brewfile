@@ -34,6 +34,7 @@ brew "ktlint"
 brew "lazygit"
 brew "displayplacer" # from jakehilborn/jakehilborn
 
+cask "flameshot"
 cask "1password-cli"
 cask "alfred"
 cask "discord"
