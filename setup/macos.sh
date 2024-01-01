@@ -27,7 +27,7 @@ defaults write NSGlobalDomain KeyRepeat -int 1
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
 
 # Repeat character when a key is held down for a long time, instead of showing character accents menu
-defaults delete NSGlobalDomain "ApplePressAndHoldEnabled"
+defaults write NSGlobalDomain "ApplePressAndHoldEnabled" -bool "false"
 
 # Save to disk (not to iCloud) by default
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
