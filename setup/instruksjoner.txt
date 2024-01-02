@@ -1,0 +1,39 @@
+- Skru på "full disk access" for terminal-appen før dotfiles settes opp
+- git clone git@github.com:kvalle/dotfiles.git ~/dotfiles
+  cd ~/dotfiles && ./setup.sh
+- Sette opp ny SSH-nøkkel
+  https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account
+- Aktivere touch-id og registrere fingeravtrykk
+- Android Studio
+    - Hent ned firstplayer_app.jks til /Users/kjetil/dev/privat/keys fra Digipost
+- Intellij
+    - gjøre tilgjengelig fra cli (Tools > Create Command Line Launcher)
+- Sjekke om Arc config blir med over
+- Sette opp backups i IDrive
+- re-map Alfred over på cmd+space
+
+--- Prøv å automatisere følgende:
+
+- Rectangle
+	- åpne, og gi rettigheter
+	- sørg for at det starter ved oppstart
+    - konfigurer hurtigtaster
+        fullscreen  opt+cmd+F
+        next disp   ctrl+opt+space
+        prev disp   ctrl+opt+cmd+space
+        left half   ctrl+opt+cmd+left arrow
+        right half  ctrl+opt+cmd+right arrow
+        next third  ctrl+opt+arrow right
+        prev third  ctrl+opt+arrow left
+    - https://github.com/rxhanson/Rectangle/blob/master/TerminalCommands.md
+    - https://github.com/rxhanson/Rectangle?tab=readme-ov-file#import--export-json-config
+- Caffeine
+	- åpne, og gi rettigheter
+	- konfigurer til å starte og aktiveres ved oppstart
+- Atom
+    - Sette opp FireCode: https://github.com/tonsky/FiraCode/wiki/Atom-instructions
+- Generelt
+    - skru på "tap to click" for Touchpad
+    - skru på "ctrl to zoom" (preferences > accessibility)
+    - vis bluetooth i status bar
+    
