@@ -50,10 +50,9 @@ else
 	echo "${keybindings_contents}" > ${keybindings_file}
 fi
 
-
 # Remove the Cmd + Shift + / shortcut (show help menu)
 # Main reason: 
-# - https://stackoverflow.com/questions/38144396/intellij-comment-shortcut-opens-help-tab-on-the-mac-menu-bar/55679637#55679637
+# - https://stackoverflow.com/a/55679637
 # Sources:
 # - https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
 # - https://stackoverflow.com/questions/23253479/how-do-i-add-values-to-nested-arrays-or-dicts-using-the-defaults-write-command

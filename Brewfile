@@ -33,7 +33,9 @@ brew "fzf"
 brew "ktlint"
 brew "lazygit"
 brew "displayplacer" # from jakehilborn/jakehilborn
+brew "macchina"
 
+cask "idrive"
 cask "flameshot"
 cask "1password-cli"
 cask "alfred"
