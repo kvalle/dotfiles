@@ -18,4 +18,7 @@ ln -s ~/dotfiles/pythonrc ~/.pythonrc
 rm ~/.ghci || true
 ln -s ~/dotfiles/ghci ~/.ghci
 
+rm ~/.zprofile || true
+ln -s ~/dotfiles/oh-my-zsh-custom/zprofile ~/.zprofile
+
 echo "Done setting up symlinks"
