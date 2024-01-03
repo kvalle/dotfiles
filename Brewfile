@@ -35,6 +35,7 @@ brew "lazygit"
 brew "displayplacer" # from jakehilborn/jakehilborn
 brew "macchina"
 
+cask "notion"
 cask "idrive"
 cask "flameshot"
 cask "1password"
