@@ -49,6 +49,7 @@ if [ -s ${keybindings_file} ]; then
 		echo "${keybindings_contents}"
 	fi
 else
+	mkdir -p /Users/kjetil/Library/KeyBindings/
 	echo "${keybindings_contents}" > ${keybindings_file}
 fi
 
