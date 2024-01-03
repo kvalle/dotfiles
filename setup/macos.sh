@@ -1,6 +1,8 @@
 #!/bin/sh
 set -e
 
+echo "Starting configuring MacOS"
+
 osascript -e 'tell application "System Preferences" to quit'
 
 # Make the app switcher (cmd+tab) visible on all displays

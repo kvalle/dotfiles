@@ -15,3 +15,5 @@ ln -s ~/dotfiles/pythonrc ~/.pythonrc
 
 rm ~/.ghci
 ln -s ~/dotfiles/ghci ~/.ghci
+
+echo "Done setting up symlinks"
