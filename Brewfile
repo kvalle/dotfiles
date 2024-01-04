@@ -35,6 +35,7 @@ brew "lazygit"
 brew "displayplacer" # from jakehilborn/jakehilborn
 brew "macchina"
 
+cask "soapui"
 cask "notion"
 cask "idrive"
 cask "flameshot"

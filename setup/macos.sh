@@ -57,7 +57,27 @@ fi
 # - https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
 # - https://stackoverflow.com/questions/23253479/how-do-i-add-values-to-nested-arrays-or-dicts-using-the-defaults-write-command
 if defaults read com.apple.symbolichotkeys > /dev/null; then 
-	defaults write com.apple.symbolichotkeys "$(defaults export com.apple.symbolichotkeys - | plutil -replace AppleSymbolicHotKeys.98.enabled -bool false - -o -)"
+	defaults write com.apple.symbolichotkeys "$(defaults export com.apple.symbolichotkeys - \
+		| plutil -replace AppleSymbolicHotKeys.98.enabled -bool false - -o -)"
 else
 	echo "Unable to remove shortcut since com.apple.symbolichotkeys plist dosn't exist yet. Please"
 fi
+
+echo "Done configuring MacOS"
+
+# < 		<key>98</key>
+# < 		<dict>
+# < 			<key>enabled</key>
+# < 			<false/>
+# < 			<key>value</key>
+# < 			<dict>
+# < 				<key>parameters</key>
+# < 				<array>
+# < 					<integer>47</integer>
+# < 					<integer>44</integer>
+# < 					<integer>1179648</integer>
+# < 				</array>
+# < 				<key>type</key>
+# < 				<string>standard</string>
+# < 			</dict>
+# < 		</dict>
