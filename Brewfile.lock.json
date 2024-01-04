@@ -1612,7 +1612,7 @@
         }
       },
       "soapui": {
-        "version": null,
+        "version": "5.7.2",
         "options": {
           "full_name": "soapui"
         }

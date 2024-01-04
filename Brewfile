@@ -34,6 +34,7 @@ brew "ktlint"
 brew "lazygit"
 brew "displayplacer" # from jakehilborn/jakehilborn
 brew "macchina"
+brew "pyenv"
 
 cask "soapui"
 cask "notion"
