@@ -31,6 +31,9 @@ defaults write NSGlobalDomain "ApplePressAndHoldEnabled" -bool "false"
 # Save to disk (not to iCloud) by default
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
+# Add bluetooth to status bar
+defaults -currentHost write com.apple.controlcenter.plist Bluetooth -int 18
+
 # Disable annoying option-space keybinding from making nonbreaking spaces
 keybindings_file="/Users/kjetil/Library/KeyBindings/DefaultKeyBinding.dict"
 keybindings_contents='{
