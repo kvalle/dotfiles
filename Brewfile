@@ -40,12 +40,12 @@ brew "sdkman-cli" # from sdkman/tap
 brew "bfg"
 brew "jsonnet"
 brew "peco"
-brew "bluesnooze"
+#brew "bluesnooze"
 
 ## For bruk på NT-spire
 brew "ruby"
 brew "cocoapods"
-brew "flutter"
+#brew "flutter"
 
 cask "hiddenbar"
 cask "notunes"
