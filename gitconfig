@@ -54,3 +54,6 @@
 	allowedSignersFile = /Users/kjetil/dotfiles/git/allowed_signers
 [commit]
 	gpgsign = true
+
+[includeIf "gitdir:~/dev/digipost/"]
+	path = ~/dev/digipost/.gitconfig
