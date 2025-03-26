@@ -119,6 +119,8 @@ alias dns-flush='sudo killall -HUP mDNSResponder'
 
 alias ukenummer='date +%V'
 
+[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Less cows from Ansible, please
 export ANSIBLE_NOCOWS=1
 
@@ -171,3 +173,22 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+alias ghcr-login='op read "op://Private/6xakv5v7dwpp5d64dl5lxdijae/password" | docker login ghcr.io -u kvalle --password-stdin'
+
+export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
+[[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+
+source ~/dotfiles/functions/git.sh
+
+
+
+## Ruby
+
+# Add brew-installed ruby to path
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+# Hepp compilers to find ruby
+export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
+# Help pkg-config to find ruby
+export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
