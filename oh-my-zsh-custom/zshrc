@@ -195,7 +195,8 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 
 
 ## Digipost spesifikt oppsett
-export DIGIPOST_HOME=/Users/kjetil/dev/digipost
+export DIGIPOST_HOME=/Users/kjetil/code/digipost
 source ~/.digipostrc
 export DIGIPOST_SETTINGSXML_GITHUB_USERNAME='kvalle'
 export DIGIPOST_SETTINGSXML_GITHUB_SECRET='{75ZLa462PBQHvj2ZrcYGV0xcJmW28Ym0gV3UyUKpcG91TaaLlyg88IwJj76xXlA0Nu2HLAdMYinKIxEzBlxqaw==}'
+
