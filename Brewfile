@@ -42,6 +42,15 @@ brew "jsonnet"
 brew "peco"
 #brew "bluesnooze"
 
+## Digipost
+brew "brew-cask-completion"
+brew "maven"
+brew "pass"
+brew "go"
+brew "terminal-notifier"
+brew "yarn"
+brew "coreutils"
+
 ## For bruk på NT-spire
 brew "ruby"
 brew "cocoapods"

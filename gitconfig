@@ -11,6 +11,7 @@
 	pager = diff-so-fancy | less --tabs=4 -RF
     whitespace = fix,space-before-tab,tab-in-indent,trailing-space,blank-at-eof
 	autocrlf = false
+	hooksPath = /Users/kjetil/.githooks
 [push]
     default = current
 [github]
