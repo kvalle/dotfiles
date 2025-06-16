@@ -194,9 +194,35 @@ export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 
 
+## JEnv
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+##
 ## Digipost spesifikt oppsett
+##
 export DIGIPOST_HOME=/Users/kjetil/code/digipost
 source ~/.digipostrc
 export DIGIPOST_SETTINGSXML_GITHUB_USERNAME='kvalle'
-export DIGIPOST_SETTINGSXML_GITHUB_SECRET='{75ZLa462PBQHvj2ZrcYGV0xcJmW28Ym0gV3UyUKpcG91TaaLlyg88IwJj76xXlA0Nu2HLAdMYinKIxEzBlxqaw==}'
+export DIGIPOST_SETTINGSXML_GITHUB_SECRET='{ZnBreDw2e7UHg7HQO7O3ej5aCIb5wtI2g0MQoaIoVMK8PkrPapsEhvlR5Eo4RqWScl+/FoBN+f0qyaRn9+tqMQ==}'
 
+export AZURE_USER="developer.kjetil.valle"
+export AZURE_PASSWORD_STORE_DIR="$DPOST_REPOS_PATH/azure-passwords"
+
+# Nice-to-haves
+source <(kubectl completion zsh)
+alias k="kubectl"
+complete -F __start_kubectl k
+
+alias kge="kubectl get events --sort-by=.metadata.creationTimestamp"
+
+#source "/opt/homebrew/opt/kube-ps1/share/kube-ps1.sh" # Bytt ut med source "/usr/local/opt/kube-ps1/share/kube-ps1.sh" for Intel)
+#PS1='$(kube_ps1)'$PS1
+
+# Old versions
+export PATH="/usr/local/opt/postgresql@11/bin:$PATH"
+
+# Start Intellij i bakgrunenn uten output
+alias idea.='idea . > /dev/null 2>&1 &'
+
+eval $(thefuck --alias fix)
