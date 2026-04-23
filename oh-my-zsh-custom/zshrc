@@ -208,6 +208,9 @@ export DIGIPOST_SETTINGSXML_GITHUB_SECRET='{ZnBreDw2e7UHg7HQO7O3ej5aCIb5wtI2g0MQ
 
 export AZURE_USER="developer.kjetil.valle"
 export AZURE_PASSWORD_STORE_DIR="$DPOST_REPOS_PATH/azure-passwords"
+alias cddp="cd /Users/kjetil/code/digipost"
+alias ts-fiks="dgp-stop-tailscale; dgp-tailscale"
+alias ts-kill="dp az-tailscale kill-all"
 
 # Nice-to-haves
 source <(kubectl completion zsh)
@@ -222,7 +225,14 @@ alias kge="kubectl get events --sort-by=.metadata.creationTimestamp"
 # Old versions
 export PATH="/usr/local/opt/postgresql@11/bin:$PATH"
 
+
+export PATH="$PATH:/Users/kjetil/dotfiles/bin"
+
 # Start Intellij i bakgrunenn uten output
 alias idea.='idea . > /dev/null 2>&1 &'
 
 eval $(thefuck --alias fix)
+
+eval "$(direnv hook zsh)"
+
+eval $(thefuck --alias)
