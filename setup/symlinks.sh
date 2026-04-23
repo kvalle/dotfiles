@@ -21,6 +21,13 @@ ln -s ~/dotfiles/ghci ~/.ghci
 rm ~/.zprofile || true
 ln -s ~/dotfiles/oh-my-zsh-custom/zprofile ~/.zprofile
 
+rm ~/.zshrc || true
+ln -s ~/dotfiles/zshrc ~/.zshrc
+
+rm ~/.config/starship.toml || true
+mkdir -p ~/.config
+ln -s ~/dotfiles/starship.toml ~/.config/starship.toml
+
 rm -rf ~/.config/ghostty || true
 mkdir -p ~/.config
 ln -s ~/dotfiles/ghostty ~/.config/ghostty

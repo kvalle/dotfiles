@@ -35,6 +35,9 @@ brew "ktlint"
 brew "lazygit"
 brew "displayplacer" # from jakehilborn/jakehilborn
 brew "macchina"
+brew "starship"
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
 brew "pyenv"
 brew "sdkman-cli" # from sdkman/tap
 brew "bfg"
