@@ -21,4 +21,8 @@ ln -s ~/dotfiles/ghci ~/.ghci
 rm ~/.zprofile || true
 ln -s ~/dotfiles/oh-my-zsh-custom/zprofile ~/.zprofile
 
+rm -rf ~/.config/ghostty || true
+mkdir -p ~/.config
+ln -s ~/dotfiles/ghostty ~/.config/ghostty
+
 echo "Done setting up symlinks"

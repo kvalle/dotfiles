@@ -1,0 +1,51 @@
+# Ghostty Configuration
+# Docs: https://ghostty.org/docs/config
+
+# Theme
+theme = TokyoNight
+
+# Font
+font-family = Monaspace Neon
+font-size = 14
+
+# Window
+window-padding-x = 8
+window-padding-y = 4
+window-decoration = true
+macos-titlebar-style = tabs
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+
+# Shell integration (automatic for zsh)
+shell-integration = zsh
+
+# Mouse
+copy-on-select = clipboard
+mouse-hide-while-typing = true
+
+# Scrollback
+scrollback-limit = 10000
+
+# Keybindings - Tabs
+keybind = super+t=new_tab
+keybind = super+w=close_surface
+keybind = super+shift+left_bracket=previous_tab
+keybind = super+shift+right_bracket=next_tab
+
+# Keybindings - Splits
+keybind = super+d=new_split:right
+keybind = super+shift+d=new_split:down
+keybind = super+alt+left=goto_split:left
+keybind = super+alt+right=goto_split:right
+keybind = super+alt+up=goto_split:top
+keybind = super+alt+down=goto_split:bottom
+
+# Keybindings - Font size (Norwegian keyboard: physical + key = US minus)
+keybind = super+minus=increase_font_size:1
+keybind = super+equal=decrease_font_size:1
+keybind = super+zero=reset_font_size
+
+# Quick terminal (slide-down terminal, like Quake)
+keybind = global:super+grave_accent=toggle_quick_terminal
