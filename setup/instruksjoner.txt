@@ -17,8 +17,6 @@ Steg for ny maskin
 - Alfred
     - Sette hurtigtast til cmd+space
 
-
-
 - Sette opp Arc-spaces og sidebar
 - Android Studio
     - Hent ned firstplayer_app.jks til /Users/kjetil/dev/privat/keys fra Digipost

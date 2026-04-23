@@ -23,7 +23,6 @@ setopt SHARE_HISTORY        # share history across sessions
 setopt HIST_IGNORE_DUPS     # don't store duplicates
 setopt HIST_IGNORE_SPACE    # don't store commands starting with space
 setopt HIST_REDUCE_BLANKS   # remove extra blanks
-HIST_STAMPS="yyyy-mm-dd"
 
 # ---------------------------------------------------------------------------
 # Completion system (replaces oh-my-zsh completion)
@@ -44,16 +43,10 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"     # colored completion
 # Environment
 # ---------------------------------------------------------------------------
 export TZ='Europe/Oslo'
-export ANSIBLE_NOCOWS=1
-
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='vim'
-fi
+export EDITOR='vim'
 
 # ---------------------------------------------------------------------------
-# PATH (deduplicated)
+# PATH
 # ---------------------------------------------------------------------------
 export PATH="$HOME/dotfiles/bin:$PATH"
 export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
@@ -61,13 +54,11 @@ export PATH="/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-export PATH="/usr/local/opt/postgresql@11/bin:$PATH"
 
 # ---------------------------------------------------------------------------
 # Aliases
 # ---------------------------------------------------------------------------
 
-# ls (previously from oh-my-zsh)
 alias ls='ls -G'
 alias ll='ls -lh'
 alias la='ls -lAh'
@@ -93,7 +84,7 @@ alias idea.='idea . > /dev/null 2>&1 &'
 alias ghcr-login='op read "op://Private/6xakv5v7dwpp5d64dl5lxdijae/password" | docker login ghcr.io -u kvalle --password-stdin'
 
 # Digipost
-alias cddp="cd /Users/kjetil/code/digipost"
+alias cddp="cd $HOME/code/digipost"
 alias ts-fiks="dgp-stop-tailscale; dgp-tailscale"
 alias ts-kill="dp az-tailscale kill-all"
 
@@ -149,38 +140,28 @@ sdk() { _lazy_sdkman; sdk "$@" }
 # direnv
 eval "$(direnv hook zsh)"
 
-# thefuck (once, not twice)
+# thefuck
 eval $(thefuck --alias fix)
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# kubectl completion
-source <(kubectl completion zsh)
+# kubectl completion (cached, regenerated daily)
+_kubectl_comp=~/.zsh_kubectl_completion
+if [[ ! -f "$_kubectl_comp" ]] || [[ -n "$_kubectl_comp"(#qN.mh+24) ]]; then
+  kubectl completion zsh > "$_kubectl_comp"
+fi
+source "$_kubectl_comp"
+unset _kubectl_comp
 
-# ssh-agent
-{ eval $(ssh-agent); ssh-add -A; } &>/dev/null
+# ssh (use macOS Keychain instead of spawning new agents)
+ssh-add --apple-use-keychain 2>/dev/null
 
 # ---------------------------------------------------------------------------
 # Python config
 # ---------------------------------------------------------------------------
 export PYTHONSTARTUP=~/.pythonrc.py
 export WORKON_HOME=~/pyenvs
-
-if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-  source /usr/local/bin/virtualenvwrapper.sh
-
-  has_virtualenv() {
-    if [ -e .venv ]; then
-      workon $(cat .venv)
-    fi
-  }
-
-  venv_cd () {
-    cd "$@" && has_virtualenv
-  }
-  alias cd="venv_cd"
-fi
 
 # ---------------------------------------------------------------------------
 # Ruby
@@ -192,10 +173,13 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 # ---------------------------------------------------------------------------
 # Digipost
 # ---------------------------------------------------------------------------
-export DIGIPOST_HOME=/Users/kjetil/code/digipost
+export DIGIPOST_HOME=$HOME/code/digipost
 source ~/.digipostrc
 export DIGIPOST_SETTINGSXML_GITHUB_USERNAME='kvalle'
-export DIGIPOST_SETTINGSXML_GITHUB_SECRET='{ZnBreDw2e7UHg7HQO7O3ej5aCIb5wtI2g0MQoaIoVMK8PkrPapsEhvlR5Eo4RqWScl+/FoBN+f0qyaRn9+tqMQ==}'
+# Secret loaded from ~/.secrets (not version controlled)
+# Populate with: op read 'op://Private/Digipost GitHub secret/password' --account my.1password.com > ~/.secrets/digipost-github-secret
+[[ -f ~/.secrets/digipost-github-secret ]] && \
+  export DIGIPOST_SETTINGSXML_GITHUB_SECRET="$(cat ~/.secrets/digipost-github-secret)"
 
 export AZURE_USER="developer.kjetil.valle"
 export AZURE_PASSWORD_STORE_DIR="$DPOST_REPOS_PATH/azure-passwords"
@@ -203,7 +187,9 @@ export AZURE_PASSWORD_STORE_DIR="$DPOST_REPOS_PATH/azure-passwords"
 # ---------------------------------------------------------------------------
 # Custom functions
 # ---------------------------------------------------------------------------
-source ~/dotfiles/functions/git.sh
+for f in ~/dotfiles/functions/*.sh; do
+  source "$f"
+done
 
 # ---------------------------------------------------------------------------
 # Plugins (must be near end of file)

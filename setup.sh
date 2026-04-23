@@ -10,3 +10,4 @@ setup/nvm.sh
 setup/fzf.sh
 setup/macos.sh
 setup/symlinks.sh
+setup/secrets.sh
