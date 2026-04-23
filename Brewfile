@@ -72,7 +72,6 @@ brew "ruby"
 brew "cocoapods"
 #brew "flutter"
 
-cask "hiddenbar"
 cask "notunes"
 cask "soapui"
 cask "notion"
@@ -107,3 +106,5 @@ cask "caffeine"
 cask "iterm2"
 cask "figma"
 cask "android-studio"
+cask "keystore-explorer"
+cask "jordanbaird-ice" # for å skjule ting i statusbaren
