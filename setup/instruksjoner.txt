@@ -22,10 +22,8 @@ Steg for ny maskin
     - Hent ned firstplayer_app.jks til /Users/kjetil/dev/privat/keys fra Digipost
 - Sette opp backups i IDrive
 - Caffeine
-	- åpne, og gi rettigheter
-	- konfigurer til å starte og aktiveres ved oppstart
-- Atom
-    - Sette opp FireCode: https://github.com/tonsky/FiraCode/wiki/Atom-instructions
+    - åpne, og gi rettigheter
+    - konfigurer til å starte og aktiveres ved oppstart
 - Generelt
     - skru på "tap to click" for Touchpad
     - skru på "ctrl to zoom" (preferences > accessibility)

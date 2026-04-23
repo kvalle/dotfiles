@@ -3,7 +3,7 @@ set -e
 
 echo "Starting configuring MacOS"
 
-osascript -e 'tell application "System Preferences" to quit'
+osascript -e 'tell application "System Settings" to quit'
 
 # Make the app switcher (cmd+tab) visible on all displays
 defaults write com.apple.Dock appswitcher-all-displays -bool true
@@ -35,7 +35,7 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 defaults -currentHost write com.apple.controlcenter.plist Bluetooth -int 18
 
 # Disable annoying option-space keybinding from making nonbreaking spaces
-keybindings_file="/Users/kjetil/Library/KeyBindings/DefaultKeyBinding.dict"
+keybindings_file="$HOME/Library/KeyBindings/DefaultKeyBinding.dict"
 keybindings_contents='{
 "~ " = ("insertText:", " ");
 }'
@@ -49,7 +49,7 @@ if [ -s ${keybindings_file} ]; then
 		echo "${keybindings_contents}"
 	fi
 else
-	mkdir -p /Users/kjetil/Library/KeyBindings/
+	mkdir -p "$HOME/Library/KeyBindings/"
 	echo "${keybindings_contents}" > ${keybindings_file}
 fi
 
