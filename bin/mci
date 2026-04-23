@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+skip_tests=true
+module=""
+
+print_help() {
+  cat <<'EOF'
+mci · kjør 'mvn clean install' fra rot eller i submodul (pluss avhengigheter)
+
+Bruk:
+  mci                     # Kjører: mvn clean install -DskipTests
+  mci <modul>             # Kjører: mvn clean install -DskipTests -pl <modul> -am
+  mci -h | --help         # denne hjelpen
+
+Flagg:
+  -t, --test              Kjør tester (ikke legg til -DskipTests)
+  -h, --help              Vis denne hjelpen
+
+EOF
+}
+
+# Argument-parsing
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -h|--help) print_help; exit 0 ;;
+    -t|--test) skip_tests=false; shift ;;
+    --) shift; break ;; # slutt på flagg
+    -*) echo "Ukjent flagg: $1" >&2; exit 2 ;;
+    *)  if [[ -z "$module" ]]; then
+          module="$1"; shift
+        else
+          echo "For mange argumenter. Bruk kun ett posisjonelt argument (<modul>)." >&2
+          exit 2
+        fi
+        ;;
+  esac
+done
+
+# Bygg kommando
+cmd=(mvn clean install)
+if [[ -n "$module" ]]; then
+  cmd+=(-pl "$module" -am)
+fi
+if [[ "$skip_tests" == true ]]; then
+  cmd+=(-DskipTests)
+fi
+
+# Kjør
+exec "${cmd[@]}"
