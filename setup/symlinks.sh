@@ -3,29 +3,33 @@ set -e
 
 echo "Starting setting up symlinks"
 
-rm ~/.gitconfig || true
-ln -s ~/dotfiles/gitconfig ~/.gitconfig
+mkdir -p ~/.config
 
-rm ~/.gitignore || true
-ln -s ~/dotfiles/gitignore ~/.gitignore
-
-rm ~/.pythonrc.py || true
-ln -s ~/dotfiles/pythonrc.py ~/.pythonrc.py
-
-rm ~/.ghci || true
-ln -s ~/dotfiles/ghci ~/.ghci
-
+# Zsh
 rm ~/.zprofile || true
 ln -s ~/dotfiles/zprofile ~/.zprofile
-
 rm ~/.zshrc || true
 ln -s ~/dotfiles/zshrc ~/.zshrc
 
-mkdir -p ~/.config
+# Git (config, ignore, message, allowed_signers)
+rm -rf ~/.config/git || true
+ln -s ~/dotfiles/git ~/.config/git
 
-rm ~/.config/starship.toml || true
+# Python
+mkdir -p ~/.config/python
+rm -f ~/.config/python/pythonrc.py || true
+ln -s ~/dotfiles/python/pythonrc.py ~/.config/python/pythonrc.py
+
+# GHCi
+mkdir -p ~/.config/ghci
+rm -f ~/.config/ghci/ghci.conf || true
+ln -s ~/dotfiles/ghci/ghci.conf ~/.config/ghci/ghci.conf
+
+# Starship
+rm -f ~/.config/starship.toml || true
 ln -s ~/dotfiles/starship.toml ~/.config/starship.toml
 
+# Ghostty
 rm -rf ~/.config/ghostty || true
 ln -s ~/dotfiles/ghostty ~/.config/ghostty
 

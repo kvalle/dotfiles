@@ -160,7 +160,7 @@ ssh-add --apple-use-keychain 2>/dev/null
 # ---------------------------------------------------------------------------
 # Python config
 # ---------------------------------------------------------------------------
-export PYTHONSTARTUP=~/.pythonrc.py
+export PYTHONSTARTUP=~/.config/python/pythonrc.py
 export WORKON_HOME=~/pyenvs
 
 # ---------------------------------------------------------------------------
