@@ -117,14 +117,8 @@ python3() { _lazy_pyenv; python3 "$@" }
 pip()     { _lazy_pyenv; pip "$@" }
 pip3()    { _lazy_pyenv; pip3 "$@" }
 
-# jenv - only loaded when you call jenv or java
-_lazy_jenv() {
-  unfunction jenv java javac 2>/dev/null
-  eval "$(jenv init -)"
-}
-jenv()  { _lazy_jenv; jenv "$@" }
-java()  { _lazy_jenv; java "$@" }
-javac() { _lazy_jenv; javac "$@" }
+# jenv
+eval "$(jenv init -)"
 
 # sdkman - only loaded when you call sdk
 export SDKMAN_DIR=/opt/homebrew/opt/sdkman-cli/libexec
