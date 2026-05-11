@@ -14,6 +14,7 @@ setopt AUTO_CD              # cd by typing directory name
 setopt CORRECT              # suggest corrections for commands
 setopt NO_CASE_GLOB         # case-insensitive globbing
 setopt EXTENDED_GLOB        # extended glob patterns
+bindkey -e                  # emacs keybindings (ctrl+p/n for history, etc.)
 
 # History
 HISTFILE=~/.zsh_history
