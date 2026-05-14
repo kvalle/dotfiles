@@ -36,7 +36,7 @@ else
   compinit -C
 fi
 
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # case-insensitive
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'l:|=* r:|=*' # case-insensitive + substring
 zstyle ':completion:*' menu select                          # menu selection
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"     # colored completions
 zstyle ':completion:*' special-dirs true                     # complete . and ..
