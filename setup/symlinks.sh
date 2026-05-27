@@ -29,6 +29,10 @@ ln -s ~/dotfiles/ghci/ghci.conf ~/.config/ghci/ghci.conf
 rm -f ~/.config/starship.toml || true
 ln -s ~/dotfiles/starship.toml ~/.config/starship.toml
 
+# Lazygit
+rm -rf ~/.config/lazygit || true
+ln -s ~/dotfiles/lazygit ~/.config/lazygit
+
 # Ghostty
 rm -rf ~/.config/ghostty || true
 ln -s ~/dotfiles/ghostty ~/.config/ghostty
