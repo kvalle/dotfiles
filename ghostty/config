@@ -26,7 +26,7 @@ copy-on-select = clipboard
 mouse-hide-while-typing = true
 
 # Scrollback
-scrollback-limit = 10000
+scrollback-limit = 10000000
 
 # Keybindings - Tabs
 keybind = super+t=new_tab
