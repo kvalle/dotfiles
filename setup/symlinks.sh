@@ -41,4 +41,10 @@ ln -s ~/dotfiles/ghostty ~/.config/ghostty
 rm -rf ~/.config/atuin || true
 ln -s ~/dotfiles/atuin ~/.config/atuin
 
+# Superfile
+rm -f "$HOME/Library/Application Support/superfile/config.toml" || true
+ln -s ~/dotfiles/superfile/config.toml "$HOME/Library/Application Support/superfile/config.toml"
+rm -f "$HOME/Library/Application Support/superfile/hotkeys.toml" || true
+ln -s ~/dotfiles/superfile/hotkeys.toml "$HOME/Library/Application Support/superfile/hotkeys.toml"
+
 echo "Done setting up symlinks"

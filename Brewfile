@@ -42,6 +42,7 @@ brew "bfg"
 brew "jsonnet"
 brew "peco"
 brew "atuin"
+brew "superfile"
 #brew "bluesnooze"
 
 ## Digipost
