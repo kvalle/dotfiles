@@ -41,9 +41,12 @@ brew "sdkman-cli" # from sdkman/tap
 brew "bfg"
 brew "jsonnet"
 brew "peco"
+tap "gromgit/brewtils"
+
 brew "atuin"
 brew "superfile"
 brew "pastel"
+brew "gromgit/brewtils/taproom"
 #brew "bluesnooze"
 
 ## Digipost
