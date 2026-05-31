@@ -37,4 +37,8 @@ ln -s ~/dotfiles/lazygit ~/.config/lazygit
 rm -rf ~/.config/ghostty || true
 ln -s ~/dotfiles/ghostty ~/.config/ghostty
 
+# Atuin
+rm -rf ~/.config/atuin || true
+ln -s ~/dotfiles/atuin ~/.config/atuin
+
 echo "Done setting up symlinks"

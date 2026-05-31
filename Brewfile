@@ -41,6 +41,7 @@ brew "sdkman-cli" # from sdkman/tap
 brew "bfg"
 brew "jsonnet"
 brew "peco"
+brew "atuin"
 #brew "bluesnooze"
 
 ## Digipost

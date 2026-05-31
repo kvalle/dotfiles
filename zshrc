@@ -145,6 +145,9 @@ eval $(thefuck --alias fix)
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# atuin
+eval "$(atuin init zsh --disable-up-arrow)"
+
 # kubectl completion (cached, regenerated daily)
 _kubectl_comp=~/.zsh_kubectl_completion
 if [[ ! -f "$_kubectl_comp" ]] || [[ -n "$_kubectl_comp"(#qN.mh+24) ]]; then
