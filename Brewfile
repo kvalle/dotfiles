@@ -43,6 +43,7 @@ brew "jsonnet"
 brew "peco"
 brew "atuin"
 brew "superfile"
+brew "pastel"
 #brew "bluesnooze"
 
 ## Digipost
