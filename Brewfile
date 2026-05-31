@@ -1,4 +1,3 @@
-tap "homebrew/cask-fonts"
 tap "1password/tap"
 tap "jakehilborn/jakehilborn"
 tap "sdkman/tap"
