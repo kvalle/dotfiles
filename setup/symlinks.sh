@@ -41,6 +41,10 @@ ln -s ~/dotfiles/ghostty ~/.config/ghostty
 rm -rf ~/.config/atuin || true
 ln -s ~/dotfiles/atuin ~/.config/atuin
 
+# Tealdeer
+rm -rf ~/.config/tealdeer || true
+ln -s ~/dotfiles/tealdeer ~/.config/tealdeer
+
 # Superfile
 rm -f "$HOME/Library/Application Support/superfile/config.toml" || true
 ln -s ~/dotfiles/superfile/config.toml "$HOME/Library/Application Support/superfile/config.toml"
