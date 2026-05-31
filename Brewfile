@@ -1,114 +1,197 @@
+# ------------------------------------------------------------------------------
+# Taps
+# ------------------------------------------------------------------------------
+
 tap "1password/tap"
 tap "jakehilborn/jakehilborn"
 tap "sdkman/tap"
-
-brew "yt-dlp"
-brew "diff-so-fancy"
-brew "pyenv"
-brew "pyenv-virtualenv"
-brew "awscli"
-brew "gradle"
-brew "kotlin"
-brew "ack"
-brew "cloc"
-brew "envchain"
-brew "exiftool"
-brew "curl"
-brew "git"
-brew "node"
-brew "readline"
-brew "thefuck"
-brew "tfenv"
-brew "tmux"
-brew "tree"
-brew "watch"
-brew "wget"
-brew "ghc"
-brew "jq"
-brew "yq"
-brew "yamllint"
-brew "gh"
-brew "fzf"
-brew "ktlint"
-brew "lazygit"
-brew "displayplacer" # from jakehilborn/jakehilborn
-brew "macchina"
-brew "starship"
-brew "zsh-autosuggestions"
-brew "zsh-syntax-highlighting"
-brew "sdkman-cli" # from sdkman/tap
-brew "bfg"
-brew "jsonnet"
-brew "peco"
-brew "tealdeer"
 tap "gromgit/brewtils"
 
-brew "atuin"
-brew "superfile"
-brew "pastel"
-brew "gromgit/brewtils/taproom"
-#brew "bluesnooze"
+# ------------------------------------------------------------------------------
+# Shell og terminal
+# ------------------------------------------------------------------------------
 
-## Digipost
-brew "brew-cask-completion"
-brew "maven"
-brew "pass"
-brew "go"
-brew "terminal-notifier"
-brew "yarn"
-brew "coreutils"
-brew "jenv"
-cask "temurin@8"
-cask "temurin@11"
-cask "temurin@17"
-cask "temurin@21"
-brew "azure-cli"
-brew "azure/functions/azure-functions-core-tools@2"
-brew "bash"
-brew "helm"
-brew "kubectx"
-brew "Azure/kubelogin/kubelogin"
-brew "kubernetes-cli"
-brew "pinentry-mac"
-cask "jetbrains-toolbox"
+brew "bash"                        # Nyere bash enn macOS sin innebygde
+brew "atuin"                       # Shell-historikk med søk og synkronisering
+brew "fzf"                         # Fuzzy finder for terminal
+brew "starship"                    # Kryssplattform shell-prompt
+brew "tmux"                        # Terminal multiplexer
+brew "thefuck"                     # Korrigerer forrige kommando
+brew "zsh-autosuggestions"         # Autoforslag i zsh
+brew "zsh-syntax-highlighting"     # Syntaksutheving i zsh
+cask "ghostty"                     # GPU-akselerert terminalemulator
 
-## For bruk på NT-spire
-brew "ruby"
-brew "cocoapods"
-#brew "flutter"
+# ------------------------------------------------------------------------------
+# Git og versjonskontroll
+# ------------------------------------------------------------------------------
 
-cask "notunes"
-cask "soapui"
-cask "notion"
-#cask "idrive"
-cask "flameshot"
-cask "1password"
-cask "1password-cli"
-cask "alfred"
-cask "discord"
-cask "docker"
-cask "font-monaspace"
-cask "font-symbols-only-nerd-font"
-cask "grandperspective"
-cask "intellij-idea"
-cask "obsidian"
-cask "rectangle"
-cask "spotify"
-cask "visual-studio-code"
-cask "zoom"
-cask "microsoft-teams"
-cask "arc"
-cask "google-chrome"
-cask "firefox"
-cask "signal"
-cask "postman"
-cask "sublime-text"
-cask "vlc"
-cask "steam"
-cask "caffeine"
-#cask "iterm2"
-cask "ghostty"
-cask "figma"
-cask "android-studio"
-cask "keystore-explorer"
-cask "jordanbaird-ice" # for å skjule ting i statusbaren
+brew "git"                         # Versjonskontroll
+brew "gh"                          # GitHub CLI
+brew "lazygit"                     # Terminal-UI for git
+brew "diff-so-fancy"               # Penere git-diff
+brew "bfg"                         # Fjerne sensitiv data fra git-historikk
+
+# ------------------------------------------------------------------------------
+# Filverktøy og søk
+# ------------------------------------------------------------------------------
+
+brew "ack"                         # Søk i kildekode (raskere enn grep)
+brew "tree"                        # Vis mappestruktur som tre
+brew "superfile"                   # Terminal-filbehandler
+brew "peco"                        # Interaktiv filtrering
+brew "cloc"                        # Tell kodelinjer per språk
+
+# ------------------------------------------------------------------------------
+# Nedlasting og nettverksverktøy
+# ------------------------------------------------------------------------------
+
+brew "curl"                        # HTTP-klient
+brew "wget"                        # Nedlasting fra nett
+brew "yt-dlp"                      # Last ned video fra YouTube m.fl.
+
+# ------------------------------------------------------------------------------
+# JSON, YAML og databehandling
+# ------------------------------------------------------------------------------
+
+brew "jq"                          # JSON-prosessering i terminal
+brew "yq"                          # YAML-prosessering (som jq for YAML)
+brew "yamllint"                    # YAML-linter
+brew "jsonnet"                     # Templating-språk for JSON/YAML
+
+# ------------------------------------------------------------------------------
+# Programmeringsspråk og runtime
+# ------------------------------------------------------------------------------
+
+brew "node"                        # JavaScript runtime
+brew "go"                          # Go-programmeringsspråk
+brew "ruby"                        # Ruby-programmeringsspråk
+brew "ghc"                         # Glasgow Haskell Compiler
+brew "kotlin"                      # Kotlin-programmeringsspråk
+brew "readline"                    # Bibliotek for linjeredigering (avhengighet)
+
+# ------------------------------------------------------------------------------
+# Versjonshåndtering for språk/verktøy
+# ------------------------------------------------------------------------------
+
+brew "pyenv"                       # Python-versjonshåndtering
+brew "pyenv-virtualenv"            # Virtualenv-plugin for pyenv
+brew "jenv"                        # Java-versjonshåndtering
+brew "tfenv"                       # Terraform-versjonshåndtering
+brew "sdkman-cli"                  # SDK-håndtering (Java, Gradle m.m.)
+
+# ------------------------------------------------------------------------------
+# Java/JVM-utvikling
+# ------------------------------------------------------------------------------
+
+brew "gradle"                      # Byggesystem for JVM
+brew "maven"                       # Byggesystem for Java
+brew "ktlint"                      # Kotlin-linter/formatter
+cask "temurin@8"                   # Eclipse Temurin JDK 8
+cask "temurin@11"                  # Eclipse Temurin JDK 11
+cask "temurin@17"                  # Eclipse Temurin JDK 17
+cask "temurin@21"                  # Eclipse Temurin JDK 21
+cask "temurin@25"                  # Eclipse Temurin JDK 25
+
+# ------------------------------------------------------------------------------
+# Cloud, Kubernetes og infrastruktur
+# ------------------------------------------------------------------------------
+
+brew "awscli"                      # AWS kommandolinjeverktøy
+brew "azure-cli"                   # Azure kommandolinjeverktøy
+brew "azure/functions/azure-functions-core-tools@2" # Azure Functions lokalt
+brew "Azure/kubelogin/kubelogin"   # Azure Kubernetes-innlogging
+brew "kubernetes-cli"              # kubectl
+brew "kubectx"                     # Bytt mellom k8s-kontekster/namespaces
+brew "helm"                        # Kubernetes pakkehåndtering
+
+# ------------------------------------------------------------------------------
+# Sikkerhet og passord
+# ------------------------------------------------------------------------------
+
+brew "pass"                        # Unix-passordlagring (GPG-basert)
+brew "pinentry-mac"                # GPG PIN-dialog for macOS
+brew "envchain"                    # Lagre env-variabler i Keychain
+
+# ------------------------------------------------------------------------------
+# Mobilutvikling
+# ------------------------------------------------------------------------------
+
+brew "cocoapods"                   # iOS avhengighetshåndtering
+cask "android-studio"              # Android IDE
+
+# ------------------------------------------------------------------------------
+# Diverse CLI-verktøy
+# ------------------------------------------------------------------------------
+
+brew "coreutils"                   # GNU core utilities for macOS
+brew "exiftool"                    # Les/skriv EXIF-metadata i bilder
+brew "macchina"                    # Systeminformasjon i terminalen
+brew "pastel"                      # Fargeverktøy for terminalen
+brew "tealdeer"                    # Forenklet man-sider (tldr)
+brew "terminal-notifier"           # macOS-varsler fra terminal
+brew "watch"                       # Kjør kommando gjentatte ganger
+brew "displayplacer"               # Styr skjermoppløsning/plassering
+brew "brew-cask-completion"        # Zsh-completion for brew cask
+brew "gromgit/brewtils/taproom"    # Oversikt over brew taps
+
+# ------------------------------------------------------------------------------
+# Casks – Nettlesere
+# ------------------------------------------------------------------------------
+
+cask "arc"                         # Arc-nettleser
+cask "google-chrome"               # Google Chrome
+cask "firefox"                     # Mozilla Firefox
+
+# ------------------------------------------------------------------------------
+# Casks – Kommunikasjon
+# ------------------------------------------------------------------------------
+
+cask "discord"                     # Chat og tale for gaming/community
+cask "microsoft-teams"             # Microsoft Teams
+cask "signal"                      # Kryptert meldingsapp
+
+# ------------------------------------------------------------------------------
+# Casks – Produktivitet og notater
+# ------------------------------------------------------------------------------
+
+cask "1password"                   # Passordbehandler
+cask "1password-cli"               # 1Password CLI
+cask "alfred"                      # Spotlight-erstatning og produktivitet
+cask "notion"                      # Notater og wiki
+cask "obsidian"                    # Markdown-notater med linking
+cask "rectangle"                   # Vindusplassering med tastatur
+cask "jordanbaird-ice"             # Skjul ikoner i statusbaren
+
+# ------------------------------------------------------------------------------
+# Casks – Utvikling
+# ------------------------------------------------------------------------------
+
+cask "docker"                      # Docker Engine
+cask "docker-desktop"              # Docker Desktop GUI
+cask "intellij-idea"               # JetBrains Java/Kotlin IDE
+cask "jetbrains-toolbox"           # Håndter JetBrains-verktøy
+cask "visual-studio-code"          # Microsoft VS Code
+cask "sublime-text"                # Sublime Text editor
+cask "postman"                     # API-testing
+cask "soapui"                      # SOAP/REST API-testing
+cask "keystore-explorer"           # GUI for Java keystores
+cask "figma"                       # Design og prototyping
+
+# ------------------------------------------------------------------------------
+# Casks – Media og underholdning
+# ------------------------------------------------------------------------------
+
+cask "spotify"                     # Musikkstreaming
+cask "vlc"                         # Medieavspiller (spiller alt)
+cask "steam"                       # Spillplattform
+cask "notunes"                     # Hindre Apple Music fra å åpne seg
+
+# ------------------------------------------------------------------------------
+# Casks – Verktøy og diverse
+# ------------------------------------------------------------------------------
+
+cask "grandperspective"            # Visualiser diskbruk
+cask "idrive"                      # Skybasert backup
+cask "remarkable"                  # reMarkable-tablet synk
+cask "font-monaspace"              # GitHub sin monospace-fontfamilie
+cask "font-symbols-only-nerd-font" # Nerd Font-symboler (ikoner i terminal)
