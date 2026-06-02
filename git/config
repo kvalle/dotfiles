@@ -8,7 +8,7 @@
     branch = auto
 [core]
 	editor = vim +2
-	pager = diff-so-fancy | less --tabs=4 -RF
+	pager = delta
     whitespace = fix,space-before-tab,tab-in-indent,trailing-space,blank-at-eof
 	autocrlf = false
 	hooksPath = ~/.githooks
@@ -47,12 +47,8 @@
 [init]
 	defaultBranch = main
 [interactive]
-	diffFilter = diff-so-fancy --patch
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
+	diffFilter = delta --color-only
+# Fallback-farger for diff uten delta (delta ignorerer disse)
 [color "diff"]
 	meta = 11
 	frag = magenta bold
@@ -61,6 +57,14 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+[delta]
+	navigate = true
+	line-numbers = true
+	syntax-theme = zenburn
+	plus-style = syntax "#003300"
+	plus-emph-style = syntax "#005500"
+	minus-style = syntax "#3f0001"
+	minus-emph-style = syntax "#5f0001"
 [gpg]
 	format = ssh
 [gpg "ssh"]

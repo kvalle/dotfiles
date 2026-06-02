@@ -1,3 +1,6 @@
 promptToReturnFromSubprocess: false
 git:
   overrideGpg: true
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never

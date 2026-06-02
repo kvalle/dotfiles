@@ -28,7 +28,7 @@ cask "ghostty"                     # GPU-akselerert terminalemulator
 brew "git"                         # Versjonskontroll
 brew "gh"                          # GitHub CLI
 brew "lazygit"                     # Terminal-UI for git
-brew "diff-so-fancy"               # Penere git-diff
+brew "git-delta"                   # Penere git-diff (syntax-highlighting pager)
 brew "bfg"                         # Fjerne sensitiv data fra git-historikk
 
 # ------------------------------------------------------------------------------
