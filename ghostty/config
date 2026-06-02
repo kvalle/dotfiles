@@ -42,10 +42,11 @@ keybind = super+alt+right=goto_split:right
 keybind = super+alt+up=goto_split:top
 keybind = super+alt+down=goto_split:bottom
 
-# Keybindings - Font size (Norwegian keyboard: physical + key = US minus)
-keybind = super+minus=increase_font_size:1
-keybind = super+equal=decrease_font_size:1
+# Keybindings - Font size
+keybind = super+plus=increase_font_size:1
+keybind = super+minus=decrease_font_size:1
 keybind = super+zero=reset_font_size
+keybind = super+equal=unbind
 
 # Quick terminal (slide-down terminal, like Quake)
 keybind = global:super+grave_accent=toggle_quick_terminal
