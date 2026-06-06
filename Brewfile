@@ -37,6 +37,7 @@ brew "bfg"                         # Fjerne sensitiv data fra git-historikk
 
 brew "ack"                         # Søk i kildekode (raskere enn grep)
 brew "bat"                         # cat med syntaksutheving
+brew "eza"                         # Moderne erstatning for ls
 brew "fd"                          # Raskere alternativ til find
 brew "tree"                        # Vis mappestruktur som tre
 brew "superfile"                   # Terminal-filbehandler
