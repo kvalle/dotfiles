@@ -3,19 +3,31 @@ set -euo pipefail
 
 skip_tests=true
 module=""
+test_filter=""
 
 print_help() {
   cat <<'EOF'
-mci · kjør 'mvn clean install' fra rot eller i submodul (pluss avhengigheter)
+mci · kjør 'mvn clean install' med støtte for modulbygg og enkelttester
 
 Bruk:
-  mci                     # Kjører: mvn clean install -DskipTests
-  mci <modul>             # Kjører: mvn clean install -DskipTests -pl <modul> -am
-  mci -h | --help         # denne hjelpen
+  mci                              # Full bygg, uten tester
+  mci -t                           # Full bygg, med tester
+  mci <modul>                      # Modulbygg, uten tester
+  mci -t <modul>                   # Modulbygg, med alle tester
+  mci -t <modul> <Test>            # Kjør enkelt testklasse
+  mci -t <modul> <Test#metode>     # Kjør enkelt testmetode
 
 Flagg:
-  -t, --test              Kjør tester (ikke legg til -DskipTests)
+  -t, --test              Kjør tester
   -h, --help              Vis denne hjelpen
+
+Testfilter-eksempler:
+  mci -t dpost-web-server SendForsendelseConcurrencyIT
+  mci -t dpost-web-server 'SendForsendelseConcurrencyIT#metodeNavn'
+  mci -t dpost-web-server 'SendForsendelseConcurrencyIT#samtidig_*'
+
+Når testfilter er oppgitt kjøres:
+  mvn clean install -pl <modul> -am -Dtest='<filter>' -Dsurefire.failIfNoSpecifiedTests=false
 
 EOF
 }
@@ -25,19 +37,31 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     -h|--help) print_help; exit 0 ;;
     -t|--test) skip_tests=false; shift ;;
-    --) shift; break ;; # slutt på flagg
+    --) shift; break ;;
     -*) echo "Ukjent flagg: $1" >&2; exit 2 ;;
     *)  if [[ -z "$module" ]]; then
           module="$1"; shift
+        elif [[ -z "$test_filter" ]]; then
+          test_filter="$1"; shift
         else
-          echo "For mange argumenter. Bruk kun ett posisjonelt argument (<modul>)." >&2
-          exit 2
+          echo "For mange argumenter." >&2; exit 2
         fi
         ;;
   esac
 done
 
-# Bygg kommando
+# Validering
+if [[ -n "$test_filter" && "$skip_tests" == true ]]; then
+  echo "Feil: Testfilter oppgitt uten -t flagg." >&2
+  exit 2
+fi
+
+if [[ -n "$test_filter" && -z "$module" ]]; then
+  echo "Feil: Testfilter krever at modul er oppgitt." >&2
+  exit 2
+fi
+
+# Kjøring
 cmd=(mvn clean install)
 if [[ -n "$module" ]]; then
   cmd+=(-pl "$module" -am)
@@ -45,6 +69,7 @@ fi
 if [[ "$skip_tests" == true ]]; then
   cmd+=(-DskipTests)
 fi
-
-# Kjør
+if [[ -n "$test_filter" ]]; then
+  cmd+=(-Dtest="$test_filter" -Dsurefire.failIfNoSpecifiedTests=false)
+fi
 exec "${cmd[@]}"
