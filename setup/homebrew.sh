@@ -13,6 +13,12 @@ fi
 echo "Updating Homebrew"
 brew update
 
+echo "Trusting third-party taps from Brewfile"
+grep '^tap ' Brewfile | sed 's/tap "//;s/".*//' | while read -r t; do
+  brew tap "$t" 2>/dev/null || true
+  brew trust "$t"
+done
+
 echo "Installing apps"
 brew bundle
 

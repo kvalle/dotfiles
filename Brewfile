@@ -4,6 +4,7 @@
 
 tap "1password/tap"
 tap "anomalyco/tap"
+tap "azure/kubelogin"
 tap "jakehilborn/jakehilborn"
 tap "sdkman/tap"
 tap "gromgit/brewtils"
@@ -103,7 +104,6 @@ cask "temurin@25"                  # Eclipse Temurin JDK 25
 
 brew "awscli"                      # AWS kommandolinjeverktøy
 brew "azure-cli"                   # Azure kommandolinjeverktøy
-brew "azure/functions/azure-functions-core-tools@2" # Azure Functions lokalt
 brew "Azure/kubelogin/kubelogin"   # Azure Kubernetes-innlogging
 brew "kubernetes-cli"              # kubectl
 brew "kubectx"                     # Bytt mellom k8s-kontekster/namespaces
