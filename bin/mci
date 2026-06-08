@@ -13,20 +13,20 @@ Bruk:
   mci                              # Full bygg, uten tester
   mci -t                           # Full bygg, med tester
   mci <modul>                      # Modulbygg, uten tester
-  mci -t <modul>                   # Modulbygg, med alle tester
-  mci -t <modul> <Test>            # Kjør enkelt testklasse
-  mci -t <modul> <Test#metode>     # Kjør enkelt testmetode
+  mci <modul> -t                   # Modulbygg, med alle tester
+  mci <modul> <Test>               # Kjør enkelt testklasse
+  mci <modul> <Test#metode>        # Kjør enkelt testmetode
 
 Flagg:
   -t, --test              Kjør tester
   -h, --help              Vis denne hjelpen
 
 Testfilter-eksempler:
-  mci -t dpost-web-server SendForsendelseConcurrencyIT
-  mci -t dpost-web-server 'SendForsendelseConcurrencyIT#metodeNavn'
-  mci -t dpost-web-server 'SendForsendelseConcurrencyIT#samtidig_*'
+  mci dpost-web-server SendForsendelseConcurrencyIT
+  mci dpost-web-server 'SendForsendelseConcurrencyIT#metodeNavn'
+  mci dpost-web-server 'SendForsendelseConcurrencyIT#samtidig_*'
 
-Når testfilter er oppgitt kjøres:
+Når testfilter er oppgitt kjøres tester automatisk (uten behov for -t):
   mvn clean install -pl <modul> -am -Dtest='<filter>' -Dsurefire.failIfNoSpecifiedTests=false
 
 EOF
@@ -51,14 +51,14 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Validering
-if [[ -n "$test_filter" && "$skip_tests" == true ]]; then
-  echo "Feil: Testfilter oppgitt uten -t flagg." >&2
-  exit 2
-fi
-
 if [[ -n "$test_filter" && -z "$module" ]]; then
   echo "Feil: Testfilter krever at modul er oppgitt." >&2
   exit 2
+fi
+
+# Testfilter impliserer at tester skal kjøres
+if [[ -n "$test_filter" ]]; then
+  skip_tests=false
 fi
 
 # Kjøring
