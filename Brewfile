@@ -3,6 +3,7 @@
 # ------------------------------------------------------------------------------
 
 tap "1password/tap"
+tap "anomalyco/tap"
 tap "jakehilborn/jakehilborn"
 tap "sdkman/tap"
 tap "gromgit/brewtils"
@@ -137,6 +138,7 @@ brew "watch"                       # Kjør kommando gjentatte ganger
 brew "displayplacer"               # Styr skjermoppløsning/plassering
 brew "brew-cask-completion"        # Zsh-completion for brew cask
 brew "gromgit/brewtils/taproom"    # Oversikt over brew taps
+brew "anomalyco/tap/opencode"      # AI-drevet kodingsagent for terminalen
 
 # ------------------------------------------------------------------------------
 # Casks – Nettlesere
