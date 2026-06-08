@@ -43,6 +43,7 @@ brew "tree"                        # Vis mappestruktur som tre
 brew "superfile"                   # Terminal-filbehandler
 brew "peco"                        # Interaktiv filtrering
 brew "cloc"                        # Tell kodelinjer per språk
+brew "dust"                        # Visuell diskbruk (moderne du)
 
 # ------------------------------------------------------------------------------
 # Nedlasting og nettverksverktøy
