@@ -125,8 +125,25 @@ python3() { _lazy_pyenv; python3 "$@" }
 pip()     { _lazy_pyenv; pip "$@" }
 pip3()    { _lazy_pyenv; pip3 "$@" }
 
-# jenv
-eval "$(jenv init -)"
+# jenv — lazy-loaded with smart JAVA_HOME updates
+# Instead of `eval "$(jenv init -)"` (which runs jenv rehash + sets a precmd hook
+# that calls `jenv javahome` on every prompt), we add shims to PATH directly and
+# only update JAVA_HOME when the directory actually changes.
+export PATH="$HOME/.jenv/shims:$PATH"
+_jenv_set_java_home() {
+  [[ "$PWD" == "$_JENV_LAST_DIR" ]] && return
+  _JENV_LAST_DIR=$PWD
+  if [[ -f .java-version ]] || [[ -f "$HOME/.jenv/version" ]]; then
+    export JAVA_HOME="$(jenv javahome 2>/dev/null)"
+  fi
+}
+precmd_functions+=(_jenv_set_java_home)
+# Full jenv (with rehash etc.) loaded on first explicit use
+_lazy_jenv() {
+  unfunction jenv 2>/dev/null
+  eval "$(jenv init -)"
+}
+jenv() { _lazy_jenv; jenv "$@" }
 
 # sdkman - only loaded when you call sdk
 export SDKMAN_DIR=/opt/homebrew/opt/sdkman-cli/libexec
@@ -143,8 +160,15 @@ sdk() { _lazy_sdkman; sdk "$@" }
 # direnv
 eval "$(direnv hook zsh)"
 
-# thefuck
-eval $(thefuck --alias fix)
+# thefuck — cached alias (saves ~60ms vs spawning Python on every shell start)
+# Regenerated weekly; equivalent to `eval $(thefuck --alias fix)`
+_thefuck_cache=~/.cache/zsh/thefuck-alias.zsh
+if [[ ! -f "$_thefuck_cache" ]] || [[ -n "$_thefuck_cache"(#qN.mh+168) ]]; then
+  mkdir -p ~/.cache/zsh
+  thefuck --alias fix > "$_thefuck_cache"
+fi
+source "$_thefuck_cache"
+unset _thefuck_cache
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -166,8 +190,9 @@ fi
 source "$_kubectl_comp"
 unset _kubectl_comp
 
-# ssh (use macOS Keychain instead of spawning new agents)
-ssh-add --apple-use-keychain 2>/dev/null
+# ssh — only load keys from Keychain if agent is empty (saves ~300ms)
+# Replaces unconditional `ssh-add --apple-use-keychain`
+ssh-add -l &>/dev/null || ssh-add --apple-use-keychain 2>/dev/null
 
 # ---------------------------------------------------------------------------
 # Python config
