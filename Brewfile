@@ -172,7 +172,6 @@ cask "jordanbaird-ice"             # Skjul ikoner i statusbaren
 # Casks – Utvikling
 # ------------------------------------------------------------------------------
 
-cask "docker"                      # Docker Engine
 cask "docker-desktop"              # Docker Desktop GUI
 cask "intellij-idea"               # JetBrains Java/Kotlin IDE
 cask "jetbrains-toolbox"           # Håndter JetBrains-verktøy
