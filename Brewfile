@@ -130,6 +130,7 @@ cask "android-studio"              # Android IDE
 
 brew "coreutils"                   # GNU core utilities for macOS
 brew "exiftool"                    # Les/skriv EXIF-metadata i bilder
+brew "btop"                        # Avansert ressursmonitor (CPU, minne, disk, nett)
 brew "macchina"                    # Systeminformasjon i terminalen
 brew "pastel"                      # Fargeverktøy for terminalen
 brew "tealdeer"                    # Forenklet man-sider (tldr)
