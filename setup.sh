@@ -2,6 +2,7 @@
 set -e
 
 setup/homebrew.sh
+setup/homebrew-privileged.sh
 setup/nvm.sh
 setup/fzf.sh
 setup/macos.sh

@@ -178,7 +178,6 @@ cask "jetbrains-toolbox"           # Håndter JetBrains-verktøy
 cask "visual-studio-code"          # Microsoft VS Code
 cask "sublime-text"                # Sublime Text editor
 cask "postman"                     # API-testing
-cask "soapui"                      # SOAP/REST API-testing
 cask "keystore-explorer"           # GUI for Java keystores
 cask "figma"                       # Design og prototyping
 
@@ -196,7 +195,6 @@ cask "notunes"                     # Hindre Apple Music fra å åpne seg
 # ------------------------------------------------------------------------------
 
 cask "grandperspective"            # Visualiser diskbruk
-cask "idrive"                      # Skybasert backup
 cask "remarkable"                  # reMarkable-tablet synk
 cask "font-monaspace"              # GitHub sin monospace-fontfamilie
 cask "font-symbols-only-nerd-font" # Nerd Font-symboler (ikoner i terminal)
