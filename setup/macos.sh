@@ -39,18 +39,16 @@ keybindings_file="$HOME/Library/KeyBindings/DefaultKeyBinding.dict"
 keybindings_contents='{
 "~ " = ("insertText:", " ");
 }'
-if [ -s ${keybindings_file} ]; then
-	if ! cat ${keybindings_file} | grep '"~ " = ("insertText:", " ");'> /dev/null; then
-
-		grep '"~ " = ("insertText:", " ");'
-		echo "${keybindings_file} already exists."
+if [ -s "${keybindings_file}" ]; then
+	if ! grep -q '"~ " = ("insertText:", " ");' "${keybindings_file}"; then
+		echo "${keybindings_file} already exists but is missing the keybinding."
 		echo "Please add the following contents manually:"
 		echo
 		echo "${keybindings_contents}"
 	fi
 else
 	mkdir -p "$HOME/Library/KeyBindings/"
-	echo "${keybindings_contents}" > ${keybindings_file}
+	echo "${keybindings_contents}" > "${keybindings_file}"
 fi
 
 # Remove the Cmd + Shift + / shortcut (show help menu)
