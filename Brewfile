@@ -135,6 +135,7 @@ brew "pastel"                      # Fargeverktøy for terminalen
 brew "tealdeer"                    # Forenklet man-sider (tldr)
 brew "terminal-notifier"           # macOS-varsler fra terminal
 brew "watch"                       # Kjør kommando gjentatte ganger
+brew "timg"                        # Vis bilder/video i terminalen
 brew "displayplacer"               # Styr skjermoppløsning/plassering
 brew "brew-cask-completion"        # Zsh-completion for brew cask
 brew "gromgit/brewtils/taproom"    # Oversikt over brew taps

@@ -3,6 +3,7 @@
 # Casks som krever eleverte rettigheter (Privileges må være aktivert)
 
 casks=(
+  "kitty"     # Terminalemulator (for kitten CLI-verktøy)
   "soapui"    # SOAP/REST API-testing
   "idrive"    # Skybasert backup
 )
