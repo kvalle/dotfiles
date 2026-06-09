@@ -45,6 +45,10 @@ ln -s ~/dotfiles/atuin ~/.config/atuin
 rm -rf ~/.config/tealdeer || true
 ln -s ~/dotfiles/tealdeer ~/.config/tealdeer
 
+# Tuxedo
+rm -rf ~/.config/tuxedo || true
+ln -s ~/dotfiles/tuxedo ~/.config/tuxedo
+
 # Superfile
 rm -f "$HOME/Library/Application Support/superfile/config.toml" || true
 ln -s ~/dotfiles/superfile/config.toml "$HOME/Library/Application Support/superfile/config.toml"

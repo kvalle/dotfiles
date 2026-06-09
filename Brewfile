@@ -8,6 +8,7 @@ tap "azure/kubelogin"
 tap "jakehilborn/jakehilborn"
 tap "sdkman/tap"
 tap "gromgit/brewtils"
+tap "webstonehq/tap"
 
 # ------------------------------------------------------------------------------
 # Shell og terminal
@@ -21,6 +22,7 @@ brew "tmux"                        # Terminal multiplexer
 brew "thefuck"                     # Korrigerer forrige kommando
 brew "zsh-autosuggestions"         # Autoforslag i zsh
 brew "zsh-syntax-highlighting"     # Syntaksutheving i zsh
+brew "webstonehq/tap/tuxedo"       # Tastaturdriven terminal-UI for todo.txt
 cask "ghostty"                     # GPU-akselerert terminalemulator
 
 # ------------------------------------------------------------------------------

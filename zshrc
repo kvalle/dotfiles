@@ -48,6 +48,9 @@ export TZ='Europe/Oslo'
 export EDITOR='vim'
 export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
 export TEALDEER_CONFIG_DIR="$HOME/.config/tealdeer"
+export TODO_DIR="$HOME/.todos"
+export TODO_FILE="$TODO_DIR/todo.txt"
+export DONE_FILE="$TODO_DIR/done.txt"
 
 # ---------------------------------------------------------------------------
 # PATH
