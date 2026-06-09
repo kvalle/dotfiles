@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+git submodule init && git submodule update
+
 setup/homebrew.sh
 setup/homebrew-privileged.sh
 setup/nvm.sh
