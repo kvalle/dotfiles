@@ -19,7 +19,16 @@ grep '^tap ' Brewfile | sed 's/tap "//;s/".*//' | while read -r t; do
   brew trust "$t"
 done
 
+echo ""
+echo "Noen casks krever eleverte rettigheter for å installere til /Applications."
+echo "Aktiver Privileges og trykk Enter for å fortsette..."
+read -r
+
 echo "Installing apps"
 brew bundle
+
+echo ""
+echo "Nedgrader Privileges og trykk Enter for å fortsette..."
+read -r
 
 echo "Done installing and configuring Homebrew"
