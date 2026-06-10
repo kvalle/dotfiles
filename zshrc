@@ -10,7 +10,6 @@
 # ---------------------------------------------------------------------------
 # Core zsh options
 # ---------------------------------------------------------------------------
-setopt AUTO_CD              # cd by typing directory name
 setopt CORRECT              # suggest corrections for commands
 setopt NO_CASE_GLOB         # case-insensitive globbing
 setopt EXTENDED_GLOB        # extended glob patterns
