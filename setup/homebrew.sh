@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+PRIVILEGES_CLI=$(which PrivilegesCLI 2>/dev/null) || \
+  PRIVILEGES_CLI="/Applications/Privileges.app/Contents/MacOS/PrivilegesCLI"
+
 echo "Starting installing and configuring Homebrew"
 
 if test ! $(which brew); then
@@ -19,16 +22,9 @@ grep '^tap ' Brewfile | sed 's/tap "//;s/".*//' | while read -r t; do
   brew trust "$t"
 done
 
-echo ""
-echo "Noen casks krever eleverte rettigheter for å installere til /Applications."
-echo "Aktiver Privileges og trykk Enter for å fortsette..."
-read -r
-
 echo "Installing apps"
+$PRIVILEGES_CLI --add --reason "Homebrew bundle install"
 brew bundle
-
-echo ""
-echo "Nedgrader Privileges og trykk Enter for å fortsette..."
-read -r
+$PRIVILEGES_CLI --remove
 
 echo "Done installing and configuring Homebrew"

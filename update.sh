@@ -1,6 +1,8 @@
 #!/bin/bash
 
 DOTFILES_DIR=~/dotfiles
+PRIVILEGES_CLI=$(which PrivilegesCLI 2>/dev/null) || \
+  PRIVILEGES_CLI="/Applications/Privileges.app/Contents/MacOS/PrivilegesCLI"
 
 # --------------------------------------------------------------------------
 # Farger og formatering
@@ -78,12 +80,9 @@ info "Oppgraderer formulae..."
 brew upgrade || true
 
 info "Oppgraderer casks..."
-echo -e "    ${CYAN}Aktiver Privileges og trykk Enter for å fortsette...${RESET}"
-read -r
+$PRIVILEGES_CLI --add --reason "Homebrew cask upgrade"
 brew upgrade --cask || true
-echo ""
-echo -e "    ${CYAN}Nedgrader Privileges og trykk Enter for å fortsette...${RESET}"
-read -r
+$PRIVILEGES_CLI --remove
 
 info "Rydder gamle versjoner..."
 brew cleanup
