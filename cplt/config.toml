@@ -8,6 +8,10 @@ yes = true
 allow_gpg_signing = false
 allow_cache_exec = ["gradle"]
 
+# ~/dotfiles/git er symlinket fra ~/.config/git — cplt må kunne lese originalen
+[allow]
+read = ["~/dotfiles/git"]
+
 [proxy]
 enabled = true
 log_level = "blocked"
