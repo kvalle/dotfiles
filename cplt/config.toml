@@ -1,0 +1,22 @@
+# cplt global config — AI agent sandbox
+# Docs: https://github.com/navikt/cplt/blob/main/docs/configuration.md
+
+[sandbox]
+agent = "opencode"
+quiet = true
+yes = true
+allow_gpg_signing = true
+allow_cache_exec = ["gradle"]
+
+[proxy]
+enabled = true
+log_level = "blocked"
+log_file = "~/.config/cplt/proxy.log"
+
+[gh_guard]
+enabled = true
+mode = "block"
+
+[git_guard]
+enabled = true
+protect_default_branch_only = true

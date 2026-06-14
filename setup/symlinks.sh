@@ -41,6 +41,11 @@ ln -s ~/dotfiles/ghostty ~/.config/ghostty
 rm -rf ~/.config/atuin || true
 ln -s ~/dotfiles/atuin ~/.config/atuin
 
+# cplt (AI agent sandbox)
+mkdir -p ~/.config/cplt
+rm -f ~/.config/cplt/config.toml || true
+ln -s ~/dotfiles/cplt/config.toml ~/.config/cplt/config.toml
+
 # Tealdeer
 rm -rf ~/.config/tealdeer || true
 ln -s ~/dotfiles/tealdeer ~/.config/tealdeer

@@ -6,6 +6,7 @@ tap "1password/tap"
 tap "anomalyco/tap"
 tap "azure/kubelogin"
 tap "jakehilborn/jakehilborn"
+tap "navikt/tap"
 tap "sdkman/tap"
 tap "gromgit/brewtils"
 tap "webstonehq/tap"
@@ -143,6 +144,7 @@ brew "displayplacer"               # Styr skjermoppløsning/plassering
 brew "brew-cask-completion"        # Zsh-completion for brew cask
 brew "gromgit/brewtils/taproom"    # Oversikt over brew taps
 brew "anomalyco/tap/opencode"      # AI-drevet kodingsagent for terminalen
+brew "navikt/tap/cplt"             # Kernel-level sandbox for AI-agenter
 
 # ------------------------------------------------------------------------------
 # Casks – Nettlesere
