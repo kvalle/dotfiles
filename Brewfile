@@ -151,8 +151,9 @@ brew "navikt/tap/cplt"             # Kernel-level sandbox for AI-agenter
 # ------------------------------------------------------------------------------
 
 cask "arc"                         # Arc-nettleser
-cask "google-chrome"               # Google Chrome
 cask "firefox"                     # Mozilla Firefox
+cask "google-chrome"               # Google Chrome
+cask "zen"                         # Zen Browser
 
 # ------------------------------------------------------------------------------
 # Casks – Kommunikasjon
