@@ -46,6 +46,11 @@ mkdir -p ~/.config/cplt
 rm -f ~/.config/cplt/config.toml || true
 ln -s ~/dotfiles/cplt/config.toml ~/.config/cplt/config.toml
 
+# OpenCode
+mkdir -p ~/.config/opencode
+rm -f ~/.config/opencode/opencode.jsonc || true
+ln -s ~/dotfiles/opencode/opencode.jsonc ~/.config/opencode/opencode.jsonc
+
 # Tealdeer
 rm -rf ~/.config/tealdeer || true
 ln -s ~/dotfiles/tealdeer ~/.config/tealdeer
