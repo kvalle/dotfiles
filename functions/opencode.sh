@@ -21,8 +21,9 @@ OpenCode (kjører i cplt-sandbox):
 Parallelle agenter med worktrees:
 
   oc w <branch>       Opprett et worktree og start opencode der.
-                      Går til eksisterende worktree om det finnes.
-                      Plasseres som sibling-mappe: reponavn--branch
+                       Går til eksisterende worktree om det finnes.
+                       Plasseres som sibling-mappe: reponavn--branch
+                       (/ i branch-navn erstattes med -)
   oc w                Velg blant eksisterende worktrees (fzf).
   oc wrm [branch]     Fjern et worktree og eventuelt tilhørende branch.
                       Uten argument fjernes worktree-et du står i.
@@ -42,6 +43,19 @@ _oc_session() {
   cplt -- -s "$id"
 }
 
+# Returnerer stien til hovedrepoets worktree (den primære)
+_oc_main_root() {
+  git worktree list --porcelain | head -1 | sed 's/worktree //'
+}
+
+# Sjekk at fzf er tilgjengelig
+_oc_require_fzf() {
+  if ! command -v fzf &>/dev/null; then
+    echo "fzf er påkrevd for denne funksjonen. Installer med: brew install fzf"
+    return 1
+  fi
+}
+
 _oc_worktree() {
   local branch="$1"
   local repo_root=$(git rev-parse --show-toplevel 2>/dev/null)
@@ -55,11 +69,18 @@ _oc_worktree() {
 
   # Uten branch-argument: fzf-velger blant worktrees og branches
   if [[ -z "$branch" ]]; then
-    local main_root=$(git worktree list --porcelain | head -1 | sed 's/worktree //')
+    _oc_require_fzf || return 1
+    local main_root=$(_oc_main_root)
 
     # Samle eksisterende worktrees (uten hovedrepoet)
     local entries=""
     local worktree_branches=()
+    # Legg til hovedrepoet øverst i listen
+    local main_branch=$(git -C "$main_root" symbolic-ref --short HEAD 2>/dev/null)
+    if [[ -n "$main_branch" ]]; then
+      entries+="[hovedrepo] ${main_branch}  ${main_root}"$'\n'
+      worktree_branches+=("$main_branch")
+    fi
     while IFS= read -r line; do
       [[ -z "$line" ]] && continue
       local wt_path=$(echo "$line" | awk '{print $1}')
@@ -93,9 +114,9 @@ _oc_worktree() {
     local type=$(echo "$selected" | awk '{print $1}')
     local selected_branch=$(echo "$selected" | awk '{print $2}')
 
-    if [[ "$type" == "[worktree]" ]]; then
+    if [[ "$type" == "[worktree]" || "$type" == "[hovedrepo]" ]]; then
       local worktree_dir=$(echo "$selected" | awk '{print $3}')
-      cd "$worktree_dir"
+      cd "$worktree_dir" || { echo "Kunne ikke gå til: $worktree_dir"; return 1; }
       cplt
     else
       # Opprett worktree for eksisterende branch
@@ -105,8 +126,17 @@ _oc_worktree() {
   fi
 
   # Med branch-argument: opprett eller gå til worktree
-  local main_root=$(git worktree list --porcelain | head -1 | sed 's/worktree //')
-  local worktree_dir="$(dirname "$main_root")/${repo_name}--${branch}"
+  local main_root=$(_oc_main_root)
+  local safe_branch="${branch//\//-}"
+  local worktree_dir="$(dirname "$main_root")/${repo_name}--${safe_branch}"
+
+  # Hvis branchen er sjekket ut i hovedrepoet, gå dit direkte
+  local main_branch=$(git -C "$main_root" symbolic-ref --short HEAD 2>/dev/null)
+  if [[ "$branch" == "$main_branch" ]]; then
+    cd "$main_root" || { echo "Kunne ikke gå til: $main_root"; return 1; }
+    cplt
+    return
+  fi
 
   if [[ -d "$worktree_dir" ]]; then
     echo "Worktree finnes allerede: $worktree_dir"
@@ -118,7 +148,7 @@ _oc_worktree() {
     git worktree add "$worktree_dir" -b "$branch"
   fi
 
-  cd "$worktree_dir"
+  cd "$worktree_dir" || { echo "Kunne ikke gå til: $worktree_dir"; return 1; }
   cplt
 }
 
@@ -133,6 +163,7 @@ _oc_worktree_rm() {
 
   # Uten argument: fzf-velger med current worktree som default
   if [[ -z "$branch" ]]; then
+    _oc_require_fzf || return 1
     local worktrees=$(git worktree list | tail -n +2)
     if [[ -z "$worktrees" ]]; then
       echo "Ingen worktrees å fjerne."
@@ -151,13 +182,14 @@ _oc_worktree_rm() {
     fi
 
     local worktree_dir=$(echo "$selected" | awk '{print $1}')
-    branch=$(basename "$worktree_dir" | sed "s/^.*--//")
+    branch=$(echo "$selected" | sed 's/.*\[//;s/\]//')
   fi
 
   # Finn hovedrepoet og worktree-sti
-  local main_root=$(git worktree list --porcelain | head -1 | sed 's/worktree //')
+  local main_root=$(_oc_main_root)
   local repo_name=$(basename "$main_root")
-  local worktree_dir="${worktree_dir:-$(dirname "$main_root")/${repo_name}--${branch}}"
+  local safe_branch="${branch//\//-}"
+  local worktree_dir="${worktree_dir:-$(dirname "$main_root")/${repo_name}--${safe_branch}}"
 
   if [[ ! -d "$worktree_dir" ]]; then
     echo "Fant ikke worktree: $worktree_dir"
@@ -165,11 +197,16 @@ _oc_worktree_rm() {
   fi
 
   # Cd tilbake til hovedrepoet hvis vi står i worktree-et
-  if [[ "$PWD" == "$worktree_dir"* ]]; then
-    cd "$main_root"
+  if [[ "$PWD" == "$worktree_dir" || "$PWD" == "$worktree_dir"/* ]]; then
+    cd "$main_root" || { echo "Kunne ikke gå til: $main_root"; return 1; }
   fi
 
-  git worktree remove "$worktree_dir"
+  if ! git worktree remove "$worktree_dir" 2>/dev/null; then
+    echo "Worktree-et har ucommittede endringer."
+    read -q "?Fjerne med --force? [y/N] " || { echo; return 0; }
+    echo
+    git worktree remove --force "$worktree_dir" || return 1
+  fi
   echo "Worktree fjernet: $worktree_dir"
 
   read -q "?Slette branch '$branch' også? [y/N] " || { echo; return 0; }
@@ -179,12 +216,18 @@ _oc_worktree_rm() {
   local default_branch=$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed 's|origin/||')
   default_branch="${default_branch:-main}"
 
-  if ! git merge-base --is-ancestor "$branch" "$default_branch" 2>/dev/null; then
+  if git merge-base --is-ancestor "$branch" "$default_branch" 2>/dev/null; then
+    # Branchen er merget normalt - trygt å slette
+    git branch -D "$branch"
+  elif git diff "$default_branch" "$branch" --quiet 2>/dev/null; then
+    # Innholdet er på main (squash-merget) - trygt å slette
+    git branch -D "$branch"
+  else
     echo "Branchen '$branch' har endringer som ikke er flettet inn i '$default_branch'."
     read -q "?Slette likevel? [y/N] " || { echo; return 0; }
     echo
+    git branch -D "$branch"
   fi
-  git branch -D "$branch"
 }
 
 _oc_worktree_ls() {
