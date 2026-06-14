@@ -5,7 +5,7 @@
 agent = "opencode"
 quiet = true
 yes = true
-allow_gpg_signing = true
+allow_gpg_signing = false
 allow_cache_exec = ["gradle"]
 
 [proxy]
