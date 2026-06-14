@@ -77,12 +77,31 @@ info "Oppdaterer Homebrew..."
 brew update
 
 info "Oppgraderer formulae..."
-brew upgrade || true
+brew upgrade --formula --yes || true
 
 info "Oppgraderer casks..."
 $PRIVILEGES_CLI --add --reason "Homebrew cask upgrade"
-brew upgrade --cask || true
-$PRIVILEGES_CLI --remove
+sudo -v
+
+# Hold sudo-sesjonen aktiv i bakgrunnen
+while true; do sudo -n true; sleep 50; kill -0 "$$" || exit; done 2>/dev/null &
+SUDO_KEEPALIVE_PID=$!
+
+# Oppryddingsfunksjon for privilegier og sudo
+_cleanup_privileges() {
+  kill "$SUDO_KEEPALIVE_PID" 2>/dev/null
+  command sudo -k 2>/dev/null
+  $PRIVILEGES_CLI --remove
+  trap - EXIT INT TERM
+}
+
+# Sørg for opprydding uansett hva som skjer (Ctrl+C, kill, feil, etc.)
+trap '_cleanup_privileges' EXIT INT TERM
+
+brew upgrade --cask --yes || true
+
+# Rydd opp og fjern trap
+_cleanup_privileges
 
 info "Rydder gamle versjoner..."
 brew cleanup
