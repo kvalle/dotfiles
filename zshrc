@@ -88,9 +88,6 @@ alias k="kubectl"
 alias kge="kubectl get events --sort-by=.metadata.creationTimestamp"
 
 alias lg="lazygit"
-oc() { cplt -- "$@"; }
-alias occ="cplt -- -c"
-ocs() { cplt -- -s "$1"; }
 alias idea.='idea . > /dev/null 2>&1 &'
 
 alias ghcr-login='op read "op://Private/6xakv5v7dwpp5d64dl5lxdijae/password" | docker login ghcr.io -u kvalle --password-stdin'
