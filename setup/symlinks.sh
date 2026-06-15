@@ -65,4 +65,13 @@ ln -s ~/dotfiles/superfile/config.toml "$HOME/Library/Application Support/superf
 rm -f "$HOME/Library/Application Support/superfile/hotkeys.toml" || true
 ln -s ~/dotfiles/superfile/hotkeys.toml "$HOME/Library/Application Support/superfile/hotkeys.toml"
 
+# Zen Browser
+ZEN_PROFILE=$(find "$HOME/Library/Application Support/zen/Profiles" -maxdepth 1 -name "*.Default (release)" -type d 2>/dev/null | head -1)
+if [ -n "$ZEN_PROFILE" ]; then
+    rm -f "$ZEN_PROFILE/user.js" || true
+    ln -s ~/dotfiles/zen/user.js "$ZEN_PROFILE/user.js"
+else
+    echo "Zen profile not found, skipping"
+fi
+
 echo "Done setting up symlinks"
