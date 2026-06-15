@@ -65,6 +65,13 @@ ln -s ~/dotfiles/superfile/config.toml "$HOME/Library/Application Support/superf
 rm -f "$HOME/Library/Application Support/superfile/hotkeys.toml" || true
 ln -s ~/dotfiles/superfile/hotkeys.toml "$HOME/Library/Application Support/superfile/hotkeys.toml"
 
+# Agent skills (opencode, claude, etc.)
+mkdir -p ~/.agents
+rm -rf ~/.agents/skills || true
+ln -s ~/dotfiles/agents/skills ~/.agents/skills
+rm -f ~/.agents/.skill-lock.json || true
+ln -s ~/dotfiles/agents/.skill-lock.json ~/.agents/.skill-lock.json
+
 # Zen Browser
 ZEN_PROFILE=$(find "$HOME/Library/Application Support/zen/Profiles" -maxdepth 1 -name "*.Default (release)" -type d 2>/dev/null | head -1)
 if [ -n "$ZEN_PROFILE" ]; then

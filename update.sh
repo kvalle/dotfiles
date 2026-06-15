@@ -133,6 +133,17 @@ jenv rehash
 success "jenv shims oppdatert."
 
 # --------------------------------------------------------------------------
+# Agent skills
+# --------------------------------------------------------------------------
+
+info "Oppdaterer agent skills..."
+if command -v npx &>/dev/null; then
+  npx skills update -g -y || warn "Kunne ikke oppdatere agent skills"
+else
+  warn "npx ikke tilgjengelig, hopper over agent skills"
+fi
+
+# --------------------------------------------------------------------------
 # Sjekk for endringer som bør committes
 # --------------------------------------------------------------------------
 
