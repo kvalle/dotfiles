@@ -22,6 +22,7 @@ are symlinks pointing here. Never edit the symlink targets directly.
 | `atuin/` | `~/.config/atuin` |
 | `cplt/config.toml` | `~/.config/cplt/config.toml` |
 | `opencode/opencode.jsonc` | `~/.config/opencode/opencode.jsonc` |
+| `opencode/tui.jsonc` | `~/.config/opencode/tui.jsonc` |
 | `tealdeer/` | `~/.config/tealdeer` |
 | `tuxedo/` | `~/.config/tuxedo` |
 | `superfile/config.toml` | `~/Library/Application Support/superfile/config.toml` |

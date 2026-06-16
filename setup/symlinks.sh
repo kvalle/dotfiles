@@ -50,6 +50,8 @@ ln -s ~/dotfiles/cplt/config.toml ~/.config/cplt/config.toml
 mkdir -p ~/.config/opencode
 rm -f ~/.config/opencode/opencode.jsonc || true
 ln -s ~/dotfiles/opencode/opencode.jsonc ~/.config/opencode/opencode.jsonc
+rm -f ~/.config/opencode/tui.jsonc || true
+ln -s ~/dotfiles/opencode/tui.jsonc ~/.config/opencode/tui.jsonc
 
 # Tealdeer
 rm -rf ~/.config/tealdeer || true
