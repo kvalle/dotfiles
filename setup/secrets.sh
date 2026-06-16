@@ -1,6 +1,11 @@
 #! /bin/sh
 set -e
 
+if ! op whoami &>/dev/null; then
+  echo "1Password CLI er ikke autentisert. Logger inn..."
+  eval $(op signin)
+fi
+
 echo "Setting up secrets..."
 
 mkdir -p ~/.secrets
