@@ -9,8 +9,9 @@ allow_gpg_signing = false
 allow_cache_exec = ["gradle"]
 
 # ~/dotfiles/git er symlinket fra ~/.config/git — cplt må kunne lese originalen
+# ~/dotfiles/opencode/opencode.jsonc er symlinket fra ~/.config/opencode/opencode.jsonc
 [allow]
-read = ["~/dotfiles/git"]
+read = ["~/dotfiles/git", "~/dotfiles/opencode"]
 
 [proxy]
 enabled = true
