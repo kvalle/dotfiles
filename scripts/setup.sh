@@ -3,7 +3,7 @@ set -e
 
 cd "$(dirname "$0")"
 
-git submodule init && git submodule update
+git -C ~/dotfiles submodule init && git -C ~/dotfiles submodule update
 
 setup/homebrew.sh
 setup/nvm.sh

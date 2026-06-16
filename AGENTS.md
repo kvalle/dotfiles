@@ -9,6 +9,8 @@ are symlinks pointing here. Never edit the symlink targets directly.
 
 ## Symlink mapping
 
+The source of truth for symlinks is `symlinks.conf`.
+
 | Source (this repo) | Symlink destination |
 | --- | --- |
 | `zshrc` | `~/.zshrc` |
@@ -34,15 +36,16 @@ are symlinks pointing here. Never edit the symlink targets directly.
 ## Adding new tool configuration
 
 1. Create the config file/directory in this repo
-2. Add the symlink to `setup/symlinks.sh`
+2. Add the symlink to `symlinks.conf`
 3. If the tool is installed via Homebrew, add it to `Brewfile`
 
 ## Key scripts
 
-- `setup.sh` — Full bootstrap for a new machine (Homebrew, symlinks, macOS
-  defaults, secrets)
-- `update.sh` — Ongoing maintenance: updates Homebrew, git submodules, tldr
-  pages, jenv, and agent skills
+- `scripts/setup.sh` — Full bootstrap for a new machine (Homebrew, symlinks,
+  macOS defaults, secrets)
+- `scripts/update.sh` — Ongoing maintenance: updates Homebrew, git submodules,
+  tldr pages, jenv, and agent skills
+- `symlinks.conf` — Declarative symlink table (source of truth)
 - `Brewfile` — Declarative package list; add new packages here and run
   `brew bundle`
 
@@ -52,6 +55,6 @@ are symlinks pointing here. Never edit the symlink targets directly.
 | --- | --- |
 | `bin/` | Custom scripts added to PATH |
 | `functions/` | Shell functions sourced by zshrc |
-| `setup/` | Bootstrap and setup scripts |
+| `scripts/` | Bootstrap, update, and maintenance scripts |
 | `agents/` | AI agent skills (updated via `npx skills update -g -y`) |
 | `<tool>/` | Configuration for that specific tool |
