@@ -16,13 +16,14 @@ tap "webstonehq/tap"
 # ------------------------------------------------------------------------------
 
 brew "bash"                        # Nyere bash enn macOS sin innebygde
-brew "atuin"                       # Shell-historikk med søk og synkronisering
-brew "fzf"                         # Fuzzy finder for terminal
-brew "starship"                    # Kryssplattform shell-prompt
-brew "tmux"                        # Terminal multiplexer
-brew "thefuck"                     # Korrigerer forrige kommando
-brew "zsh-autosuggestions"         # Autoforslag i zsh
-brew "zsh-syntax-highlighting"     # Syntaksutheving i zsh
+brew "atuin"                       # [verify] Shell-historikk med søk og synkronisering
+brew "direnv"                      # [verify] Per-katalog miljøvariabler
+brew "fzf"                         # [verify] Fuzzy finder for terminal
+brew "starship"                    # [verify] Kryssplattform shell-prompt
+brew "tmux"                        # [verify] Terminal multiplexer
+brew "thefuck"                     # [verify] Korrigerer forrige kommando
+brew "zsh-autosuggestions"         # [verify zsh-plugin] Autoforslag i zsh
+brew "zsh-syntax-highlighting"     # [verify zsh-plugin] Syntaksutheving i zsh
 brew "webstonehq/tap/tuxedo"       # Tastaturdriven terminal-UI for todo.txt
 cask "ghostty"                     # GPU-akselerert terminalemulator
 
@@ -30,10 +31,10 @@ cask "ghostty"                     # GPU-akselerert terminalemulator
 # Git og versjonskontroll
 # ------------------------------------------------------------------------------
 
-brew "git"                         # Versjonskontroll
-brew "gh"                          # GitHub CLI
-brew "lazygit"                     # Terminal-UI for git
-brew "git-delta"                   # Penere git-diff (syntax-highlighting pager)
+brew "git"                         # [verify] Versjonskontroll
+brew "gh"                          # [verify] GitHub CLI
+brew "lazygit"                     # [verify] Terminal-UI for git
+brew "git-delta"                   # [verify cmd:delta] Penere git-diff (syntax-highlighting pager)
 brew "bfg"                         # Fjerne sensitiv data fra git-historikk
 
 # ------------------------------------------------------------------------------
@@ -41,9 +42,9 @@ brew "bfg"                         # Fjerne sensitiv data fra git-historikk
 # ------------------------------------------------------------------------------
 
 brew "ack"                         # Søk i kildekode (raskere enn grep)
-brew "bat"                         # cat med syntaksutheving
-brew "eza"                         # Moderne erstatning for ls
-brew "fd"                          # Raskere alternativ til find
+brew "bat"                         # [verify] cat med syntaksutheving
+brew "eza"                         # [verify] Moderne erstatning for ls
+brew "fd"                          # [verify] Raskere alternativ til find
 brew "tree"                        # Vis mappestruktur som tre
 brew "superfile"                   # Terminal-filbehandler
 brew "peco"                        # Interaktiv filtrering
@@ -82,9 +83,9 @@ brew "readline"                    # Bibliotek for linjeredigering (avhengighet)
 # Versjonshåndtering for språk/verktøy
 # ------------------------------------------------------------------------------
 
-brew "pyenv"                       # Python-versjonshåndtering
+brew "pyenv"                       # [verify] Python-versjonshåndtering
 brew "pyenv-virtualenv"            # Virtualenv-plugin for pyenv
-brew "jenv"                        # Java-versjonshåndtering
+brew "jenv"                        # [verify] Java-versjonshåndtering
 brew "tfenv"                       # Terraform-versjonshåndtering
 brew "sdkman-cli"                  # SDK-håndtering (Java, Gradle m.m.)
 
@@ -108,7 +109,7 @@ cask "temurin@25"                  # Eclipse Temurin JDK 25
 brew "awscli"                      # AWS kommandolinjeverktøy
 brew "azure-cli"                   # Azure kommandolinjeverktøy
 brew "Azure/kubelogin/kubelogin"   # Azure Kubernetes-innlogging
-brew "kubernetes-cli"              # kubectl
+brew "kubernetes-cli"              # [verify cmd:kubectl] kubectl
 brew "kubectx"                     # Bytt mellom k8s-kontekster/namespaces
 brew "helm"                        # Kubernetes pakkehåndtering
 
@@ -136,7 +137,7 @@ brew "exiftool"                    # Les/skriv EXIF-metadata i bilder
 brew "btop"                        # Avansert ressursmonitor (CPU, minne, disk, nett)
 brew "macchina"                    # Systeminformasjon i terminalen
 brew "pastel"                      # Fargeverktøy for terminalen
-brew "tealdeer"                    # Forenklet man-sider (tldr)
+brew "tealdeer"                    # [verify cmd:tldr] Forenklet man-sider (tldr)
 brew "terminal-notifier"           # macOS-varsler fra terminal
 brew "watch"                       # Kjør kommando gjentatte ganger
 brew "timg"                        # Vis bilder/video i terminalen

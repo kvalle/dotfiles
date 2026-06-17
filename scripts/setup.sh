@@ -11,3 +11,6 @@ setup/fzf.sh
 setup/macos.sh
 setup/symlinks.sh
 setup/secrets.sh
+
+# Verifiser at alt er korrekt satt opp
+./verify.sh
