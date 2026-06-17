@@ -98,7 +98,28 @@ _cleanup_privileges() {
 # Sørg for opprydding uansett hva som skjer (Ctrl+C, kill, feil, etc.)
 trap '_cleanup_privileges' EXIT INT TERM
 
-brew upgrade --cask --yes || true
+# Casks som oppdaterer seg selv ekskluderes fra brew upgrade
+_excluded_casks=()
+while IFS= read -r line; do
+  cask=$(echo "$line" | sed -n 's/^cask "\([^"]*\)".*/\1/p')
+  [[ -n "$cask" ]] && _excluded_casks+=("$cask")
+done < <(grep '\[self-updates\]' "$DOTFILES_DIR/Brewfile")
+
+_outdated_casks=$(brew outdated --cask --quiet)
+_to_upgrade=()
+for cask in $_outdated_casks; do
+  _skip=false
+  for excluded in "${_excluded_casks[@]}"; do
+    [[ "$cask" == "$excluded" ]] && _skip=true && break
+  done
+  $_skip || _to_upgrade+=("$cask")
+done
+
+if [[ ${#_to_upgrade[@]} -gt 0 ]]; then
+  brew upgrade --cask --yes "${_to_upgrade[@]}" || true
+else
+  echo "    Fant ingen casks å oppgradere."
+fi
 
 # Rydd opp og fjern trap
 _cleanup_privileges

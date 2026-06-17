@@ -1,4 +1,13 @@
 # ------------------------------------------------------------------------------
+# Pakker kan annoteres med tagger i kommentarfeltet:
+#
+#   [verify]            Sjekkes av verify.sh (at kommando finnes i PATH)
+#   [verify cmd:<cmd>]  Som [verify], men sjekker <cmd> istedenfor pakkenavn
+#   [verify zsh-plugin] Sjekkes som lastet zsh-plugin
+#   [self-updates]      Appen oppdaterer seg selv; ekskluderes fra upgrade.sh
+# ------------------------------------------------------------------------------
+
+# ------------------------------------------------------------------------------
 # Taps
 # ------------------------------------------------------------------------------
 
@@ -168,7 +177,7 @@ cask "signal"                      # Kryptert meldingsapp
 # Casks – Produktivitet og notater
 # ------------------------------------------------------------------------------
 
-cask "1password"                   # Passordbehandler
+cask "1password"                   # [self-updates] Passordbehandler
 cask "1password-cli"               # 1Password CLI
 cask "alfred"                      # Spotlight-erstatning og produktivitet
 cask "notion"                      # Notater og wiki
