@@ -32,7 +32,7 @@ agent skills.
 | Katalog/fil  | Innhold                                  |
 | ------------ | ---------------------------------------- |
 | `bin/`       | Custom scripts (legges til i PATH)       |
-| `functions/` | Shell-funksjoner sourcet av zshrc        |
+| `zsh/`       | Modulær zsh-konfig (sourcet av zshrc)    |
 | `scripts/`   | Bootstrap, oppdatering og vedlikehold    |
 | `Brewfile`   | Deklarativ pakkeliste for Homebrew       |
 | `agents/`    | AI agent skills                          |

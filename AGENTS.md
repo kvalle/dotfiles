@@ -54,7 +54,7 @@ The source of truth for symlinks is `symlinks.conf`.
 | Directory/file | Purpose |
 | --- | --- |
 | `bin/` | Custom scripts added to PATH |
-| `functions/` | Shell functions sourced by zshrc |
+| `zsh/` | Modular zsh config (sourced by zshrc in order) |
 | `scripts/` | Bootstrap, update, and maintenance scripts |
 | `agents/` | AI agent skills (updated via `npx skills update -g -y`) |
 | `<tool>/` | Configuration for that specific tool |

@@ -1,241 +1,34 @@
 # ===========================================================================
-# zsh configuration - no oh-my-zsh
+# zsh configuration
+# Sources modules from ~/dotfiles/zsh/ in the correct order.
 # ===========================================================================
 
-# ---------------------------------------------------------------------------
-# Homebrew (must be early, other tools depend on it)
-# ---------------------------------------------------------------------------
+# Homebrew (must be first — other tools depend on it)
 [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# ---------------------------------------------------------------------------
-# Core zsh options
-# ---------------------------------------------------------------------------
-setopt CORRECT              # suggest corrections for commands
-setopt NO_CASE_GLOB         # case-insensitive globbing
-setopt EXTENDED_GLOB        # extended glob patterns
-bindkey -e                  # emacs keybindings (ctrl+p/n for history, etc.)
+# Core shell behaviour
+source ~/dotfiles/zsh/options.sh
+source ~/dotfiles/zsh/completions.sh
 
-# History
-HISTFILE=~/.zsh_history
-HISTSIZE=50000
-SAVEHIST=50000
-setopt SHARE_HISTORY        # share history across sessions
-setopt HIST_IGNORE_DUPS     # don't store duplicates
-setopt HIST_IGNORE_SPACE    # don't store commands starting with space
-setopt HIST_REDUCE_BLANKS   # remove extra blanks
+# Environment, PATH, and exports
+source ~/dotfiles/zsh/environment.sh
 
-# ---------------------------------------------------------------------------
-# Completion system (replaces oh-my-zsh completion)
-# ---------------------------------------------------------------------------
-autoload -Uz compinit
-# Only regenerate .zcompdump once per day
-if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
-  compinit
-else
-  compinit -C
-fi
+# Shortcuts
+source ~/dotfiles/zsh/aliases.sh
 
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'l:|=* r:|=*' # case-insensitive + substring
-zstyle ':completion:*' menu select                          # menu selection
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"     # colored completions
-zstyle ':completion:*' special-dirs true                     # complete . and ..
+# Version managers (nvm, pyenv, jenv, sdkman) — lazy-loaded
+source ~/dotfiles/zsh/lazy-loaders.sh
 
-# ---------------------------------------------------------------------------
-# Environment
-# ---------------------------------------------------------------------------
-export TZ='Europe/Oslo'
-export EDITOR='vim'
-export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
-export TEALDEER_CONFIG_DIR="$HOME/.config/tealdeer"
-export TODO_DIR="$HOME/.todos"
-export TODO_FILE="$TODO_DIR/todo.txt"
-export DONE_FILE="$TODO_DIR/done.txt"
+# Tool integrations (direnv, fzf, atuin, etc.)
+source ~/dotfiles/zsh/tools.sh
 
-# ---------------------------------------------------------------------------
-# PATH
-# ---------------------------------------------------------------------------
-export PATH="$HOME/dotfiles/bin:$PATH"
-export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
-export PATH="/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-export PATH="$HOME/.jenv/bin:$PATH"
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-
-# ---------------------------------------------------------------------------
-# Aliases
-# ---------------------------------------------------------------------------
-
-alias _ls='command ls -G'
-alias ls='eza'
-alias l='eza -1 --icons --git'
-alias ll='eza -l --icons --git'
-alias la='eza -la --icons --git'
-alias lt='eza --tree --level=2 --icons'
-
-alias path='echo -e ${PATH//:/\\n}'
-alias tree2='eza --tree --level=2 --icons'
-alias tree3='eza --tree --level=3 --icons'
-alias tree4='eza --tree --level=4 --icons'
-
-alias containerclean="docker ps -a -q | xargs docker rm"
-alias imageclean="docker images --filter dangling=true -q | xargs docker rmi"
-
-alias cls='echo -en "\ec"'
-alias dns-flush='sudo killall -HUP mDNSResponder'
-alias ukenummer='date +%V'
-
-alias k="kubectl"
-alias kge="kubectl get events --sort-by=.metadata.creationTimestamp"
-
-alias lg="lazygit"
-alias idea.='idea . > /dev/null 2>&1 &'
-
-alias ghcr-login='op read "op://Private/6xakv5v7dwpp5d64dl5lxdijae/password" | docker login ghcr.io -u kvalle --password-stdin'
-
-# Digipost
-alias cddp="cd $HOME/code/digipost"
-alias ts-fiks="dgp-stop-tailscale; dgp-tailscale"
-alias ts-kill="dp az-tailscale kill-all"
-
-# ---------------------------------------------------------------------------
-# Lazy-loaded version managers
-# ---------------------------------------------------------------------------
-
-# nvm - only loaded when you call nvm, node, npm, npx, etc.
-export NVM_DIR="$HOME/.nvm"
-_lazy_nvm() {
-  unfunction nvm node npm npx 2>/dev/null
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-}
-nvm()  { _lazy_nvm; nvm "$@" }
-node() { _lazy_nvm; node "$@" }
-npm()  { _lazy_nvm; npm "$@" }
-npx()  { _lazy_nvm; npx "$@" }
-
-# pyenv - only loaded when you call pyenv or python
-_lazy_pyenv() {
-  unfunction pyenv python python3 pip pip3 2>/dev/null
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-}
-pyenv()   { _lazy_pyenv; pyenv "$@" }
-python()  { _lazy_pyenv; python "$@" }
-python3() { _lazy_pyenv; python3 "$@" }
-pip()     { _lazy_pyenv; pip "$@" }
-pip3()    { _lazy_pyenv; pip3 "$@" }
-
-# jenv — lazy-loaded with smart JAVA_HOME updates
-# Instead of `eval "$(jenv init -)"` (which runs jenv rehash + sets a precmd hook
-# that calls `jenv javahome` on every prompt), we add shims to PATH directly and
-# only update JAVA_HOME when the directory actually changes.
-export PATH="$HOME/.jenv/shims:$PATH"
-_jenv_set_java_home() {
-  [[ "$PWD" == "$_JENV_LAST_DIR" ]] && return
-  _JENV_LAST_DIR=$PWD
-  if [[ -f .java-version ]] || [[ -f "$HOME/.jenv/version" ]]; then
-    export JAVA_HOME="$(jenv javahome 2>/dev/null)"
-  fi
-}
-precmd_functions+=(_jenv_set_java_home)
-# Full jenv (with rehash etc.) loaded on first explicit use
-_lazy_jenv() {
-  unfunction jenv 2>/dev/null
-  eval "$(jenv init -)"
-}
-jenv() { _lazy_jenv; jenv "$@" }
-
-# sdkman - only loaded when you call sdk
-export SDKMAN_DIR=/opt/homebrew/opt/sdkman-cli/libexec
-_lazy_sdkman() {
-  unfunction sdk 2>/dev/null
-  [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
-}
-sdk() { _lazy_sdkman; sdk "$@" }
-
-# ---------------------------------------------------------------------------
-# Tools (fast inits only)
-# ---------------------------------------------------------------------------
-
-# direnv
-eval "$(direnv hook zsh)"
-
-# thefuck — cached alias (saves ~60ms vs spawning Python on every shell start)
-# Regenerated weekly; equivalent to `eval $(thefuck --alias fix)`
-_thefuck_cache=~/.cache/zsh/thefuck-alias.zsh
-if [[ ! -f "$_thefuck_cache" ]] || [[ -n "$_thefuck_cache"(#qN.mh+168) ]]; then
-  mkdir -p ~/.cache/zsh
-  thefuck --alias fix > "$_thefuck_cache"
-fi
-source "$_thefuck_cache"
-unset _thefuck_cache
-
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS="--preview 'fzf-preview.sh {}'"
-export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
-export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always --level=2 --icons {} | head -200'"
-source ~/dotfiles/fzf-git.sh/fzf-git.sh
-
-# atuin
-eval "$(atuin init zsh --disable-up-arrow)"
-
-# kubectl completion (cached, regenerated daily)
-_kubectl_comp=~/.zsh_kubectl_completion
-if [[ ! -f "$_kubectl_comp" ]] || [[ -n "$_kubectl_comp"(#qN.mh+24) ]]; then
-  kubectl completion zsh > "$_kubectl_comp"
-fi
-source "$_kubectl_comp"
-unset _kubectl_comp
-
-# ssh — only load keys from Keychain if agent is empty (saves ~300ms)
-# Replaces unconditional `ssh-add --apple-use-keychain`
-ssh-add -l &>/dev/null || ssh-add --apple-use-keychain 2>/dev/null
-
-# ---------------------------------------------------------------------------
-# Python config
-# ---------------------------------------------------------------------------
-export PYTHONSTARTUP=~/.config/python/pythonrc.py
-export WORKON_HOME=~/pyenvs
-
-# ---------------------------------------------------------------------------
-# Ruby
-# ---------------------------------------------------------------------------
-export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
-
-# ---------------------------------------------------------------------------
-# Digipost
-# ---------------------------------------------------------------------------
-export DIGIPOST_HOME=$HOME/code/digipost
-source ~/.digipostrc
-export DIGIPOST_SETTINGSXML_GITHUB_USERNAME='kvalle'
-# Secret loaded from ~/.secrets (not version controlled)
-# Populate with: op read 'op://Private/Digipost GitHub secret/password' --account my.1password.com > ~/.secrets/digipost-github-secret
-[[ -f ~/.secrets/digipost-github-secret ]] && \
-  export DIGIPOST_SETTINGSXML_GITHUB_SECRET="$(cat ~/.secrets/digipost-github-secret)"
-
-export AZURE_USER="developer.kjetil.valle"
-export AZURE_PASSWORD_STORE_DIR="$DPOST_REPOS_PATH/azure-passwords"
-
-# ---------------------------------------------------------------------------
 # Custom functions
-# ---------------------------------------------------------------------------
-for f in ~/dotfiles/functions/*.sh; do
+for f in ~/dotfiles/zsh/functions/*.sh; do
   source "$f"
 done
 
-# ---------------------------------------------------------------------------
-# Plugins (must be near end of file)
-# ---------------------------------------------------------------------------
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Plugins (must be near end)
+source ~/dotfiles/zsh/plugins.sh
 
-# ---------------------------------------------------------------------------
-# Prompt - Starship (must be last)
-# ---------------------------------------------------------------------------
+# Prompt (must be last)
 eval "$(starship init zsh)"
