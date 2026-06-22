@@ -107,7 +107,7 @@ while IFS= read -r line; do
       fail "$pkg_short (ikke i PATH)"
     fi
   fi
-done < <(grep '\[verify' "$DOTFILES/Brewfile")
+done < <(grep '\[verify' "$DOTFILES/Brewfile" | grep -v '^\s*#')
 
 # --------------------------------------------------------------------------
 # 3. Zsh-plugins (fra Brewfile [verify zsh-plugin]-annotasjoner)
@@ -127,7 +127,7 @@ while IFS= read -r line; do
   else
     fail "$pkg_short ($plugin_file mangler)"
   fi
-done < <(grep '\[verify zsh-plugin\]' "$DOTFILES/Brewfile")
+done < <(grep '\[verify zsh-plugin\]' "$DOTFILES/Brewfile" | grep -v '^\s*#')
 
 # --------------------------------------------------------------------------
 # 4. Zsh-moduler
