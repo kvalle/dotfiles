@@ -23,14 +23,16 @@ The source of truth for symlinks is `symlinks.conf`.
 | `ghostty/` | `~/.config/ghostty` |
 | `atuin/` | `~/.config/atuin` |
 | `cplt/config.toml` | `~/.config/cplt/config.toml` |
-| `opencode/opencode.jsonc` | `~/.config/opencode/opencode.jsonc` |
-| `opencode/tui.jsonc` | `~/.config/opencode/tui.jsonc` |
+| `ai/opencode/opencode.jsonc` | `~/.config/opencode/opencode.jsonc` |
+| `ai/opencode/tui.jsonc` | `~/.config/opencode/tui.jsonc` |
 | `tealdeer/` | `~/.config/tealdeer` |
 | `tuxedo/` | `~/.config/tuxedo` |
 | `superfile/config.toml` | `~/Library/Application Support/superfile/config.toml` |
 | `superfile/hotkeys.toml` | `~/Library/Application Support/superfile/hotkeys.toml` |
-| `agents/skills/` | `~/.agents/skills` |
-| `agents/.skill-lock.json` | `~/.agents/.skill-lock.json` |
+| `ai/skills/` | `~/.agents/skills` |
+| `ai/skills/` | `~/.claude/skills` |
+| `ai/.skill-lock.json` | `~/.agents/.skill-lock.json` |
+| `ai/claude/settings.json` | `~/.claude/settings.json` |
 | `zen/user.js` | `<Zen profile dir>/user.js` |
 
 ## Adding new tool configuration
@@ -56,5 +58,5 @@ The source of truth for symlinks is `symlinks.conf`.
 | `bin/` | Custom scripts added to PATH |
 | `zsh/` | Modular zsh config (sourced by zshrc in order) |
 | `scripts/` | Bootstrap, update, and maintenance scripts |
-| `agents/` | AI agent skills (updated via `npx skills update -g -y`) |
+| `ai/` | AI agent skills and config (updated via `npx skills update -g -y`) |
 | `<tool>/` | Configuration for that specific tool |
