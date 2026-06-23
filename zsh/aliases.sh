@@ -30,6 +30,5 @@ alias idea.='idea . > /dev/null 2>&1 &'
 alias ghcr-login='op read "op://Private/6xakv5v7dwpp5d64dl5lxdijae/password" | docker login ghcr.io -u kvalle --password-stdin'
 
 # Digipost
-alias cddp="cd $HOME/code/digipost"
 alias ts-fiks="dgp-stop-tailscale; dgp-tailscale"
 alias ts-kill="dp az-tailscale kill-all"
