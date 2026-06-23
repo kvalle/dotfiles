@@ -7,6 +7,14 @@ This file is the source of truth for AI agents working in this repository.
 **Always edit files in `~/dotfiles/`.** Files under `~/.config/`, `~/`, etc.
 are symlinks pointing here. Never edit the symlink targets directly.
 
+## Sandbox-begrensning
+
+AI-agenter i dette repoet kjøres i en sandbox som kun har skrivetilgang
+til `~/dotfiles/`. Alt som krever endringer utenfor — som å kjøre
+`scripts/setup/symlinks.sh`, opprette/slette kataloger under `~/.config/`,
+eller kjøre `brew` — må brukeren utføre selv. Agenten kan oppgi kommandoene,
+men ikke kjøre dem.
+
 ## Symlink mapping
 
 The source of truth for symlinks is `symlinks.conf`.
@@ -21,6 +29,7 @@ The source of truth for symlinks is `symlinks.conf`.
 | `starship.toml` | `~/.config/starship.toml` |
 | `lazygit/` | `~/.config/lazygit` |
 | `ghostty/` | `~/.config/ghostty` |
+| `kitty/` | `~/.config/kitty` |
 | `atuin/` | `~/.config/atuin` |
 | `cplt/config.toml` | `~/.config/cplt/config.toml` |
 | `ai/opencode/opencode.jsonc` | `~/.config/opencode/opencode.jsonc` |

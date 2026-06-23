@@ -35,6 +35,7 @@ brew "zsh-autosuggestions"         # [verify zsh-plugin] Autoforslag i zsh
 brew "zsh-syntax-highlighting"     # [verify zsh-plugin] Syntaksutheving i zsh
 brew "webstonehq/tap/tuxedo"       # Tastaturdriven terminal-UI for todo.txt
 cask "ghostty"                     # GPU-akselerert terminalemulator
+cask "kitty"                       # Alternativ terminal m/ innebygd bilde-paste-støtte
 
 # ------------------------------------------------------------------------------
 # Git og versjonskontroll
