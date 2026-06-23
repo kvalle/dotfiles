@@ -1,8 +1,13 @@
 #!/bin/bash
 
-DOTFILES_DIR=~/dotfiles
-PRIVILEGES_CLI=$(which PrivilegesCLI 2>/dev/null) || \
+DOTFILES_DIR="$HOME/dotfiles"
+PRIVILEGES_CLI=$(command -v PrivilegesCLI 2>/dev/null) || \
   PRIVILEGES_CLI="/Applications/Privileges.app/Contents/MacOS/PrivilegesCLI"
+
+if [[ ! -x "$PRIVILEGES_CLI" ]]; then
+  warn "PrivilegesCLI ikke funnet. Kan ikke eskalere privilegier."
+  exit 1
+fi
 
 # --------------------------------------------------------------------------
 # Farger og formatering
@@ -45,12 +50,16 @@ success() {
   echo -e "    ${GREEN}✓${RESET}  $1"
 }
 
+_has_uncommitted_changes() {
+  ! git -C "$DOTFILES_DIR" diff --quiet 2>/dev/null || \
+  ! git -C "$DOTFILES_DIR" diff --cached --quiet 2>/dev/null
+}
+
 # --------------------------------------------------------------------------
 # Sjekk ucommitede endringer før vi starter
 # --------------------------------------------------------------------------
 
-if ! git -C "$DOTFILES_DIR" diff --quiet 2>/dev/null || \
-   ! git -C "$DOTFILES_DIR" diff --cached --quiet 2>/dev/null; then
+if _has_uncommitted_changes; then
   warn "Det finnes ucommitede endringer i $DOTFILES_DIR:"
   echo ""
   git -C "$DOTFILES_DIR" status --short | sed 's/^/      /'
@@ -71,7 +80,9 @@ info "Oppdaterer Homebrew..."
 brew update
 
 info "Oppgraderer formulae..."
-brew upgrade --formula --yes || true
+if ! brew upgrade --formula --yes; then
+  warn "Noen formulae feilet under oppgradering (se over for detaljer)"
+fi
 
 info "Oppgraderer casks..."
 $PRIVILEGES_CLI --add --reason "Homebrew cask upgrade"
@@ -99,27 +110,45 @@ while IFS= read -r line; do
   [[ -n "$cask" ]] && _excluded_casks+=("$cask")
 done < <(grep '\[self-updates\]' "$DOTFILES_DIR/Brewfile")
 
+# Ekskluder terminalen vi kjører fra (unngå å drepe vår egen prosess)
+_current_terminal_cask=""
+case "${TERM_PROGRAM:-}" in
+  ghostty) _current_terminal_cask="ghostty" ;;
+  kitty)   _current_terminal_cask="kitty" ;;
+esac
+
 _outdated_casks=$(brew outdated --cask --quiet)
 _to_upgrade=()
+_skipped_terminal=false
 for cask in $_outdated_casks; do
   _skip=false
   for excluded in "${_excluded_casks[@]}"; do
     [[ "$cask" == "$excluded" ]] && _skip=true && break
   done
+  if [[ "$cask" == "$_current_terminal_cask" ]]; then
+    _skip=true
+    _skipped_terminal=true
+  fi
   $_skip || _to_upgrade+=("$cask")
 done
 
 if [[ ${#_to_upgrade[@]} -gt 0 ]]; then
-  brew upgrade --cask --yes "${_to_upgrade[@]}" || true
+  if ! brew upgrade --cask --yes "${_to_upgrade[@]}"; then
+    warn "Noen casks feilet under oppgradering (se over for detaljer)"
+  fi
 else
   echo "    Fant ingen casks å oppgradere."
+fi
+
+if $_skipped_terminal; then
+  warn "Hoppet over $_current_terminal_cask (kjørende terminal). Oppgrader manuelt: brew upgrade --cask $_current_terminal_cask"
 fi
 
 # Rydd opp og fjern trap
 _cleanup_privileges
 
 info "Rydder gamle versjoner..."
-brew cleanup
+brew cleanup --prune=30
 
 # --------------------------------------------------------------------------
 # Git submoduler
@@ -164,8 +193,7 @@ fi
 
 info "Sjekker for endringer i dotfiles..."
 
-if git -C "$DOTFILES_DIR" diff --quiet 2>/dev/null && \
-   git -C "$DOTFILES_DIR" diff --cached --quiet 2>/dev/null; then
+if ! _has_uncommitted_changes; then
   success "Ingen endringer å committe."
 else
   echo ""
