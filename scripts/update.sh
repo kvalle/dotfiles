@@ -89,7 +89,7 @@ $PRIVILEGES_CLI --add --reason "Homebrew cask upgrade"
 sudo -v
 
 # Hold sudo-sesjonen aktiv i bakgrunnen
-while true; do sudo -n true; sleep 50; kill -0 "$$" || exit; done 2>/dev/null &
+while true; do sudo -v -n; sleep 50; kill -0 "$$" || exit; done 2>/dev/null &
 SUDO_KEEPALIVE_PID=$!
 
 # Oppryddingsfunksjon for privilegier og sudo
