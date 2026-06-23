@@ -1,3 +1,10 @@
 {
-  "notifications": false
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
+  "theme": "dark",
+  "notifications": false,
+  "notificationMethod": "notifications_disabled",
+  "defaultMode": "plan"
 }
