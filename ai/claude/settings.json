@@ -3,8 +3,18 @@
     "type": "command",
     "command": "bash ~/.claude/statusline-command.sh"
   },
+  
   "theme": "dark",
+
   "notifications": false,
   "notificationMethod": "notifications_disabled",
-  "defaultMode": "plan"
+  
+  "defaultMode": "plan",
+  
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": [""]
+  },
+  "spinnerTipsEnabled": false,
+  "prefersReducedMotion": true
 }
