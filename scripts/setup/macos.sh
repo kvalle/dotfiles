@@ -23,7 +23,7 @@ defaults write com.apple.finder "ShowPathbar" -bool "true"
 
 # Make key repeats faster
 defaults write NSGlobalDomain KeyRepeat -int 1
-defaults write NSGlobalDomain InitialKeyRepeat -int 10
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 # Repeat character when a key is held down for a long time, instead of showing character accents menu
 defaults write NSGlobalDomain "ApplePressAndHoldEnabled" -bool "false"
