@@ -49,4 +49,4 @@ keybind = super+zero=reset_font_size
 keybind = super+equal=unbind
 
 # Quick terminal (slide-down terminal, like Quake)
-keybind = global:super+grave_accent=toggle_quick_terminal
+# keybind = global:super+grave_accent=toggle_quick_terminal
