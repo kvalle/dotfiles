@@ -154,14 +154,14 @@ brew "timg"                        # Vis bilder/video i terminalen
 brew "displayplacer"               # Styr skjermoppløsning/plassering
 brew "brew-cask-completion"        # Zsh-completion for brew cask
 brew "gromgit/brewtils/taproom"    # Oversikt over brew taps
-brew "anomalyco/tap/opencode"      # AI-drevet kodingsagent for terminalen
+brew "anomalyco/tap/opencode"      # [self-updates] AI-drevet kodingsagent for terminalen
 brew "navikt/tap/cplt"             # Kernel-level sandbox for AI-agenter
 
 # ------------------------------------------------------------------------------
 # Casks – Nettlesere
 # ------------------------------------------------------------------------------
 
-cask "arc"                         # Arc-nettleser
+cask "arc"                         # [self-updates] Arc-nettleser
 cask "firefox"                     # Mozilla Firefox
 cask "google-chrome"               # Google Chrome
 cask "zen"                         # Zen Browser
