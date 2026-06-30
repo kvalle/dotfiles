@@ -28,6 +28,10 @@ source ~/dotfiles/fzf-git.sh/fzf-git.sh
 # atuin
 eval "$(atuin init zsh --disable-up-arrow)"
 
+# zoxide — smarter cd
+export _ZO_RESOLVE_SYMLINKS=1
+eval "$(zoxide init zsh --cmd cd)"
+
 # kubectl completion (cached, regenerated daily)
 _kubectl_comp=~/.zsh_kubectl_completion
 if [[ ! -f "$_kubectl_comp" ]] || [[ -n "$_kubectl_comp"(#qN.mh+24) ]]; then

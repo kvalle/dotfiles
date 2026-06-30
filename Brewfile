@@ -31,6 +31,7 @@ brew "fzf"                         # [verify] Fuzzy finder for terminal
 brew "starship"                    # [verify] Kryssplattform shell-prompt
 brew "tmux"                        # [verify] Terminal multiplexer
 brew "thefuck"                     # [verify] Korrigerer forrige kommando
+brew "zoxide"                      # [verify] Smartere cd – husker mest brukte mapper
 brew "zsh-autosuggestions"         # [verify zsh-plugin] Autoforslag i zsh
 brew "zsh-syntax-highlighting"     # [verify zsh-plugin] Syntaksutheving i zsh
 brew "webstonehq/tap/tuxedo"       # Tastaturdriven terminal-UI for todo.txt

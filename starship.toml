@@ -27,7 +27,7 @@ success_symbol = "[>](bold green)"
 error_symbol = "[>](bold red)"
 
 [directory]
-truncation_length = 4
+truncation_length = 0
 truncate_to_repo = true
 
 [git_branch]
