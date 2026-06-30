@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ---------------------------------------------------------------------------
+# git-history-search – søk i git-historikken (pickaxe)
+#
+# Tilgjengelig som:
+#   git history-search <søkestreng> [kontekst]
+#   git hs <søkestreng> [kontekst]
+# ---------------------------------------------------------------------------
+
+# Farger (kan ikke stole på zsh-miljø — scriptet kalles direkte av git)
+_c_bold=$'\e[1m'
+_c_dim=$'\e[2m'
+_c_reset=$'\e[0m'
+_c_green=$'\e[32m'
+_c_yellow=$'\e[33m'
+_c_blue=$'\e[34m'
+
+print_help() {
+  cat <<EOF
+${_c_bold}git history-search${_c_reset} ${_c_dim}–${_c_reset} søk i git-historikken (pickaxe)
+
+Finner alle commits der en tekststreng ble lagt til eller fjernet (git log -S),
+og viser diff-utdraget med treffet uthevet.
+
+${_c_bold}Bruk:${_c_reset}
+  ${_c_green}git history-search${_c_reset} ${_c_yellow}<søkestreng>${_c_reset}
+  ${_c_green}git history-search${_c_reset} ${_c_yellow}<søkestreng>${_c_reset} ${_c_yellow}<kontekst>${_c_reset}
+
+${_c_bold}Argumenter:${_c_reset}
+  ${_c_yellow}<søkestreng>${_c_reset}       Teksten det søkes etter ${_c_dim}(git log -S)${_c_reset}
+  ${_c_yellow}<kontekst>${_c_reset}         Antall kontekstlinjer ${_c_dim}(standard: 0)${_c_reset}
+  ${_c_yellow}-h${_c_reset}                 Vis denne hjelpeteksten
+
+${_c_bold}Eksempel:${_c_reset}
+  ${_c_green}git hs${_c_reset} ${_c_yellow}"TODO"${_c_reset} ${_c_yellow}3${_c_reset}    ${_c_dim}Finn commits som la til/fjernet "TODO", vis 3 linjer kontekst${_c_reset}
+EOF
+}
+
+case "${1:-}" in
+  -h|--help) print_help; exit 0 ;;
+esac
+
+if [[ -z "${1:-}" ]]; then
+  echo "Mangler søkestreng." >&2
+  echo >&2
+  print_help >&2
+  exit 1
+fi
+
+search="$1"
+context="${2:-0}"
+
+# Samle commits der strengen ble lagt til/fjernet
+mapfile -t commits < <(git log -S"$search" --format="%H")
+
+if [[ ${#commits[@]} -eq 0 ]]; then
+  echo "${_c_dim}Ingen treff for${_c_reset} \"$search\" ${_c_dim}i historikken.${_c_reset}" >&2
+  exit 0
+fi
+
+# Produser output, pipe gjennom pager
+{
+  for i in "${!commits[@]}"; do
+    commit_id="${commits[$i]}"
+
+    # Separator mellom commits (ikke før første)
+    if [[ $i -gt 0 ]]; then
+      echo "${_c_dim}───────────────────────────────────────────────────${_c_reset}"
+      echo
+    fi
+
+    # Commit-info: hash, forfatter, dato, melding
+    git log -1 --format="${_c_bold}${_c_blue}%H${_c_reset}%n${_c_yellow}%an${_c_reset} ${_c_dim}%ar${_c_reset}%n%s" "$commit_id"
+    echo
+
+    # Diff-utdrag med treff uthevet
+    git show --format="" "$commit_id" | grep --color=always -C "$context" "$search" || true
+  done
+} | ${GIT_PAGER:-less -R}
