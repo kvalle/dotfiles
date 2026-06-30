@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
 # Core zsh options
 # ---------------------------------------------------------------------------
-setopt CORRECT              # suggest corrections for commands
+unsetopt CORRECT            # don't suggest corrections for commands
 setopt NO_CASE_GLOB         # case-insensitive globbing
 setopt EXTENDED_GLOB        # extended glob patterns
 bindkey -e                  # emacs keybindings (ctrl+p/n for history, etc.)
