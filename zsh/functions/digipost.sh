@@ -6,18 +6,16 @@ cddp() {
   local base="${DIGIPOST_HOME:-$HOME/code/digipost}"
 
   if [[ "$1" == "--help" || "$1" == "-h" ]]; then
-    local bold=$'\e[1m' dim=$'\e[2m' reset=$'\e[0m'
-    local cyan=$'\e[36m' green=$'\e[32m' yellow=$'\e[33m'
     cat <<EOF
-${bold}cddp${reset} ${dim}–${reset} hurtig-cd til ${cyan}\$DIGIPOST_HOME${reset} ${dim}($base)${reset}
+${_c_bold}cddp${_c_reset} ${_c_dim}–${_c_reset} hurtig-cd til ${_c_cyan}\$DIGIPOST_HOME${_c_reset} ${_c_dim}($base)${_c_reset}
 
-${bold}Bruk:${reset}
-  ${green}cddp${reset}              Velg mappe interaktivt via fzf ${dim}("." = rot)${reset}
-  ${green}cddp${reset} ${yellow}<mappe>${reset}      Gå direkte til \$DIGIPOST_HOME/${yellow}<mappe>${reset}
-  ${green}cddp${reset} ${yellow}--help${reset}       Vis denne hjelpeteksten
+${_c_bold}Bruk:${_c_reset}
+  ${_c_green}cddp${_c_reset}              Velg mappe interaktivt via fzf ${_c_dim}("." = rot)${_c_reset}
+  ${_c_green}cddp${_c_reset} ${_c_yellow}<mappe>${_c_reset}      Gå direkte til \$DIGIPOST_HOME/${_c_yellow}<mappe>${_c_reset}
+  ${_c_green}cddp${_c_reset} ${_c_yellow}--help${_c_reset}       Vis denne hjelpeteksten
 
-${bold}TAB-completion:${reset}
-  ${green}cddp${reset} ${yellow}<TAB>${reset}        Standard zsh-completion over undermapper
+${_c_bold}TAB-completion:${_c_reset}
+  ${_c_green}cddp${_c_reset} ${_c_yellow}<TAB>${_c_reset}        Standard zsh-completion over undermapper
 EOF
     return 0
   fi

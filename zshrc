@@ -22,6 +22,9 @@ source ~/dotfiles/zsh/lazy-loaders.sh
 # Tool integrations (direnv, fzf, atuin, etc.)
 source ~/dotfiles/zsh/tools.sh
 
+# Colors (shared ANSI variables used by functions below)
+source ~/dotfiles/zsh/colors.sh
+
 # Custom functions
 for f in ~/dotfiles/zsh/functions/*.sh; do
   source "$f"

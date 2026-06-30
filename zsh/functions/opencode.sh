@@ -10,27 +10,27 @@ alias occ="oc -c"
 # ---------------------------------------------------------------------------
 
 _oc_help() {
-  cat <<'EOF'
-OpenCode (kjører i cplt-sandbox):
+  cat <<EOF
+${_c_bold}oc${_c_reset} ${_c_dim}–${_c_reset} OpenCode (kjører i cplt-sandbox)
 
-  oc                  Start opencode.
-  oc s <id>           Gjenoppta en spesifikk sesjon.
-  oc -- [args]        Send argumenter direkte til opencode.
-  oc -<flagg>         Opencode-flagg sendes videre (f.eks. oc -c).
+${_c_bold}Bruk:${_c_reset}
+  ${_c_green}oc${_c_reset}                  Start opencode.
+  ${_c_green}oc${_c_reset} ${_c_yellow}s${_c_reset} ${_c_yellow}<id>${_c_reset}           Gjenoppta en spesifikk sesjon.
+  ${_c_green}oc${_c_reset} ${_c_yellow}--${_c_reset} ${_c_yellow}[args]${_c_reset}        Send argumenter direkte til opencode.
+  ${_c_green}oc${_c_reset} ${_c_yellow}-<flagg>${_c_reset}         Opencode-flagg sendes videre ${_c_dim}(f.eks. oc -c)${_c_reset}.
 
-Parallelle agenter med worktrees:
+${_c_bold}Parallelle agenter med worktrees:${_c_reset}
+  ${_c_green}oc${_c_reset} ${_c_yellow}w${_c_reset} ${_c_yellow}<branch>${_c_reset}       Opprett et worktree og start opencode der.
+                      ${_c_dim}Går til eksisterende worktree om det finnes.${_c_reset}
+                      ${_c_dim}Plasseres som sibling-mappe: reponavn--branch${_c_reset}
+                      ${_c_dim}(/ i branch-navn erstattes med -)${_c_reset}
+  ${_c_green}oc${_c_reset} ${_c_yellow}w${_c_reset}                Velg blant eksisterende worktrees ${_c_dim}(fzf)${_c_reset}.
+  ${_c_green}oc${_c_reset} ${_c_yellow}wrm${_c_reset} ${_c_yellow}[branch]${_c_reset}     Fjern et worktree og eventuelt tilhørende branch.
+                      ${_c_dim}Uten argument fjernes worktree-et du står i.${_c_reset}
+  ${_c_green}oc${_c_reset} ${_c_yellow}wls${_c_reset}              Vis alle worktrees for gjeldende repo.
 
-  oc w <branch>       Opprett et worktree og start opencode der.
-                       Går til eksisterende worktree om det finnes.
-                       Plasseres som sibling-mappe: reponavn--branch
-                       (/ i branch-navn erstattes med -)
-  oc w                Velg blant eksisterende worktrees (fzf).
-  oc wrm [branch]     Fjern et worktree og eventuelt tilhørende branch.
-                      Uten argument fjernes worktree-et du står i.
-  oc wls              Vis alle worktrees for gjeldende repo.
-
-Alias:
-  occ                 Snarvei for 'oc -c' (gjenoppta siste sesjon).
+${_c_bold}Alias:${_c_reset}
+  ${_c_green}occ${_c_reset}                 Snarvei for ${_c_dim}'oc -c'${_c_reset} (gjenoppta siste sesjon).
 EOF
 }
 
