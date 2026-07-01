@@ -1,5 +1,5 @@
 # tuxedo config
-theme = Nord
+theme = Terminal
 density = cozy
 sort = priority
 show_left = true
