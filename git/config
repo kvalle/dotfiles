@@ -61,7 +61,7 @@
 [delta]
 	navigate = true
 	line-numbers = true
-	syntax-theme = zenburn
+	syntax-theme = TwoDark
 	plus-style = syntax "#003300"
 	plus-emph-style = syntax "#005500"
 	minus-style = syntax "#3f0001"
