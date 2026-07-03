@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ---------------------------------------------------------------------------
+# git-rebase-branch – interaktiv rebase av alle commits på branchen
+# ---------------------------------------------------------------------------
+
+_c_bold=$'\e[1m'
+_c_dim=$'\e[2m'
+_c_reset=$'\e[0m'
+_c_green=$'\e[32m'
+_c_yellow=$'\e[33m'
+
+print_help() {
+  cat <<EOF
+${_c_bold}git rebase-branch${_c_reset} ${_c_dim}–${_c_reset} interaktiv rebase av alle commits på branchen
+
+Finner forgreningspunktet fra en base-branch (main/master) og starter
+interaktiv rebase derfra. Nyttig for å squashe, omorganisere, eller
+redigere commits før merge.
+
+${_c_bold}Bruk:${_c_reset}
+  ${_c_green}git rebase-branch${_c_reset}
+  ${_c_green}git rebase-branch${_c_reset} ${_c_yellow}<base-branch>${_c_reset}
+
+${_c_bold}Argumenter:${_c_reset}
+  ${_c_yellow}<base-branch>${_c_reset}       Branchen å rebase mot ${_c_dim}(standard: main eller master)${_c_reset}
+  ${_c_yellow}-h${_c_reset}                  Vis denne hjelpeteksten
+
+${_c_bold}Eksempel:${_c_reset}
+  ${_c_green}git rebase-branch${_c_reset}              ${_c_dim}Rebase alle commits siden forgrening fra main/master${_c_reset}
+  ${_c_green}git rebase-branch${_c_reset} ${_c_yellow}develop${_c_reset}      ${_c_dim}Rebase alle commits siden forgrening fra develop${_c_reset}
+EOF
+}
+
+case "${1:-}" in
+  -h|--help) print_help; exit 0 ;;
+esac
+
+base=${1:-$(git show-ref --quiet refs/heads/main && echo main || echo master)}
+git rebase -i "$(git merge-base HEAD "$base")"
