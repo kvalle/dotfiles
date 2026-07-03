@@ -30,16 +30,7 @@
 	pf = push --force-with-lease
     rb = rebase-branch
     hs = history-search
-    cm = "!f() { \
-        if git show-ref --quiet refs/heads/main; then \
-            git checkout main; \
-        elif git show-ref --quiet refs/heads/master; then \
-            git checkout master; \
-        else \
-            echo 'Fant verken main eller master branch i repoet 🤷'; \
-            return 1; \
-        fi; \
-    }; f"
+    cm = checkout-main
 [hub]
     protocol = https
 [rerere]
