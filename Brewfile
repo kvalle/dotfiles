@@ -183,6 +183,7 @@ cask "signal"                      # Kryptert meldingsapp
 cask "1password"                   # [self-updates] Passordbehandler
 cask "1password-cli"               # 1Password CLI
 cask "alfred"                      # Spotlight-erstatning og produktivitet
+cask "tuna"                        # [self-updates] Moderne app launcher (Quicksilver-inspirert)
 cask "notion"                      # Notater og wiki
 cask "obsidian"                    # Markdown-notater med linking
 cask "rectangle"                   # Vindusplassering med tastatur
