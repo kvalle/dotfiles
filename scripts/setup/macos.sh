@@ -11,6 +11,9 @@ defaults write com.apple.Dock appswitcher-all-displays -bool true
 # Only show active apps in the dock
 defaults write com.apple.dock "static-only" -bool "true"
 
+# Don't show recent or suggsested apps in dock
+defaults write com.apple.dock show-recents -bool false
+
 # Make dock tiny and hide it away
 defaults write com.apple.dock "tilesize" -int "24"
 defaults write com.apple.dock "autohide" -bool "true"
@@ -33,6 +36,9 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
 # Add bluetooth to status bar
 defaults -currentHost write com.apple.controlcenter.plist Bluetooth -int 18
+
+# Set macOS to dark mode
+osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true'
 
 # Disable annoying option-space keybinding from making nonbreaking spaces
 keybindings_file="$HOME/Library/KeyBindings/DefaultKeyBinding.dict"
@@ -64,7 +70,13 @@ else
 	echo "Unable to remove shortcut since com.apple.symbolichotkeys plist dosn't exist yet. Please"
 fi
 
+# Don't show icons on the desktop
+defaults write com.apple.finder CreateDesktop -bool false
+
 echo "Done configuring MacOS"
+echo
+echo "(Might need to out/in to see all changes take effect)"
+echo
 
 # < 		<key>98</key>
 # < 		<dict>
