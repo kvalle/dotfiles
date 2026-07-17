@@ -2,7 +2,7 @@
 # Docs: https://ghostty.org/docs/config
 
 # Theme
-theme = TokyoNight
+theme = Catppuccin Macchiato
 
 # Font
 font-family = Monaspace Neon

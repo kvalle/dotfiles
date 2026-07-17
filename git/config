@@ -53,11 +53,12 @@
 [delta]
 	navigate = true
 	line-numbers = true
-	syntax-theme = TwoDark
-	plus-style = syntax "#003300"
-	plus-emph-style = syntax "#005500"
-	minus-style = syntax "#3f0001"
-	minus-emph-style = syntax "#5f0001"
+	# Catppuccin Macchiato
+	syntax-theme = Catppuccin Macchiato
+	plus-style = syntax "#1e4434"
+	plus-emph-style = syntax "#2c6648"
+	minus-style = syntax "#4b2234"
+	minus-emph-style = syntax "#6e3347"
 [gpg]
 	format = ssh
 [gpg "ssh"]
