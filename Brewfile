@@ -151,6 +151,7 @@ brew "pastel"                      # Fargeverktøy for terminalen
 brew "tealdeer"                    # [verify cmd:tldr] Forenklet man-sider (tldr)
 brew "terminal-notifier"           # macOS-varsler fra terminal
 brew "watch"                       # Kjør kommando gjentatte ganger
+brew "cmatrix"                     # Matrix-animasjon i terminalen
 brew "timg"                        # Vis bilder/video i terminalen
 brew "displayplacer"               # Styr skjermoppløsning/plassering
 brew "brew-cask-completion"        # Zsh-completion for brew cask
