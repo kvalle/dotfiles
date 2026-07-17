@@ -216,5 +216,7 @@ cask "notunes"                     # Hindre Apple Music fra å åpne seg
 
 cask "grandperspective"            # Visualiser diskbruk
 cask "remarkable"                  # reMarkable-tablet synk
-cask "font-monaspace"              # GitHub sin monospace-fontfamilie
-cask "font-symbols-only-nerd-font" # Nerd Font-symboler (ikoner i terminal)
+cask "font-monaspace"              # Monaspace Neon
+cask "font-jetbrains-mono-nerd-font" # JetBrains Mono med Nerd Font-ikoner
+cask "font-iosevka-nerd-font"        # Iosevka med Nerd Font-ikoner
+cask "font-symbols-only-nerd-font" # Nerd Font-ikoner som fallback for fonter uten (f.eks. Monaspace)
