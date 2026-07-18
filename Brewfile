@@ -166,6 +166,7 @@ brew "navikt/tap/cplt"             # Kernel-level sandbox for AI-agenter
 cask "arc"                         # [self-updates] Arc-nettleser
 cask "firefox"                     # Mozilla Firefox
 cask "google-chrome"               # Google Chrome
+cask "helium-browser"              # Lettvekts Chromium-nettleser
 cask "zen"                         # Zen Browser
 
 # ------------------------------------------------------------------------------
