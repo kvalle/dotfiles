@@ -207,7 +207,6 @@ cask "figma"                       # Design og prototyping
 # Casks – Media og underholdning
 # ------------------------------------------------------------------------------
 
-cask "spotify"                     # Musikkstreaming
 cask "vlc"                         # Medieavspiller (spiller alt)
 cask "steam"                       # Spillplattform
 cask "notunes"                     # Hindre Apple Music fra å åpne seg
