@@ -13,3 +13,8 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'l:|=* r:|=*' # case-i
 zstyle ':completion:*' menu select                          # menu selection
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"     # colored completions
 zstyle ':completion:*' special-dirs true                     # complete . and ..
+
+# Carapace — rich completions for 800+ commands
+# Bridges: fall back to existing shell completions when carapace has none
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
+source <(carapace _carapace zsh)

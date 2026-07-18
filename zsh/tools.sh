@@ -32,14 +32,6 @@ eval "$(atuin init zsh --disable-up-arrow)"
 export _ZO_RESOLVE_SYMLINKS=1
 eval "$(zoxide init zsh --cmd cd)"
 
-# kubectl completion (cached, regenerated daily)
-_kubectl_comp=~/.zsh_kubectl_completion
-if [[ ! -f "$_kubectl_comp" ]] || [[ -n "$_kubectl_comp"(#qN.mh+24) ]]; then
-  kubectl completion zsh > "$_kubectl_comp"
-fi
-source "$_kubectl_comp"
-unset _kubectl_comp
-
 # ssh — only load keys from Keychain if agent is empty (saves ~300ms)
 # Replaces unconditional `ssh-add --apple-use-keychain`
 ssh-add -l &>/dev/null || ssh-add --apple-use-keychain 2>/dev/null
