@@ -1,0 +1,2 @@
+# Suppress "Last login" message when opening a new terminal.
+# macOS checks for ~/.hushlogin at login; if it exists, the MOTD is silenced.
