@@ -38,8 +38,6 @@ The source of truth for symlinks is `symlinks.conf`.
 | `tuxedo/` | `~/.config/tuxedo` |
 | `superfile/config.toml` | `~/Library/Application Support/superfile/config.toml` |
 | `superfile/hotkeys.toml` | `~/Library/Application Support/superfile/hotkeys.toml` |
-| `ai/skills/` | `~/.agents/skills` |
-| `ai/skills/` | `~/.claude/skills` |
 | `ai/.skill-lock.json` | `~/.agents/.skill-lock.json` |
 | `ai/claude/settings.json` | `~/.claude/settings.json` |
 | `zen/user.js` | `<Zen profile dir>/user.js` |

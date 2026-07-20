@@ -10,6 +10,7 @@ setup/nvm.sh
 setup/fzf.sh
 setup/macos.sh
 setup/symlinks.sh
+setup/skills.sh
 setup/secrets.sh
 
 # Verifiser at alt er korrekt satt opp

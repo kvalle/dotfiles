@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+DOTFILES="${DOTFILES:-$HOME/dotfiles}"
 PRIVILEGES_CLI=$(which PrivilegesCLI 2>/dev/null) || \
   PRIVILEGES_CLI="/Applications/Privileges.app/Contents/MacOS/PrivilegesCLI"
 
@@ -17,14 +18,14 @@ echo "Updating Homebrew"
 brew update
 
 echo "Trusting third-party taps from Brewfile"
-grep '^tap ' Brewfile | sed 's/tap "//;s/".*//' | while read -r t; do
+grep '^tap ' "$DOTFILES/Brewfile" | sed 's/tap "//;s/".*//' | while read -r t; do
   brew tap "$t" 2>/dev/null || true
   brew trust "$t"
 done
 
 echo "Installing apps"
 $PRIVILEGES_CLI --add --reason "Homebrew bundle install"
-brew bundle
+brew bundle --file="$DOTFILES/Brewfile" || echo "Warning: some Brewfile dependencies failed to install"
 $PRIVILEGES_CLI --remove
 
 echo "Done installing and configuring Homebrew"
