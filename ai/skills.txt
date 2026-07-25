@@ -1,0 +1,5 @@
+# Agent skills — kilder
+# Én repo per linje. Brukes av scripts/setup/skills.sh.
+# npx skills update -g -y brukes for oppdatering.
+
+mattpocock/skills

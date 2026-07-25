@@ -10,18 +10,19 @@ fi
 
 mkdir -p ~/.agents/skills ~/.claude/skills
 
-LOCK="$HOME/dotfiles/ai/.skill-lock.json"
+SKILLS_FILE="$HOME/dotfiles/ai/skills.txt"
 
-if [ -f "$LOCK" ] && [ "$(jq '.skills | length' "$LOCK" 2>/dev/null)" -gt 0 ]; then
-  jq -r '.skills | to_entries[] | "\(.value.source) \(.key)"' "$LOCK" \
-    | sort -k1,1 \
-    | awk '{skills[$1] = skills[$1] " --skill " $2} END {for (s in skills) print s, skills[s]}' \
-    | while read -r source skill_args; do
-        echo "  Installing from $source:$skill_args"
-        eval npx skills add "$source" $skill_args --copy -g -y
-      done
-else
-  echo "  No skills in lock file, skipping"
+if [ ! -f "$SKILLS_FILE" ]; then
+  echo "  $SKILLS_FILE not found, skipping"
+  exit 0
 fi
+
+# Bruk filedeskriptor for å unngå å konsumere stdin i while-loopen
+while read -r source; do
+  echo "  Installing from $source"
+  npx skills add "$source" --copy -g </dev/tty
+done <<EOF
+$(grep -v '^\s*#' "$SKILLS_FILE" | grep -v '^\s*$')
+EOF
 
 echo "Done installing agent skills"
