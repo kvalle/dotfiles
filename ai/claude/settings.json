@@ -14,5 +14,10 @@
     ]
   },
   "spinnerTipsEnabled": false,
-  "prefersReducedMotion": true
+  "prefersReducedMotion": true,
+  "permissions": {
+    "deny": [
+      "AskUserQuestion"
+    ]
+  }
 }
