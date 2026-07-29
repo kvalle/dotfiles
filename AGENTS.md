@@ -34,6 +34,7 @@ The source of truth for symlinks is `symlinks.conf`.
 | `cplt/config.toml` | `~/.config/cplt/config.toml` |
 | `ai/opencode/opencode.jsonc` | `~/.config/opencode/opencode.jsonc` |
 | `ai/opencode/tui.jsonc` | `~/.config/opencode/tui.jsonc` |
+| `ai/opencode/INSTRUCTIONS.md` | `~/.config/opencode/INSTRUCTIONS.md` |
 | `tealdeer/` | `~/.config/tealdeer` |
 | `tuxedo/` | `~/.config/tuxedo` |
 | `superfile/config.toml` | `~/Library/Application Support/superfile/config.toml` |
