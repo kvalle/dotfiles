@@ -197,6 +197,7 @@ cask "jordanbaird-ice"             # Skjul ikoner i statusbaren
 # ------------------------------------------------------------------------------
 
 cask "docker-desktop"              # Docker Desktop GUI
+cask "claude-code"                 # Anthropic sin kodingsagent for terminalen
 cask "intellij-idea"               # JetBrains Java/Kotlin IDE
 cask "jetbrains-toolbox"           # Håndter JetBrains-verktøy
 cask "visual-studio-code"          # Microsoft VS Code
