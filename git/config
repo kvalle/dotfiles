@@ -3,41 +3,41 @@
 	email = kjetil.valle@gmail.com
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA35JFxy9iET4iVoWDC0SGfWaOUbVSHg7673EKUVcUQP
 [color]
-    diff = auto
-    status = auto
-    branch = auto
+	diff = auto
+	status = auto
+	branch = auto
 [core]
 	editor = vim +2
 	pager = delta
-    whitespace = fix,space-before-tab,tab-in-indent,trailing-space,blank-at-eof
+	whitespace = fix,space-before-tab,tab-in-indent,trailing-space,blank-at-eof
 	autocrlf = false
 	hooksPath = ~/.githooks
 [push]
-    default = current
+	default = current
 [github]
-    user = kvalle
+	user = kvalle
 [alias]
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-    wdiff = diff --color-words
-    st = status -s
-    rank = shortlog -sn --no-merges
-    praise = blame
-    w = whatchanged --oneline
-    s = switch
-    r = restore
-    co = checkout
-    pr = pull --rebase
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	wdiff = diff --color-words
+	st = status -s
+	rank = shortlog -sn --no-merges
+	praise = blame
+	w = whatchanged --oneline
+	s = switch
+	r = restore
+	co = checkout
+	pr = pull --rebase
 	pf = push --force-with-lease
-    rb = rebase-branch
-    hs = history-search
-    cm = checkout-main
+	rb = rebase-branch
+	hs = history-search
+	cm = checkout-main
 	div = !git fetch --quiet && git log --oneline --left-right --decorate HEAD...@{u}
 [hub]
-    protocol = https
+	protocol = https
 [rerere]
-    enabled = true
+	enabled = true
 [clean]
-    requireForce = false
+	requireForce = false
 [init]
 	defaultBranch = main
 [interactive]
