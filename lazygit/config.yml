@@ -1,6 +1,7 @@
 promptToReturnFromSubprocess: false
 gui:
   nerdFontsVersion: "3"
+  switchTabsWithPanelJumpKeys: true
 
   # === Catppuccin Macchiato ===
   theme:
