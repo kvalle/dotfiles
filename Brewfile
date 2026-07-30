@@ -30,6 +30,7 @@ brew "direnv"                      # [verify] Per-katalog miljøvariabler
 brew "fzf"                         # [verify] Fuzzy finder for terminal
 brew "starship"                    # [verify] Kryssplattform shell-prompt
 brew "tmux"                        # [verify] Terminal multiplexer
+brew "neovim"                      # Terminalbasert teksteditor
 brew "thefuck"                     # [verify] Korrigerer forrige kommando
 brew "zoxide"                      # [verify] Smartere cd – husker mest brukte mapper
 brew "carapace"                    # [verify] Multi-shell completions for 800+ commands
