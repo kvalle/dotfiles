@@ -10,6 +10,7 @@ alias la='eza -la --icons --git'
 alias lt='eza --tree --level=2 --icons'
 
 alias path='echo -e ${PATH//:/\\n}'
+alias tree='eza --tree --icons'
 alias tree2='eza --tree --level=2 --icons'
 alias tree3='eza --tree --level=3 --icons'
 alias tree4='eza --tree --level=4 --icons'
