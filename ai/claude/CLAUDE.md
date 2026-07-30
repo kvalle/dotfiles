@@ -7,3 +7,11 @@
   ExitPlanMode after the user has given explicit approval in the chat (e.g.
   "ja", "ok", "kjør på") — never as the automatic next step right after
   drafting.
+- Claude runs in a Docker sbx sandbox without access to run Maven or Java
+  tests. Do not attempt to run these tests. Instead, tell the user which tests
+  should be run and which modules contain them, with one command per relevant
+  module or test class in this form:
+
+  ```text
+  mci <module name> <optional test class>
+  ```
