@@ -176,6 +176,23 @@ else
 fi
 
 # --------------------------------------------------------------------------
+# 6. Agent skills
+# --------------------------------------------------------------------------
+
+header "Agent skills"
+
+if output=$("$DOTFILES/scripts/skills-manifest.sh" --check 2>&1); then
+  pass "ai/skills.txt er oppdatert"
+else
+  fail "ai/skills.txt samsvarer ikke med skill-lockfilen"
+  if [ -n "$output" ]; then
+    while IFS= read -r line; do
+      echo "      $line"
+    done <<< "$output"
+  fi
+fi
+
+# --------------------------------------------------------------------------
 # Oppsummering
 # --------------------------------------------------------------------------
 

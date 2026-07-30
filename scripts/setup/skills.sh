@@ -1,5 +1,5 @@
-#!/bin/sh
-set -e
+#!/bin/bash
+set -euo pipefail
 
 echo "Installing agent skills..."
 
@@ -17,12 +17,17 @@ if [ ! -f "$SKILLS_FILE" ]; then
   exit 0
 fi
 
-# Bruk filedeskriptor for å unngå å konsumere stdin i while-loopen
-while read -r source; do
-  echo "  Installing from $source"
-  npx skills add "$source" --copy -g </dev/tty
-done <<EOF
-$(grep -v '^\s*#' "$SKILLS_FILE" | grep -v '^\s*$')
-EOF
+while IFS= read -r source; do
+  skills=()
+  while IFS=$'\t' read -r manifest_source skill; do
+    if [ "$manifest_source" = "$source" ]; then
+      skills+=("$skill")
+    fi
+  done < <(grep -v '^#' "$SKILLS_FILE" | grep -v '^$')
+  echo "  Installing ${#skills[@]} skill(s) from $source"
+  npx skills add "$source" --skill "${skills[@]}" --copy -g -y
+done < <(
+  awk -F '\t' '!/^#/ && NF == 2 { print $1 }' "$SKILLS_FILE" | LC_ALL=C sort -u
+)
 
 echo "Done installing agent skills"

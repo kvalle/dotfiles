@@ -182,7 +182,12 @@ success "jenv shims oppdatert."
 
 info "Oppdaterer agent skills..."
 if command -v npx &>/dev/null; then
-  npx skills update -g -y || warn "Kunne ikke oppdatere agent skills"
+  if npx skills update -g -y; then
+    "$DOTFILES_DIR/scripts/skills-manifest.sh" --write || \
+      warn "Kunne ikke oppdatere skills-manifestet"
+  else
+    warn "Kunne ikke oppdatere agent skills"
+  fi
 else
   warn "npx ikke tilgjengelig, hopper over agent skills"
 fi

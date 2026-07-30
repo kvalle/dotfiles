@@ -1,5 +1,24 @@
-# Agent skills — kilder
-# Én repo per linje. Brukes av scripts/setup/skills.sh.
-# npx skills update -g -y brukes for oppdatering.
+# Agent skills - generert fra ~/.agents/.skill-lock.json
+# Ikke rediger manuelt. Kjor scripts/skills-manifest.sh --write.
+# Format: kilde<TAB>skill
 
-mattpocock/skills
+digipost/digipost-skills	digipost
+digipost/digipost-skills	digipost-auth-and-signing
+digipost/digipost-skills	digipost-control
+digipost/digipost-skills	digipost-decision-helper
+digipost/digipost-skills	digipost-manage-inbox
+digipost/digipost-skills	digipost-send-post
+mattpocock/skills	batch-grill-me
+mattpocock/skills	code-review
+mattpocock/skills	domain-modeling
+mattpocock/skills	grill-me
+mattpocock/skills	grill-with-docs
+mattpocock/skills	grilling
+mattpocock/skills	handoff
+mattpocock/skills	implement
+mattpocock/skills	improve-codebase-architecture
+mattpocock/skills	prototype
+mattpocock/skills	tdd
+mattpocock/skills	teach
+mattpocock/skills	wayfinder
+vercel-labs/skills	find-skills
