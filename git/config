@@ -32,6 +32,7 @@
 	hs = history-search
 	cm = checkout-main
 	div = !git fetch --quiet && git log --oneline --left-right --decorate HEAD...@{u}
+    sync-hard = !git fetch --quiet && git reset --hard @{u}
 [hub]
 	protocol = https
 [rerere]
