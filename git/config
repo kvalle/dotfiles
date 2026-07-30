@@ -31,6 +31,7 @@
     rb = rebase-branch
     hs = history-search
     cm = checkout-main
+	div = !git fetch --quiet && git log --oneline --left-right --decorate HEAD...@{u}
 [hub]
     protocol = https
 [rerere]
@@ -70,3 +71,7 @@
 
 [includeIf "gitdir:~/dev/digipost/"]
 	path = ~/dev/digipost/.gitconfig
+[pull]
+	ff = only
+[fetch]
+	prune = true
