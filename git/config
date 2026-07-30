@@ -22,7 +22,6 @@
 	st = status -s
 	rank = shortlog -sn --no-merges
 	praise = blame
-	w = whatchanged --oneline
 	s = switch
 	r = restore
 	co = checkout
