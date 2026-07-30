@@ -30,6 +30,7 @@
 	rb = rebase-branch
 	hs = history-search
 	cm = checkout-main
+	amend-all = commit -a --amend --no-edit
 	div = !git fetch --quiet && git log --oneline --left-right --decorate HEAD...@{u}
     sync-hard = !git fetch --quiet && git reset --hard @{u}
 [hub]
