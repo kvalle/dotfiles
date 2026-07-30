@@ -9,3 +9,7 @@ Vurder alltid sandkassebegrensninger som mulig årsak før du antar feil ved
 vertsmaskinens konfigurasjon, eierskap, rettigheter eller installasjon. Ikke
 foreslå systemendringer for å omgå en sannsynlig sandkassebegrensning. Oppgi
 heller hva brukeren må kjøre utenfor sandkassen.
+
+Når du kjører `npx skills` i cplt-sandkassen, bruk alltid
+`NPM_CONFIG_CACHE="$TMPDIR/npm-cache" npx skills ...`, slik at den nedlastede
+CLI-en kan kjøres fra cplt sin godkjente scratch-katalog.
