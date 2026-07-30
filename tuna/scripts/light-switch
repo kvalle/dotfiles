@@ -1,0 +1,8 @@
+#!/bin/sh
+# @tuna.name Light Switch
+# @tuna.subtitle Toggle light and dark appearance
+# @tuna.icon symbol:circle.lefthalf.filled
+# @tuna.mode inline
+# @tuna.input none
+
+exec "$HOME/dotfiles/bin/mac-light-switch"
