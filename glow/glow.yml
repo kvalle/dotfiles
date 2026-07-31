@@ -1,2 +1,2 @@
-# Use Glow's pager for CLI output.
 pager: true
+width: 95
