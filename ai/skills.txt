@@ -10,6 +10,7 @@ digipost/digipost-skills	digipost-manage-inbox
 digipost/digipost-skills	digipost-send-post
 mattpocock/skills	batch-grill-me
 mattpocock/skills	code-review
+mattpocock/skills	codebase-design
 mattpocock/skills	domain-modeling
 mattpocock/skills	grill-me
 mattpocock/skills	grill-with-docs
@@ -20,5 +21,8 @@ mattpocock/skills	improve-codebase-architecture
 mattpocock/skills	prototype
 mattpocock/skills	tdd
 mattpocock/skills	teach
+mattpocock/skills	to-spec
+mattpocock/skills	to-tickets
+mattpocock/skills	triage
 mattpocock/skills	wayfinder
 vercel-labs/skills	find-skills
