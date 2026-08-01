@@ -7,6 +7,7 @@ quiet = true
 yes = true
 allow_gpg_signing = false
 allow_cache_exec = ["gradle"]
+pass_env = ["GH_TOKEN"]
 
 # ~/dotfiles/git er symlinket fra ~/.config/git — cplt må kunne lese originalen
 # ~/dotfiles/ai/opencode er symlinket fra ~/.config/opencode/opencode.jsonc

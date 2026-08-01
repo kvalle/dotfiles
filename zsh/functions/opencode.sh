@@ -9,6 +9,18 @@ alias occ="oc -c"
 # Interne hjelpefunksjoner
 # ---------------------------------------------------------------------------
 
+_oc_launch() {
+  local remote token
+  remote=$(git remote get-url origin 2>/dev/null)
+
+  if [[ "$remote" == (git@github.com:|https://github.com/|ssh://git@github.com/)kvalle/trene(|.git) ]]; then
+    token=$(op read 'op://Private/GitHub cplt trene token/credential') || return
+    GH_TOKEN="$token" cplt "$@"
+  else
+    cplt "$@"
+  fi
+}
+
 _oc_help() {
   cat <<EOF
 ${_c_bold}oc${_c_reset} ${_c_dim}–${_c_reset} OpenCode (kjører i cplt-sandbox)
@@ -40,7 +52,7 @@ _oc_session() {
     echo "Bruk: oc s <sesjon-id>"
     return 1
   fi
-  cplt -- -s "$id"
+  _oc_launch -- -s "$id"
 }
 
 # Returnerer stien til hovedrepoets worktree (den primære)
@@ -117,7 +129,7 @@ _oc_worktree() {
     if [[ "$type" == "[worktree]" || "$type" == "[hovedrepo]" ]]; then
       local worktree_dir=$(echo "$selected" | awk '{print $3}')
       cd "$worktree_dir" || { echo "Kunne ikke gå til: $worktree_dir"; return 1; }
-      cplt
+      _oc_launch
     else
       # Opprett worktree for eksisterende branch
       _oc_worktree "$selected_branch"
@@ -134,7 +146,7 @@ _oc_worktree() {
   local main_branch=$(git -C "$main_root" symbolic-ref --short HEAD 2>/dev/null)
   if [[ "$branch" == "$main_branch" ]]; then
     cd "$main_root" || { echo "Kunne ikke gå til: $main_root"; return 1; }
-    cplt
+    _oc_launch
     return
   fi
 
@@ -149,7 +161,7 @@ _oc_worktree() {
   fi
 
   cd "$worktree_dir" || { echo "Kunne ikke gå til: $worktree_dir"; return 1; }
-  cplt
+  _oc_launch
 }
 
 _oc_worktree_rm() {
@@ -260,13 +272,13 @@ oc() {
       ;;
     --)
       shift
-      cplt -- "$@"
+      _oc_launch -- "$@"
       ;;
     -*)
-      cplt -- "$@"
+      _oc_launch -- "$@"
       ;;
     "")
-      cplt
+      _oc_launch
       ;;
     *)
       echo "Ukjent kommando: $1"
