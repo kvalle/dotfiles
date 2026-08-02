@@ -21,7 +21,7 @@ localhost = [7236]
 
 [proxy]
 enabled = true
-log_level = "blocked"
+log_level = "none"
 log_file = "~/.config/cplt/proxy.log"
 
 [gh_guard]
