@@ -7,6 +7,12 @@ This file is the source of truth for AI agents working in this repository.
 **Always edit files in `~/dotfiles/`.** Files under `~/.config/`, `~/`, etc.
 are symlinks pointing here. Never edit the symlink targets directly.
 
+When this repository is the workspace, also read configuration and logs from
+`~/dotfiles/`, not through symlink destinations under `~/.config/`, `~/.claude/`,
+`~/Library/Application Support`, or similar locations. Use this file and
+`symlinks.conf` to locate the source. If required data is not stored in the
+repository, ask the user instead of reading it from the home directory.
+
 ## Sandbox-begrensning
 
 AI-agenter i dette repoet kjøres i en sandbox som kun har skrivetilgang
