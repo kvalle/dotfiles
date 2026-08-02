@@ -10,12 +10,17 @@ alias occ="oc -c"
 # ---------------------------------------------------------------------------
 
 _oc_launch() {
-  local remote token
+  local remote token cplt_config exit_status
   remote=$(git remote get-url origin 2>/dev/null)
 
   if [[ "$remote" == (git@github.com:|https://github.com/|ssh://git@github.com/)kvalle/trene(|.git) ]]; then
     token=$(op read 'op://Private/GitHub cplt trene token/credential') || return
-    GH_TOKEN="$token" cplt "$@"
+    cplt_config=$(mktemp "${TMPDIR:-/tmp}/cplt-trene.XXXXXX") || return
+    sed 's/^allow_api_write = false$/allow_api_write = true/' ~/dotfiles/cplt/config.toml > "$cplt_config"
+    GH_TOKEN="$token" CPLT_CONFIG="$cplt_config" cplt "$@"
+    exit_status=$?
+    rm -f "$cplt_config"
+    return $exit_status
   else
     cplt "$@"
   fi

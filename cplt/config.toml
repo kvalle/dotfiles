@@ -27,6 +27,7 @@ log_file = "~/.config/cplt/proxy.log"
 [gh_guard]
 enabled = true
 mode = "block"
+allow_api_write = false
 
 [git_guard]
 enabled = true
