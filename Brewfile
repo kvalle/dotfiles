@@ -15,6 +15,7 @@ tap "1password/tap"
 tap "anomalyco/tap"
 tap "azure/kubelogin"
 tap "jakehilborn/jakehilborn"
+tap "mobile-dev-inc/tap"
 tap "navikt/tap"
 tap "sdkman/tap"
 tap "gromgit/brewtils"
@@ -139,6 +140,7 @@ brew "envchain"                    # Lagre env-variabler i Keychain
 # ------------------------------------------------------------------------------
 
 brew "cocoapods"                   # iOS avhengighetshåndtering
+brew "mobile-dev-inc/tap/maestro" # Mobil UI-testing og automatisering
 cask "android-studio"              # Android IDE
 
 # ------------------------------------------------------------------------------
