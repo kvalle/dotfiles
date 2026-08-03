@@ -12,15 +12,22 @@ format = """
 $directory\
 $git_branch\
 $git_status\
+$git_state\
 $python\
 $java\
 $nodejs\
 $kotlin\
 $kubernetes\
 $azure\
+$hostname\
+$shlvl\
+$jobs\
+$status\
 $cmd_duration\
 $line_break\
 $character"""
+
+right_format = "$battery$time"
 
 [character]
 success_symbol = "[>](bold green)"
@@ -36,9 +43,49 @@ format = "[$symbol$branch(:$remote_branch)]($style) "
 [git_status]
 format = '([\[$all_status$ahead_behind\]]($style) )'
 
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "dimmed yellow"
+
+[status]
+disabled = false
+format = "[$symbol$status]($style) "
+symbol = "󰅙 "
+style = "dimmed red"
+
+[hostname]
+ssh_only = true
+format = "[@$hostname]($style) "
+style = "dimmed yellow"
+
+[shlvl]
+disabled = false
+threshold = 3
+format = "[󰆍↳]($style) "
+style = "dimmed cyan"
+
+[jobs]
+format = "[&·$number]($style) "
+number_threshold = 1
+style = "dimmed cyan"
+
 [cmd_duration]
 min_time = 2000
-format = "[$duration]($style) "
+format = "[󰔟 $duration]($style) "
+style = "dimmed yellow"
+
+[time]
+disabled = false
+time_format = "%Y-%m-%d %H:%M"
+format = "[󰥔 $time]($style)"
+style = "dimmed white"
+
+[battery]
+format = "[$symbol$percentage]($style) "
+
+[[battery.display]]
+threshold = 40
+style = "dimmed red"
 
 [python]
 format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
