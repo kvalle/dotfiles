@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catppuccin Macchiato Palette</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      background: #181926;
+      color: #cad3f5;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: clamp(24px, 5vw, 64px);
+      background: #181926;
+    }
+
+    header { margin-bottom: 32px; }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(24px, 4vw, 42px);
+    }
+
+    p {
+      margin: 0;
+      color: #a5adcb;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+    }
+
+    .swatch {
+      min-height: 150px;
+      padding: 18px;
+      border: 1px solid rgb(255 255 255 / 10%);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      color: var(--label);
+      background: var(--color);
+      box-shadow: 0 12px 30px rgb(0 0 0 / 18%);
+    }
+
+    .name {
+      font-size: 17px;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+
+    .hex {
+      margin-top: 5px;
+      font-size: 13px;
+      opacity: 0.75;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Catppuccin Macchiato</h1>
+    <p>Named colors used by the terminal and Starship palette.</p>
+  </header>
+
+  <main>
+    <div class="swatch" style="--color:#f4dbd6;--label:#181926"><span class="name">rosewater</span><span class="hex">#f4dbd6</span></div>
+    <div class="swatch" style="--color:#f0c6c6;--label:#181926"><span class="name">flamingo</span><span class="hex">#f0c6c6</span></div>
+    <div class="swatch" style="--color:#f5bde6;--label:#181926"><span class="name">pink</span><span class="hex">#f5bde6</span></div>
+    <div class="swatch" style="--color:#c6a0f6;--label:#181926"><span class="name">mauve</span><span class="hex">#c6a0f6</span></div>
+    <div class="swatch" style="--color:#ed8796;--label:#181926"><span class="name">red</span><span class="hex">#ed8796</span></div>
+    <div class="swatch" style="--color:#ee99a0;--label:#181926"><span class="name">maroon</span><span class="hex">#ee99a0</span></div>
+    <div class="swatch" style="--color:#f5a97f;--label:#181926"><span class="name">peach</span><span class="hex">#f5a97f</span></div>
+    <div class="swatch" style="--color:#eed49f;--label:#181926"><span class="name">yellow</span><span class="hex">#eed49f</span></div>
+    <div class="swatch" style="--color:#a6da95;--label:#181926"><span class="name">green</span><span class="hex">#a6da95</span></div>
+    <div class="swatch" style="--color:#8bd5ca;--label:#181926"><span class="name">teal</span><span class="hex">#8bd5ca</span></div>
+    <div class="swatch" style="--color:#91d7e3;--label:#181926"><span class="name">sky</span><span class="hex">#91d7e3</span></div>
+    <div class="swatch" style="--color:#7dc4e4;--label:#181926"><span class="name">sapphire</span><span class="hex">#7dc4e4</span></div>
+    <div class="swatch" style="--color:#8aadf4;--label:#181926"><span class="name">blue</span><span class="hex">#8aadf4</span></div>
+    <div class="swatch" style="--color:#b7bdf8;--label:#181926"><span class="name">lavender</span><span class="hex">#b7bdf8</span></div>
+    <div class="swatch" style="--color:#cad3f5;--label:#181926"><span class="name">text</span><span class="hex">#cad3f5</span></div>
+    <div class="swatch" style="--color:#b8c0e0;--label:#181926"><span class="name">subtext1</span><span class="hex">#b8c0e0</span></div>
+    <div class="swatch" style="--color:#a5adcb;--label:#181926"><span class="name">subtext0</span><span class="hex">#a5adcb</span></div>
+    <div class="swatch" style="--color:#939ab7;--label:#181926"><span class="name">overlay2</span><span class="hex">#939ab7</span></div>
+    <div class="swatch" style="--color:#8087a2;--label:#181926"><span class="name">overlay1</span><span class="hex">#8087a2</span></div>
+    <div class="swatch" style="--color:#6e738d;--label:#cad3f5"><span class="name">overlay0</span><span class="hex">#6e738d</span></div>
+    <div class="swatch" style="--color:#5b6078;--label:#cad3f5"><span class="name">surface2</span><span class="hex">#5b6078</span></div>
+    <div class="swatch" style="--color:#494d64;--label:#cad3f5"><span class="name">surface1</span><span class="hex">#494d64</span></div>
+    <div class="swatch" style="--color:#363a4f;--label:#cad3f5"><span class="name">surface0</span><span class="hex">#363a4f</span></div>
+    <div class="swatch" style="--color:#24273a;--label:#cad3f5"><span class="name">base</span><span class="hex">#24273a</span></div>
+    <div class="swatch" style="--color:#1e2030;--label:#cad3f5"><span class="name">mantle</span><span class="hex">#1e2030</span></div>
+    <div class="swatch" style="--color:#181926;--label:#cad3f5"><span class="name">crust</span><span class="hex">#181926</span></div>
+  </main>
+</body>
+</html>
