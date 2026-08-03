@@ -108,6 +108,7 @@ format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 
 [java]
 format = '[${symbol}(${version} )]($style)'
+symbol = " "
 
 [nodejs]
 format = '[${symbol}(${version} )]($style)'
