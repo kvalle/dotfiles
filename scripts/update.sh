@@ -163,8 +163,11 @@ success "Submoduler oppdatert."
 # --------------------------------------------------------------------------
 
 info "Oppdaterer tldr-sider..."
-tldr --update || true
-success "tldr-sider oppdatert."
+if tldr --update; then
+  success "tldr-sider oppdatert."
+else
+  warn "Kunne ikke oppdatere tldr-sider"
+fi
 
 # --------------------------------------------------------------------------
 # jenv rehash
