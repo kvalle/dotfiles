@@ -10,9 +10,7 @@ add_newline = true
 # Prompt format
 format = """
 $directory\
-$git_branch\
-$git_status\
-$git_state\
+([](fg:#3b315e)$git_branch$git_status$git_state[ ](bg:#3b315e)[](fg:#3b315e) )\
 $python\
 $java\
 $nodejs\
@@ -30,22 +28,40 @@ $character"""
 right_format = "$battery$time"
 
 [character]
-success_symbol = "[>](bold green)"
-error_symbol = "[>](bold red)"
+format = "$symbol "
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
 
 [directory]
 truncation_length = 0
 truncate_to_repo = true
+format = "[](fg:#394260)[ 󰉋 $path$read_only ]($style)[](fg:#394260) "
+style = "bold fg:#c0caf5 bg:#394260"
 
 [git_branch]
-format = "[$symbol$branch(:$remote_branch)]($style) "
+format = "[ $symbol$branch(:$remote_branch)]($style)"
+symbol = " "
+style = "bold fg:#c4b5fd bg:#3b315e"
 
 [git_status]
-format = '([\[$all_status$ahead_behind\]]($style) )'
+format = '([ $all_status$ahead_behind]($style))'
+style = "bold fg:#f5a97f bg:#3b315e"
+conflicted = "≠"
+ahead = "↑"
+behind = "↓"
+diverged = "↕"
+up_to_date = ""
+untracked = "?"
+stashed = "$"
+modified = "•"
+staged = "+"
+renamed = "→"
+deleted = "×"
+typechanged = "~"
 
 [git_state]
-format = '\([$state( $progress_current/$progress_total)]($style)\) '
-style = "dimmed yellow"
+format = "[ $state( $progress_current/$progress_total)]($style)"
+style = "bold fg:#eed49f bg:#3b315e"
 
 [status]
 disabled = false
