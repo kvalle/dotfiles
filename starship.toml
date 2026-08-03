@@ -3,6 +3,7 @@
 
 # Timeout for commands (ms)
 command_timeout = 1000
+palette = "catppuccin_macchiato"
 
 # Newline between prompt lines
 add_newline = true
@@ -10,7 +11,7 @@ add_newline = true
 # Prompt format
 format = """
 $directory\
-([](fg:#3b315e)$git_branch$git_status$git_state[ ](bg:#3b315e)[](fg:#3b315e) )\
+([░▒▓](fg:maroon bg:teal)$git_branch$git_status$git_state[ ](bg:maroon)[](fg:maroon) )\
 $python\
 $java\
 $nodejs\
@@ -29,23 +30,25 @@ right_format = "$battery"
 
 [character]
 format = "$symbol "
-success_symbol = "[❯](bold green)"
-error_symbol = "[❯](bold red)"
+success_symbol = "[❯](bold teal)"
+error_symbol = "[❯](bold maroon)"
 
 [directory]
 truncation_length = 0
 truncate_to_repo = true
-format = "[](fg:#394260)[ 󰉋 $path$read_only ]($style)[](fg:#394260) "
-style = "bold fg:#c0caf5 bg:#394260"
+format = "[](fg:teal)[ 󰉋 $path$read_only ]($style)[](fg:teal) "
+repo_root_format = "[](fg:teal)[ 󰉋 $before_root_path$repo_root$path$read_only ]($style)"
+style = "bold fg:crust bg:teal"
+repo_root_style = "bold fg:crust bg:teal"
 
 [git_branch]
 format = "[ $symbol$branch(:$remote_branch)]($style)"
 symbol = " "
-style = "bold fg:#c4b5fd bg:#3b315e"
+style = "bold fg:crust bg:maroon"
 
 [git_status]
 format = '([ $all_status$ahead_behind]($style))'
-style = "bold fg:#f5a97f bg:#3b315e"
+style = "bold fg:crust bg:maroon"
 conflicted = "≠"
 ahead = "↑"
 behind = "↓"
@@ -61,7 +64,7 @@ typechanged = "~"
 
 [git_state]
 format = "[ $state( $progress_current/$progress_total)]($style)"
-style = "bold fg:#eed49f bg:#3b315e"
+style = "bold fg:mantle bg:maroon"
 
 [status]
 disabled = false
@@ -72,7 +75,7 @@ style = "dimmed red"
 [hostname]
 ssh_only = true
 format = "[@$hostname]($style) "
-style = "dimmed yellow"
+style = "dimmed lavender"
 
 [shlvl]
 disabled = false
@@ -100,17 +103,23 @@ style = "dimmed red"
 [python]
 format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 symbol = " "
+style = "dimmed peach"
 
 [java]
 format = '[${symbol}(${version} )]($style)'
 symbol = " "
+style = "dimmed peach"
 
 [nodejs]
-format = '[${symbol}(${version} )]($style)'
+format = '[${symbol}(${version})]($style)([ \(!= $engines_version\)](dimmed red)) '
 symbol = "󰎙 "
+style = "dimmed peach"
+not_capable_style = "dimmed peach"
 
 [kotlin]
 symbol = " "
+style = "dimmed peach"
+format = '[${symbol}(${version} )]($style)'
 
 [kubernetes]
 disabled = true
@@ -119,3 +128,31 @@ format = '[$symbol$context( \($namespace\))]($style) '
 [azure]
 disabled = true
 format = '[$symbol($subscription)]($style) '
+
+[palettes.catppuccin_macchiato]
+rosewater = "#f4dbd6"
+flamingo = "#f0c6c6"
+pink = "#f5bde6"
+mauve = "#c6a0f6"
+red = "#ed8796"
+maroon = "#ee99a0"
+peach = "#f5a97f"
+yellow = "#eed49f"
+green = "#a6da95"
+teal = "#8bd5ca"
+sky = "#91d7e3"
+sapphire = "#7dc4e4"
+blue = "#8aadf4"
+lavender = "#b7bdf8"
+text = "#cad3f5"
+subtext1 = "#b8c0e0"
+subtext0 = "#a5adcb"
+overlay2 = "#939ab7"
+overlay1 = "#8087a2"
+overlay0 = "#6e738d"
+surface2 = "#5b6078"
+surface1 = "#494d64"
+surface0 = "#363a4f"
+base = "#24273a"
+mantle = "#1e2030"
+crust = "#181926"
