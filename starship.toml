@@ -25,7 +25,7 @@ $cmd_duration\
 $line_break\
 $character"""
 
-right_format = "$battery$time"
+right_format = "$battery"
 
 [character]
 format = "$symbol "
@@ -89,12 +89,6 @@ style = "dimmed cyan"
 min_time = 2000
 format = "[󰔟 $duration]($style) "
 style = "dimmed yellow"
-
-[time]
-disabled = false
-time_format = "%Y-%m-%d %H:%M"
-format = "[󰥔 $time]($style)"
-style = "dimmed white"
 
 [battery]
 format = "[$symbol$percentage]($style) "
