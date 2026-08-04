@@ -13,3 +13,7 @@ heller hva brukeren må kjøre utenfor sandkassen.
 Når du kjører `npx skills` i cplt-sandkassen, bruk alltid
 `NPM_CONFIG_CACHE="$TMPDIR/npm-cache" npx skills ...`, slik at den nedlastede
 CLI-en kan kjøres fra cplt sin godkjente scratch-katalog.
+
+`.git/config` er skrivebeskyttet i cplt. Ved publisering av en feature branch,
+bruk `git push origin HEAD`, ikke `git push -u`. Senere `git push` fungerer uten
+upstream fordi global Git-konfigurasjon har `push.default = current`.

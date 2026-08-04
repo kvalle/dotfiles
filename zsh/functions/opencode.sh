@@ -17,7 +17,25 @@ _oc_launch() {
     token=$(op read 'op://Private/GitHub cplt trene token/credential') || return
     cplt_config=$(mktemp "${TMPDIR:-/tmp}/cplt-trene.XXXXXX") || return
     sed 's/^allow_api_write = false$/allow_api_write = true/' ~/dotfiles/cplt/config.toml > "$cplt_config"
-    GH_TOKEN="$token" CPLT_CONFIG="$cplt_config" cplt --allow-localhost 5037 "$@"
+    GH_TOKEN="$token" \
+      GIT_CONFIG_COUNT=3 \
+      GIT_CONFIG_KEY_0='credential.https://github.com.helper' \
+      GIT_CONFIG_VALUE_0='!f() { [ "$1" = get ] && printf "username=x-access-token\npassword=%s\n" "$GH_TOKEN"; }; f' \
+      GIT_CONFIG_KEY_1='url.https://github.com/.insteadOf' \
+      GIT_CONFIG_VALUE_1='git@github.com:' \
+      GIT_CONFIG_KEY_2='url.https://github.com/.insteadOf' \
+      GIT_CONFIG_VALUE_2='ssh://git@github.com/' \
+      CPLT_CONFIG="$cplt_config" \
+      cplt \
+        --allow-localhost 5037 \
+        --pass-env GIT_CONFIG_COUNT \
+        --pass-env GIT_CONFIG_KEY_0 \
+        --pass-env GIT_CONFIG_VALUE_0 \
+        --pass-env GIT_CONFIG_KEY_1 \
+        --pass-env GIT_CONFIG_VALUE_1 \
+        --pass-env GIT_CONFIG_KEY_2 \
+        --pass-env GIT_CONFIG_VALUE_2 \
+        "$@"
     exit_status=$?
     rm -f "$cplt_config"
     return $exit_status
