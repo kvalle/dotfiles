@@ -13,6 +13,40 @@ _c_red=$'\e[31m'
 _c_yellow=$'\e[33m'
 _c_blue=$'\e[34m'
 
+_spinner_active=false
+_search_pid=""
+_commits_file=""
+_error_file=""
+
+clear_spinner() {
+  if $_spinner_active; then
+    printf '\r\033[K' >&2
+    _spinner_active=false
+  fi
+}
+
+cleanup() {
+  clear_spinner
+  if [[ -n "$_search_pid" ]]; then
+    kill "$_search_pid" 2>/dev/null || true
+  fi
+  if [[ -n "$_commits_file" ]]; then
+    rm -f "$_commits_file"
+  fi
+  if [[ -n "$_error_file" ]]; then
+    rm -f "$_error_file"
+  fi
+}
+
+handle_signal() {
+  trap - EXIT INT TERM
+  cleanup
+  exit 130
+}
+
+trap cleanup EXIT
+trap handle_signal INT TERM
+
 print_help() {
   cat <<EOF
 ${_c_bold}git history-search${_c_reset} ${_c_dim}–${_c_reset} søk i git-historikken (pickaxe)
@@ -49,7 +83,32 @@ search="$1"
 context="${2:-0}"
 
 # Samle commits der strengen ble lagt til/fjernet
-mapfile -t commits < <(git log -S"$search" --format="%H")
+_commits_file=$(mktemp "${TMPDIR:-/tmp}/git-history-search.XXXXXX")
+_error_file=$(mktemp "${TMPDIR:-/tmp}/git-history-search.XXXXXX")
+git log -S"$search" --format="%H" >"$_commits_file" 2>"$_error_file" &
+_search_pid=$!
+
+if [[ -t 2 && "${TERM:-dumb}" != dumb ]]; then
+  frames=(⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏)
+  frame=0
+  _spinner_active=true
+  while kill -0 "$_search_pid" 2>/dev/null; do
+    printf '\r\033[K%s Søker i historikken...' "${frames[frame++ % ${#frames[@]}]}" >&2
+    sleep 0.08
+  done
+  clear_spinner
+fi
+
+if wait "$_search_pid"; then
+  _search_pid=""
+else
+  status=$?
+  _search_pid=""
+  cat "$_error_file" >&2
+  exit "$status"
+fi
+
+mapfile -t commits <"$_commits_file"
 
 if [[ ${#commits[@]} -eq 0 ]]; then
   echo "${_c_dim}Ingen treff for${_c_reset} \"$search\" ${_c_dim}i historikken.${_c_reset}" >&2
@@ -57,6 +116,7 @@ if [[ ${#commits[@]} -eq 0 ]]; then
 fi
 
 # Produser output, pipe gjennom pager
+set +e
 {
   for i in "${!commits[@]}"; do
     commit_id="${commits[$i]}"
@@ -139,3 +199,17 @@ fi
       || true
   done
 } | ${GIT_PAGER:-less -R}
+pipeline_status=("${PIPESTATUS[@]}")
+set -e
+
+producer_status=${pipeline_status[0]}
+pager_status=${pipeline_status[1]}
+
+# Å avslutte pageren tidlig lukker pipen og gir produsenten SIGPIPE (141).
+if [[ $producer_status -eq 141 && $pager_status -eq 0 ]]; then
+  exit 0
+fi
+if [[ $pager_status -ne 0 ]]; then
+  exit "$pager_status"
+fi
+exit "$producer_status"
