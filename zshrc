@@ -35,3 +35,11 @@ source ~/dotfiles/zsh/plugins.sh
 
 # Prompt (must be last)
 eval "$(starship init zsh)"
+
+# Preserve the TAB widget installed by shell integrations, then wrap it.
+_tab_widget=${${(z)"$(bindkey -M emacs '^I')"}[2]}
+if [[ $_tab_widget != _complete_parent_path ]]; then
+  typeset -g _complete_parent_path_fallback=$_tab_widget
+fi
+unset _tab_widget
+bindkey -M emacs '^I' _complete_parent_path
