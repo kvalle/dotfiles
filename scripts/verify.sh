@@ -110,7 +110,33 @@ while IFS= read -r line; do
 done < <(grep '\[verify' "$DOTFILES/Brewfile" | grep -v '^\s*#')
 
 # --------------------------------------------------------------------------
-# 3. Zsh-plugins (fra Brewfile [verify zsh-plugin]-annotasjoner)
+# 3. Nix
+# --------------------------------------------------------------------------
+
+header "Nix"
+
+NIX_PROFILE="$HOME/.local/state/nix/profiles/dotfiles"
+NIX_COMMANDS="$NIX_PROFILE/share/dotfiles/nix-commands"
+if ! command -v nix &>/dev/null; then
+  fail "nix (ikke i PATH)"
+elif [ ! -f "$NIX_COMMANDS" ]; then
+  fail "dotfiles-profil (kommandomanifest mangler)"
+else
+  while IFS= read -r cmd; do
+    [ -n "$cmd" ] || continue
+    expected="$NIX_PROFILE/bin/$cmd"
+    if [ ! -x "$expected" ]; then
+      fail "$cmd (mangler i Nix-profilen)"
+    elif [ "$(command -v "$cmd")" != "$expected" ]; then
+      fail "$cmd (Nix-profilen er ikke først i PATH)"
+    else
+      pass "$cmd"
+    fi
+  done < "$NIX_COMMANDS"
+fi
+
+# --------------------------------------------------------------------------
+# 4. Zsh-plugins (fra Brewfile [verify zsh-plugin]-annotasjoner)
 # --------------------------------------------------------------------------
 
 header "Zsh plugins"
@@ -130,7 +156,7 @@ while IFS= read -r line; do
 done < <(grep '\[verify zsh-plugin\]' "$DOTFILES/Brewfile" | grep -v '^\s*#')
 
 # --------------------------------------------------------------------------
-# 4. Zsh-moduler
+# 5. Zsh-moduler
 # --------------------------------------------------------------------------
 
 header "Zsh modules"
@@ -153,7 +179,7 @@ else
 fi
 
 # --------------------------------------------------------------------------
-# 5. Secrets
+# 6. Secrets
 # --------------------------------------------------------------------------
 
 header "Secrets"
@@ -176,7 +202,7 @@ else
 fi
 
 # --------------------------------------------------------------------------
-# 6. Agent skills
+# 7. Agent skills
 # --------------------------------------------------------------------------
 
 header "Agent skills"

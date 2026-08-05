@@ -151,6 +151,22 @@ info "Rydder gamle versjoner..."
 brew cleanup --prune=30
 
 # --------------------------------------------------------------------------
+# Nix
+# --------------------------------------------------------------------------
+
+info "Oppdaterer Nix-pakker..."
+if command -v nix &>/dev/null; then
+  if nix flake update --flake "$DOTFILES_DIR/nix" && \
+     "$DOTFILES_DIR/scripts/nix-profile-activate.sh"; then
+    success "Nix-pakker oppdatert."
+  else
+    warn "Nix-oppdateringen feilet; forrige profilgenerasjon er fortsatt tilgjengelig"
+  fi
+else
+  warn "Nix ikke tilgjengelig, hopper over Nix-pakker"
+fi
+
+# --------------------------------------------------------------------------
 # Git submoduler
 # --------------------------------------------------------------------------
 

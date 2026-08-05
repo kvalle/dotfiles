@@ -57,8 +57,6 @@ brew "bfg"                         # Fjerne sensitiv data fra git-historikk
 
 brew "ack"                         # Søk i kildekode (raskere enn grep)
 brew "eza"                         # [verify] Moderne erstatning for ls
-brew "fd"                          # [verify] Raskere alternativ til find
-brew "tree"                        # Vis mappestruktur som tre
 brew "superfile"                   # Terminal-filbehandler
 brew "peco"                        # Interaktiv filtrering
 brew "cloc"                        # Tell kodelinjer per språk
@@ -76,7 +74,6 @@ brew "yt-dlp"                      # Last ned video fra YouTube m.fl.
 # JSON, YAML og databehandling
 # ------------------------------------------------------------------------------
 
-brew "jq"                          # JSON-prosessering i terminal
 brew "yq"                          # YAML-prosessering (som jq for YAML)
 brew "yamllint"                    # YAML-linter
 brew "jsonnet"                     # Templating-språk for JSON/YAML

@@ -3,6 +3,7 @@
 set -euo pipefail
 
 DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+FLAKE="$DOTFILES/nix"
 PROFILE="${NIX_DOTFILES_PROFILE:-$HOME/.local/state/nix/profiles/dotfiles}"
 
 if ! command -v nix >/dev/null 2>&1; then
@@ -18,7 +19,7 @@ fi
 mkdir -p "$(dirname "$PROFILE")"
 
 # Opprett låsefilen første gang, men ikke oppdater en eksisterende lås.
-nix flake lock "$DOTFILES"
+nix flake lock "$FLAKE"
 
 if [[ -e "$PROFILE" || -L "$PROFILE" ]]; then
   nix profile upgrade --all \
@@ -26,9 +27,8 @@ if [[ -e "$PROFILE" || -L "$PROFILE" ]]; then
 else
   nix profile add \
     --profile "$PROFILE" \
-    "path:$DOTFILES"
+    "path:$FLAKE"
 fi
 
 echo "Aktiv profil: $PROFILE"
-"$PROFILE/bin/bat" --version
 echo "Rollback: nix profile rollback --profile $PROFILE"
