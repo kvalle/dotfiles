@@ -25,7 +25,8 @@ while IFS= read -r source; do
     fi
   done < <(grep -v '^#' "$SKILLS_FILE" | grep -v '^$')
   echo "  Installing ${#skills[@]} skill(s) from $source"
-  npx skills add "$source" --skill "${skills[@]}" --copy -g -y
+  NPM_CONFIG_CACHE="$TMPDIR/npm-cache" \
+    npx --yes skills add "$source" --skill "${skills[@]}" --copy -g -y
 done < <(
   awk -F '\t' '!/^#/ && NF == 2 { print $1 }' "$SKILLS_FILE" | LC_ALL=C sort -u
 )

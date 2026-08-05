@@ -201,7 +201,7 @@ success "jenv shims oppdatert."
 
 info "Oppdaterer agent skills..."
 if command -v npx &>/dev/null; then
-  if npx skills update -g -y; then
+  if NPM_CONFIG_CACHE="$TMPDIR/npm-cache" npx --yes skills update -g -y; then
     "$DOTFILES_DIR/scripts/skills-manifest.sh" --write || \
       warn "Kunne ikke oppdatere skills-manifestet"
   else
