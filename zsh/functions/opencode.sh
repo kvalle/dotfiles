@@ -94,6 +94,7 @@ _oc_require_fzf() {
 _oc_worktree() {
   local branch="$1"
   local repo_root=$(git rev-parse --show-toplevel 2>/dev/null)
+  local worktree_created=false
 
   if [[ -z "$repo_root" ]]; then
     echo "Ikke inne i et git-repo."
@@ -178,9 +179,20 @@ _oc_worktree() {
     read -q "?Gå dit og start opencode? [y/N] " || { echo; return 0; }
     echo
   elif git show-ref --verify --quiet "refs/heads/$branch" 2>/dev/null; then
-    git worktree add "$worktree_dir" "$branch"
+    git worktree add "$worktree_dir" "$branch" || return 1
+    worktree_created=true
   else
-    git worktree add "$worktree_dir" -b "$branch"
+    git worktree add "$worktree_dir" -b "$branch" || return 1
+    worktree_created=true
+  fi
+
+  if [[ "$worktree_created" == true && -f "$worktree_dir/.envrc" ]] && command -v direnv &>/dev/null; then
+    if [[ -f "$main_root/.envrc" ]] && cmp -s "$main_root/.envrc" "$worktree_dir/.envrc"; then
+      direnv allow "$worktree_dir/.envrc" || return 1
+    else
+      echo "Worktree-et har en ny eller endret .envrc. Kjør 'direnv allow' der før opencode startes."
+      return 1
+    fi
   fi
 
   cd "$worktree_dir" || { echo "Kunne ikke gå til: $worktree_dir"; return 1; }
