@@ -24,12 +24,11 @@ if [[ -e "$PROFILE" || -L "$PROFILE" ]]; then
   nix profile upgrade --all \
     --profile "$PROFILE"
 else
-  nix profile install \
+  nix profile add \
     --profile "$PROFILE" \
     "path:$DOTFILES"
 fi
 
 echo "Aktiv profil: $PROFILE"
 "$PROFILE/bin/bat" --version
-echo "Legg $PROFILE/bin foran Homebrew i PATH for å bruke Nix-pakkene."
 echo "Rollback: nix profile rollback --profile $PROFILE"

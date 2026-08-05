@@ -21,6 +21,7 @@ export PATH="/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+export PATH="$HOME/.local/state/nix/profiles/dotfiles/bin:$PATH"
 
 # ---------------------------------------------------------------------------
 # Android

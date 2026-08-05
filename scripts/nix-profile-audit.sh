@@ -29,8 +29,13 @@ fi
 
 echo ""
 echo "Overlappende kommandoer"
-if [[ ! -d "$DEFAULT_PROFILE/bin" || ! -d "$DOTFILES_PROFILE/bin" ]]; then
-  echo "  Kan ikke sammenligne før begge profilene har en bin-katalog."
+if [[ ! -d "$DEFAULT_PROFILE/bin" ]]; then
+  echo "  Ingen standardprofil å sammenligne med."
+  exit 0
+fi
+
+if [[ ! -d "$DOTFILES_PROFILE/bin" ]]; then
+  echo "  Ingen dotfiles-profil å sammenligne med."
   exit 0
 fi
 

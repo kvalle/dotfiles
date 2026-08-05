@@ -39,7 +39,7 @@ Nix må være installert før profilen kan aktiveres.
 
 Scriptet bruker den låste `nixpkgs`-revisjonen i `flake.lock` når låsefilen
 finnes, og oppretter låsefilen ved første kjøring. En eksisterende lås
-oppdateres ikke. Profilen aktiveres ikke automatisk i `PATH` ennå. Test
+oppdateres ikke. Dotfiles-profilen ligger foran Homebrew i `PATH`. Test
 Nix-utgaven direkte med:
 
 ```sh

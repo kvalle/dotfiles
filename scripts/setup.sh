@@ -6,6 +6,7 @@ cd "$(dirname "$0")"
 git -C ~/dotfiles submodule init && git -C ~/dotfiles submodule update
 
 setup/homebrew.sh
+setup/nix.sh
 setup/rectangle.sh
 setup/nvm.sh
 setup/fzf.sh

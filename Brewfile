@@ -56,7 +56,6 @@ brew "bfg"                         # Fjerne sensitiv data fra git-historikk
 # ------------------------------------------------------------------------------
 
 brew "ack"                         # Søk i kildekode (raskere enn grep)
-brew "bat"                         # [verify] cat med syntaksutheving
 brew "eza"                         # [verify] Moderne erstatning for ls
 brew "fd"                          # [verify] Raskere alternativ til find
 brew "tree"                        # Vis mappestruktur som tre
