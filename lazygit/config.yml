@@ -2,7 +2,6 @@ promptToReturnFromSubprocess: false
 gui:
   nerdFontsVersion: "3"
   switchTabsWithPanelJumpKeys: true
-
   # === Catppuccin Macchiato ===
   theme:
     activeBorderColor:
@@ -32,9 +31,8 @@ gui:
       - '#cad3f5'
   authorColors:
     '*': '#b7bdf8'
-
 git:
   overrideGpg: true
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: delta --dark --paging=never
+      command: delta --dark --paging=never
