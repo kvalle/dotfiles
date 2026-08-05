@@ -27,6 +27,31 @@ som kjøres til slutt. Dette krever at du er logget inn i `op` på forhånd.
 Oppdaterer Homebrew-pakker, git submoduler, tldr-sider, jenv-shims og
 agent skills.
 
+## Nix-prøve
+
+Repoet har en avgrenset Nix-prøve for Apple Silicon. Foreløpig installeres kun
+`bat` i en dedikert profil, mens Homebrew-installasjonen beholdes som fallback.
+Nix må være installert før profilen kan aktiveres.
+
+```sh
+~/dotfiles/scripts/nix-profile-activate.sh
+```
+
+Scriptet bruker den låste `nixpkgs`-revisjonen i `flake.lock` når låsefilen
+finnes, og oppretter låsefilen ved første kjøring. En eksisterende lås
+oppdateres ikke. Profilen aktiveres ikke automatisk i `PATH` ennå. Test
+Nix-utgaven direkte med:
+
+```sh
+~/.local/state/nix/profiles/dotfiles/bin/bat --version
+```
+
+Se pakker i standard- og dotfiles-profilen, samt overlappende kommandoer:
+
+```sh
+~/dotfiles/scripts/nix-profile-audit.sh
+```
+
 ## Dokumentasjon
 
 - [Sjekkliste for ny maskin](docs/ny-maskin.md)
@@ -42,4 +67,5 @@ agent skills.
 | `docs/`      | Sjekklister og referansemateriale        |
 | `ai/`        | Konfigurasjon og manifest for AI-agenter |
 | `Brewfile`   | Deklarativ pakkeliste for Homebrew       |
+| `flake.nix`  | Deklarativ pakkeliste for Nix-prøven     |
 | `<tool>/`    | Konfigurasjon for det aktuelle verktøyet |
