@@ -4,25 +4,25 @@ Kartleggingen gjelder Apple Silicon og `nixpkgs-unstable`. Nix er primær
 pakkekilde for CLI-verktøy, mens Homebrew beholdes der det gir bedre macOS-
 integrasjon eller pakken ikke finnes i nixpkgs.
 
+## Migrert
+
+Følgende pakker håndteres nå av `nix/flake.nix`:
+
+- Shell og terminal: `atuin`, `direnv`, `starship`, `tmux`, `neovim`,
+  `carapace`.
+- Git: `git`, `gh`, `lazygit`, `git-delta`, `bfg`.
+- Filverktøy: `ack`, `bat`, `eza`, `fd`, `tree`, `cloc`, `dust`, `peco`.
+- Nettverk: `curl`, `wget`, `yt-dlp`.
+- Data: `jq`, `yq`, `yamllint`, `jsonnet`.
+- Diverse: `btop`, `glow`, `pastel`, `tealdeer`.
+
 ## Trivielt å flytte
 
 | Homebrew | Nix-attributt | Verifiseringskommando |
 | --- | --- | --- |
 | `bash` | `pkgs.bash` | `bash` |
-| `atuin` | `pkgs.atuin` | `atuin` |
-| `direnv` | `pkgs.direnv` | `direnv` |
-| `starship` | `pkgs.starship` | `starship` |
-| `tmux` | `pkgs.tmux` | `tmux` |
-| `neovim` | `pkgs.neovim` | `nvim` |
-| `carapace` | `pkgs.carapace` | `carapace` |
 | `tuxedo` | `pkgs.tuxedo` | `tuxedo` |
-| `git` | `pkgs.git` | `git` |
-| `gh` | `pkgs.gh` | `gh` |
-| `bfg` | `pkgs.bfg-repo-cleaner` | `bfg` |
-| `ack` | `pkgs.ack` | `ack` |
 | `superfile` | `pkgs.superfile` | `superfile` |
-| `peco` | `pkgs.peco` | `peco` |
-| `curl` | `pkgs.curl` | `curl` |
 | `go` | `pkgs.go` | `go` |
 | `gradle` | `pkgs.gradle` | `gradle` |
 | `maven` | `pkgs.maven` | `mvn` |
@@ -37,8 +37,9 @@ integrasjon eller pakken ikke finnes i nixpkgs.
 | `watch` | `pkgs.unixtools.watch` | `watch` |
 | `cmatrix` | `pkgs.cmatrix` | `cmatrix` |
 
-Foreslått neste chunk: `atuin`, `direnv`, `starship`, `tmux`, `neovim`,
-`carapace`, `git`, `gh`, `bfg`, `ack`, `peco` og `curl`.
+Foreslått neste chunk: `tuxedo`, `superfile`, `awscli`, `kubelogin`,
+`kubernetes-cli`, `kubectx`, `helm`, `exiftool`, `macchina`, `watch` og
+`cmatrix`.
 
 ## Krever særskilt testing
 

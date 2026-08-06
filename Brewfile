@@ -26,15 +26,9 @@ tap "webstonehq/tap"
 # ------------------------------------------------------------------------------
 
 brew "bash"                        # Nyere bash enn macOS sin innebygde
-brew "atuin"                       # [verify] Shell-historikk med søk og synkronisering
-brew "direnv"                      # [verify] Per-katalog miljøvariabler
 brew "fzf"                         # [verify] Fuzzy finder for terminal
-brew "starship"                    # [verify] Kryssplattform shell-prompt
-brew "tmux"                        # [verify] Terminal multiplexer
-brew "neovim"                      # Terminalbasert teksteditor
 brew "thefuck"                     # [verify] Korrigerer forrige kommando
 brew "zoxide"                      # [verify] Smartere cd – husker mest brukte mapper
-brew "carapace"                    # [verify] Multi-shell completions for 800+ commands
 brew "zsh-autosuggestions"         # [verify zsh-plugin] Autoforslag i zsh
 brew "zsh-syntax-highlighting"     # [verify zsh-plugin] Syntaksutheving i zsh
 brew "webstonehq/tap/tuxedo"       # Tastaturdriven terminal-UI for todo.txt
@@ -45,23 +39,17 @@ cask "kitty"                       # Alternativ terminal m/ innebygd bilde-paste
 # Git og versjonskontroll
 # ------------------------------------------------------------------------------
 
-brew "git"                         # [verify] Versjonskontroll
-brew "gh"                          # [verify] GitHub CLI
-brew "bfg"                         # Fjerne sensitiv data fra git-historikk
 
 # ------------------------------------------------------------------------------
 # Filverktøy og søk
 # ------------------------------------------------------------------------------
 
-brew "ack"                         # Søk i kildekode (raskere enn grep)
 brew "superfile"                   # Terminal-filbehandler
-brew "peco"                        # Interaktiv filtrering
 
 # ------------------------------------------------------------------------------
 # Nedlasting og nettverksverktøy
 # ------------------------------------------------------------------------------
 
-brew "curl"                        # HTTP-klient
 
 # ------------------------------------------------------------------------------
 # JSON, YAML og databehandling
