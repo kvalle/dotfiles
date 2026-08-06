@@ -24,8 +24,7 @@ _update_terminal_appearance() {
   if [[ $appearance == light ]]; then
     starship_config="$HOME/dotfiles/starship/starship-light.toml"
     lazygit_config+=",$HOME/dotfiles/lazygit/themes/everforest-contrast.yml"
-    # Replaced with the custom Everforest syntax theme in Ticket 4.
-    bat_theme='Monokai Extended Light'
+    bat_theme='Everforest Contrast'
     delta_features='everforest-contrast'
     fzf_colors='bg+:#e4e8bd,bg:#fffbef,spinner:#c65f18,hl:#b83f3d,fg:#3d4c4f,header:#b83f3d,info:#aa4d8e,pointer:#c65f18,marker:#657a00,fg+:#3d4c4f,prompt:#2c7198,hl+:#b83f3d'
   fi

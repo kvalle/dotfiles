@@ -29,7 +29,3 @@ gui:
       - "#3d4c4f"
   authorColors:
     '*': "#526164"
-git:
-  diffRenderers:
-    - colorArg: always
-      command: delta --light --syntax-theme='Monokai Extended Light' --plus-style='syntax #e4e8bd' --plus-emph-style='syntax bold #e4e8bd' --minus-style='syntax #f8d4ca' --minus-emph-style='syntax bold #f8d4ca' --paging=never

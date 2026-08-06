@@ -33,6 +33,6 @@ gui:
     '*': '#b7bdf8'
 git:
   overrideGpg: true
-  diffRenderers:
+  pagers:
     - colorArg: always
-      command: delta --dark --paging=never
+      pager: delta --paging=never

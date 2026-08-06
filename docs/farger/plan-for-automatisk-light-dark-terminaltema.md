@@ -61,11 +61,12 @@ prompten og fullskjerms-TUI-er.
 - LazyGit slår sammen felles konfigurasjon med
   `lazygit/themes/everforest-contrast.yml` i light mode.
 - Everforest Contrast har tydeligere tekst, rammer og markerte linjer.
-- Delta bruker `--light` og lyse, palettilpassede diffbakgrunner i light mode.
-- Syntaksutheving i Delta bruker foreløpig `Monokai Extended Light`, ikke et
-  ekte Everforest-syntakstema.
+- Delta bruker light-featuren og lyse, palettilpassede diffbakgrunner i light
+  mode. Bat og Delta deler det repo-eide `Everforest Contrast`-syntakstemaet.
 - LazyGit ble testet uten wrapper; Kitty-paletten var identisk før og etter.
   Wrapperen og Kitty remote control ble derfor fjernet.
+- Delta bruker navngitte features i begge moduser, og LazyGit arver
+  `DELTA_FEATURES` uten å duplisere argumentene.
 
 ### fzf
 
@@ -91,8 +92,6 @@ prompten og fullskjerms-TUI-er.
 
 ## Nåværende avvik
 
-- Bat bruker midlertidig `Monokai Extended Light` i light mode frem til det
-  egne Everforest-syntakstemaet i Ticket 4 er på plass.
 - `eza/theme.yml` består av faste Catppuccin Macchiato-farger.
 - btop og Superfile bruker faste Catppuccin Macchiato-temaer.
 - OpenCode bruker nå custom-temaet `everforest-macchiato`; både `system` og det
@@ -252,6 +251,8 @@ bare dersom upstream-integrasjonen krever en lokal endring.
 - Ikke-fargerelaterte fzf-flagg er uendret.
 
 ## Ticket 4: Samordne Bat, Delta og LazyGit-diff
+
+**Status:** Implementert og manuelt verifisert.
 
 **Mål:** Bruke samme syntakspalett og diffsemantikk i Bat, Git/Delta og
 LazyGit.

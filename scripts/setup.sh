@@ -14,6 +14,7 @@ setup/nvm.sh
 setup/fzf.sh
 setup/macos.sh
 setup/symlinks.sh
+setup/bat.sh
 setup/skills.sh
 setup/secrets.sh
 

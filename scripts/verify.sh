@@ -136,7 +136,23 @@ else
 fi
 
 # --------------------------------------------------------------------------
-# 4. Zsh-plugins (fra Brewfile [verify zsh-plugin]-annotasjoner)
+# 4. Bat theme cache
+# --------------------------------------------------------------------------
+
+header "Bat theme cache"
+
+bat_themes=$(bat --list-themes 2>/dev/null)
+for theme in 'Everforest Contrast' 'Catppuccin Macchiato'; do
+  if grep -qx "$theme" <<< "$bat_themes"; then
+    pass "$theme"
+  else
+    fail "$theme (kjør: bat cache --build)"
+  fi
+done
+unset bat_themes
+
+# --------------------------------------------------------------------------
+# 5. Zsh-plugins (fra Brewfile [verify zsh-plugin]-annotasjoner)
 # --------------------------------------------------------------------------
 
 header "Zsh plugins"
@@ -156,7 +172,7 @@ while IFS= read -r line; do
 done < <(grep '\[verify zsh-plugin\]' "$DOTFILES/Brewfile" | grep -v '^\s*#')
 
 # --------------------------------------------------------------------------
-# 5. Zsh-moduler
+# 6. Zsh-moduler
 # --------------------------------------------------------------------------
 
 header "Zsh modules"
@@ -179,7 +195,7 @@ else
 fi
 
 # --------------------------------------------------------------------------
-# 6. Secrets
+# 7. Secrets
 # --------------------------------------------------------------------------
 
 header "Secrets"
@@ -202,7 +218,7 @@ else
 fi
 
 # --------------------------------------------------------------------------
-# 7. Agent skills
+# 8. Agent skills
 # --------------------------------------------------------------------------
 
 header "Agent skills"

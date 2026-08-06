@@ -43,6 +43,7 @@ The source of truth for symlinks is `symlinks.conf`.
 | `ai/opencode/INSTRUCTIONS.md` | `~/.config/opencode/INSTRUCTIONS.md` |
 | `ai/opencode/themes/` | `~/.config/opencode/themes` |
 | `tealdeer/` | `~/.config/tealdeer` |
+| `bat/` | `~/.config/bat` |
 | `tuxedo/` | `~/.config/tuxedo` |
 | `superfile/config.toml` | `~/Library/Application Support/superfile/config.toml` |
 | `superfile/hotkeys.toml` | `~/Library/Application Support/superfile/hotkeys.toml` |
