@@ -67,6 +67,15 @@ prompten og fullskjerms-TUI-er.
 - LazyGit ble testet uten wrapper; Kitty-paletten var identisk før og etter.
   Wrapperen og Kitty remote control ble derfor fjernet.
 
+### fzf
+
+- `FZF_DEFAULT_OPTS` beholder felles layoutflagg og får en komplett
+  modusavhengig mapping for bakgrunn, tekst, treff, spinner, header, info,
+  pointer, marker og prompt.
+- Ctrl-T, Alt-C, OpenCode- og Digipost-velgerne arver grunnpaletten.
+- `fzf-git.sh` beholdes urørt; ANSI-labels og underline-attributter kombineres
+  med den sentrale paletten uten å erstatte den.
+
 ### Dokumentasjon
 
 - Palettsider finnes for Catppuccin Macchiato og Everforest Light Hard
@@ -213,6 +222,8 @@ programmer startes.
 - Ingen terminal peker til Catppuccin Latte eller et utgått light-tema.
 
 ## Ticket 3: Gjør fzf appearance-bevisst
+
+**Status:** Implementert, avventer manuell visuell verifikasjon.
 
 **Mål:** Gi alle fzf-flater Everforest Contrast i light og Macchiato i dark.
 
