@@ -8,10 +8,33 @@
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
       managedPackages = [
-        { package = pkgs.bat; verify-command = "bat"; }
-        { package = pkgs.fd; verify-command = "fd"; }
-        { package = pkgs.jq; verify-command = "jq"; }
-        { package = pkgs.tree; verify-command = "tree"; }
+        # Git og versjonskontroll
+        { package = pkgs.lazygit; verify-command = "lazygit"; } # Terminal-UI for Git
+        { package = pkgs.delta; verify-command = "delta"; } # Penere Git-diff
+
+        # Filverktøy og søk
+        { package = pkgs.bat; verify-command = "bat"; } # cat med syntaksutheving
+        { package = pkgs.eza; verify-command = "eza"; } # Moderne ls
+        { package = pkgs.fd; verify-command = "fd"; } # Moderne find
+        { package = pkgs.tree; verify-command = "tree"; } # Vis mappestruktur som tre
+        { package = pkgs.cloc; verify-command = "cloc"; } # Tell kodelinjer per språk
+        { package = pkgs.dust; verify-command = "dust"; } # Visuell diskbruk
+
+        # Nedlasting og nettverksverktøy
+        { package = pkgs.wget; verify-command = "wget"; } # Last ned filer
+        { package = pkgs.yt-dlp; verify-command = "yt-dlp"; } # Last ned video
+
+        # JSON, YAML og databehandling
+        { package = pkgs.jq; verify-command = "jq"; } # JSON-prosessering
+        { package = pkgs.yq-go; verify-command = "yq"; } # YAML-prosessering
+        { package = pkgs.yamllint; verify-command = "yamllint"; } # YAML-linter
+        { package = pkgs.jsonnet; verify-command = "jsonnet"; } # Templating for JSON/YAML
+
+        # Diverse CLI-verktøy
+        { package = pkgs.btop; verify-command = "btop"; } # Ressursmonitor
+        { package = pkgs.glow; verify-command = "glow"; } # Vis Markdown i terminalen
+        { package = pkgs.pastel; verify-command = "pastel"; } # Fargeverktøy
+        { package = pkgs.tealdeer; verify-command = "tldr"; } # Forenklede man-sider
       ];
       commandManifest = pkgs.writeTextDir "share/dotfiles/nix-commands" (
         nixpkgs.lib.concatStringsSep "\n" (map (item: item.verify-command) managedPackages) + "\n"

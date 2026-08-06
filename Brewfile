@@ -47,8 +47,6 @@ cask "kitty"                       # Alternativ terminal m/ innebygd bilde-paste
 
 brew "git"                         # [verify] Versjonskontroll
 brew "gh"                          # [verify] GitHub CLI
-brew "lazygit"                     # [verify] Terminal-UI for git
-brew "git-delta"                   # [verify cmd:delta] Penere git-diff (syntax-highlighting pager)
 brew "bfg"                         # Fjerne sensitiv data fra git-historikk
 
 # ------------------------------------------------------------------------------
@@ -56,27 +54,19 @@ brew "bfg"                         # Fjerne sensitiv data fra git-historikk
 # ------------------------------------------------------------------------------
 
 brew "ack"                         # Søk i kildekode (raskere enn grep)
-brew "eza"                         # [verify] Moderne erstatning for ls
 brew "superfile"                   # Terminal-filbehandler
 brew "peco"                        # Interaktiv filtrering
-brew "cloc"                        # Tell kodelinjer per språk
-brew "dust"                        # Visuell diskbruk (moderne du)
 
 # ------------------------------------------------------------------------------
 # Nedlasting og nettverksverktøy
 # ------------------------------------------------------------------------------
 
 brew "curl"                        # HTTP-klient
-brew "wget"                        # Nedlasting fra nett
-brew "yt-dlp"                      # Last ned video fra YouTube m.fl.
 
 # ------------------------------------------------------------------------------
 # JSON, YAML og databehandling
 # ------------------------------------------------------------------------------
 
-brew "yq"                          # YAML-prosessering (som jq for YAML)
-brew "yamllint"                    # YAML-linter
-brew "jsonnet"                     # Templating-språk for JSON/YAML
 
 # ------------------------------------------------------------------------------
 # Programmeringsspråk og runtime
@@ -145,11 +135,7 @@ cask "android-studio"              # Android IDE
 
 brew "coreutils"                   # GNU core utilities for macOS
 brew "exiftool"                    # Les/skriv EXIF-metadata i bilder
-brew "btop"                        # Avansert ressursmonitor (CPU, minne, disk, nett)
-brew "glow"                        # Vis Markdown formatert i terminalen
 brew "macchina"                    # Systeminformasjon i terminalen
-brew "pastel"                      # Fargeverktøy for terminalen
-brew "tealdeer"                    # [verify cmd:tldr] Forenklet man-sider (tldr)
 brew "terminal-notifier"           # macOS-varsler fra terminal
 brew "watch"                       # Kjør kommando gjentatte ganger
 brew "cmatrix"                     # Matrix-animasjon i terminalen
