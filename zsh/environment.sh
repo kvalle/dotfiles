@@ -3,7 +3,6 @@
 # ---------------------------------------------------------------------------
 export TZ='Europe/Oslo'
 export EDITOR='vim'
-export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
 export TEALDEER_CONFIG_DIR="$HOME/.config/tealdeer"
 export BAT_THEME="Catppuccin Macchiato"
 export EZA_CONFIG_DIR="$HOME/.config/eza"

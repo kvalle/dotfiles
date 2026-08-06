@@ -24,6 +24,7 @@ source ~/dotfiles/zsh/tools.sh
 
 # Colors (shared ANSI variables used by functions below)
 source ~/dotfiles/zsh/colors.sh
+source ~/dotfiles/zsh/appearance.sh
 
 # Custom functions
 for f in ~/dotfiles/zsh/functions/*.sh; do

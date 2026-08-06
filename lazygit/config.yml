@@ -2,7 +2,7 @@ promptToReturnFromSubprocess: false
 gui:
   nerdFontsVersion: "3"
   switchTabsWithPanelJumpKeys: true
-  # === Catppuccin Macchiato ===
+  # Catppuccin Macchiato is the dark-mode base. Light-mode files override it.
   theme:
     activeBorderColor:
       - '#8aadf4'

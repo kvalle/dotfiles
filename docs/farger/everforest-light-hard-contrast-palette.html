@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Everforest Light Hard Contrast Palette</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      background: #f2efdf;
+      color: #3d4c4f;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: clamp(24px, 5vw, 64px);
+      background: #f2efdf;
+    }
+
+    header { margin-bottom: 32px; }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(24px, 4vw, 42px);
+    }
+
+    p {
+      margin: 0;
+      color: #68766d;
+    }
+
+    a { color: #2c7198; }
+
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+    }
+
+    .swatch {
+      min-height: 150px;
+      padding: 18px;
+      border: 1px solid rgb(61 76 79 / 14%);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      color: var(--label);
+      background: var(--color);
+      box-shadow: 0 12px 30px rgb(61 76 79 / 12%);
+      cursor: pointer;
+      outline: 3px solid transparent;
+      outline-offset: 3px;
+      transition: outline-color 120ms ease, transform 120ms ease;
+    }
+
+    .swatch:hover,
+    .swatch:focus-visible {
+      outline-color: #2c7198;
+      transform: translateY(-3px);
+    }
+
+    .swatch.copied { outline-color: #657a00; }
+
+    .name {
+      font-size: 17px;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+
+    .hex {
+      margin-top: 5px;
+      font-size: 13px;
+      opacity: 0.75;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Everforest Light Hard Contrast</h1>
+    <p>The same semantic palette as Everforest Light Hard, with stronger foreground contrast.</p>
+    <p>Locally derived from <a href="https://github.com/sainnhe/everforest/blob/master/palette.md">Everforest's official Light Hard palette</a>, with darker foreground and accent colors for slightly higher contrast.</p>
+  </header>
+
+  <main>
+    <div class="swatch" style="--color:#b83f3d;--label:#fffbef"><span class="name">red</span><span class="hex">#b83f3d</span></div>
+    <div class="swatch" style="--color:#c65f18;--label:#fffbef"><span class="name">orange</span><span class="hex">#c65f18</span></div>
+    <div class="swatch" style="--color:#a87700;--label:#fffbef"><span class="name">yellow</span><span class="hex">#a87700</span></div>
+    <div class="swatch" style="--color:#657a00;--label:#fffbef"><span class="name">green</span><span class="hex">#657a00</span></div>
+    <div class="swatch" style="--color:#287f60;--label:#fffbef"><span class="name">aqua</span><span class="hex">#287f60</span></div>
+    <div class="swatch" style="--color:#2c7198;--label:#fffbef"><span class="name">blue</span><span class="hex">#2c7198</span></div>
+    <div class="swatch" style="--color:#aa4d8e;--label:#fffbef"><span class="name">purple</span><span class="hex">#aa4d8e</span></div>
+    <div class="swatch" style="--color:#3d4c4f;--label:#fffbef"><span class="name">foreground</span><span class="hex">#3d4c4f</span></div>
+    <div class="swatch" style="--color:#9ca694;--label:#3d4c4f"><span class="name">grey 0</span><span class="hex">#9ca694</span></div>
+    <div class="swatch" style="--color:#68766d;--label:#fffbef"><span class="name">grey 1</span><span class="hex">#68766d</span></div>
+    <div class="swatch" style="--color:#526164;--label:#fffbef"><span class="name">grey 2</span><span class="hex">#526164</span></div>
+    <div class="swatch" style="--color:#657a00;--label:#fffbef"><span class="name">statusline 1</span><span class="hex">#657a00</span></div>
+    <div class="swatch" style="--color:#526164;--label:#fffbef"><span class="name">statusline 2</span><span class="hex">#526164</span></div>
+    <div class="swatch" style="--color:#c94f4c;--label:#fffbef"><span class="name">statusline 3</span><span class="hex">#c94f4c</span></div>
+    <div class="swatch" style="--color:#f2efdf;--label:#3d4c4f"><span class="name">background dim</span><span class="hex">#f2efdf</span></div>
+    <div class="swatch" style="--color:#fffbef;--label:#3d4c4f"><span class="name">background 0</span><span class="hex">#fffbef</span></div>
+    <div class="swatch" style="--color:#f8f5e4;--label:#3d4c4f"><span class="name">background 1</span><span class="hex">#f8f5e4</span></div>
+    <div class="swatch" style="--color:#f2efdf;--label:#3d4c4f"><span class="name">background 2</span><span class="hex">#f2efdf</span></div>
+    <div class="swatch" style="--color:#edeada;--label:#3d4c4f"><span class="name">background 3</span><span class="hex">#edeada</span></div>
+    <div class="swatch" style="--color:#e8e5d5;--label:#3d4c4f"><span class="name">background 4</span><span class="hex">#e8e5d5</span></div>
+    <div class="swatch" style="--color:#bec5b2;--label:#3d4c4f"><span class="name">background 5</span><span class="hex">#bec5b2</span></div>
+    <div class="swatch" style="--color:#e4e8bd;--label:#3d4c4f"><span class="name">background visual</span><span class="hex">#e4e8bd</span></div>
+    <div class="swatch" style="--color:#f8d4ca;--label:#3d4c4f"><span class="name">background red</span><span class="hex">#f8d4ca</span></div>
+    <div class="swatch" style="--color:#f6e6bd;--label:#3d4c4f"><span class="name">background yellow</span><span class="hex">#f6e6bd</span></div>
+    <div class="swatch" style="--color:#e4e8bd;--label:#3d4c4f"><span class="name">background green</span><span class="hex">#e4e8bd</span></div>
+    <div class="swatch" style="--color:#d8e7df;--label:#3d4c4f"><span class="name">background blue</span><span class="hex">#d8e7df</span></div>
+    <div class="swatch" style="--color:#f2dce7;--label:#3d4c4f"><span class="name">background purple</span><span class="hex">#f2dce7</span></div>
+  </main>
+  <script>
+    async function copyHex(swatch) {
+      const hex = swatch.querySelector(".hex").textContent;
+      try {
+        await navigator.clipboard.writeText(hex);
+      } catch {
+        const input = document.createElement("textarea");
+        input.value = hex;
+        document.body.append(input);
+        input.select();
+        document.execCommand("copy");
+        input.remove();
+      }
+      swatch.classList.add("copied");
+      swatch.querySelector(".hex").textContent = "Copied " + hex;
+      setTimeout(() => {
+        swatch.classList.remove("copied");
+        swatch.querySelector(".hex").textContent = hex;
+      }, 900);
+    }
+
+    document.querySelectorAll(".swatch").forEach((swatch) => {
+      swatch.tabIndex = 0;
+      swatch.setAttribute("role", "button");
+      swatch.addEventListener("click", () => copyHex(swatch));
+      swatch.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          copyHex(swatch);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

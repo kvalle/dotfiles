@@ -1,0 +1,35 @@
+gui:
+  theme:
+    activeBorderColor:
+      - "#287f60"
+      - bold
+    inactiveBorderColor:
+      - "#68766d"
+    searchingActiveBorderColor:
+      - "#c65f18"
+      - bold
+    optionsTextColor:
+      - "#2c7198"
+    selectedLineBgColor:
+      - "#e4e8bd"
+    inactiveViewSelectedLineBgColor:
+      - "#f2efdf"
+      - bold
+    cherryPickedCommitFgColor:
+      - "#2c7198"
+    cherryPickedCommitBgColor:
+      - "#d8e7df"
+    markedBaseCommitFgColor:
+      - "#a87700"
+    markedBaseCommitBgColor:
+      - "#f6e6bd"
+    unstagedChangesColor:
+      - "#b83f3d"
+    defaultFgColor:
+      - "#3d4c4f"
+  authorColors:
+    '*': "#526164"
+git:
+  diffRenderers:
+    - colorArg: always
+      command: delta --light --syntax-theme='Monokai Extended Light' --plus-style='syntax #e4e8bd' --plus-emph-style='syntax bold #e4e8bd' --minus-style='syntax #f8d4ca' --minus-emph-style='syntax bold #f8d4ca' --paging=never

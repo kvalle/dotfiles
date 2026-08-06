@@ -1,0 +1,141 @@
+# Starship prompt configuration for Everforest Contrast light mode
+# Docs: https://starship.rs/config/
+
+command_timeout = 1000
+palette = "everforest_contrast"
+add_newline = true
+
+format = """
+$directory\
+([░▒▓](fg:maroon_surface bg:teal_surface)$git_branch$git_status$git_state[ ](bg:maroon_surface)[](fg:maroon_surface) )\
+$python\
+$java\
+$nodejs\
+$kotlin\
+$kubernetes\
+$azure\
+$hostname\
+$shlvl\
+$jobs\
+$status\
+$cmd_duration\
+$line_break\
+$character"""
+
+right_format = "$battery"
+
+[character]
+format = "$symbol "
+success_symbol = "[❯](bold teal)"
+error_symbol = "[❯](bold maroon)"
+
+[directory]
+truncation_length = 0
+truncate_to_repo = true
+format = "[](fg:teal_surface)[ 󰉋 $path$read_only ]($style)[](fg:teal_surface) "
+repo_root_format = "[](fg:teal_surface)[ 󰉋 $before_root_path$repo_root$path$read_only ]($style)"
+style = "bold fg:teal bg:teal_surface"
+repo_root_style = "bold fg:teal bg:teal_surface"
+
+[git_branch]
+format = "[ $symbol$branch(:$remote_branch)]($style)"
+symbol = " "
+style = "bold fg:maroon bg:maroon_surface"
+
+[git_status]
+format = '([ $all_status$ahead_behind]($style))'
+style = "bold fg:red bg:maroon_surface"
+conflicted = "≠"
+ahead = "↑"
+behind = "↓"
+diverged = "↕"
+up_to_date = ""
+untracked = "?"
+stashed = '\$'
+modified = "•"
+staged = "+"
+renamed = "→"
+deleted = "×"
+typechanged = "~"
+
+[git_state]
+format = "[ $state( $progress_current/$progress_total)]($style)"
+style = "bold fg:maroon bg:maroon_surface"
+
+[status]
+disabled = false
+format = "[$symbol$status]($style) "
+symbol = "󰅙 "
+style = "red"
+
+[hostname]
+ssh_only = true
+format = "[@$hostname]($style) "
+style = "lavender"
+
+[shlvl]
+disabled = false
+threshold = 3
+format = "[󰆍↳]($style) "
+style = "cyan"
+
+[jobs]
+format = "[&·$number]($style) "
+number_threshold = 1
+style = "cyan"
+
+[cmd_duration]
+min_time = 2000
+format = "[󰔟 $duration]($style) "
+style = "yellow"
+
+[battery]
+format = "[$symbol$percentage]($style) "
+
+[[battery.display]]
+threshold = 40
+style = "red"
+
+[python]
+format = '[${symbol}(${version} )(\($virtualenv\) )]($style)'
+symbol = " "
+style = "peach"
+
+[java]
+format = '[${symbol}(${version} )]($style)'
+symbol = " "
+style = "peach"
+
+[nodejs]
+format = '[${symbol}(${version})]($style)([ \(!= $engines_version\)](red)) '
+symbol = "󰎙 "
+style = "peach"
+not_capable_style = "peach"
+
+[kotlin]
+symbol = " "
+style = "peach"
+format = '[${symbol}(${version} )]($style)'
+
+[kubernetes]
+disabled = true
+format = '[$symbol$context( \($namespace\))]($style) '
+
+[azure]
+disabled = true
+format = '[$symbol($subscription)]($style) '
+
+[palettes.everforest_contrast]
+red = "#b83f3d"
+maroon = "#c94f4c"
+peach = "#c65f18"
+yellow = "#a87700"
+green = "#657a00"
+teal = "#287f60"
+cyan = "#2c7198"
+blue = "#2c7198"
+lavender = "#aa4d8e"
+crust = "#3d4c4f"
+mantle = "#526164"
+teal_surface = "#e4e8bd"
+maroon_surface = "#f8d4ca"

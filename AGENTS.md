@@ -32,7 +32,7 @@ The source of truth for symlinks is `symlinks.conf`.
 | `git/` | `~/.config/git` |
 | `python/pythonrc.py` | `~/.config/python/pythonrc.py` |
 | `ghci/ghci.conf` | `~/.config/ghci/ghci.conf` |
-| `starship.toml` | `~/.config/starship.toml` |
+| `starship/starship.toml` | `~/.config/starship.toml` |
 | `lazygit/` | `~/.config/lazygit` |
 | `ghostty/` | `~/.config/ghostty` |
 | `kitty/` | `~/.config/kitty` |
@@ -41,6 +41,7 @@ The source of truth for symlinks is `symlinks.conf`.
 | `ai/opencode/opencode.jsonc` | `~/.config/opencode/opencode.jsonc` |
 | `ai/opencode/tui.jsonc` | `~/.config/opencode/tui.jsonc` |
 | `ai/opencode/INSTRUCTIONS.md` | `~/.config/opencode/INSTRUCTIONS.md` |
+| `ai/opencode/themes/` | `~/.config/opencode/themes` |
 | `tealdeer/` | `~/.config/tealdeer` |
 | `tuxedo/` | `~/.config/tuxedo` |
 | `superfile/config.toml` | `~/Library/Application Support/superfile/config.toml` |

@@ -32,6 +32,8 @@
       color: #a5adcb;
     }
 
+    a { color: #8aadf4; }
+
     main {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -49,7 +51,19 @@
       color: var(--label);
       background: var(--color);
       box-shadow: 0 12px 30px rgb(0 0 0 / 18%);
+      cursor: pointer;
+      outline: 3px solid transparent;
+      outline-offset: 3px;
+      transition: outline-color 120ms ease, transform 120ms ease;
     }
+
+    .swatch:hover,
+    .swatch:focus-visible {
+      outline-color: #8aadf4;
+      transform: translateY(-3px);
+    }
+
+    .swatch.copied { outline-color: #a6da95; }
 
     .name {
       font-size: 17px;
@@ -69,6 +83,7 @@
   <header>
     <h1>Catppuccin Macchiato</h1>
     <p>Named colors used by the terminal and Starship palette.</p>
+    <p>Source: <a href="https://catppuccin.com/palette/">Catppuccin's official palette documentation</a>.</p>
   </header>
 
   <main>
@@ -99,5 +114,38 @@
     <div class="swatch" style="--color:#1e2030;--label:#cad3f5"><span class="name">mantle</span><span class="hex">#1e2030</span></div>
     <div class="swatch" style="--color:#181926;--label:#cad3f5"><span class="name">crust</span><span class="hex">#181926</span></div>
   </main>
+  <script>
+    async function copyHex(swatch) {
+      const hex = swatch.querySelector(".hex").textContent;
+      try {
+        await navigator.clipboard.writeText(hex);
+      } catch {
+        const input = document.createElement("textarea");
+        input.value = hex;
+        document.body.append(input);
+        input.select();
+        document.execCommand("copy");
+        input.remove();
+      }
+      swatch.classList.add("copied");
+      swatch.querySelector(".hex").textContent = "Copied " + hex;
+      setTimeout(() => {
+        swatch.classList.remove("copied");
+        swatch.querySelector(".hex").textContent = hex;
+      }, 900);
+    }
+
+    document.querySelectorAll(".swatch").forEach((swatch) => {
+      swatch.tabIndex = 0;
+      swatch.setAttribute("role", "button");
+      swatch.addEventListener("click", () => copyHex(swatch));
+      swatch.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          copyHex(swatch);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
