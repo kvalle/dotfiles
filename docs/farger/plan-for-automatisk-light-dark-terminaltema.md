@@ -77,6 +77,15 @@ prompten og fullskjerms-TUI-er.
 - `fzf-git.sh` beholdes urørt; ANSI-labels og underline-attributter kombineres
   med den sentrale paletten uten å erstatte den.
 
+### eza og shellfarger
+
+- eza bruker ett repo-eid ANSI-tema som arver aktiv palett fra Kitty og
+  Ghostty, uten modusspesifikke configfiler eller wrappers.
+- Temaet dekker filtyper, permissions, størrelser, brukere, lenker, Git-status,
+  security context, metadata og ødelagte symlinker.
+- `LS_COLORS` bruker samme ANSI-mapping for Zsh-completion, mens hjelpetekst
+  fortsatt bruker de felles ANSI-variablene i `zsh/colors.sh`.
+
 ### Dokumentasjon
 
 - Palettsider finnes for Catppuccin Macchiato og Everforest Light Hard
@@ -92,7 +101,6 @@ prompten og fullskjerms-TUI-er.
 
 ## Nåværende avvik
 
-- `eza/theme.yml` består av faste Catppuccin Macchiato-farger.
 - btop og Superfile bruker faste Catppuccin Macchiato-temaer.
 - OpenCode bruker nå custom-temaet `everforest-macchiato`; både `system` og det
   innebygde Everforest-temaet ble forkastet etter visuell testing.
@@ -291,6 +299,8 @@ LazyGit.
 - Bat-cache kan bygges fra dokumentert kommando på en ny maskin.
 
 ## Ticket 5: Gjør eza og shellfargene portable
+
+**Status:** Implementert, avventer manuell visuell verifikasjon i light og dark.
 
 **Mål:** Fjerne faste Macchiato-hexverdier fra filvisning og sikre lesbare
 shellfarger i begge moduser.

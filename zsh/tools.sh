@@ -16,13 +16,13 @@ source "$_thefuck_cache"
 unset _thefuck_cache
 
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 typeset -g FZF_BASE_OPTS='--height 40% --layout=reverse --border'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'fzf-preview.sh {}'"
 export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always --level=2 --icons {} | head -200'"
+source <(fzf --zsh)
 source ~/dotfiles/fzf-git.sh/fzf-git.sh
 
 # atuin

@@ -1,101 +1,105 @@
+# Use the terminal's ANSI palette so the same theme follows light and dark mode.
 colourful: true
 
 filekinds:
-  normal: {foreground: "#cad3f5"}
-  directory: {foreground: "#8aadf4"}
-  symlink: {foreground: "#8aadf4"}
-  pipe: {foreground: "#b8c0e0"}
-  block_device: {foreground: "#ee99a0"}
-  char_device: {foreground: "#ee99a0"}
-  socket: {foreground: "#b8c0e0"}
-  special: {foreground: "#c6a0f6"}
-  executable: {foreground: "#a6da95"}
-  mount_point: {foreground: "#8bd5ca"}
+  normal: {foreground: Default}
+  directory: {foreground: Blue, is_bold: true}
+  symlink: {foreground: Cyan}
+  pipe: {foreground: DarkGray}
+  block_device: {foreground: Red}
+  char_device: {foreground: Red}
+  socket: {foreground: Purple}
+  special: {foreground: Purple}
+  executable: {foreground: Green, is_bold: true}
+  mount_point: {foreground: Cyan, is_underline: true}
 
 perms:
-  user_read: {foreground: "#ed8796", is_bold: true}
-  user_write: {foreground: "#eed49f", is_bold: true}
-  user_execute_file: {foreground: "#a6da95", is_bold: true}
-  user_execute_other: {foreground: "#a6da95", is_bold: true}
-  group_read: {foreground: "#ed8796"}
-  group_write: {foreground: "#eed49f"}
-  group_execute: {foreground: "#a6da95"}
-  other_read: {foreground: "#ed8796"}
-  other_write: {foreground: "#eed49f"}
-  other_execute: {foreground: "#a6da95"}
-  special_user_file: {foreground: "#c6a0f6"}
-  special_other: {foreground: "#8087a2"}
-  attribute: {foreground: "#939ab7"}
+  user_read: {foreground: Red, is_bold: true}
+  user_write: {foreground: Yellow, is_bold: true}
+  user_execute_file: {foreground: Green, is_bold: true}
+  user_execute_other: {foreground: Green, is_bold: true}
+  group_read: {foreground: Red}
+  group_write: {foreground: Yellow}
+  group_execute: {foreground: Green}
+  other_read: {foreground: Red}
+  other_write: {foreground: Yellow}
+  other_execute: {foreground: Green}
+  special_user_file: {foreground: Purple}
+  special_other: {foreground: DarkGray}
+  attribute: {foreground: DarkGray}
 
 size:
-  major: {foreground: "#a5adcb"}
-  minor: {foreground: "#91d7e3"}
-  number_byte: {foreground: "#b8c0e0"}
-  number_kilo: {foreground: "#a5adcb"}
-  number_mega: {foreground: "#8aadf4"}
-  number_giga: {foreground: "#c6a0f6"}
-  number_huge: {foreground: "#c6a0f6"}
-  unit_byte: {foreground: "#a5adcb"}
-  unit_kilo: {foreground: "#91d7e3"}
-  unit_mega: {foreground: "#c6a0f6"}
-  unit_giga: {foreground: "#c6a0f6"}
-  unit_huge: {foreground: "#8bd5ca"}
+  major: {foreground: DarkGray}
+  minor: {foreground: Cyan}
+  number_byte: {foreground: Default}
+  number_kilo: {foreground: DarkGray}
+  number_mega: {foreground: Blue}
+  number_giga: {foreground: Purple}
+  number_huge: {foreground: Purple, is_bold: true}
+  unit_byte: {foreground: DarkGray}
+  unit_kilo: {foreground: Cyan}
+  unit_mega: {foreground: Purple}
+  unit_giga: {foreground: Purple}
+  unit_huge: {foreground: Cyan}
 
 users:
-  user_you: {foreground: "#cad3f5"}
-  user_root: {foreground: "#ed8796"}
-  user_other: {foreground: "#ee99a0"}
-  group_yours: {foreground: "#a5adcb"}
-  group_other: {foreground: "#939ab7"}
-  group_root: {foreground: "#ed8796"}
+  user_you: {foreground: Default}
+  user_root: {foreground: Red, is_bold: true}
+  user_other: {foreground: Red}
+  group_yours: {foreground: DarkGray}
+  group_other: {foreground: DarkGray, is_dimmed: true}
+  group_root: {foreground: Red}
 
 links:
-  normal: {foreground: "#8aadf4"}
-  multi_link_file: {foreground: "#8aadf4"}
+  normal: {foreground: Blue}
+  multi_link_file: {foreground: Blue, is_bold: true}
 
 git:
-  new: {foreground: "#a6da95"}
-  modified: {foreground: "#eed49f"}
-  deleted: {foreground: "#ee99a0"}
-  renamed: {foreground: "#8bd5ca"}
-  typechange: {foreground: "#f5bde6"}
-  ignored: {foreground: "#8087a2"}
-  conflicted: {foreground: "#f5a97f"}
+  new: {foreground: Green}
+  modified: {foreground: Yellow}
+  deleted: {foreground: Red}
+  renamed: {foreground: Cyan}
+  typechange: {foreground: Purple}
+  ignored: {foreground: DarkGray, is_dimmed: true}
+  conflicted: {foreground: Red, is_bold: true}
 
 git_repo:
-  branch_main: {foreground: "#a5adcb"}
-  branch_other: {foreground: "#c6a0f6"}
-  git_clean: {foreground: "#a6da95"}
-  git_dirty: {foreground: "#ee99a0"}
+  branch_main: {foreground: DarkGray}
+  branch_other: {foreground: Purple}
+  git_clean: {foreground: Green}
+  git_dirty: {foreground: Red}
 
 security_context:
-  colon: {foreground: "#6e738d"}
-  user: {foreground: "#8087a2"}
-  role: {foreground: "#c6a0f6"}
-  typ: {foreground: "#5b6078"}
-  range: {foreground: "#c6a0f6"}
+  none: {foreground: DarkGray}
+  selinux:
+    colon: {foreground: DarkGray, is_dimmed: true}
+    user: {foreground: DarkGray}
+    role: {foreground: Purple}
+    typ: {foreground: Blue}
+    range: {foreground: Purple}
 
 file_type:
-  image: {foreground: "#eed49f"}
-  video: {foreground: "#ed8796"}
-  music: {foreground: "#a6da95"}
-  lossless: {foreground: "#8bd5ca"}
-  crypto: {foreground: "#8087a2"}
-  document: {foreground: "#cad3f5"}
-  compressed: {foreground: "#f5bde6"}
-  temp: {foreground: "#ee99a0"}
-  compiled: {foreground: "#7dc4e4"}
-  source: {foreground: "#8aadf4"}
+  image: {foreground: Yellow}
+  video: {foreground: Red}
+  music: {foreground: Green}
+  lossless: {foreground: Cyan}
+  crypto: {foreground: DarkGray}
+  document: {foreground: Default}
+  compressed: {foreground: Purple}
+  temp: {foreground: Red, is_dimmed: true}
+  compiled: {foreground: Cyan}
+  build: {foreground: Yellow, is_underline: true}
+  source: {foreground: Blue}
 
-punctuation: {foreground: "#6e738d"}
-date: {foreground: "#eed49f"}
-inode: {foreground: "#a5adcb"}
-blocks: {foreground: "#6e738d"}
-header: {foreground: "#cad3f5"}
-octal: {foreground: "#8bd5ca"}
-flags: {foreground: "#c6a0f6"}
+punctuation: {foreground: DarkGray, is_dimmed: true}
+date: {foreground: Yellow}
+inode: {foreground: DarkGray}
+blocks: {foreground: DarkGray, is_dimmed: true}
+header: {foreground: Default, is_bold: true, is_underline: true}
+octal: {foreground: Cyan}
+flags: {foreground: Purple}
 
-symlink_path: {foreground: "#91d7e3"}
-control_char: {foreground: "#7dc4e4"}
-broken_symlink: {foreground: "#ed8796"}
-broken_path_overlay: {foreground: "#5b6078"}
+symlink_path: {foreground: Cyan}
+control_char: {foreground: Blue}
+broken_symlink: {foreground: Red, is_bold: true}
+broken_path_overlay: {is_underline: true}

@@ -3,13 +3,8 @@ set -e
 
 echo "Starting configuring fzf"
 
-if test $(which fzf); then
-  if [ -f ~/.fzf.zsh ]; then
-    echo "fzf already set up"
-  else
-    echo "setting up fzf"
-    $(brew --prefix)/opt/fzf/install
-  fi
+if command -v fzf >/dev/null; then
+  echo "fzf uses its built-in zsh integration"
 else
   echo "fzf not installed, please install it first"
 fi

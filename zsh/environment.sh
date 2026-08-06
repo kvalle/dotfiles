@@ -5,6 +5,8 @@ export TZ='Europe/Oslo'
 export EDITOR='vim'
 export TEALDEER_CONFIG_DIR="$HOME/.config/tealdeer"
 export EZA_CONFIG_DIR="$HOME/.config/eza"
+# Keep completion and eza file kinds on the terminal's active ANSI palette.
+export LS_COLORS='fi=0:di=34;1:ln=36:pi=90:so=35:bd=31:cd=31:ex=32;1:or=31;1'
 export TODO_DIR="$HOME/.todos"
 export TODO_FILE="$TODO_DIR/todo.txt"
 export DONE_FILE="$TODO_DIR/done.txt"
