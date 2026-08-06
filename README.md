@@ -12,8 +12,9 @@ git clone https://github.com/kjetil/dotfiles.git ~/dotfiles
 ~/dotfiles/scripts/setup.sh
 ```
 
-Dette installerer Homebrew og pakker fra `Brewfile`, setter opp nvm og
-fzf, konfigurerer macOS-defaults, og oppretter symlinker.
+Dette installerer Determinate Nix og pakker fra `nix/`, installerer gjenværende
+pakker og apper fra `Brewfile`, setter opp utviklingsverktøy, konfigurerer
+macOS-defaults og oppretter symlinker.
 
 Secrets hentes fra 1Password CLI (`op`) via `scripts/setup/secrets.sh`,
 som kjøres til slutt. Dette krever at du er logget inn i `op` på forhånd.
@@ -27,24 +28,18 @@ som kjøres til slutt. Dette krever at du er logget inn i `op` på forhånd.
 Oppdaterer Homebrew- og Nix-pakker, git submoduler, tldr-sider, jenv-shims og
 agent skills.
 
-## Nix-prøve
+## Nix
 
-Repoet har en avgrenset Nix-prøve for Apple Silicon. Foreløpig installeres kun
-`bat` i en dedikert profil, mens Homebrew-installasjonen beholdes som fallback.
-Nix må være installert før profilen kan aktiveres.
-
-```sh
-~/dotfiles/scripts/nix-profile-activate.sh
-```
-
-Scriptet bruker den låste `nixpkgs`-revisjonen i `nix/flake.lock` når låsefilen
-finnes, og oppretter låsefilen ved første kjøring. En eksisterende lås
-oppdateres ikke. Dotfiles-profilen ligger foran Homebrew i `PATH`. Test
-Nix-utgaven direkte med:
+Nix er primær pakkekilde for CLI-verktøy på Apple Silicon. Pakker migreres
+gradvis fra Homebrew; Homebrew beholdes for pakker og macOS-apper som ikke er
+hensiktsmessige å håndtere med Nix.
 
 ```sh
-~/.local/state/nix/profiles/dotfiles/bin/bat --version
+~/dotfiles/scripts/nix-apply.sh
 ```
+
+Scriptet aktiverer pakkene fra den låste `nixpkgs`-revisjonen i
+`nix/flake.lock`. Dotfiles-profilen ligger foran Homebrew i `PATH`.
 
 Se pakker i standard- og dotfiles-profilen, samt overlappende kommandoer:
 

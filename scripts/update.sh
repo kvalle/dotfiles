@@ -157,7 +157,7 @@ brew cleanup --prune=30
 info "Oppdaterer Nix-pakker..."
 if command -v nix &>/dev/null; then
   if nix flake update --flake "$DOTFILES_DIR/nix" && \
-     "$DOTFILES_DIR/scripts/nix-profile-activate.sh"; then
+     "$DOTFILES_DIR/scripts/nix-apply.sh"; then
     success "Nix-pakker oppdatert."
   else
     warn "Nix-oppdateringen feilet; forrige profilgenerasjon er fortsatt tilgjengelig"
