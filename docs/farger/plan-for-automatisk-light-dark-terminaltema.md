@@ -43,6 +43,8 @@ prompten og fullskjerms-TUI-er.
 - `kitty/light-theme.auto.conf` inkluderer Everforest Light Hard Contrast.
 - `kitty/dark-theme.auto.conf` bruker Catppuccin Macchiato.
 - Kitty følger macOS automatisk ved bytte mellom light og dark.
+- Ghostty bruker repo-eide temaer med samme foreground, background, selection,
+  cursor og ANSI 0-15 som Kitty, og velger light/dark automatisk fra macOS.
 
 ### Zsh og Starship
 
@@ -87,7 +89,6 @@ prompten og fullskjerms-TUI-er.
 - OpenCode bruker nå custom-temaet `everforest-macchiato`; både `system` og det
   innebygde Everforest-temaet ble forkastet etter visuell testing.
 - `ai/claude/settings.json` bruker eksplisitt `dark`.
-- Ghostty bruker Catppuccin Macchiato uavhengig av macOS-utseendet.
 - Atuin, Glow, Tealdeer og Tuxedo er ikke visuelt verifisert i begge moduser.
 
 ## Gjennomføringsstrategi
@@ -141,7 +142,7 @@ Catppuccin Macchiato dark mode:
 
 ## Ticket 1: Etabler felles appearance-kontrakt
 
-**Status:** Implementert.
+**Status:** Implementert og manuelt verifisert.
 
 **Mål:** Gi alle senere tickets én stabil måte å finne aktiv modus og tilhørende
 konfigurasjon på.
@@ -177,6 +178,8 @@ eventuelt `bin/macos-appearance` og denne planen.
 - `zsh -n` godkjenner alle endrede Zsh-filer.
 
 ## Ticket 2: Fullfør terminalemulatorene
+
+**Status:** Implementert og manuelt verifisert i Kitty og Ghostty.
 
 **Mål:** Sørge for at både Kitty og Ghostty gir riktig grunnpalett før øvrige
 programmer startes.

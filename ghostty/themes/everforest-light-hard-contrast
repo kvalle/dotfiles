@@ -1,0 +1,23 @@
+# Everforest Light Hard with locally adjusted contrast.
+palette = 0=#3d4c4f
+palette = 1=#c94f4c
+palette = 2=#657a00
+palette = 3=#a87700
+palette = 4=#2c7198
+palette = 5=#aa4d8e
+palette = 6=#287f60
+palette = 7=#bec5b2
+palette = 8=#68766d
+palette = 9=#b83f3d
+palette = 10=#657a00
+palette = 11=#a87700
+palette = 12=#2c7198
+palette = 13=#aa4d8e
+palette = 14=#287f60
+palette = 15=#fffbef
+background = #fffbef
+foreground = #3d4c4f
+cursor-color = #c65f18
+cursor-text = #fffbef
+selection-background = #e4e8bd
+selection-foreground = #3d4c4f
