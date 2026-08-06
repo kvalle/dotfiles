@@ -6,12 +6,12 @@
 # Homebrew (must be first — other tools depend on it)
 [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Environment, PATH, and exports
+source ~/dotfiles/zsh/environment.sh
+
 # Core shell behaviour
 source ~/dotfiles/zsh/options.sh
 source ~/dotfiles/zsh/completions.sh
-
-# Environment, PATH, and exports
-source ~/dotfiles/zsh/environment.sh
 
 # Shortcuts
 source ~/dotfiles/zsh/aliases.sh
