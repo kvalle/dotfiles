@@ -14,8 +14,9 @@ pass_env = ["GH_TOKEN"]
 # ~/.claude/skills og ~/.agents/skills — agent skills (ekte kataloger)
 # ~/.agents/.skill-lock.json — brukes til å verifisere ai/skills.txt
 # ~/Library/Application Support/tldraw — tldraw-offline skill leser server.json
+# Nix-profilen peker videre til pakker og biblioteker under /nix/store
 [allow]
-read = ["~/dotfiles/git", "~/dotfiles/ai/opencode", "~/.claude/skills", "~/.agents/skills", "~/.agents/.skill-lock.json", "~/Library/Application Support/tldraw"]
+read = ["~/dotfiles/git", "~/dotfiles/ai/opencode", "~/.claude/skills", "~/.agents/skills", "~/.agents/.skill-lock.json", "~/Library/Application Support/tldraw", "~/.local/state/nix/profiles/dotfiles", "/nix/store"]
 localhost = [7236]
 
 [proxy]
