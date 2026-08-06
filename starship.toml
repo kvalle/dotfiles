@@ -101,7 +101,7 @@ threshold = 40
 style = "dimmed red"
 
 [python]
-format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+format = '[${symbol}(${version} )(\($virtualenv\) )]($style)'
 symbol = " "
 style = "dimmed peach"
 

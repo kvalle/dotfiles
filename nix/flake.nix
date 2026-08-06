@@ -16,6 +16,10 @@
         { package = pkgs.neovim; verify-command = "nvim"; } # Teksteditor
         { package = pkgs.carapace; verify-command = "carapace"; } # Shell-completions
 
+        # Programmeringsspråk og runtime
+        { package = pkgs.python313; verify-command = "python3"; } # Standard-Python for REPL og enkle skript
+        { package = pkgs.uv; verify-command = "uv"; } # Python-versjoner, prosjektmiljøer og avhengigheter
+
         # Git og versjonskontroll
         { package = pkgs.git; verify-command = "git"; } # Versjonskontroll
         { package = pkgs.gh; verify-command = "gh"; } # GitHub CLI

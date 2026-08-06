@@ -14,6 +14,7 @@ Følgende pakker håndteres nå av `nix/flake.nix`:
 - Filverktøy: `ack`, `bat`, `eza`, `fd`, `tree`, `cloc`, `dust`, `peco`.
 - Nettverk: `curl`, `wget`, `yt-dlp`.
 - Data: `jq`, `yq`, `yamllint`, `jsonnet`.
+- Python: `python313`, `uv`.
 - Diverse: `btop`, `glow`, `pastel`, `tealdeer`.
 
 ## Trivielt å flytte
@@ -70,13 +71,15 @@ Disse krever en egen designbeslutning fremfor mekanisk flytting:
 | `ruby` | Repoet har hardkodede `/opt/homebrew/opt/ruby`-stier. |
 | `ghc` | Stor closure; prosjektverktøy bør testes. |
 | `kotlin` | Må ses sammen med valgt JDK. |
-| `pyenv` | Finnes, men installerer mutable Python-versjoner utenfor Nix. |
-| `pyenv-virtualenv` | Ikke godt dekket i nixpkgs. |
 | `tfenv` | Mutable Terraform-versjoner motarbeider Nix-modellen. |
 | `jenv` | Ikke godt tilgjengelig; repoet har omfattende integrasjon. |
 | `sdkman-cli` | Installerer mutable SDK-er og er en dårlig Nix-match. |
 | `readline` | Bibliotek som bør komme transitivt, ikke som brukerpakke. |
 | Temurin 8-25 | Registreres ikke automatisk med `java_home` eller jenv. |
+
+Python følger en pragmatisk modell: Nix leverer `python313` for REPL og enkle
+skript, samt `uv` som håndterer prosjektspesifikke Python-versjoner, virtuelle
+miljøer og avhengigheter. `pyenv` og `pyenv-virtualenv` er derfor fjernet.
 
 ## Behold Homebrew
 

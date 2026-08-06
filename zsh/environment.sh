@@ -20,7 +20,6 @@ export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 export PATH="/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 export PATH="$HOME/.local/state/nix/profiles/dotfiles/bin:$PATH"
 
 # ---------------------------------------------------------------------------
@@ -33,7 +32,6 @@ export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
 # Python
 # ---------------------------------------------------------------------------
 export PYTHONSTARTUP=~/.config/python/pythonrc.py
-export WORKON_HOME=~/pyenvs
 
 # ---------------------------------------------------------------------------
 # Ruby

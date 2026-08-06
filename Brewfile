@@ -71,8 +71,6 @@ brew "readline"                    # Bibliotek for linjeredigering (avhengighet)
 # Versjonshåndtering for språk/verktøy
 # ------------------------------------------------------------------------------
 
-brew "pyenv"                       # [verify] Python-versjonshåndtering
-brew "pyenv-virtualenv"            # Virtualenv-plugin for pyenv
 brew "jenv"                        # [verify] Java-versjonshåndtering
 brew "tfenv"                       # Terraform-versjonshåndtering
 brew "sdkman-cli"                  # SDK-håndtering (Java, Gradle m.m.)
