@@ -47,6 +47,9 @@ prompten og fullskjerms-TUI-er.
 ### Zsh og Starship
 
 - `zsh/appearance.sh` sjekker macOS-utseendet før hvert prompt.
+- Appearance-laget eksporterer `TERMINAL_APPEARANCE` og velger sentralt
+  Starship, LazyGit, Bat, Delta og fzf. Utenfor macOS og ved feil brukes light
+  uten gjentatte feilmeldinger.
 - Dark mode bruker `starship/starship.toml` med Catppuccin Macchiato.
 - Light mode bruker `starship/starship-light.toml` med Everforest
   Contrast-paletten.
@@ -69,13 +72,16 @@ prompten og fullskjerms-TUI-er.
 - Sidene lenker til offisielle kilder, viser komplette semantiske paletter og
   støtter klikk for å kopiere hexkoder.
 - Kontrastvarianten er dokumentert som en lokal avledning.
+- Den semantiske kontrastmappingen er foreground `#3d4c4f`, muted `#68766d`,
+  red `#b83f3d`, orange `#c65f18`, yellow `#a87700`, green `#657a00`, aqua
+  `#287f60`, blue `#2c7198` og purple `#aa4d8e`. Hovedbakgrunnen er `#fffbef`,
+  dempet bakgrunn `#f2efdf`, valgt bakgrunn `#e4e8bd`, slettet bakgrunn
+  `#f8d4ca` og informasjonsbakgrunn `#d8e7df`.
 
 ## Nåværende avvik
 
-- `zsh/environment.sh` setter fortsatt `BAT_THEME` fast til Catppuccin
-  Macchiato.
-- `zsh/tools.sh` har et fast Catppuccin Macchiato-oppsett for fzf.
-- `git/config` har faste dark-mode-verdier for Delta.
+- Bat bruker midlertidig `Monokai Extended Light` i light mode frem til det
+  egne Everforest-syntakstemaet i Ticket 4 er på plass.
 - `eza/theme.yml` består av faste Catppuccin Macchiato-farger.
 - btop og Superfile bruker faste Catppuccin Macchiato-temaer.
 - OpenCode bruker nå custom-temaet `everforest-macchiato`; både `system` og det
@@ -134,6 +140,8 @@ Catppuccin Macchiato dark mode:
 # Tickets
 
 ## Ticket 1: Etabler felles appearance-kontrakt
+
+**Status:** Implementert.
 
 **Mål:** Gi alle senere tickets én stabil måte å finne aktiv modus og tilhørende
 konfigurasjon på.

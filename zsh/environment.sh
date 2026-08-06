@@ -4,7 +4,6 @@
 export TZ='Europe/Oslo'
 export EDITOR='vim'
 export TEALDEER_CONFIG_DIR="$HOME/.config/tealdeer"
-export BAT_THEME="Catppuccin Macchiato"
 export EZA_CONFIG_DIR="$HOME/.config/eza"
 export TODO_DIR="$HOME/.todos"
 export TODO_FILE="$TODO_DIR/todo.txt"
