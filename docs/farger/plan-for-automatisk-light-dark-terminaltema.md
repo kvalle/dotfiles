@@ -100,6 +100,14 @@ prompten og fullskjerms-TUI-er.
   mode og Catppuccin Macchiato i dark mode.
 - En Zsh-funksjon velger tema ved oppstart gjennom en midlertidig kopi av den
   autoritative configen. Bat brukes som previewer og arver aktivt syntakstema.
+- Oppsettet er manuelt verifisert i både light og dark mode.
+
+### AI-TUI-er
+
+- OpenCode bruker custom-temaet `everforest-macchiato`, med komplette light- og
+  dark-varianter som følger terminalens rapporterte bakgrunn.
+- Claude Code bruker det innebygde `auto`-temaet og følger terminalens
+  rapporterte bakgrunn uten wrapper eller dupliserte settings-filer.
 
 ### Dokumentasjon
 
@@ -116,9 +124,6 @@ prompten og fullskjerms-TUI-er.
 
 ## Nåværende avvik
 
-- OpenCode bruker nå custom-temaet `everforest-macchiato`; både `system` og det
-  innebygde Everforest-temaet ble forkastet etter visuell testing.
-- `ai/claude/settings.json` bruker eksplisitt `dark`.
 - Atuin, Glow, Tealdeer og Tuxedo er ikke visuelt verifisert i begge moduser.
 
 ## Gjennomføringsstrategi
@@ -129,7 +134,8 @@ prompten og fullskjerms-TUI-er.
 - Ticket 10 samler robusthetsarbeid som først gir mening når wrappers og
   temavalg er på plass.
 - Ticket 11 undersøker konfigurasjonsdeling når alle konkrete behov er kjent.
-- Ticket 12 er ende-til-ende-godkjenning og tas sist.
+- Ticket 12 finjusterer kontrasten samlet når alle light-temaene er på plass.
+- Ticket 13 er ende-til-ende-godkjenning og tas sist.
 - Hver ticket skal etterlate verktøyet fungerende i både light og dark; det skal
   ikke merges en Everforest-endring som samtidig ødelegger Macchiato.
 - Bruk repoet som kilde for alle konfigurasjoner. Nye filer uten eksisterende
@@ -314,7 +320,7 @@ LazyGit.
 
 ## Ticket 5: Gjør eza og shellfargene portable
 
-**Status:** Implementert, avventer manuell visuell verifikasjon i light og dark.
+**Status:** Implementert og manuelt verifisert i light og dark.
 
 **Mål:** Fjerne faste Macchiato-hexverdier fra filvisning og sikre lesbare
 shellfarger i begge moduser.
@@ -415,6 +421,8 @@ Superfile-temafiler, `symlinks.conf` og en eventuell wrapper.
 - Temavalg endrer ikke hotkeys eller øvrig funksjonalitet.
 
 ## Ticket 8: Korriger OpenCode og Claude Code
+
+**Status:** Implementert og manuelt verifisert i light og dark.
 
 **Mål:** Få begge AI-TUI-ene til å følge aktivt utseende uten å påvirke
 sandbox-, tillatelses- eller agentinnstillinger.
@@ -549,11 +557,50 @@ generatorfiler eller valideringsskript.
 - Ingen genererte filer kan bli stille utdaterte uten at validering oppdager det.
 - Appearance-hooken er eneste eier av `STARSHIP_CONFIG` og `LG_CONFIG_FILE`.
 
-## Ticket 12: Ende-til-ende-verifikasjon og opprydding
+## Ticket 12: Finjuster light-kontrast for sterkt kontorlys
+
+**Mål:** Øke kontrasten litt i alle light-temaer slik at tekst, rammer og
+markeringer forblir tydelige i sterkt omgivelseslys, uten å gjøre uttrykket
+hardt eller endre dark mode.
+
+**Avhenger av:** Ticket 2 til 11.
+
+**Berørte filer:** Alle Everforest Contrast-temaer og light-spesifikke
+fargemappinger, palettdokumentasjonen og denne planen.
+
+**Arbeid:**
+
+- Test hele light-oppsettet i reelt, sterkt kontorlys og noter rollene som
+  fortsatt har for liten visuell forskjell.
+- Juster den semantiske kontrastpaletten samlet fremfor å gjøre tilfeldige
+  verktøyspesifikke avvik.
+- Prioriter vanlig tekst, muted og disabled tekst, inaktive rammer, valgte
+  linjer, diffbakgrunner, søketreff og statuslinjer.
+- Hold hovedbakgrunnen Everforest Light Hard og gjør bare små endringer i
+  foreground, aksenter eller sekundære bakgrunner.
+- Oppdater Kitty, Ghostty, Starship, fzf, Bat, Delta, LazyGit, eza, btop,
+  Superfile, OpenCode, Claude Code og øvrige light-temaer som bruker de endrede
+  rollene.
+- Kontroller at ANSI-arvende verktøy fortsatt er semantisk konsistente, og at
+  ingen dark-farger eller Macchiato-oppsett endres.
+- Oppdater palettdokumentasjonen med de endelige verdiene og begrunnelsen for
+  justeringen.
+
+**Akseptansekriterier:**
+
+- Alle light-visninger er tydelig lesbare i sterkt kontorlys.
+- Kontrastøkningen oppleves som liten og konsistent, ikke som et nytt tema.
+- Muted, disabled og inaktive elementer er fortsatt visuelt sekundære, men
+  lesbare.
+- Ingen verktøy har egne avvik fra den oppdaterte semantiske paletten uten en
+  dokumentert grunn.
+- Dark mode er visuelt og konfigurasjonsmessig uendret.
+
+## Ticket 13: Ende-til-ende-verifikasjon og opprydding
 
 **Mål:** Godkjenne hele løsningen som én sammenhengende light/dark-opplevelse.
 
-**Avhenger av:** Ticket 1 til 11.
+**Avhenger av:** Ticket 1 til 12.
 
 **Berørte filer:** Alle temafiler, denne planen og eventuell brukerdokumentasjon.
 
