@@ -9,6 +9,7 @@ format = """
 $directory\
 ([░▒▓](fg:maroon_surface bg:teal_surface)$git_branch$git_status$git_state[ ](bg:maroon_surface)[](fg:maroon_surface) )\
 $python\
+${custom.uv_python}\
 $java\
 $nodejs\
 $kotlin\
@@ -100,6 +101,47 @@ style = "red"
 format = '[${symbol}(${version} )(\($virtualenv\) )]($style)'
 symbol = " "
 style = "peach"
+
+[custom.uv_python]
+command = '''
+dir=$PWD
+git_root=$(git rev-parse --show-toplevel 2>/dev/null)
+
+while true; do
+  if [[ -f "$dir/uv.lock" ]]; then
+    uv_version=$(uv python find --project "$dir" --show-version --no-python-downloads) || exit 1
+
+    # Starship's Python module only scans the current directory. Fill in its
+    # output when an uv project was found through an ancestor directory.
+    python_module_active=false
+    [[ -n "$VIRTUAL_ENV" ]] && python_module_active=true
+    for marker in requirements.txt .python-version pyproject.toml Pipfile tox.ini setup.py __init__.py; do
+      [[ -f "$PWD/$marker" ]] && python_module_active=true
+    done
+    python_files=($PWD/*.(py|ipynb)(N))
+    (( $#python_files > 0 )) && python_module_active=true
+
+    if $python_module_active; then
+      print -r -- "(uv → $uv_version)"
+    else
+      for python_command in python python3 python2; do
+        if command -v "$python_command" >/dev/null; then
+          global_version=$($python_command --version 2>&1)
+          print -r -- " v${global_version#Python } (uv → $uv_version)"
+          break
+        fi
+      done
+    fi
+    exit
+  fi
+
+  [[ "$dir" == "$git_root" || "$dir" == / ]] && exit 1
+  dir=${dir:h}
+done
+'''
+when = true
+format = '[$output](peach) '
+shell = ["zsh", "--no-rcs"]
 
 [java]
 format = '[${symbol}(${version} )]($style)'
