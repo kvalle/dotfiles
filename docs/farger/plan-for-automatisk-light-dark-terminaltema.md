@@ -86,6 +86,14 @@ prompten og fullskjerms-TUI-er.
 - `LS_COLORS` bruker samme ANSI-mapping for Zsh-completion, mens hjelpetekst
   fortsatt bruker de felles ANSI-variablene i `zsh/colors.sh`.
 
+### btop
+
+- btop bruker komplette repo-eide temaer for Everforest Contrast i light mode
+  og Catppuccin Macchiato i dark mode.
+- En Zsh-funksjon velger tema ved oppstart gjennom en midlertidig kopi av den
+  autoritative configen. Ved avslutning skrives reelle innstillingsendringer
+  tilbake, mens temavalget normaliseres slik at det ikke lager Git-støy.
+
 ### Dokumentasjon
 
 - Palettsider finnes for Catppuccin Macchiato og Everforest Light Hard
@@ -101,7 +109,7 @@ prompten og fullskjerms-TUI-er.
 
 ## Nåværende avvik
 
-- btop og Superfile bruker faste Catppuccin Macchiato-temaer.
+- Superfile bruker et fast Catppuccin Macchiato-tema.
 - OpenCode bruker nå custom-temaet `everforest-macchiato`; både `system` og det
   innebygde Everforest-temaet ble forkastet etter visuell testing.
 - `ai/claude/settings.json` bruker eksplisitt `dark`.
@@ -334,6 +342,8 @@ shellfarger i begge moduser.
 - `eza` kan laste konfigurasjonen uten warning eller fallback.
 
 ## Ticket 6: Lag automatisk tema for btop
+
+**Status:** Implementert, avventer manuell visuell verifikasjon i light og dark.
 
 **Mål:** Starte btop med riktig fullverdig tema uten å endre brukerens øvrige
 btop-innstillinger.

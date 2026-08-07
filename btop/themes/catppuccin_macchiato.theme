@@ -81,3 +81,11 @@ theme[upload_end]="#91d7e3"
 theme[process_start]="#7dc4e4"
 theme[process_mid]="#b7bdf8"
 theme[process_end]="#c6a0f6"
+
+# Process states and banners
+theme[proc_pause_bg]="#ed8796"
+theme[proc_follow_bg]="#8aadf4"
+theme[proc_banner_bg]="#c6a0f6"
+theme[proc_banner_fg]="#24273a"
+theme[followed_bg]="#8aadf4"
+theme[followed_fg]="#24273a"

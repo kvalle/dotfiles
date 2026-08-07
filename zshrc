@@ -24,7 +24,6 @@ source ~/dotfiles/zsh/tools.sh
 
 # Colors (shared ANSI variables used by functions below)
 source ~/dotfiles/zsh/colors.sh
-source ~/dotfiles/zsh/appearance.sh
 
 # Custom functions
 for f in ~/dotfiles/zsh/functions/*.sh; do
@@ -33,6 +32,9 @@ done
 
 # Plugins (must be near end)
 source ~/dotfiles/zsh/plugins.sh
+
+# Appearance must load after plugins that define mode-dependent styles.
+source ~/dotfiles/zsh/appearance.sh
 
 # Prompt (must be last)
 eval "$(starship init zsh)"

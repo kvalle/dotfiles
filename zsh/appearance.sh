@@ -13,13 +13,14 @@ _terminal_appearance() {
 _update_terminal_appearance() {
   local appearance=$(_terminal_appearance)
 
-  [[ $TERMINAL_APPEARANCE == $appearance ]] && return
+  [[ $_terminal_appearance_applied == $appearance ]] && return
 
   local starship_config="$HOME/dotfiles/starship/starship.toml"
   local lazygit_config="$HOME/dotfiles/lazygit/config.yml"
   local bat_theme='Catppuccin Macchiato'
   local delta_features='catppuccin-macchiato'
   local fzf_colors='bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796,fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6,marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796'
+  local autosuggest_style='fg=8'
 
   if [[ $appearance == light ]]; then
     starship_config="$HOME/dotfiles/starship/starship-light.toml"
@@ -27,6 +28,7 @@ _update_terminal_appearance() {
     bat_theme='Everforest Contrast'
     delta_features='everforest-contrast'
     fzf_colors='bg+:#e4e8bd,bg:#fffbef,spinner:#c65f18,hl:#b83f3d,fg:#3d4c4f,header:#b83f3d,info:#aa4d8e,pointer:#c65f18,marker:#657a00,fg+:#3d4c4f,prompt:#2c7198,hl+:#b83f3d'
+    autosuggest_style='fg=#bec5b2'
   fi
 
   export TERMINAL_APPEARANCE=$appearance
@@ -35,6 +37,8 @@ _update_terminal_appearance() {
   export BAT_THEME=$bat_theme
   export DELTA_FEATURES=$delta_features
   export FZF_DEFAULT_OPTS="$FZF_BASE_OPTS --color=$fzf_colors"
+  typeset -g ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=$autosuggest_style
+  typeset -g _terminal_appearance_applied=$appearance
 }
 
 _update_terminal_appearance
