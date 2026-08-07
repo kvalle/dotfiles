@@ -122,6 +122,13 @@ prompten og fullskjerms-TUI-er.
   bakgrunn beholdes for å unngå å eie en komplett custom light-stil for én
   kosmetisk forskjell.
 
+### Alternate screen og live-bytte
+
+- Ingen testede TUI-er etterlot Kitty med feil palett ved manuell stikkprøve.
+- Kitty remote control forblir fjernet, og det er ikke innført generell
+  palettgjenoppretting eller nye wrappers. Eventuelle senere avvik håndteres i
+  en egen ticket.
+
 ### AI-TUI-er
 
 - OpenCode bruker custom-temaet `everforest-macchiato`, med komplette light- og
@@ -136,11 +143,14 @@ prompten og fullskjerms-TUI-er.
 - Sidene lenker til offisielle kilder, viser komplette semantiske paletter og
   støtter klikk for å kopiere hexkoder.
 - Kontrastvarianten er dokumentert som en lokal avledning.
-- Den semantiske kontrastmappingen er foreground `#3d4c4f`, muted `#68766d`,
-  red `#b83f3d`, orange `#c65f18`, yellow `#a87700`, green `#657a00`, aqua
-  `#287f60`, blue `#2c7198` og purple `#aa4d8e`. Hovedbakgrunnen er `#fffbef`,
+- Den semantiske kontrastmappingen er foreground `#3d413d`, muted `#626a5c`,
+  red `#ad3430`, orange `#b34d08`, yellow `#986500`, green `#606d00`, aqua
+  `#187252`, blue `#32618b` og purple `#9d397c`. Hovedbakgrunnen er `#fffbef`,
   dempet bakgrunn `#f2efdf`, terminalens tekstmarkering `#d8e7df`, valgte
   TUI-rader og additions `#e4e8bd`, og deletions `#f8d4ca`.
+- Den endelige kontrastjusteringen mørkner og varmer foreground, muted, ANSI og
+  aksenter svakt. Hovedbakgrunnen, de lyseste nøytrale flatene og semantiske
+  fargebakgrunner beholdes for å øke tekstkontrasten uten å gjøre temaet hardt.
 
 ## Gjennomføringsstrategi
 
@@ -511,6 +521,8 @@ Atuin-temafiler.
 
 ## Ticket 10: Herd alternate-screen og live-bytte
 
+**Status:** Implementert og manuelt stikkprøvet uten observerte avvik.
+
 **Mål:** Unngå at TUI-er etterlater terminalen med feil palett og redusere
 Kitty-spesiallogikken til minste nødvendige omfang.
 
@@ -529,6 +541,44 @@ Kitty-spesiallogikken til minste nødvendige omfang.
 - Sørg for at wrappers bevarer argumenter, exit status, signaler og vanlig
   command resolution.
 - Test avslutning både før og etter macOS-bytte mens TUI-en kjører.
+
+**Verifisert:**
+
+- Repoet inneholder ikke Kitty remote control, `set-colors` eller annen
+  Kitty-spesifikk palettgjenoppretting. LazyGit er allerede manuelt verifisert
+  uten wrapper.
+- Appearance-wrappere finnes bare for btop, Superfile og Tuxedo, der de velger
+  programtema. De bruker `command`, `"$@"`, `always`-opprydding og returnerer
+  underkommandoens lagrede exit-status. Vellykket og ugyldig CLI-kjøring er
+  kontrollert med `--help`/`--version` og `--definitely-invalid` etter å ha
+  sourcet hver wrapper i et rent `zsh -fc`-shell.
+- OpenCode-, Claude Code-, Atuin- og Glow-oppsettene har ingen
+  palettgjenoppretting som kan påvirke Ghostty eller Kitty.
+- En manuell stikkprøve i Kitty viste ingen avvik etter TUI-bruk. Hele matrisen
+  er ikke kjørt; eventuelle senere avvik håndteres i en egen ticket.
+
+**Manuell verifikasjon i Kitty:**
+
+- Kjør LazyGit, btop, Superfile, OpenCode, Claude Code, Atuin, Tuxedo og Glow i
+  både light og dark. Kontroller etter hver exit at vanlig tekst, bakgrunn og en
+  ANSI 0-15-prøve fortsatt matcher aktivt Kitty-tema. Vis prøven med:
+
+  ```zsh
+  for n in {0..15}; do
+    (( n < 8 )) && c=$((30+n)) || c=$((82+n))
+    printf '\e[%sm %2d \e[0m' $c $n
+  done
+  echo
+  ```
+
+- Gjenta for hver TUI mens macOS byttes til motsatt modus, og fremtving et nytt
+  shell-prompt før sammenligningen etter exit.
+- Avslutt wrapper-programmene btop, Superfile og Tuxedo både normalt og med
+  Ctrl-C. Kontroller exit-status med `echo $?`, at neste prompt fungerer, og at
+  ingen `btop.*`, `superfile.*` eller `tuxedo.*`-filer fra testen ligger igjen i
+  `$TMPDIR`.
+- Hvis ingen test endrer paletten, skal det ikke innføres en generell helper
+  eller ny wrapper.
 
 **Akseptansekriterier:**
 
@@ -596,6 +646,9 @@ generatorfiler eller valideringsskript.
 
 ## Ticket 12: Finjuster light-kontrast for sterkt kontorlys
 
+**Status:** Implementert og visuelt godkjent, med sterk-sollys-test utsatt til
+Ticket 13.
+
 **Mål:** Øke kontrasten litt i alle light-temaer slik at tekst, rammer og
 markeringer forblir tydelige i sterkt omgivelseslys, uten å gjøre uttrykket
 hardt eller endre dark mode.
@@ -622,6 +675,22 @@ fargemappinger, palettdokumentasjonen og denne planen.
   ingen dark-farger eller Macchiato-oppsett endres.
 - Oppdater palettdokumentasjonen med de endelige verdiene og begrunnelsen for
   justeringen.
+
+**Resultat:**
+
+- Foreground, muted, gråtoner og aksenter ble gjort moderat mørkere, varmere og
+  mer mettede. Endringen ble visuelt vurdert som en tydelig, men fortsatt liten
+  kontrastforbedring.
+- `background 0–2` og de semantiske bakgrunnene for visual, red, yellow, green,
+  blue og purple beholdt tidligere verdier. `background 3–5` fikk bare små,
+  varmere justeringer, slik at tekstkontrasten ikke spises opp av mørkere flater.
+- Alle aktive Everforest Contrast-mappinger ble oppdatert samlet. Starships
+  light-config ble regenerert, mens dark-configen ble kontrollert bit-for-bit
+  uendret. Terminalenes ANSI 0–15-paletter ble kontrollert identiske.
+- Palettsiden kan midlertidig veksle mellom forrige og gjeldende palett med én
+  knapp for rask visuell sammenligning.
+- Endelig kontroll i direkte sollys lot seg ikke gjennomføre ved godkjenningen.
+  Denne konkrete miljøtesten gjentas som del av Ticket 13.
 
 **Akseptansekriterier:**
 

@@ -8,8 +8,12 @@
     :root {
       color-scheme: light;
       font-family: "JetBrains Mono", ui-monospace, monospace;
-      background: #f2efdf;
-      color: #3d4c4f;
+      --page-bg: #f2efdf;
+      --text: #3d413d;
+      --muted: #626a5c;
+      --accent: #32618b;
+      background: var(--page-bg);
+      color: var(--text);
     }
 
     * { box-sizing: border-box; }
@@ -17,10 +21,11 @@
     body {
       margin: 0;
       padding: clamp(24px, 5vw, 64px);
-      background: #f2efdf;
+      background: var(--page-bg);
+      transition: background 160ms ease, color 160ms ease;
     }
 
-    header { margin-bottom: 32px; }
+    header { margin-bottom: 24px; }
 
     h1 {
       margin: 0 0 8px;
@@ -29,10 +34,38 @@
 
     p {
       margin: 0;
-      color: #68766d;
+      color: var(--muted);
     }
 
-    a { color: #2c7198; }
+    a { color: var(--accent); }
+
+    .controls {
+      width: fit-content;
+      margin: 24px 0 32px;
+      padding: 5px;
+      border: 1px solid rgb(61 76 79 / 18%);
+      border-radius: 12px;
+      display: flex;
+      gap: 5px;
+      background: rgb(255 251 239 / 72%);
+    }
+
+    .controls button {
+      border: 0;
+      border-radius: 8px;
+      padding: 9px 13px;
+      color: var(--muted);
+      background: transparent;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .controls button {
+      color: #fffbef;
+      background: var(--text);
+    }
 
     main {
       display: grid;
@@ -77,6 +110,7 @@
       opacity: 0.75;
       text-transform: uppercase;
     }
+
   </style>
 </head>
 <body>
@@ -86,38 +120,67 @@
     <p>Locally derived from <a href="https://github.com/sainnhe/everforest/blob/master/palette.md">Everforest's official Light Hard palette</a>, with darker foreground and accent colors for slightly higher contrast.</p>
   </header>
 
+  <div class="controls">
+    <button type="button" id="palette-toggle">Showing: Current (warmer contrast)</button>
+  </div>
+
   <main>
-    <div class="swatch" style="--color:#b83f3d;--label:#fffbef"><span class="name">red</span><span class="hex">#b83f3d</span></div>
-    <div class="swatch" style="--color:#c65f18;--label:#fffbef"><span class="name">orange</span><span class="hex">#c65f18</span></div>
-    <div class="swatch" style="--color:#a87700;--label:#fffbef"><span class="name">yellow</span><span class="hex">#a87700</span></div>
-    <div class="swatch" style="--color:#657a00;--label:#fffbef"><span class="name">green</span><span class="hex">#657a00</span></div>
-    <div class="swatch" style="--color:#287f60;--label:#fffbef"><span class="name">aqua</span><span class="hex">#287f60</span></div>
-    <div class="swatch" style="--color:#2c7198;--label:#fffbef"><span class="name">blue</span><span class="hex">#2c7198</span></div>
-    <div class="swatch" style="--color:#aa4d8e;--label:#fffbef"><span class="name">purple</span><span class="hex">#aa4d8e</span></div>
-    <div class="swatch" style="--color:#3d4c4f;--label:#fffbef"><span class="name">foreground</span><span class="hex">#3d4c4f</span></div>
-    <div class="swatch" style="--color:#9ca694;--label:#3d4c4f"><span class="name">grey 0</span><span class="hex">#9ca694</span></div>
-    <div class="swatch" style="--color:#68766d;--label:#fffbef"><span class="name">grey 1</span><span class="hex">#68766d</span></div>
-    <div class="swatch" style="--color:#526164;--label:#fffbef"><span class="name">grey 2</span><span class="hex">#526164</span></div>
-    <div class="swatch" style="--color:#657a00;--label:#fffbef"><span class="name">statusline 1</span><span class="hex">#657a00</span></div>
-    <div class="swatch" style="--color:#526164;--label:#fffbef"><span class="name">statusline 2</span><span class="hex">#526164</span></div>
-    <div class="swatch" style="--color:#c94f4c;--label:#fffbef"><span class="name">statusline 3</span><span class="hex">#c94f4c</span></div>
-    <div class="swatch" style="--color:#f2efdf;--label:#3d4c4f"><span class="name">background dim</span><span class="hex">#f2efdf</span></div>
-    <div class="swatch" style="--color:#fffbef;--label:#3d4c4f"><span class="name">background 0</span><span class="hex">#fffbef</span></div>
-    <div class="swatch" style="--color:#f8f5e4;--label:#3d4c4f"><span class="name">background 1</span><span class="hex">#f8f5e4</span></div>
-    <div class="swatch" style="--color:#f2efdf;--label:#3d4c4f"><span class="name">background 2</span><span class="hex">#f2efdf</span></div>
-    <div class="swatch" style="--color:#edeada;--label:#3d4c4f"><span class="name">background 3</span><span class="hex">#edeada</span></div>
-    <div class="swatch" style="--color:#e8e5d5;--label:#3d4c4f"><span class="name">background 4</span><span class="hex">#e8e5d5</span></div>
-    <div class="swatch" style="--color:#bec5b2;--label:#3d4c4f"><span class="name">background 5</span><span class="hex">#bec5b2</span></div>
-    <div class="swatch" style="--color:#e4e8bd;--label:#3d4c4f"><span class="name">background visual</span><span class="hex">#e4e8bd</span></div>
-    <div class="swatch" style="--color:#f8d4ca;--label:#3d4c4f"><span class="name">background red</span><span class="hex">#f8d4ca</span></div>
-    <div class="swatch" style="--color:#f6e6bd;--label:#3d4c4f"><span class="name">background yellow</span><span class="hex">#f6e6bd</span></div>
-    <div class="swatch" style="--color:#e4e8bd;--label:#3d4c4f"><span class="name">background green</span><span class="hex">#e4e8bd</span></div>
-    <div class="swatch" style="--color:#d8e7df;--label:#3d4c4f"><span class="name">background blue</span><span class="hex">#d8e7df</span></div>
-    <div class="swatch" style="--color:#f2dce7;--label:#3d4c4f"><span class="name">background purple</span><span class="hex">#f2dce7</span></div>
+    <div class="swatch" data-current="#b83f3d" data-proposed="#ad3430"><span class="name">red</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#c65f18" data-proposed="#b34d08"><span class="name">orange</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#a87700" data-proposed="#986500"><span class="name">yellow</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#657a00" data-proposed="#606d00"><span class="name">green</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#287f60" data-proposed="#187252"><span class="name">aqua</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#2c7198" data-proposed="#32618b"><span class="name">blue</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#aa4d8e" data-proposed="#9d397c"><span class="name">purple</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#3d4c4f" data-proposed="#3d413d"><span class="name">foreground</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#9ca694" data-proposed="#8d927d" data-dark-label><span class="name">grey 0</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#68766d" data-proposed="#626a5c"><span class="name">grey 1</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#526164" data-proposed="#50564f"><span class="name">grey 2</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#657a00" data-proposed="#606d00"><span class="name">statusline 1</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#526164" data-proposed="#50564f"><span class="name">statusline 2</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#c94f4c" data-proposed="#b83e37"><span class="name">statusline 3</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#f2efdf" data-proposed="#f2efdf" data-dark-label><span class="name">background dim</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#fffbef" data-proposed="#fffbef" data-dark-label><span class="name">background 0</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#f8f5e4" data-proposed="#f8f5e4" data-dark-label><span class="name">background 1</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#f2efdf" data-proposed="#f2efdf" data-dark-label><span class="name">background 2</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#edeada" data-proposed="#ece7d5" data-dark-label><span class="name">background 3</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#e8e5d5" data-proposed="#e6e0cd" data-dark-label><span class="name">background 4</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#bec5b2" data-proposed="#bbc1aa" data-dark-label><span class="name">background 5</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#e4e8bd" data-proposed="#e4e8bd" data-dark-label><span class="name">background visual</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#f8d4ca" data-proposed="#f8d4ca" data-dark-label><span class="name">background red</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#f6e6bd" data-proposed="#f6e6bd" data-dark-label><span class="name">background yellow</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#e4e8bd" data-proposed="#e4e8bd" data-dark-label><span class="name">background green</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#d8e7df" data-proposed="#d8e7df" data-dark-label><span class="name">background blue</span><span class="hex"></span></div>
+    <div class="swatch" data-current="#f2dce7" data-proposed="#f2dce7" data-dark-label><span class="name">background purple</span><span class="hex"></span></div>
   </main>
   <script>
+    const root = document.documentElement;
+    const swatches = document.querySelectorAll(".swatch");
+    function applyPalette(palette) {
+      const proposed = palette === "proposed";
+      root.style.setProperty("--page-bg", "#f2efdf");
+      root.style.setProperty("--text", proposed ? "#3d413d" : "#3d4c4f");
+      root.style.setProperty("--muted", proposed ? "#626a5c" : "#68766d");
+      root.style.setProperty("--accent", proposed ? "#32618b" : "#2c7198");
+      const toggle = document.querySelector("#palette-toggle");
+      toggle.dataset.activePalette = palette;
+      toggle.textContent = proposed
+        ? "Showing: Current (warmer contrast)"
+        : "Showing: Previous";
+
+      swatches.forEach((swatch) => {
+        const hex = swatch.dataset[palette];
+        swatch.dataset.activeHex = hex;
+        swatch.style.setProperty("--color", hex);
+        swatch.style.setProperty("--label", swatch.hasAttribute("data-dark-label")
+          ? (proposed ? "#3d413d" : "#3d4c4f")
+          : "#fffbef");
+        swatch.querySelector(".hex").textContent = hex;
+      });
+    }
+
     async function copyHex(swatch) {
-      const hex = swatch.querySelector(".hex").textContent;
+      const hex = swatch.dataset.activeHex;
       try {
         await navigator.clipboard.writeText(hex);
       } catch {
@@ -136,7 +199,7 @@
       }, 900);
     }
 
-    document.querySelectorAll(".swatch").forEach((swatch) => {
+    swatches.forEach((swatch) => {
       swatch.tabIndex = 0;
       swatch.setAttribute("role", "button");
       swatch.addEventListener("click", () => copyHex(swatch));
@@ -147,6 +210,13 @@
         }
       });
     });
+
+    document.querySelector("#palette-toggle").addEventListener("click", () => {
+      const current = document.querySelector("#palette-toggle").dataset.activePalette;
+      applyPalette(current === "current" ? "proposed" : "current");
+    });
+
+    applyPalette("proposed");
   </script>
 </body>
 </html>

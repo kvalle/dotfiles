@@ -27,8 +27,8 @@ _update_terminal_appearance() {
     lazygit_config+=",$HOME/dotfiles/lazygit/themes/everforest-contrast.yml"
     bat_theme='Everforest Contrast'
     delta_features='everforest-contrast'
-    fzf_colors='bg+:#e4e8bd,bg:#fffbef,spinner:#c65f18,hl:#b83f3d,fg:#3d4c4f,header:#b83f3d,info:#aa4d8e,pointer:#c65f18,marker:#657a00,fg+:#3d4c4f,prompt:#2c7198,hl+:#b83f3d'
-    autosuggest_style='fg=#bec5b2'
+    fzf_colors='bg+:#e4e8bd,bg:#fffbef,spinner:#b34d08,hl:#ad3430,fg:#3d413d,header:#ad3430,info:#9d397c,pointer:#b34d08,marker:#606d00,fg+:#3d413d,prompt:#32618b,hl+:#ad3430'
+    autosuggest_style='fg=#bbc1aa'
   fi
 
   export TERMINAL_APPEARANCE=$appearance
