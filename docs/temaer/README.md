@@ -2,9 +2,9 @@
 
 Oppsettet bruker to navngitte temaer:
 
-- **Dark mode:** [Catppuccin Macchiato](paletter/catppuccin-macchiato.html), et
-  standardtema fra Catppuccin.
-- **Light mode:** [Everforest Light Contrast](paletter/everforest-light-contrast.html),
+- **Dark mode:** [Catppuccin Macchiato](https://kvalle.github.io/dotfiles/temaer/paletter/catppuccin-macchiato.html),
+  et standardtema fra Catppuccin.
+- **Light mode:** [Everforest Light Contrast](https://kvalle.github.io/dotfiles/temaer/paletter/everforest-light-contrast.html),
   en lokal variant av Everforest Light Hard, justert for høyere kontrast.
 
 macOS er sannhetskilden for light/dark. Kitty og Ghostty følger macOS direkte,

@@ -13,8 +13,8 @@
 ## Terminaltemaer
 
 - [Arkitektur, drift og verifikasjon](temaer/README.md)
-- [Catppuccin Macchiato-palett](temaer/paletter/catppuccin-macchiato.html)
-- [Everforest Light Contrast-palett](temaer/paletter/everforest-light-contrast.html)
+- [Catppuccin Macchiato-palett](https://kvalle.github.io/dotfiles/temaer/paletter/catppuccin-macchiato.html)
+- [Everforest Light Contrast-palett](https://kvalle.github.io/dotfiles/temaer/paletter/everforest-light-contrast.html)
 
 ## Verktøy
 
