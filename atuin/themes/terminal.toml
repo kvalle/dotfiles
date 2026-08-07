@@ -1,0 +1,19 @@
+[theme]
+name = "terminal"
+
+[colors]
+AlertInfo = "@dark_green"
+AlertWarn = "@dark_yellow"
+AlertError = "@red"
+Annotation = "@dark_grey"
+Base = "@reset"
+Guidance = "@dark_blue"
+Important = "@dark_magenta"
+Title = "@dark_blue"
+Muted = "@dark_grey"
+SyntaxCommand = "@green"
+SyntaxFlag = "@dark_cyan"
+SyntaxString = "@dark_yellow"
+SyntaxVariable = "@magenta"
+SyntaxOperator = "@reset"
+SyntaxComment = "@dark_grey"

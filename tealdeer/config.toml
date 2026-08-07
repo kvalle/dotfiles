@@ -11,7 +11,7 @@ bold = false
 italic = false
 
 [style.example_text]
-foreground = { ansi = 15 }
+foreground = "cyan"
 bold = false
 underline = false
 italic = false

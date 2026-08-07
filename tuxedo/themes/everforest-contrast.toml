@@ -1,0 +1,27 @@
+name = Everforest Contrast
+
+bg = #f2efdf
+panel = reset
+border = #9ca694
+fg = #3d4c4f
+dim = #68766d
+accent = #2c7198
+cursor = #e4e8bd
+selection = #e4e8bd
+statusbar = #f2efdf
+status_fg = #3d4c4f
+mode_fg = #fffbef
+mode_bg = #2c7198
+pri_a = #b83f3d
+pri_b = #c65f18
+pri_c = #657a00
+pri_d = #2c7198
+pri_other = #aa4d8e
+project = #657a00
+context = #c65f18
+due = #a87700
+overdue = #b83f3d
+today = #b83f3d
+done = #68766d
+selected = #e4e8bd
+matched = #a87700

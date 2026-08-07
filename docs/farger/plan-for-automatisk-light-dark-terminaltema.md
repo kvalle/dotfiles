@@ -102,6 +102,21 @@ prompten og fullskjerms-TUI-er.
   autoritative configen. Bat brukes som previewer og arver aktivt syntakstema.
 - Oppsettet er manuelt verifisert i både light og dark mode.
 
+### ANSI-arvende verktøy og Glow
+
+- Atuin bruker ett repo-eid ANSI-tema som dekker alle semantiske roller og
+  arver aktiv palett fra terminalen. Valgt kommando bruker bright red og bold,
+  siden Atuin ikke eksponerer en egen selected-row-bakgrunn.
+- Tealdeer bruker named ANSI colors. Tuxedo bruker komplette repo-eide temaer
+  fordi det innebygde `Terminal`-temaet hardkoder lys hovedtekst.
+- En liten Tuxedo-wrapper velger Everforest Contrast eller Catppuccin
+  Macchiato ved oppstart og normaliserer temavalget når øvrige innstillinger
+  lagres.
+- Glow bruker eksplisitt `auto` og velger light/dark fra terminalens rapporterte
+  bakgrunn uten appearance-wrapper. Glamours innebygde grå inline-code-
+  bakgrunn beholdes for å unngå å eie en komplett custom light-stil for én
+  kosmetisk forskjell.
+
 ### AI-TUI-er
 
 - OpenCode bruker custom-temaet `everforest-macchiato`, med komplette light- og
@@ -121,10 +136,6 @@ prompten og fullskjerms-TUI-er.
   `#287f60`, blue `#2c7198` og purple `#aa4d8e`. Hovedbakgrunnen er `#fffbef`,
   dempet bakgrunn `#f2efdf`, terminalens tekstmarkering `#d8e7df`, valgte
   TUI-rader og additions `#e4e8bd`, og deletions `#f8d4ca`.
-
-## Nåværende avvik
-
-- Atuin, Glow, Tealdeer og Tuxedo er ikke visuelt verifisert i begge moduser.
 
 ## Gjennomføringsstrategi
 
@@ -355,7 +366,7 @@ shellfarger i begge moduser.
 
 ## Ticket 6: Lag automatisk tema for btop
 
-**Status:** Implementert, avventer manuell visuell verifikasjon i light og dark.
+**Status:** Implementert og manuelt verifisert i light og dark.
 
 **Mål:** Starte btop med riktig fullverdig tema uten å endre brukerens øvrige
 btop-innstillinger.
@@ -458,6 +469,8 @@ modusspesifikke settings-filer.
   bortsett fra nødvendig temakonfigurasjon.
 
 ## Ticket 9: Verifiser ANSI-arvende verktøy og Glow
+
+**Status:** Implementert, avventer manuell visuell verifikasjon i light og dark.
 
 **Mål:** Dekke verktøyene som sannsynligvis kan følge terminalpaletten uten
 egne komplette temapar.
