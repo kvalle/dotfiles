@@ -6,6 +6,7 @@ set -o pipefail
 
 DOTFILES="$HOME/dotfiles"
 ISSUES=0
+FAILURES=()
 
 # --------------------------------------------------------------------------
 # Farger og hjelpefunksjoner
@@ -23,6 +24,7 @@ pass() {
 
 fail() {
   echo -e "  ${RED}✗${RESET}  $1"
+  FAILURES+=("$1")
   ISSUES=$((ISSUES + 1))
 }
 
@@ -260,6 +262,9 @@ if [ "$ISSUES" -eq 0 ]; then
   echo -e "${GREEN}${BOLD}Alt OK — ingen problemer funnet.${RESET}"
 else
   echo -e "${RED}${BOLD}$ISSUES problem(er) funnet.${RESET}"
+  for failure in "${FAILURES[@]}"; do
+    echo -e "  ${RED}✗${RESET}  $failure"
+  done
 fi
 echo ""
 
