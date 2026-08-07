@@ -55,6 +55,8 @@ prompten og fullskjerms-TUI-er.
 - Dark mode bruker `starship/starship.toml` med Catppuccin Macchiato.
 - Light mode bruker `starship/starship-light.toml` med Everforest
   Contrast-paletten.
+- Felles Starship-struktur vedlikeholdes i `starship/starship.toml.erb`; de to
+  runtime-filene genereres deterministisk og kontrolleres av `scripts/verify.sh`.
 
 ### LazyGit og Delta
 
@@ -67,6 +69,9 @@ prompten og fullskjerms-TUI-er.
   Wrapperen og Kitty remote control ble derfor fjernet.
 - Delta bruker navngitte features i begge moduser, og LazyGit arver
   `DELTA_FEATURES` uten å duplisere argumentene.
+- LazyGit beholder én komplett baseconfig for dark mode og ett light-overlay
+  som bare erstatter temaverdiene. Dette er formatets minste praktiske
+  duplisering; appearance-laget er eneste eier av config-rekkefølgen.
 
 ### fzf
 
@@ -534,6 +539,8 @@ Kitty-spesiallogikken til minste nødvendige omfang.
 
 ## Ticket 11: Reduser konfigurasjonsduplisering
 
+**Status:** Implementert og automatisk verifisert.
+
 **Mål:** Ha én autoritativ kilde for felles Starship- og LazyGit-oppsett uten å
 gjøre runtime-løsningen mer skjør eller kompleks enn nødvendig.
 
@@ -560,6 +567,23 @@ generatorfiler eller valideringsskript.
 - Appearance-laget skal forbli eneste sted som velger `LG_CONFIG_FILE`.
 - Dokumenter hvorfor eventuell gjenværende duplisering er nødvendig dersom
   verktøyformatene ikke støtter trygg komposisjon.
+
+**Valgt løsning:**
+
+- Starships felles modulstruktur ligger i `starship/starship.toml.erb`.
+  `scripts/generate-starship-configs.rb` fyller inn kun modusavhengige
+  paletter, surfaces, foreground-roller og dimming, og skriver de komplette
+  runtime-filene som Starship 1.26 krever.
+- Generatoren er eksplisitt og deterministisk, har ingen runtime-rolle og kan
+  kjøres med `--check`. `scripts/verify.sh` bruker sjekkmodusen, slik at en
+  håndredigert eller utdatert runtime-fil oppdages.
+- En ANSI-basert Starship-config ble forkastet fordi prompten trenger egne
+  surfaces og foreground/background-kombinasjoner som ANSI 0-15 ikke uttrykker
+  uten å redusere kontrast og semantikk.
+- LazyGits eksisterende base + light-overlay beholdes. Basen eier all felles
+  oppførsel og Delta-kommandoen; overlayet inneholder bare light-temaets roller.
+  Ytterligere generering ville flyttet 31 enkle, formatpålagte temalinjer til
+  en ny abstraksjon uten å redusere vedlikeholdsrisikoen.
 
 **Akseptansekriterier:**
 

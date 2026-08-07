@@ -218,7 +218,24 @@ else
 fi
 
 # --------------------------------------------------------------------------
-# 8. Agent skills
+# 8. Generated configs
+# --------------------------------------------------------------------------
+
+header "Generated configs"
+
+if output=$(ruby "$DOTFILES/scripts/generate-starship-configs.rb" --check 2>&1); then
+  pass "Starship-configene er oppdatert"
+else
+  fail "Starship-configene samsvarer ikke med malen"
+  if [ -n "$output" ]; then
+    while IFS= read -r line; do
+      echo "      $line"
+    done <<< "$output"
+  fi
+fi
+
+# --------------------------------------------------------------------------
+# 9. Agent skills
 # --------------------------------------------------------------------------
 
 header "Agent skills"
