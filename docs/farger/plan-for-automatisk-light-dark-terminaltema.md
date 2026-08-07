@@ -94,6 +94,13 @@ prompten og fullskjerms-TUI-er.
   autoritative configen. Ved avslutning skrives reelle innstillingsendringer
   tilbake, mens temavalget normaliseres slik at det ikke lager Git-støy.
 
+### Superfile
+
+- Superfile bruker komplette repo-eide temaer for Everforest Contrast i light
+  mode og Catppuccin Macchiato i dark mode.
+- En Zsh-funksjon velger tema ved oppstart gjennom en midlertidig kopi av den
+  autoritative configen. Bat brukes som previewer og arver aktivt syntakstema.
+
 ### Dokumentasjon
 
 - Palettsider finnes for Catppuccin Macchiato og Everforest Light Hard
@@ -109,7 +116,6 @@ prompten og fullskjerms-TUI-er.
 
 ## Nåværende avvik
 
-- Superfile bruker et fast Catppuccin Macchiato-tema.
 - OpenCode bruker nå custom-temaet `everforest-macchiato`; både `system` og det
   innebygde Everforest-temaet ble forkastet etter visuell testing.
 - `ai/claude/settings.json` bruker eksplisitt `dark`.
@@ -375,6 +381,8 @@ nytt Everforest-tema og en eventuell `zsh/functions/btop.sh`.
   støtter relative temanavn.
 
 ## Ticket 7: Lag automatisk tema for Superfile
+
+**Status:** Implementert, avventer manuell visuell verifikasjon i light og dark.
 
 **Mål:** Gi Superfile et lokalt Everforest Contrast-tema og automatisk
 light/dark-valg.

@@ -1,0 +1,49 @@
+# Everforest Light Hard Contrast for Superfile.
+
+code_syntax_highlight = "everforest-light-hard"
+
+full_screen_fg = "#3d4c4f"
+full_screen_bg = "#fffbef"
+
+gradient_color = ["#2c7198", "#aa4d8e"]
+directory_icon_color = "#2c7198"
+
+file_panel_fg = "#3d4c4f"
+file_panel_bg = "#fffbef"
+file_panel_border = "#9ca694"
+file_panel_border_active = "#2c7198"
+file_panel_top_directory_icon = "#657a00"
+file_panel_top_path = "#2c7198"
+file_panel_item_selected_fg = "#3d4c4f"
+file_panel_item_selected_bg = "#e4e8bd"
+
+footer_fg = "#526164"
+footer_bg = "#f2efdf"
+footer_border = "#9ca694"
+footer_border_active = "#657a00"
+
+sidebar_fg = "#526164"
+sidebar_bg = "#fffbef"
+sidebar_title = "#287f60"
+sidebar_border = "#9ca694"
+sidebar_border_active = "#b83f3d"
+sidebar_item_selected_fg = "#3d4c4f"
+sidebar_item_selected_bg = "#e4e8bd"
+sidebar_divider = "#9ca694"
+
+modal_fg = "#3d4c4f"
+modal_bg = "#f8f5e4"
+modal_border_active = "#2c7198"
+modal_cancel_fg = "#3d4c4f"
+modal_cancel_bg = "#f8d4ca"
+modal_confirm_fg = "#3d4c4f"
+modal_confirm_bg = "#d8e7df"
+
+help_menu_hotkey = "#2c7198"
+help_menu_title = "#aa4d8e"
+
+cursor = "#c65f18"
+correct = "#657a00"
+error = "#b83f3d"
+hint = "#287f60"
+cancel = "#c65f18"

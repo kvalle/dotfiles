@@ -1,0 +1,49 @@
+# Catppuccin Macchiato for Superfile.
+
+code_syntax_highlight = "catppuccin-macchiato"
+
+full_screen_fg = "#cad3f5"
+full_screen_bg = "#24273a"
+
+gradient_color = ["#8aadf4", "#c6a0f6"]
+directory_icon_color = "#8aadf4"
+
+file_panel_fg = "#cad3f5"
+file_panel_bg = "#24273a"
+file_panel_border = "#6e738d"
+file_panel_border_active = "#b7bdf8"
+file_panel_top_directory_icon = "#a6da95"
+file_panel_top_path = "#8aadf4"
+file_panel_item_selected_fg = "#cad3f5"
+file_panel_item_selected_bg = "#363a4f"
+
+footer_fg = "#cad3f5"
+footer_bg = "#24273a"
+footer_border = "#6e738d"
+footer_border_active = "#a6da95"
+
+sidebar_fg = "#cad3f5"
+sidebar_bg = "#24273a"
+sidebar_title = "#7dc4e4"
+sidebar_border = "#6e738d"
+sidebar_border_active = "#ed8796"
+sidebar_item_selected_fg = "#cad3f5"
+sidebar_item_selected_bg = "#363a4f"
+sidebar_divider = "#939ab7"
+
+modal_fg = "#cad3f5"
+modal_bg = "#363a4f"
+modal_border_active = "#b7bdf8"
+modal_cancel_fg = "#24273a"
+modal_cancel_bg = "#ee99a0"
+modal_confirm_fg = "#24273a"
+modal_confirm_bg = "#91d7e3"
+
+help_menu_hotkey = "#91d7e3"
+help_menu_title = "#ee99a0"
+
+cursor = "#f4dbd6"
+correct = "#a6da95"
+error = "#ed8796"
+hint = "#7dc4e4"
+cancel = "#ee99a0"
