@@ -28,30 +28,10 @@ som kjøres til slutt. Dette krever at du er logget inn i `op` på forhånd.
 Oppdaterer Homebrew- og Nix-pakker, git submoduler, tldr-sider, jenv-shims og
 agent skills.
 
-## Nix
-
-Nix er primær pakkekilde for CLI-verktøy på Apple Silicon. Pakker migreres
-gradvis fra Homebrew; Homebrew beholdes for pakker og macOS-apper som ikke er
-hensiktsmessige å håndtere med Nix.
-
-```sh
-~/dotfiles/scripts/nix-apply.sh
-```
-
-Scriptet aktiverer pakkene fra den låste `nixpkgs`-revisjonen i
-`nix/flake.lock`. Dotfiles-profilen ligger foran Homebrew i `PATH`.
-
-Se pakker i standard- og dotfiles-profilen, samt overlappende kommandoer:
-
-```sh
-~/dotfiles/scripts/nix-profile-audit.sh
-```
-
 ## Dokumentasjon
 
-- [Sjekkliste for ny maskin](docs/ny-maskin.md)
-- [Catppuccin Macchiato-fargepalett](docs/farger/catppuccin-macchiato-palette.html)
-- [Everforest Light Contrast-fargepalett](docs/farger/everforest-light-contrast-palette.html)
+Se [dokumentasjonsoversikten](docs/README.md) for oppsett, Nix, terminaltemaer
+og verktøyspesifikke instrukser.
 
 ## Struktur
 
