@@ -6,7 +6,7 @@ btop() {
   local runtime_config saved_config exit_status
 
   (( $+functions[_update_terminal_appearance] )) && _update_terminal_appearance
-  [[ $TERMINAL_APPEARANCE == light ]] && theme='everforest-contrast'
+  [[ $TERMINAL_APPEARANCE == light ]] && theme='everforest-light-contrast'
 
   runtime_config=$(mktemp "${TMPDIR:-/tmp}/btop.XXXXXX") || return
   saved_config=$(mktemp "${TMPDIR:-/tmp}/btop-saved.XXXXXX") || {

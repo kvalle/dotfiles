@@ -2,7 +2,7 @@
 # Docs: https://ghostty.org/docs/config
 
 # Theme
-theme = light:everforest-light-hard-contrast,dark:catppuccin-macchiato
+theme = light:everforest-light-contrast,dark:catppuccin-macchiato
 
 # Font
 font-family = JetBrainsMono Nerd Font Mono

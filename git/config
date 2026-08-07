@@ -65,9 +65,9 @@
 	minus-style = syntax "#4b2234"
 	minus-emph-style = syntax "#6e3347"
 
-[delta "everforest-contrast"]
+[delta "everforest-light-contrast"]
     light = true
-    syntax-theme = Everforest Contrast
+    syntax-theme = everforest-light-contrast
     plus-style = syntax "#e4e8bd"
     plus-emph-style = syntax bold "#e4e8bd"
     minus-style = syntax "#f8d4ca"

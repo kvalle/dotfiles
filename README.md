@@ -50,7 +50,8 @@ Se pakker i standard- og dotfiles-profilen, samt overlappende kommandoer:
 ## Dokumentasjon
 
 - [Sjekkliste for ny maskin](docs/ny-maskin.md)
-- [Catppuccin Macchiato-fargepalett](docs/catppuccin-macchiato-palette.html)
+- [Catppuccin Macchiato-fargepalett](docs/farger/catppuccin-macchiato-palette.html)
+- [Everforest Light Contrast-fargepalett](docs/farger/everforest-light-contrast-palette.html)
 
 ## Struktur
 

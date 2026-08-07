@@ -1,4 +1,4 @@
-# Everforest Light Hard with locally adjusted contrast.
+# Everforest Light Contrast, derived from Everforest Light Hard.
 
 theme[main_bg]="#fffbef"
 theme[main_fg]="#3d413d"

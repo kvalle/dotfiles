@@ -46,8 +46,8 @@ variants = {
     TOML
   },
   "starship-light.toml" => {
-    description: "Everforest Contrast light mode",
-    palette_name: "everforest_contrast",
+    description: "Everforest Light Contrast",
+    palette_name: "everforest_light_contrast",
     directory_surface: "teal_surface",
     directory_foreground: "teal",
     git_surface: "maroon_surface",
@@ -56,7 +56,7 @@ variants = {
     git_state_foreground: "maroon",
     secondary_style: "",
     palette: <<~TOML.chomp,
-      [palettes.everforest_contrast]
+      [palettes.everforest_light_contrast]
       red = "#ad3430"
       maroon = "#b83e37"
       peach = "#b34d08"

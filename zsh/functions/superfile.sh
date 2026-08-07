@@ -5,7 +5,7 @@ spf() {
   local runtime_config exit_status
 
   (( $+functions[_update_terminal_appearance] )) && _update_terminal_appearance
-  [[ $TERMINAL_APPEARANCE == light ]] && theme='everforest-contrast'
+  [[ $TERMINAL_APPEARANCE == light ]] && theme='everforest-light-contrast'
 
   runtime_config=$(mktemp "${TMPDIR:-/tmp}/superfile.XXXXXX") || return
   sed "s/^theme = .*$/theme = \"$theme\"/" "$config" > "$runtime_config" || {

@@ -142,7 +142,7 @@ fi
 header "Bat theme cache"
 
 bat_themes=$(bat --list-themes 2>/dev/null)
-for theme in 'Everforest Contrast' 'Catppuccin Macchiato'; do
+for theme in 'everforest-light-contrast' 'Catppuccin Macchiato'; do
   if grep -qx "$theme" <<< "$bat_themes"; then
     pass "$theme"
   else

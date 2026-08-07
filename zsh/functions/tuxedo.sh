@@ -6,7 +6,7 @@ tuxedo() {
   local runtime_home runtime_config saved_config exit_status
 
   (( $+functions[_update_terminal_appearance] )) && _update_terminal_appearance
-  [[ $TERMINAL_APPEARANCE == light ]] && theme='Everforest Contrast'
+  [[ $TERMINAL_APPEARANCE == light ]] && theme='Everforest Light Contrast'
 
   runtime_home=$(mktemp -d "${TMPDIR:-/tmp}/tuxedo.XXXXXX") || return
   runtime_config="$runtime_home/tuxedo/config.toml"

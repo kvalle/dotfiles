@@ -24,9 +24,9 @@ _update_terminal_appearance() {
 
   if [[ $appearance == light ]]; then
     starship_config="$HOME/dotfiles/starship/starship-light.toml"
-    lazygit_config+=",$HOME/dotfiles/lazygit/themes/everforest-contrast.yml"
-    bat_theme='Everforest Contrast'
-    delta_features='everforest-contrast'
+    lazygit_config+=",$HOME/dotfiles/lazygit/themes/everforest-light-contrast.yml"
+    bat_theme='everforest-light-contrast'
+    delta_features='everforest-light-contrast'
     fzf_colors='bg+:#e4e8bd,bg:#fffbef,spinner:#b34d08,hl:#ad3430,fg:#3d413d,header:#ad3430,info:#9d397c,pointer:#b34d08,marker:#606d00,fg+:#3d413d,prompt:#32618b,hl+:#ad3430'
     autosuggest_style='fg=#bbc1aa'
   fi

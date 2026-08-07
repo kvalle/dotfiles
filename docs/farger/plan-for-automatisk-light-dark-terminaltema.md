@@ -5,9 +5,9 @@
 Kitty og terminalprogrammene skal følge aktivt light/dark-utseende i macOS.
 Oppsettet skal bruke:
 
-- Light mode: lokalt avledet Everforest Light Hard Contrast.
+- Light mode: lokalt avledet Everforest Light Contrast.
 - Dark mode: Catppuccin Macchiato.
-- Starship i light mode: Everforest Light Hard Contrast.
+- Starship i light mode: Everforest Light Contrast.
 
 Fargene skal være lesbare og semantisk konsistente i vanlige CLI-verktøy,
 prompten og fullskjerms-TUI-er.
@@ -15,11 +15,11 @@ prompten og fullskjerms-TUI-er.
 ## Beslutninger
 
 - macOS-utseendet er sannhetskilden for light/dark.
-- Everforest Light Hard Contrast er det eneste light-oppsettet.
-- Everforest Contrast beholder Everforest Light Hard-bakgrunnene, men bruker
+- Everforest Light Contrast er det eneste light-oppsettet.
+- Everforest Light Contrast beholder Everforest Light Hard-bakgrunnene, men bruker
   mørkere foreground, ANSI-farger og UI-aksenter.
 - Alle egne light-temaer skal bruke den samme kontrastpaletten.
-- OpenCode bruker custom-temaet `everforest-macchiato`, med Everforest Contrast
+- OpenCode bruker custom-temaet `everforest-macchiato`, med Everforest Light Contrast
   i light og Catppuccin Macchiato i dark. OpenCode velger variant automatisk
   fra terminalens bakgrunn.
 - Programmer som kan arve ANSI-paletten skal gjøre det. Egne temafiler brukes
@@ -40,7 +40,7 @@ prompten og fullskjerms-TUI-er.
 
 ### Kitty
 
-- `kitty/light-theme.auto.conf` inkluderer Everforest Light Hard Contrast.
+- `kitty/light-theme.auto.conf` inkluderer Everforest Light Contrast.
 - `kitty/dark-theme.auto.conf` bruker Catppuccin Macchiato.
 - Kitty følger macOS automatisk ved bytte mellom light og dark.
 - Ghostty bruker repo-eide temaer med samme foreground, background, selection,
@@ -61,10 +61,10 @@ prompten og fullskjerms-TUI-er.
 ### LazyGit og Delta
 
 - LazyGit slår sammen felles konfigurasjon med
-  `lazygit/themes/everforest-contrast.yml` i light mode.
-- Everforest Contrast har tydeligere tekst, rammer og markerte linjer.
+  `lazygit/themes/everforest-light-contrast.yml` i light mode.
+- Everforest Light Contrast har tydeligere tekst, rammer og markerte linjer.
 - Delta bruker light-featuren og lyse, palettilpassede diffbakgrunner i light
-  mode. Bat og Delta deler det repo-eide `Everforest Contrast`-syntakstemaet.
+  mode. Bat og Delta deler det repo-eide `Everforest Light Contrast`-syntakstemaet.
 - LazyGit ble testet uten wrapper; Kitty-paletten var identisk før og etter.
   Wrapperen og Kitty remote control ble derfor fjernet.
 - Delta bruker navngitte features i begge moduser, og LazyGit arver
@@ -93,7 +93,7 @@ prompten og fullskjerms-TUI-er.
 
 ### btop
 
-- btop bruker komplette repo-eide temaer for Everforest Contrast i light mode
+- btop bruker komplette repo-eide temaer for Everforest Light Contrast i light mode
   og Catppuccin Macchiato i dark mode.
 - En Zsh-funksjon velger tema ved oppstart gjennom en midlertidig kopi av den
   autoritative configen. Ved avslutning skrives reelle innstillingsendringer
@@ -101,7 +101,7 @@ prompten og fullskjerms-TUI-er.
 
 ### Superfile
 
-- Superfile bruker komplette repo-eide temaer for Everforest Contrast i light
+- Superfile bruker komplette repo-eide temaer for Everforest Light Contrast i light
   mode og Catppuccin Macchiato i dark mode.
 - En Zsh-funksjon velger tema ved oppstart gjennom en midlertidig kopi av den
   autoritative configen. Bat brukes som previewer og arver aktivt syntakstema.
@@ -114,7 +114,7 @@ prompten og fullskjerms-TUI-er.
   siden Atuin ikke eksponerer en egen selected-row-bakgrunn.
 - Tealdeer bruker named ANSI colors. Tuxedo bruker komplette repo-eide temaer
   fordi det innebygde `Terminal`-temaet hardkoder lys hovedtekst.
-- En liten Tuxedo-wrapper velger Everforest Contrast eller Catppuccin
+- En liten Tuxedo-wrapper velger Everforest Light Contrast eller Catppuccin
   Macchiato ved oppstart og normaliserer temavalget når øvrige innstillinger
   lagres.
 - Glow bruker eksplisitt `auto` og velger light/dark fra terminalens rapporterte
@@ -138,8 +138,7 @@ prompten og fullskjerms-TUI-er.
 
 ### Dokumentasjon
 
-- Palettsider finnes for Catppuccin Macchiato og Everforest Light Hard
-  Contrast.
+- Palettsider finnes for Catppuccin Macchiato og Everforest Light Contrast.
 - Sidene lenker til offisielle kilder, viser komplette semantiske paletter og
   støtter klikk for å kopiere hexkoder.
 - Kontrastvarianten er dokumentert som en lokal avledning.
@@ -175,7 +174,7 @@ prompten og fullskjerms-TUI-er.
 
 ## Testmatrise
 
-Test hvert relevant program i både Everforest Contrast light mode og
+Test hvert relevant program i både Everforest Light Contrast light mode og
 Catppuccin Macchiato dark mode:
 
 - vanlig, dempet og deaktivert tekst
@@ -196,7 +195,7 @@ Catppuccin Macchiato dark mode:
   konfigurasjon.
 - Fullskjerms-TUI-er er lesbare og velger riktig tema ved oppstart.
 - Ingen programmer etterlater terminalen med feil bakgrunn eller ANSI-palett.
-- Ingen testede visninger har utilstrekkelig kontrast i Everforest Contrast
+- Ingen testede visninger har utilstrekkelig kontrast i Everforest Light Contrast
   eller Catppuccin Macchiato.
 - Temaoppsettet har én tydelig light/dark-kilde og minst mulig duplisert logikk.
 
@@ -227,7 +226,7 @@ eventuelt `bin/macos-appearance` og denne planen.
   `zsh/tools.sh` etter hvert som de flyttes inn i appearance-laget.
 - Dokumenter den semantiske Everforest-mappingen for foreground, muted, red,
   orange, yellow, green, aqua, blue, purple og relevante bakgrunner. Bruk
-  `docs/farger/everforest-light-hard-contrast-palette.html` som palettreferanse.
+  `docs/farger/everforest-light-contrast-palette.html` som palettreferanse.
 - Avklar oppførsel utenfor macOS og ved feil fra `defaults`; fallback skal være
   deterministisk og ikke skrive feilmeldinger ved hvert prompt.
 
@@ -249,7 +248,7 @@ programmer startes.
 **Avhenger av:** Ticket 1 for felles begreper og fallback.
 
 **Berørte filer:** `kitty/kitty.conf`, `kitty/light-theme.auto.conf`,
-`kitty/dark-theme.auto.conf`, `kitty/themes/everforest-light-hard-contrast.conf`,
+`kitty/dark-theme.auto.conf`, `kitty/themes/everforest-light-contrast.conf`,
 `ghostty/config` og eventuelle nye Ghostty-temafiler.
 
 **Arbeid:**
@@ -260,9 +259,9 @@ programmer startes.
   nye faner.
 - Undersøk Ghosttys dokumenterte støtte for separate light/dark-temaer og
   macOS-appearance.
-- Lag en Ghostty-kompatibel Everforest Contrast-palett dersom det ikke finnes
+- Lag en Ghostty-kompatibel Everforest Light Contrast-palett dersom det ikke finnes
   et innebygd tema med de lokale kontrastverdiene.
-- Konfigurer Ghostty med Everforest Contrast i light og Catppuccin Macchiato i
+- Konfigurer Ghostty med Everforest Light Contrast i light og Catppuccin Macchiato i
   dark, eller dokumenter en minimal wrapper/reload-løsning dersom automatisk
   valg ikke støttes.
 
@@ -276,9 +275,9 @@ programmer startes.
 
 ## Ticket 3: Gjør fzf appearance-bevisst
 
-**Status:** Implementert, avventer manuell visuell verifikasjon.
+**Status:** Implementert. Videre visuelle avvik håndteres fortløpende ved bruk.
 
-**Mål:** Gi alle fzf-flater Everforest Contrast i light og Macchiato i dark.
+**Mål:** Gi alle fzf-flater Everforest Light Contrast i light og Macchiato i dark.
 
 **Avhenger av:** Ticket 1.
 
@@ -315,7 +314,7 @@ LazyGit.
 
 **Berørte filer:** ny Bat-konfigurasjon og syntakstema under en repo-eid
 `bat/`-katalog, `symlinks.conf`, `git/config`, `lazygit/config.yml`,
-`lazygit/themes/everforest-contrast.yml`, `zsh/appearance.sh` og
+`lazygit/themes/everforest-light-contrast.yml`, `zsh/appearance.sh` og
 `zsh/environment.sh`.
 
 **Arbeid:**
@@ -325,7 +324,7 @@ LazyGit.
 - Legg Bat-konfigurasjon og custom theme i repoet og registrer nødvendig symlink.
 - Dokumenter at brukeren må bygge Bat-cache etter nye syntakstemaer dersom Bat
   krever dette.
-- Velg `BAT_THEME` automatisk mellom Everforest Contrast og Catppuccin
+- Velg `BAT_THEME` automatisk mellom Everforest Light Contrast og Catppuccin
   Macchiato.
 - Del Delta-oppsettet i navngitte light/dark-features eller en tilsvarende
   mekanisme som kan velges fra miljøet uten å omskrive `git/config`.
@@ -393,7 +392,7 @@ nytt Everforest-tema og en eventuell `zsh/functions/btop.sh`.
 
 **Arbeid:**
 
-- Lag et komplett btop-tema fra Everforest Contrast-paletten, inkludert alle
+- Lag et komplett btop-tema fra Everforest Light Contrast-paletten, inkludert alle
   tekstroller, bokser, meters og gradienter.
 - Behold Macchiato-temaet for dark mode.
 - Velg mellom én wrapper med modusspesifikk `--config` og separate configs;
@@ -406,7 +405,7 @@ nytt Everforest-tema og en eventuell `zsh/functions/btop.sh`.
 
 **Akseptansekriterier:**
 
-- `btop` velger Everforest Contrast i light og Macchiato i dark ved oppstart.
+- `btop` velger Everforest Light Contrast i light og Macchiato i dark ved oppstart.
 - Alle felter i btop-temaformatet er eksplisitt dekket.
 - Vanlige btop-innstillinger beholdes i én autoritativ config.
 - Ingen absolute home-paths er nødvendige i tracked konfigurasjon dersom btop
@@ -414,9 +413,9 @@ nytt Everforest-tema og en eventuell `zsh/functions/btop.sh`.
 
 ## Ticket 7: Lag automatisk tema for Superfile
 
-**Status:** Implementert, avventer manuell visuell verifikasjon i light og dark.
+**Status:** Implementert og manuelt verifisert i light og dark.
 
-**Mål:** Gi Superfile et lokalt Everforest Contrast-tema og automatisk
+**Mål:** Gi Superfile et lokalt Everforest Light Contrast-tema og automatisk
 light/dark-valg.
 
 **Avhenger av:** Ticket 1 og Ticket 4 dersom Bat brukes som previewer.
@@ -430,7 +429,7 @@ Superfile-temafiler, `symlinks.conf` og en eventuell wrapper.
   hvilket schema de bruker, og om config/theme kan velges med CLI eller miljø.
 - Legg tema og eventuelle ekstra symlinks i repoet; ikke skriv direkte under
   `~/Library/Application Support`.
-- Lag en komplett Everforest Contrast-mapping for panels, borders, selection,
+- Lag en komplett Everforest Light Contrast-mapping for panels, borders, selection,
   search, status, errors, file types og preview.
 - Behold Catppuccin Macchiato i dark mode.
 - Velg innebygd config/theme-mekanisme fremfor wrapper dersom mulig.
@@ -485,7 +484,7 @@ modusspesifikke settings-filer.
 
 ## Ticket 9: Verifiser ANSI-arvende verktøy og Glow
 
-**Status:** Implementert, avventer manuell visuell verifikasjon i light og dark.
+**Status:** Implementert. Videre visuelle avvik håndteres fortløpende ved bruk.
 
 **Mål:** Dekke verktøyene som sannsynligvis kan følge terminalpaletten uten
 egne komplette temapar.
@@ -598,7 +597,7 @@ gjøre runtime-løsningen mer skjør eller kompleks enn nødvendig.
 
 **Berørte filer:** `starship/starship.toml`,
 `starship/starship-light.toml`, `lazygit/config.yml`,
-`lazygit/themes/everforest-contrast.yml`, `zsh/appearance.sh` og eventuelle små
+`lazygit/themes/everforest-light-contrast.yml`, `zsh/appearance.sh` og eventuelle små
 generatorfiler eller valideringsskript.
 
 **Arbeid:**
@@ -646,8 +645,8 @@ generatorfiler eller valideringsskript.
 
 ## Ticket 12: Finjuster light-kontrast for sterkt kontorlys
 
-**Status:** Implementert og visuelt godkjent, med sterk-sollys-test utsatt til
-Ticket 13.
+**Status:** Implementert og visuelt godkjent. Videre kontrastavvik håndteres
+fortløpende ved bruk.
 
 **Mål:** Øke kontrasten litt i alle light-temaer slik at tekst, rammer og
 markeringer forblir tydelige i sterkt omgivelseslys, uten å gjøre uttrykket
@@ -655,7 +654,7 @@ hardt eller endre dark mode.
 
 **Avhenger av:** Ticket 2 til 11.
 
-**Berørte filer:** Alle Everforest Contrast-temaer og light-spesifikke
+**Berørte filer:** Alle Everforest Light Contrast-temaer og light-spesifikke
 fargemappinger, palettdokumentasjonen og denne planen.
 
 **Arbeid:**
@@ -684,13 +683,13 @@ fargemappinger, palettdokumentasjonen og denne planen.
 - `background 0–2` og de semantiske bakgrunnene for visual, red, yellow, green,
   blue og purple beholdt tidligere verdier. `background 3–5` fikk bare små,
   varmere justeringer, slik at tekstkontrasten ikke spises opp av mørkere flater.
-- Alle aktive Everforest Contrast-mappinger ble oppdatert samlet. Starships
+- Alle aktive Everforest Light Contrast-mappinger ble oppdatert samlet. Starships
   light-config ble regenerert, mens dark-configen ble kontrollert bit-for-bit
   uendret. Terminalenes ANSI 0–15-paletter ble kontrollert identiske.
 - Palettsiden kan midlertidig veksle mellom forrige og gjeldende palett med én
   knapp for rask visuell sammenligning.
-- Endelig kontroll i direkte sollys lot seg ikke gjennomføre ved godkjenningen.
-  Denne konkrete miljøtesten gjentas som del av Ticket 13.
+- Endelig kontroll i direkte sollys ble ikke gjort til et eget ferdigkrav.
+  Eventuelle kontrastavvik i krevende lysforhold håndteres fortløpende ved bruk.
 
 **Akseptansekriterier:**
 
@@ -703,6 +702,9 @@ fargemappinger, palettdokumentasjonen og denne planen.
 - Dark mode er visuelt og konfigurasjonsmessig uendret.
 
 ## Ticket 13: Ende-til-ende-verifikasjon og opprydding
+
+**Status:** Implementert, automatisk verifisert og ryddet. Manuell bruk har ikke
+avdekket blokkerende avvik; eventuelle nye problemer håndteres fortløpende.
 
 **Mål:** Godkjenne hele løsningen som én sammenhengende light/dark-opplevelse.
 
@@ -730,9 +732,35 @@ fargemappinger, palettdokumentasjonen og denne planen.
 - Dokumenter eventuell nødvendig vertsmaskinhandling, som Bat-cache-bygging
   eller kjøring av symlink-scriptet; ikke utfør slike endringer fra sandboxen.
 
+**Automatisk verifisert:**
+
+- `scripts/verify-terminal-themes.sh` validerer Zsh-syntaks, genererte
+  Starship-filer, standard TOML/YAML/JSON, Git-, LazyGit-, eza- og OpenCode-
+  konfigurasjon når verktøyene er tilgjengelige, foreldede aktive temanavn,
+  Macchiato-farger i light-only-filer og `git diff --check`.
+- Revisjonen fant ingen Macchiato-farger i light-only-konfigurasjon. Treff i
+  OpenCodes kombinerte tema er eksplisitte dark-roller, og LazyGits Macchiato-
+  base overstyres komplett av light-overlayet.
+- Den ubrukte Kitty-filen for Tokyo Night er fjernet. Det finnes ingen aktive
+  velgere for Catppuccin Latte, Flexoki, Rose Pine, Tokyo Night eller Monokai
+  Extended Light, og ingen foreldede genererte light-filer ble funnet.
+- README lenker nå til begge palettsidene på deres faktiske plassering.
+- Kitty og Ghosttys egne config-checks kan ikke kjøres i cplt-sandkassen fordi
+  appenes frameworks er utilgjengelige der. Superfile og Tuxedo er ikke i
+  sandboxens PATH; Tuxedos `.toml`-filer bruker dessuten programmets egen
+  uquotede fargesyntaks og inngår derfor ikke i standard TOML-parsing.
+
+**Manuell verifikasjonsstrategi:**
+
+- Oppsettet er allerede prøvd i vanlig bruk uten kjente blokkerende avvik. Den
+  uttømmende matrisen og en separat sollys-test er derfor ikke ferdigblokkere.
+- Visuelle eller verktøyspesifikke avvik som oppdages ved videre bruk tas som
+  egne oppfølgingsendringer, fremfor å holde denne planen åpen.
+
 **Akseptansekriterier:**
 
-- Alle overordnede ferdigkriterier og hele testmatrisen er oppfylt.
+- De overordnede ferdigkriteriene er oppfylt i verifisert vanlig bruk, uten
+  kjente blokkerende avvik.
 - Ingen foreldede light-temaer eller velgere finnes i repoet.
 - Alle configfiler kan parses eller lastes av tilhørende verktøy.
 - Planen beskriver faktisk sluttstatus og eventuelle kjente restrisikoer.

@@ -47,7 +47,7 @@ The source of truth for symlinks is `symlinks.conf`.
 | `tuxedo/` | `~/.config/tuxedo` |
 | `superfile/config.toml` | `~/Library/Application Support/superfile/config.toml` |
 | `superfile/hotkeys.toml` | `~/Library/Application Support/superfile/hotkeys.toml` |
-| `superfile/theme/everforest-contrast.toml` | `~/Library/Application Support/superfile/theme/everforest-contrast.toml` |
+| `superfile/theme/everforest-light-contrast.toml` | `~/Library/Application Support/superfile/theme/everforest-light-contrast.toml` |
 | `superfile/theme/catppuccin-macchiato.toml` | `~/Library/Application Support/superfile/theme/catppuccin-macchiato.toml` |
 | `ai/claude/settings.json` | `~/.claude/settings.json` |
 | `zen/user.js` | `<Zen profile dir>/user.js` |
