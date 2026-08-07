@@ -119,8 +119,8 @@ prompten og fullskjerms-TUI-er.
 - Den semantiske kontrastmappingen er foreground `#3d4c4f`, muted `#68766d`,
   red `#b83f3d`, orange `#c65f18`, yellow `#a87700`, green `#657a00`, aqua
   `#287f60`, blue `#2c7198` og purple `#aa4d8e`. Hovedbakgrunnen er `#fffbef`,
-  dempet bakgrunn `#f2efdf`, valgt bakgrunn `#e4e8bd`, slettet bakgrunn
-  `#f8d4ca` og informasjonsbakgrunn `#d8e7df`.
+  dempet bakgrunn `#f2efdf`, terminalens tekstmarkering `#d8e7df`, valgte
+  TUI-rader og additions `#e4e8bd`, og deletions `#f8d4ca`.
 
 ## Nåværende avvik
 
