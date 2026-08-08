@@ -4,50 +4,39 @@ set -o pipefail
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/../lib/common.sh"
+source "$SCRIPT_DIR/../lib/verify.sh"
 ROOT="$DOTFILES"
-ISSUES=0
 
-pass() {
-  printf 'PASS  %s\n' "$1"
-}
-
-fail() {
-  printf 'FAIL  %s\n' "$1"
-  ISSUES=$((ISSUES + 1))
-}
-
-skip() {
-  printf 'SKIP  %s\n' "$1"
-}
+verify_header "Terminal themes"
 
 check() {
   local description=$1
   shift
 
   if "$@" >/dev/null 2>&1; then
-    pass "$description"
+    verify_pass "$description"
   else
-    fail "$description"
+    verify_fail "$description"
   fi
 }
 
 check "Zsh syntax" zsh -n \
   "$ROOT/zshrc" "$ROOT/zprofile" "$ROOT"/zsh/*.sh "$ROOT"/zsh/functions/*.sh
 if output=$(ruby "$SCRIPT_DIR/generate-starship.rb" --check 2>&1); then
-  pass "Generated Starship configs"
+  verify_pass "Generated Starship configs"
 else
-  fail "Generated Starship configs"
+  verify_fail "Generated Starship configs"
   [ -z "$output" ] || printf '      %s\n' "$output"
 fi
 
 if command -v bat >/dev/null 2>&1; then
   if bat --list-themes | grep -qx 'everforest-light-contrast'; then
-    pass "Bat light theme"
+    verify_pass "Bat light theme"
   else
-    fail "Bat light theme (run: bat cache --build)"
+    verify_fail "Bat light theme (run: bat cache --build)"
   fi
 else
-  skip "Bat light theme (bat is not installed)"
+  verify_warn "Bat light theme (bat is not installed)"
 fi
 
 if command -v yq >/dev/null 2>&1; then
@@ -67,7 +56,7 @@ if command -v yq >/dev/null 2>&1; then
     "$ROOT/lazygit/themes/everforest-light-contrast.yml" \
     "$ROOT/glow/glow.yml"
 else
-  skip "TOML and YAML configs (yq is not installed)"
+  verify_warn "TOML and YAML configs (yq is not installed)"
 fi
 
 if command -v jq >/dev/null 2>&1; then
@@ -75,7 +64,7 @@ if command -v jq >/dev/null 2>&1; then
     "$ROOT/ai/claude/settings.json" \
     "$ROOT/ai/opencode/themes/everforest-macchiato.json"
 else
-  skip "JSON configs (jq is not installed)"
+  verify_warn "JSON configs (jq is not installed)"
 fi
 
 check "Git config" git config --file "$ROOT/git/config" --list
@@ -87,20 +76,20 @@ if command -v lazygit >/dev/null 2>&1; then
     LG_CONFIG_FILE="$ROOT/lazygit/config.yml,$ROOT/lazygit/themes/everforest-light-contrast.yml" \
     lazygit --config
 else
-  skip "LazyGit configs (lazygit is not installed)"
+  verify_warn "LazyGit configs (lazygit is not installed)"
 fi
 
 if command -v eza >/dev/null 2>&1; then
   check "eza theme" env EZA_CONFIG_DIR="$ROOT/eza" eza --color=always "$ROOT"
 else
-  skip "eza theme (eza is not installed)"
+  verify_warn "eza theme (eza is not installed)"
 fi
 
 if command -v opencode >/dev/null 2>&1; then
   check "OpenCode config and theme" env OPENCODE_CONFIG_DIR="$ROOT/ai/opencode" \
     opencode debug config --pure
 else
-  skip "OpenCode config and theme (opencode is not installed)"
+  verify_warn "OpenCode config and theme (opencode is not installed)"
 fi
 
 if grep -R -E -i \
@@ -109,9 +98,9 @@ if grep -R -E -i \
     "$ROOT"/bat "$ROOT"/btop "$ROOT"/superfile "$ROOT"/tuxedo \
     "$ROOT"/atuin "$ROOT"/tealdeer "$ROOT"/glow "$ROOT"/ai \
     "$ROOT"/zsh >/dev/null 2>&1; then
-  fail "No obsolete active theme references"
+  verify_fail "No obsolete active theme references"
 else
-  pass "No obsolete active theme references"
+  verify_pass "No obsolete active theme references"
 fi
 
 if grep -E -i \
@@ -125,16 +114,11 @@ if grep -E -i \
     "$ROOT/btop/themes/everforest-light-contrast.theme" \
     "$ROOT/superfile/theme/everforest-light-contrast.toml" \
     "$ROOT/tuxedo/themes/everforest-light-contrast.toml" >/dev/null 2>&1; then
-  fail "No Macchiato colors in light-only configs"
+  verify_fail "No Macchiato colors in light-only configs"
 else
-  pass "No Macchiato colors in light-only configs"
+  verify_pass "No Macchiato colors in light-only configs"
 fi
 
 check "Whitespace errors" git -C "$ROOT" diff HEAD --check
 
-if (( ISSUES > 0 )); then
-  printf '\n%d check(s) failed.\n' "$ISSUES"
-  exit 1
-fi
-
-printf '\nAll available terminal-theme checks passed.\n'
+verify_finish

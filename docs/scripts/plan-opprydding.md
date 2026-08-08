@@ -186,6 +186,8 @@ Dette ble observert for `batch-grill-me` og `writing-great-skills` fra
 
 ### Oppfølging: konsistent verifikasjonsoutput
 
+Status: gjennomført.
+
 `scripts/verify.sh` bruker symbolene `✓`, `✗` og `!`, mens den eksisterende
 `scripts/themes/verify.sh` skriver `PASS`, `FAIL` og `SKIP`. Etter at full
 temaverifikasjon ble inkludert i dispatcherens standardkjøring, blandes disse
