@@ -1,7 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
-DOTFILES="$HOME/dotfiles"
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "$SCRIPT_DIR/../lib/common.sh"
+
 CONF="$DOTFILES/symlinks.conf"
 
 echo "Setting up symlinks"

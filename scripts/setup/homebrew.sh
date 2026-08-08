@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 
-DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "$SCRIPT_DIR/../lib/common.sh"
+
 PRIVILEGES_CLI=$(which PrivilegesCLI 2>/dev/null) || \
   PRIVILEGES_CLI="/Applications/Privileges.app/Contents/MacOS/PrivilegesCLI"
 

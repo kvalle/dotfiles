@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "$SCRIPT_DIR/../lib/common.sh"
+
 echo "Installing agent skills..."
 
 if ! command -v npx >/dev/null 2>&1; then
@@ -10,7 +13,7 @@ fi
 
 mkdir -p ~/.agents/skills ~/.claude/skills
 
-SKILLS_FILE="$HOME/dotfiles/ai/skills.txt"
+SKILLS_FILE="$DOTFILES/ai/skills.txt"
 
 if [ ! -f "$SKILLS_FILE" ]; then
   echo "  $SKILLS_FILE not found, skipping"

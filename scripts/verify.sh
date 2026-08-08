@@ -4,7 +4,9 @@
 
 set -o pipefail
 
-DOTFILES="$HOME/dotfiles"
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "$SCRIPT_DIR/lib/common.sh"
+
 ISSUES=0
 FAILURES=()
 

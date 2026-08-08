@@ -1,9 +1,11 @@
 #!/bin/bash
 set -e
 
-cd "$(dirname "$0")"
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "$SCRIPT_DIR/lib/common.sh"
+cd "$SCRIPT_DIR"
 
-git -C ~/dotfiles submodule init && git -C ~/dotfiles submodule update
+git -C "$DOTFILES" submodule init && git -C "$DOTFILES" submodule update
 
 setup/homebrew.sh
 setup/nix.sh

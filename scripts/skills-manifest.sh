@@ -2,7 +2,9 @@
 
 set -euo pipefail
 
-DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "$SCRIPT_DIR/lib/common.sh"
+
 MANIFEST="${SKILLS_MANIFEST_FILE:-$DOTFILES/ai/skills.txt}"
 
 if [ -n "${SKILLS_LOCK_FILE:-}" ]; then

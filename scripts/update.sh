@@ -1,25 +1,19 @@
 #!/bin/bash
 
-DOTFILES_DIR="$HOME/dotfiles"
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "$SCRIPT_DIR/lib/common.sh"
+
 PRIVILEGES_CLI=$(command -v PrivilegesCLI 2>/dev/null) || \
   PRIVILEGES_CLI="/Applications/Privileges.app/Contents/MacOS/PrivilegesCLI"
 
 if [[ ! -x "$PRIVILEGES_CLI" ]]; then
-  warn "PrivilegesCLI ikke funnet. Kan ikke eskalere privilegier."
+  dotfiles_warn "PrivilegesCLI ikke funnet. Kan ikke eskalere privilegier."
   exit 1
 fi
 
 # --------------------------------------------------------------------------
-# Farger og formatering
+# Header-formatering
 # --------------------------------------------------------------------------
-
-BOLD='\033[1m'
-DIM='\033[2m'
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-BLUE='\033[0;34m'
-RESET='\033[0m'
 
 # Header: Topp = lys + bold
 MUTED='\033[38;2;128;128;128m'     # #808080
@@ -34,25 +28,9 @@ printf "                 ${DIM}DOTFILES${RESET}\n"
 echo ""
 
 # --------------------------------------------------------------------------
-# Hjelpefunksjoner
-# --------------------------------------------------------------------------
-
-info() {
-  echo ""
-  echo -e "${BOLD}${BLUE}▸ ${RESET}${BOLD}$1${RESET}"
-}
-
-warn() {
-  echo -e "    ${BOLD}${YELLOW}ADVARSEL:${RESET} $1"
-}
-
-success() {
-  echo -e "    ${GREEN}✓${RESET}  $1"
-}
-
 _has_uncommitted_changes() {
-  ! git -C "$DOTFILES_DIR" diff --quiet 2>/dev/null || \
-  ! git -C "$DOTFILES_DIR" diff --cached --quiet 2>/dev/null
+  ! git -C "$DOTFILES" diff --quiet 2>/dev/null || \
+  ! git -C "$DOTFILES" diff --cached --quiet 2>/dev/null
 }
 
 # --------------------------------------------------------------------------
@@ -60,9 +38,9 @@ _has_uncommitted_changes() {
 # --------------------------------------------------------------------------
 
 if _has_uncommitted_changes; then
-  warn "Det finnes ucommitede endringer i $DOTFILES_DIR:"
+  dotfiles_warn "Det finnes ucommitede endringer i $DOTFILES:"
   echo ""
-  git -C "$DOTFILES_DIR" status --short | sed 's/^/      /'
+  git -C "$DOTFILES" status --short | sed 's/^/      /'
   echo ""
   printf "    Vil du fortsette likevel? [y/N] "
   read -r answer
@@ -76,15 +54,15 @@ fi
 # Homebrew
 # --------------------------------------------------------------------------
 
-info "Oppdaterer Homebrew..."
+dotfiles_info "Oppdaterer Homebrew..."
 brew update
 
-info "Oppgraderer formulae..."
+dotfiles_info "Oppgraderer formulae..."
 if ! brew upgrade --formula --yes; then
-  warn "Noen formulae feilet under oppgradering (se over for detaljer)"
+  dotfiles_warn "Noen formulae feilet under oppgradering (se over for detaljer)"
 fi
 
-info "Oppgraderer casks..."
+dotfiles_info "Oppgraderer casks..."
 $PRIVILEGES_CLI --add --reason "Homebrew cask upgrade"
 sudo -v
 
@@ -108,7 +86,7 @@ _excluded_casks=()
 while IFS= read -r line; do
   cask=$(echo "$line" | sed -n 's/^cask "\([^"]*\)".*/\1/p')
   [[ -n "$cask" ]] && _excluded_casks+=("$cask")
-done < <(grep '\[self-updates\]' "$DOTFILES_DIR/Brewfile")
+done < <(grep '\[self-updates\]' "$DOTFILES/Brewfile")
 
 # Ekskluder terminalen vi kjører fra (unngå å drepe vår egen prosess)
 _current_terminal_cask=""
@@ -134,97 +112,97 @@ done
 
 if [[ ${#_to_upgrade[@]} -gt 0 ]]; then
   if ! brew upgrade --cask --yes "${_to_upgrade[@]}"; then
-    warn "Noen casks feilet under oppgradering (se over for detaljer)"
+    dotfiles_warn "Noen casks feilet under oppgradering (se over for detaljer)"
   fi
 else
   echo "    Fant ingen casks å oppgradere."
 fi
 
 if $_skipped_terminal; then
-  warn "Hoppet over $_current_terminal_cask (kjørende terminal). Oppgrader manuelt: brew upgrade --cask $_current_terminal_cask"
+  dotfiles_warn "Hoppet over $_current_terminal_cask (kjørende terminal). Oppgrader manuelt: brew upgrade --cask $_current_terminal_cask"
 fi
 
 # Rydd opp og fjern trap
 _cleanup_privileges
 
-info "Rydder gamle versjoner..."
+dotfiles_info "Rydder gamle versjoner..."
 brew cleanup --prune=30
 
 # --------------------------------------------------------------------------
 # Nix
 # --------------------------------------------------------------------------
 
-info "Oppdaterer Nix-pakker..."
+dotfiles_info "Oppdaterer Nix-pakker..."
 if command -v nix &>/dev/null; then
-  if nix flake update --flake "$DOTFILES_DIR/nix" && \
-     "$DOTFILES_DIR/scripts/nix-apply.sh"; then
-    success "Nix-pakker oppdatert."
+  if nix flake update --flake "$DOTFILES/nix" && \
+     "$DOTFILES/scripts/nix-apply.sh"; then
+    dotfiles_success "Nix-pakker oppdatert."
   else
-    warn "Nix-oppdateringen feilet; forrige profilgenerasjon er fortsatt tilgjengelig"
+    dotfiles_warn "Nix-oppdateringen feilet; forrige profilgenerasjon er fortsatt tilgjengelig"
   fi
 else
-  warn "Nix ikke tilgjengelig, hopper over Nix-pakker"
+  dotfiles_warn "Nix ikke tilgjengelig, hopper over Nix-pakker"
 fi
 
 # --------------------------------------------------------------------------
 # Git submoduler
 # --------------------------------------------------------------------------
 
-info "Oppdaterer git submoduler..."
-git -C "$DOTFILES_DIR" submodule update --remote
-success "Submoduler oppdatert."
+dotfiles_info "Oppdaterer git submoduler..."
+git -C "$DOTFILES" submodule update --remote
+dotfiles_success "Submoduler oppdatert."
 
 # --------------------------------------------------------------------------
 # tealdeer (tldr-sider)
 # --------------------------------------------------------------------------
 
-info "Oppdaterer tldr-sider..."
+dotfiles_info "Oppdaterer tldr-sider..."
 if tldr --update; then
-  success "tldr-sider oppdatert."
+  dotfiles_success "tldr-sider oppdatert."
 else
-  warn "Kunne ikke oppdatere tldr-sider"
+  dotfiles_warn "Kunne ikke oppdatere tldr-sider"
 fi
 
 # --------------------------------------------------------------------------
 # jenv rehash
 # --------------------------------------------------------------------------
 
-info "Kjører jenv rehash..."
+dotfiles_info "Kjører jenv rehash..."
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)" 2>/dev/null
 jenv rehash
-success "jenv shims oppdatert."
+dotfiles_success "jenv shims oppdatert."
 
 # --------------------------------------------------------------------------
 # Agent skills
 # --------------------------------------------------------------------------
 
-info "Oppdaterer agent skills..."
+dotfiles_info "Oppdaterer agent skills..."
 if command -v npx &>/dev/null; then
   if NPM_CONFIG_CACHE="$TMPDIR/npm-cache" npx --yes skills update -g -y; then
-    "$DOTFILES_DIR/scripts/skills-manifest.sh" --write || \
-      warn "Kunne ikke oppdatere skills-manifestet"
+    "$DOTFILES/scripts/skills-manifest.sh" --write || \
+      dotfiles_warn "Kunne ikke oppdatere skills-manifestet"
   else
-    warn "Kunne ikke oppdatere agent skills"
+    dotfiles_warn "Kunne ikke oppdatere agent skills"
   fi
 else
-  warn "npx ikke tilgjengelig, hopper over agent skills"
+  dotfiles_warn "npx ikke tilgjengelig, hopper over agent skills"
 fi
 
 # --------------------------------------------------------------------------
 # Sjekk for endringer som bør committes
 # --------------------------------------------------------------------------
 
-info "Sjekker for endringer i dotfiles..."
+dotfiles_info "Sjekker for endringer i dotfiles..."
 
 if ! _has_uncommitted_changes; then
-  success "Ingen endringer å committe."
+  dotfiles_success "Ingen endringer å committe."
 else
   echo ""
-  warn "Oppdateringen har produsert endringer som bør committes:"
+  dotfiles_warn "Oppdateringen har produsert endringer som bør committes:"
   echo ""
-  git -C "$DOTFILES_DIR" diff --name-only | sed 's/^/      /'
-  git -C "$DOTFILES_DIR" diff --cached --name-only | sed 's/^/      /'
+  git -C "$DOTFILES" diff --name-only | sed 's/^/      /'
+  git -C "$DOTFILES" diff --cached --name-only | sed 's/^/      /'
   echo ""
 fi
 

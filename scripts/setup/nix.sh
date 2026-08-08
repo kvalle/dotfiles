@@ -2,7 +2,8 @@
 
 set -euo pipefail
 
-DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "$SCRIPT_DIR/../lib/common.sh"
 
 if ! command -v nix >/dev/null 2>&1; then
   PRIVILEGES_CLI=$(command -v PrivilegesCLI 2>/dev/null) || \

@@ -2,7 +2,9 @@
 
 set -o pipefail
 
-ROOT=$(cd "$(dirname "$0")/.." && pwd)
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "$SCRIPT_DIR/lib/common.sh"
+ROOT="$DOTFILES"
 ISSUES=0
 
 pass() {
