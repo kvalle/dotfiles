@@ -10,7 +10,10 @@ if ! command -v npx >/dev/null 2>&1; then
   exit 0
 fi
 
-if NPM_CONFIG_CACHE="${TMPDIR:-/tmp}/npm-cache" npx --yes skills update -g -y; then
+update_args=(--yes skills update -g)
+[[ -t 0 ]] || update_args+=(-y)
+
+if NPM_CONFIG_CACHE="${TMPDIR:-/tmp}/npm-cache" npx "${update_args[@]}"; then
   "$SCRIPT_DIR/manifest.sh" --write || \
     dotfiles_warn "Kunne ikke oppdatere skills-manifestet"
 else

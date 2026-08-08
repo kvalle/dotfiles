@@ -31,7 +31,8 @@ interaktiv bekreftelse.
 ```
 
 Oppdaterer Homebrew- og Nix-pakker, git submoduler, tldr-sider, jenv-shims og
-agent skills.
+agent skills. Ved interaktiv kjøring spør skills-verktøyet før lokale kopier av
+skills som er fjernet upstream slettes.
 
 ## Dokumentasjon
 

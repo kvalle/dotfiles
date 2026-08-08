@@ -169,17 +169,13 @@ Før eller under flyttingen bør scripts samles om:
 
 ### Oppfølging: skills fjernet upstream
 
+Status: gjennomført.
+
 `npx skills update -g -y` kan rapportere at installerte skills er slettet fra
 kilden, uten å fjerne de lokale kopiene. Oppdateringsflyten bør oppdage dette
 og spørre interaktivt om de foreldreløse skillsene skal slettes lokalt.
 Sletting skal ikke skje automatisk, siden lokale skills kan være i bruk eller
 ha endringer som må vurderes først.
-
-Et valg om å beholde en skill bør lagres i en versjonert allowlist eller annen
-deklarativ konfigurasjon i repoet. Senere oppdateringer skal ikke spørre om den
-samme skillen igjen så lenge den står i allowlisten. Dersom skillen dukker opp
-igjen upstream, bør den kunne fjernes fra allowlisten automatisk eller
-rapporteres som en utdatert oppføring.
 
 Oppdateringsscriptet må skille mellom en interaktiv terminal og automatisert
 kjøring. I ikke-interaktiv modus skal det aldri slette skills eller vente på
