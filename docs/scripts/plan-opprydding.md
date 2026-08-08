@@ -197,6 +197,8 @@ kan kjøres.
 
 ### Etappe 2: Nix
 
+Status: gjennomført.
+
 - flytt `setup/nix.sh`, `nix-apply.sh` og `nix-profile-audit.sh`
 - trekk Nix-oppdateringen ut av `update.sh`
 - oppdater dokumentasjon og alle kall

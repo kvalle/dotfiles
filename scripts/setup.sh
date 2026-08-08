@@ -8,7 +8,7 @@ cd "$SCRIPT_DIR"
 git -C "$DOTFILES" submodule init && git -C "$DOTFILES" submodule update
 
 setup/homebrew.sh
-setup/nix.sh
+nix/setup.sh
 source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 export PATH="$HOME/.local/state/nix/profiles/dotfiles/bin:$PATH"
 setup/rectangle.sh

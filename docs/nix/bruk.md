@@ -5,7 +5,7 @@ gradvis fra Homebrew; Homebrew beholdes for pakker og macOS-apper som ikke er
 hensiktsmessige å håndtere med Nix.
 
 ```sh
-~/dotfiles/scripts/nix-apply.sh
+~/dotfiles/scripts/nix/apply.sh
 ```
 
 Scriptet aktiverer pakkene fra den låste `nixpkgs`-revisjonen i
@@ -14,5 +14,5 @@ Scriptet aktiverer pakkene fra den låste `nixpkgs`-revisjonen i
 Se pakker i standard- og dotfiles-profilen, samt overlappende kommandoer:
 
 ```sh
-~/dotfiles/scripts/nix-profile-audit.sh
+~/dotfiles/scripts/nix/audit-profiles.sh
 ```

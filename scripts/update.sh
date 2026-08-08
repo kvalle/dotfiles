@@ -133,16 +133,7 @@ brew cleanup --prune=30
 # --------------------------------------------------------------------------
 
 dotfiles_info "Oppdaterer Nix-pakker..."
-if command -v nix &>/dev/null; then
-  if nix flake update --flake "$DOTFILES/nix" && \
-     "$DOTFILES/scripts/nix-apply.sh"; then
-    dotfiles_success "Nix-pakker oppdatert."
-  else
-    dotfiles_warn "Nix-oppdateringen feilet; forrige profilgenerasjon er fortsatt tilgjengelig"
-  fi
-else
-  dotfiles_warn "Nix ikke tilgjengelig, hopper over Nix-pakker"
-fi
+"$SCRIPT_DIR/nix/update.sh" || true
 
 # --------------------------------------------------------------------------
 # Git submoduler
