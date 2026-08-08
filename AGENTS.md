@@ -17,7 +17,7 @@ repository, ask the user instead of reading it from the home directory.
 
 AI-agenter i dette repoet kjøres i en sandbox som kun har skrivetilgang
 til `~/dotfiles/`. Alt som krever endringer utenfor — som å kjøre
-`scripts/setup/symlinks.sh`, opprette/slette kataloger under `~/.config/`,
+`scripts/symlinks/setup.sh`, opprette/slette kataloger under `~/.config/`,
 eller kjøre `brew` — må brukeren utføre selv. Agenten kan oppgi kommandoene,
 men ikke kjøre dem.
 
@@ -64,6 +64,8 @@ The source of truth for symlinks is `symlinks.conf`.
   macOS defaults, secrets)
 - `scripts/update.sh` — Ongoing maintenance: updates Homebrew, git submodules,
   tldr pages, jenv, and agent skills
+- `scripts/verify.sh` — Verify all domains, or one named domain such as
+  `scripts/verify.sh symlinks`
 - `symlinks.conf` — Declarative symlink table (source of truth)
 - `Brewfile` — Declarative package list; add new packages here and run
   `brew bundle`

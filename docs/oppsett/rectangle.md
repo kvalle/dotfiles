@@ -1,6 +1,6 @@
 # Rectangle
 
-`RectangleConfig.json` symlinkes ikke. `scripts/setup/rectangle.sh` kopierer
+`RectangleConfig.json` symlinkes ikke. `scripts/rectangle/setup.sh` kopierer
 filen til Rectangles importsti:
 
 ```text
@@ -12,5 +12,5 @@ navn. Etter endringer i konfigurasjonen må setup-scriptet derfor kjøres på ny
 og Rectangle må startes på nytt for å importere endringene:
 
 ```sh
-~/dotfiles/scripts/setup/rectangle.sh
+~/dotfiles/scripts/rectangle/setup.sh
 ```

@@ -7,18 +7,17 @@ cd "$SCRIPT_DIR"
 
 git -C "$DOTFILES" submodule init && git -C "$DOTFILES" submodule update
 
-setup/homebrew.sh
+brew/setup.sh
 nix/setup.sh
 source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 export PATH="$HOME/.local/state/nix/profiles/dotfiles/bin:$PATH"
-setup/rectangle.sh
-setup/nvm.sh
-setup/fzf.sh
-setup/macos.sh
-setup/symlinks.sh
-setup/bat.sh
+rectangle/setup.sh
+nvm/setup.sh
+macos/setup.sh
+symlinks/setup.sh
+bat/setup.sh
 skills/setup.sh
-setup/secrets.sh
+secrets/setup.sh
 
 # Verifiser at alt er korrekt satt opp
 ./verify.sh

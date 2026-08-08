@@ -16,8 +16,13 @@ Dette installerer Determinate Nix og pakker fra `nix/`, installerer gjenværende
 pakker og apper fra `Brewfile`, setter opp utviklingsverktøy, konfigurerer
 macOS-defaults og oppretter symlinker.
 
-Secrets hentes fra 1Password CLI (`op`) via `scripts/setup/secrets.sh`,
-som kjøres til slutt. Dette krever at du er logget inn i `op` på forhånd.
+Secrets hentes fra 1Password CLI (`op`) via `scripts/secrets/setup.sh`, som
+kjøres til slutt. Scriptet starter interaktiv innlogging ved behov og lagrer
+secret-filen med modus `600`.
+
+Symlink-oppsettet beholder korrekte lenker og reparerer brukne lenker automatisk.
+Feil symlinker og vanlige filer eller kataloger overskrives bare etter
+interaktiv bekreftelse.
 
 ## Oppdatering
 

@@ -171,12 +171,31 @@ Før eller under flyttingen bør scripts samles om:
 
 `npx skills update -g -y` kan rapportere at installerte skills er slettet fra
 kilden, uten å fjerne de lokale kopiene. Oppdateringsflyten bør oppdage dette
-og spørre eksplisitt om de foreldreløse skillsene skal slettes lokalt. Sletting
-skal ikke skje automatisk, siden lokale skills kan være i bruk eller ha
-endringer som må vurderes først.
+og spørre interaktivt om de foreldreløse skillsene skal slettes lokalt.
+Sletting skal ikke skje automatisk, siden lokale skills kan være i bruk eller
+ha endringer som må vurderes først.
+
+Et valg om å beholde en skill bør lagres i en versjonert allowlist eller annen
+deklarativ konfigurasjon i repoet. Senere oppdateringer skal ikke spørre om den
+samme skillen igjen så lenge den står i allowlisten. Dersom skillen dukker opp
+igjen upstream, bør den kunne fjernes fra allowlisten automatisk eller
+rapporteres som en utdatert oppføring.
+
+Oppdateringsscriptet må skille mellom en interaktiv terminal og automatisert
+kjøring. I ikke-interaktiv modus skal det aldri slette skills eller vente på
+input, men rapportere nye foreldreløse skills tydelig.
 
 Dette ble observert for `batch-grill-me` og `writing-great-skills` fra
 `mattpocock/skills` under manuell testing av `scripts/update.sh`.
+
+### Oppfølging: konsistent verifikasjonsoutput
+
+`scripts/verify.sh` bruker symbolene `✓`, `✗` og `!`, mens den eksisterende
+`scripts/themes/verify.sh` skriver `PASS`, `FAIL` og `SKIP`. Etter at full
+temaverifikasjon ble inkludert i dispatcherens standardkjøring, blandes disse
+formatene i samme rapport. Temaverifikasjonen bør senere bruke de felles
+rapporteringsfunksjonene i `scripts/lib/verify.sh`, uten å redusere detaljene
+eller muligheten til å kjøre den selvstendig.
 
 ## Gjennomføringsstrategi
 
@@ -219,6 +238,8 @@ terminaltemaverifikasjonen.
 
 ### Etappe 4: Setup-domener
 
+Status: gjennomført.
+
 - flytt Homebrew, symlinker, macOS, Rectangle, NVM, Bat og secrets
 - fjern eller absorber `setup/fzf.sh`
 - behold `scripts/setup.sh` som stabilt entrypoint
@@ -229,6 +250,8 @@ maskintilstand.
 
 ### Etappe 5: Update og verify
 
+Status: gjennomført.
+
 - gjør `update.sh` til en liten orkestrator
 - del `verify.sh` etter domene
 - skill rene repokontroller fra maskinavhengige kontroller
@@ -238,6 +261,8 @@ Kjør alle ikke-destruktive verifikasjoner og kontroller at standardkallet
 fortsatt dekker hele systemet.
 
 ### Etappe 6: Herding og dokumentasjon
+
+Status: gjennomført.
 
 - herd symlinkhåndteringen før eller separat fra annen atferdsendring
 - sikre secrets med streng filmodus og oppdatert 1Password-innlogging

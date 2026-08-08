@@ -4,7 +4,7 @@
 #   [verify]            Sjekkes av verify.sh (at kommando finnes i PATH)
 #   [verify cmd:<cmd>]  Som [verify], men sjekker <cmd> istedenfor pakkenavn
 #   [verify zsh-plugin] Sjekkes som lastet zsh-plugin
-#   [self-updates]      Appen oppdaterer seg selv; ekskluderes fra upgrade.sh
+#   [self-updates]      Appen oppdaterer seg selv; ekskluderes fra scripts/brew/update.sh
 # ------------------------------------------------------------------------------
 
 # ------------------------------------------------------------------------------

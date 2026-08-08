@@ -33,8 +33,12 @@ check() {
 
 check "Zsh syntax" zsh -n \
   "$ROOT/zshrc" "$ROOT/zprofile" "$ROOT"/zsh/*.sh "$ROOT"/zsh/functions/*.sh
-check "Generated Starship configs" ruby \
-  "$SCRIPT_DIR/generate-starship.rb" --check
+if output=$(ruby "$SCRIPT_DIR/generate-starship.rb" --check 2>&1); then
+  pass "Generated Starship configs"
+else
+  fail "Generated Starship configs"
+  [ -z "$output" ] || printf '      %s\n' "$output"
+fi
 
 if command -v bat >/dev/null 2>&1; then
   if bat --list-themes | grep -qx 'everforest-light-contrast'; then

@@ -3,9 +3,7 @@ set -e
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/../lib/common.sh"
-
-PRIVILEGES_CLI=$(which PrivilegesCLI 2>/dev/null) || \
-  PRIVILEGES_CLI="/Applications/Privileges.app/Contents/MacOS/PrivilegesCLI"
+source "$SCRIPT_DIR/../lib/privileges.sh"
 
 echo "Starting installing and configuring Homebrew"
 
@@ -26,8 +24,8 @@ grep '^tap ' "$DOTFILES/Brewfile" | sed 's/tap "//;s/".*//' | while read -r t; d
 done
 
 echo "Installing apps"
-$PRIVILEGES_CLI --add --reason "Homebrew bundle install"
+dotfiles_privileges_begin "Homebrew bundle install"
 brew bundle --file="$DOTFILES/Brewfile" || echo "Warning: some Brewfile dependencies failed to install"
-$PRIVILEGES_CLI --remove
+dotfiles_privileges_cleanup || dotfiles_die "Midlertidige adminrettigheter ble ikke fjernet."
 
 echo "Done installing and configuring Homebrew"

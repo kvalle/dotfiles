@@ -1,273 +1,56 @@
 #!/bin/bash
-# Dotfiles Verify — diagnostisk sjekk av oppsett
-# Kjøres etter setup eller manuelt for å bekrefte at alt er korrekt.
-
-set -o pipefail
+# Dotfiles Verify - diagnostisk sjekk av oppsett
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/lib/common.sh"
 
-ISSUES=0
-FAILURES=()
+DOMAINS=(symlinks brew nix bat zsh secrets themes skills)
 
-# --------------------------------------------------------------------------
-# Farger og hjelpefunksjoner
-# --------------------------------------------------------------------------
-
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-BOLD='\033[1m'
-RESET='\033[0m'
-
-pass() {
-  echo -e "  ${GREEN}✓${RESET}  $1"
+usage() {
+  echo "Usage: ${0##*/} [all|${DOMAINS[*]}]" >&2
 }
 
-fail() {
-  echo -e "  ${RED}✗${RESET}  $1"
-  FAILURES+=("$1")
-  ISSUES=$((ISSUES + 1))
+run_domain() {
+  case "$1" in
+    symlinks) "$SCRIPT_DIR/symlinks/verify.sh" ;;
+    brew)     "$SCRIPT_DIR/brew/verify.sh" ;;
+    nix)      "$SCRIPT_DIR/nix/verify.sh" ;;
+    bat)      "$SCRIPT_DIR/bat/verify.sh" ;;
+    zsh)      "$SCRIPT_DIR/zsh/verify.sh" ;;
+    secrets)  "$SCRIPT_DIR/secrets/verify.sh" ;;
+    themes)   "$SCRIPT_DIR/themes/verify.sh" ;;
+    skills)
+      printf '\n%bAgent skills%b\n' "$BOLD" "$RESET"
+      if output=$("$SCRIPT_DIR/skills/verify.sh" 2>&1); then
+        printf '  %b✓%b  ai/skills.txt er oppdatert\n' "$GREEN" "$RESET"
+      else
+        printf '  %b✗%b  ai/skills.txt samsvarer ikke med skill-lockfilen\n' "$RED" "$RESET"
+        [ -z "$output" ] || printf '      %s\n' "$output"
+        return 1
+      fi
+      ;;
+  esac
 }
 
-warn() {
-  echo -e "  ${YELLOW}!${RESET}  $1"
-}
-
-header() {
-  echo ""
-  echo -e "${BOLD}$1${RESET}"
-}
-
-# --------------------------------------------------------------------------
-# 1. Symlinks
-# --------------------------------------------------------------------------
-
-header "Symlinks"
-
-while read -r type src dest; do
-  src="$DOTFILES/$src"
-  dest=$(eval echo "$dest")
-
-  if [ ! -e "$dest" ] && [ ! -L "$dest" ]; then
-    fail "$dest (mangler)"
-  elif [ ! -L "$dest" ]; then
-    fail "$dest (eksisterer men er ikke en symlink)"
-  else
-    actual=$(readlink "$dest")
-    if [ "$actual" != "$src" ]; then
-      fail "$dest -> $actual (forventet $src)"
-    else
-      pass "$dest"
-    fi
-  fi
-done < <(grep -v '^\s*#' "$DOTFILES/symlinks.conf" | grep -v '^\s*$')
-
-# Zen Browser (spesialtilfelle)
-ZEN_PROFILE=$(find "$HOME/Library/Application Support/zen/Profiles" \
-  -maxdepth 1 -name "*.Default (release)" -type d 2>/dev/null | head -1)
-if [ -n "$ZEN_PROFILE" ]; then
-  zen_dest="$ZEN_PROFILE/user.js"
-  zen_src="$DOTFILES/zen/user.js"
-  if [ ! -L "$zen_dest" ]; then
-    fail "$zen_dest (mangler eller ikke symlink)"
-  else
-    actual=$(readlink "$zen_dest")
-    if [ "$actual" != "$zen_src" ]; then
-      fail "$zen_dest -> $actual (forventet $zen_src)"
-    else
-      pass "$zen_dest"
-    fi
-  fi
-else
-  warn "Zen Browser: profil ikke funnet, hopper over"
+selection=${1:-all}
+if [[ "$selection" != all && ! " ${DOMAINS[*]} " =~ " $selection " ]] || (( $# > 1 )); then
+  usage
+  exit 2
 fi
 
-# --------------------------------------------------------------------------
-# 2. Tools (fra Brewfile [verify]-annotasjoner)
-# --------------------------------------------------------------------------
-
-header "Tools"
-
-while IFS= read -r line; do
-  # Hent pakkenavn fra brew "pakke" eller brew "tap/pakke"
-  pkg=$(echo "$line" | sed -n 's/^brew "\([^"]*\)".*/\1/p')
-  # Fjern eventuell tap-prefix for visning
-  pkg_short="${pkg##*/}"
-
-  if echo "$line" | grep -q '\[verify cmd:[^]]*\]'; then
-    # [verify cmd:<cmd>] — sjekk spesifikt kommandonavn
-    cmd=$(echo "$line" | sed -n 's/.*\[verify cmd:\([^]]*\)\].*/\1/p')
-    if command -v "$cmd" &>/dev/null; then
-      pass "$pkg_short ($cmd)"
-    else
-      fail "$pkg_short ($cmd ikke i PATH)"
-    fi
-  elif echo "$line" | grep -q '\[verify\]'; then
-    # [verify] — sjekk pakkenavn som kommando
-    if command -v "$pkg_short" &>/dev/null; then
-      pass "$pkg_short"
-    else
-      fail "$pkg_short (ikke i PATH)"
-    fi
-  fi
-done < <(grep '\[verify' "$DOTFILES/Brewfile" | grep -v '^\s*#')
-
-# --------------------------------------------------------------------------
-# 3. Nix
-# --------------------------------------------------------------------------
-
-header "Nix"
-
-NIX_PROFILE="$HOME/.local/state/nix/profiles/dotfiles"
-NIX_COMMANDS="$NIX_PROFILE/share/dotfiles/nix-commands"
-if ! command -v nix &>/dev/null; then
-  fail "nix (ikke i PATH)"
-elif [ ! -f "$NIX_COMMANDS" ]; then
-  fail "dotfiles-profil (kommandomanifest mangler)"
-else
-  while IFS= read -r cmd; do
-    [ -n "$cmd" ] || continue
-    expected="$NIX_PROFILE/bin/$cmd"
-    if [ ! -x "$expected" ]; then
-      fail "$cmd (mangler i Nix-profilen)"
-    elif [ "$(command -v "$cmd")" != "$expected" ]; then
-      fail "$cmd (Nix-profilen er ikke først i PATH)"
-    else
-      pass "$cmd"
-    fi
-  done < "$NIX_COMMANDS"
-fi
-
-# --------------------------------------------------------------------------
-# 4. Bat theme cache
-# --------------------------------------------------------------------------
-
-header "Bat theme cache"
-
-bat_themes=$(bat --list-themes 2>/dev/null)
-for theme in 'everforest-light-contrast' 'Catppuccin Macchiato'; do
-  if grep -qx "$theme" <<< "$bat_themes"; then
-    pass "$theme"
-  else
-    fail "$theme (kjør: bat cache --build)"
-  fi
-done
-unset bat_themes
-
-# --------------------------------------------------------------------------
-# 5. Zsh-plugins (fra Brewfile [verify zsh-plugin]-annotasjoner)
-# --------------------------------------------------------------------------
-
-header "Zsh plugins"
-
-BREW_PREFIX=$(brew --prefix)
-
-while IFS= read -r line; do
-  pkg=$(echo "$line" | sed -n 's/^brew "\([^"]*\)".*/\1/p')
-  pkg_short="${pkg##*/}"
-  plugin_file="$BREW_PREFIX/share/$pkg_short/$pkg_short.zsh"
-
-  if [ -f "$plugin_file" ]; then
-    pass "$pkg_short"
-  else
-    fail "$pkg_short ($plugin_file mangler)"
-  fi
-done < <(grep '\[verify zsh-plugin\]' "$DOTFILES/Brewfile" | grep -v '^\s*#')
-
-# --------------------------------------------------------------------------
-# 6. Zsh-moduler
-# --------------------------------------------------------------------------
-
-header "Zsh modules"
-
-zsh_modules=(options completions environment aliases lazy-loaders tools plugins)
-for mod in "${zsh_modules[@]}"; do
-  if [ -f "$DOTFILES/zsh/$mod.sh" ]; then
-    pass "zsh/$mod.sh"
-  else
-    fail "zsh/$mod.sh (mangler)"
-  fi
-done
-
-# Sjekk at functions/ ikke er tom
-func_count=$(find "$DOTFILES/zsh/functions" -name "*.sh" 2>/dev/null | wc -l | tr -d ' ')
-if [ "$func_count" -gt 0 ]; then
-  pass "zsh/functions/ ($func_count funksjoner)"
-else
-  fail "zsh/functions/ (tom eller mangler)"
-fi
-
-# --------------------------------------------------------------------------
-# 7. Secrets
-# --------------------------------------------------------------------------
-
-header "Secrets"
-
-if [ -d ~/.secrets ]; then
-  mode=$(stat -f "%Lp" ~/.secrets 2>/dev/null)
-  if [ "$mode" = "700" ]; then
-    pass "~/.secrets/ (mode 700)"
-  else
-    fail "~/.secrets/ (mode $mode, forventet 700)"
-  fi
-else
-  fail "~/.secrets/ (mangler)"
-fi
-
-if [ -f ~/.secrets/digipost-github-secret ]; then
-  pass "~/.secrets/digipost-github-secret"
-else
-  fail "~/.secrets/digipost-github-secret (mangler)"
-fi
-
-# --------------------------------------------------------------------------
-# 8. Generated configs
-# --------------------------------------------------------------------------
-
-header "Generated configs"
-
-if output=$(ruby "$DOTFILES/scripts/themes/generate-starship.rb" --check 2>&1); then
-  pass "Starship-configene er oppdatert"
-else
-  fail "Starship-configene samsvarer ikke med malen"
-  if [ -n "$output" ]; then
-    while IFS= read -r line; do
-      echo "      $line"
-    done <<< "$output"
-  fi
-fi
-
-# --------------------------------------------------------------------------
-# 9. Agent skills
-# --------------------------------------------------------------------------
-
-header "Agent skills"
-
-if output=$("$DOTFILES/scripts/skills/verify.sh" 2>&1); then
-  pass "ai/skills.txt er oppdatert"
-else
-  fail "ai/skills.txt samsvarer ikke med skill-lockfilen"
-  if [ -n "$output" ]; then
-    while IFS= read -r line; do
-      echo "      $line"
-    done <<< "$output"
-  fi
-fi
-
-# --------------------------------------------------------------------------
-# Oppsummering
-# --------------------------------------------------------------------------
-
-echo ""
-if [ "$ISSUES" -eq 0 ]; then
-  echo -e "${GREEN}${BOLD}Alt OK — ingen problemer funnet.${RESET}"
-else
-  echo -e "${RED}${BOLD}$ISSUES problem(er) funnet.${RESET}"
-  for failure in "${FAILURES[@]}"; do
-    echo -e "  ${RED}✗${RESET}  $failure"
+failed=()
+if [[ "$selection" == all ]]; then
+  for domain in "${DOMAINS[@]}"; do
+    run_domain "$domain" || failed+=("$domain")
   done
+else
+  run_domain "$selection" || failed+=("$selection")
 fi
-echo ""
 
-exit "$( [ "$ISSUES" -eq 0 ] && echo 0 || echo 1 )"
+echo ""
+if (( ${#failed[@]} == 0 )); then
+  printf '%bAlt OK - ingen problemer funnet.%b\n\n' "${GREEN}${BOLD}" "$RESET"
+else
+  printf '%bVerifikasjon feilet for: %s%b\n\n' "${RED}${BOLD}" "${failed[*]}" "$RESET"
+  exit 1
+fi
