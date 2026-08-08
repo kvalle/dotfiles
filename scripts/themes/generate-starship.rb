@@ -1,7 +1,7 @@
 require "erb"
 require "tempfile"
 
-root = File.expand_path("..", __dir__)
+root = ENV.fetch("DOTFILES", File.expand_path("../..", __dir__))
 template = ERB.new(File.read(File.join(root, "starship/starship.toml.erb")), trim_mode: "-")
 
 variants = {

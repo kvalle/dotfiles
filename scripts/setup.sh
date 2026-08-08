@@ -17,7 +17,7 @@ setup/fzf.sh
 setup/macos.sh
 setup/symlinks.sh
 setup/bat.sh
-setup/skills.sh
+skills/setup.sh
 setup/secrets.sh
 
 # Verifiser at alt er korrekt satt opp

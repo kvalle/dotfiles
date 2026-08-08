@@ -169,16 +169,7 @@ dotfiles_success "jenv shims oppdatert."
 # --------------------------------------------------------------------------
 
 dotfiles_info "Oppdaterer agent skills..."
-if command -v npx &>/dev/null; then
-  if NPM_CONFIG_CACHE="$TMPDIR/npm-cache" npx --yes skills update -g -y; then
-    "$DOTFILES/scripts/skills-manifest.sh" --write || \
-      dotfiles_warn "Kunne ikke oppdatere skills-manifestet"
-  else
-    dotfiles_warn "Kunne ikke oppdatere agent skills"
-  fi
-else
-  dotfiles_warn "npx ikke tilgjengelig, hopper over agent skills"
-fi
+"$SCRIPT_DIR/skills/update.sh" || true
 
 # --------------------------------------------------------------------------
 # Sjekk for endringer som bør committes

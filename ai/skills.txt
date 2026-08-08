@@ -1,5 +1,5 @@
 # Agent skills - generert fra ~/.agents/.skill-lock.json
-# Ikke rediger manuelt. Kjor scripts/skills-manifest.sh --write.
+# Ikke rediger manuelt. Kjor scripts/skills/manifest.sh --write.
 # Format: kilde<TAB>skill
 
 digipost/digipost-skills	digipost

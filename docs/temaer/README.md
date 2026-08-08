@@ -23,7 +23,7 @@ allerede kjører, må normalt startes på nytt etter et bytte.
 ## Drift og vedlikehold
 
 - Starships runtime-filer genereres fra `starship/starship.toml.erb` med
-  `scripts/generate-starship-configs.rb`. LazyGit bruker en felles dark-base og
+  `scripts/themes/generate-starship.rb`. LazyGit bruker en felles dark-base og
   et light-overlay.
 - btop, Superfile og Tuxedo velger tema gjennom små wrappers med midlertidig
   konfigurasjon. Det er ikke nødvendig med generell Kitty-palettgjenoppretting.
@@ -36,7 +36,7 @@ allerede kjører, må normalt startes på nytt etter et bytte.
 Kjør den automatiske kontrollen etter endringer:
 
 ```sh
-~/dotfiles/scripts/verify-terminal-themes.sh
+~/dotfiles/scripts/themes/verify.sh
 ```
 
 Ved visuelle endringer bør relevante verktøy også kontrolleres manuelt i både

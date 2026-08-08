@@ -3,7 +3,7 @@
 set -euo pipefail
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
-source "$SCRIPT_DIR/lib/common.sh"
+source "$SCRIPT_DIR/../lib/common.sh"
 
 MANIFEST="${SKILLS_MANIFEST_FILE:-$DOTFILES/ai/skills.txt}"
 
@@ -32,7 +32,7 @@ generate_manifest() {
 
   cat <<'EOF'
 # Agent skills - generert fra ~/.agents/.skill-lock.json
-# Ikke rediger manuelt. Kjor scripts/skills-manifest.sh --write.
+# Ikke rediger manuelt. Kjor scripts/skills/manifest.sh --write.
 # Format: kilde<TAB>skill
 
 EOF
@@ -66,7 +66,7 @@ case "${1:-}" in
     trap 'rm -f "$tmp"' EXIT
     generate_manifest > "$tmp"
     if ! diff -u "$MANIFEST" "$tmp"; then
-      echo "Manifestet er utdatert. Kjor scripts/skills-manifest.sh --write." >&2
+      echo "Manifestet er utdatert. Kjor scripts/skills/manifest.sh --write." >&2
       exit 1
     fi
     ;;

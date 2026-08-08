@@ -3,7 +3,7 @@
 set -o pipefail
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
-source "$SCRIPT_DIR/lib/common.sh"
+source "$SCRIPT_DIR/../lib/common.sh"
 ROOT="$DOTFILES"
 ISSUES=0
 
@@ -34,7 +34,7 @@ check() {
 check "Zsh syntax" zsh -n \
   "$ROOT/zshrc" "$ROOT/zprofile" "$ROOT"/zsh/*.sh "$ROOT"/zsh/functions/*.sh
 check "Generated Starship configs" ruby \
-  "$ROOT/scripts/generate-starship-configs.rb" --check
+  "$SCRIPT_DIR/generate-starship.rb" --check
 
 if command -v bat >/dev/null 2>&1; then
   if bat --list-themes | grep -qx 'everforest-light-contrast'; then

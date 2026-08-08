@@ -227,7 +227,7 @@ fi
 
 header "Generated configs"
 
-if output=$(ruby "$DOTFILES/scripts/generate-starship-configs.rb" --check 2>&1); then
+if output=$(ruby "$DOTFILES/scripts/themes/generate-starship.rb" --check 2>&1); then
   pass "Starship-configene er oppdatert"
 else
   fail "Starship-configene samsvarer ikke med malen"
@@ -244,7 +244,7 @@ fi
 
 header "Agent skills"
 
-if output=$("$DOTFILES/scripts/skills-manifest.sh" --check 2>&1); then
+if output=$("$DOTFILES/scripts/skills/verify.sh" 2>&1); then
   pass "ai/skills.txt er oppdatert"
 else
   fail "ai/skills.txt samsvarer ikke med skill-lockfilen"

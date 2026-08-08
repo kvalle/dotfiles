@@ -208,6 +208,8 @@ profiloppdateringen testes manuelt utenfor sandkassen.
 
 ### Etappe 3: Skills og temaer
 
+Status: gjennomført.
+
 - samle installasjon, oppdatering, manifest og verifikasjon av skills
 - samle Starship-generator og terminaltemaverifikasjon
 - oppdater genererte headere og dokumentasjon
