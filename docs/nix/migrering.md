@@ -10,12 +10,17 @@ Følgende pakker håndteres nå av `nix/flake.nix`:
 
 - Shell og terminal: `atuin`, `direnv`, `starship`, `tmux`, `neovim`,
   `carapace`.
+- Programmeringsspråk: `kotlin`, `ktlint`.
 - Git: `git`, `gh`, `lazygit`, `git-delta`, `bfg`.
-- Filverktøy: `ack`, `bat`, `eza`, `fd`, `tree`, `cloc`, `dust`, `peco`.
+- Filverktøy: `ack`, `bat`, `chafa`, `eza`, `exiftool`, `fd`, `ripgrep`,
+  `timg`, `tree`, `cloc`, `dust`, `peco`.
 - Nettverk: `curl`, `wget`, `yt-dlp`.
 - Data: `jq`, `yq`, `yamllint`, `jsonnet`.
+- Database: `flyway`.
+- Dokumentasjon og tekst: `asciinema`.
+- Mobilutvikling: `cocoapods`, `maestro`.
 - Python: `python313`, `uv`.
-- Diverse: `btop`, `glow`, `pastel`, `tealdeer`.
+- Diverse: `btop`, `glow`, `macchina`, `pastel`, `tealdeer`.
 
 ## Trivielt å flytte
 
@@ -27,20 +32,16 @@ Følgende pakker håndteres nå av `nix/flake.nix`:
 | `go` | `pkgs.go` | `go` |
 | `gradle` | `pkgs.gradle` | `gradle` |
 | `maven` | `pkgs.maven` | `mvn` |
-| `ktlint` | `pkgs.ktlint` | `ktlint` |
 | `awscli` | `pkgs.awscli2` | `aws` |
 | `kubelogin` | `pkgs.kubelogin` | `kubelogin` |
 | `kubernetes-cli` | `pkgs.kubectl` | `kubectl` |
 | `kubectx` | `pkgs.kubectx` | `kubectx` |
 | `helm` | `pkgs.kubernetes-helm` | `helm` |
-| `exiftool` | `pkgs.exiftool` | `exiftool` |
-| `macchina` | `pkgs.macchina` | `macchina` |
 | `watch` | `pkgs.unixtools.watch` | `watch` |
 | `cmatrix` | `pkgs.cmatrix` | `cmatrix` |
 
 Foreslått neste chunk: `tuxedo`, `superfile`, `awscli`, `kubelogin`,
-`kubernetes-cli`, `kubectx`, `helm`, `exiftool`, `macchina`, `watch` og
-`cmatrix`.
+`kubernetes-cli`, `kubectx`, `helm`, `watch` og `cmatrix`.
 
 ## Krever særskilt testing
 
@@ -54,11 +55,8 @@ Foreslått neste chunk: `tuxedo`, `superfile`, `awscli`, `kubelogin`,
 | `pass` | Må testes sammen med GPG og pinentry. |
 | `pinentry-mac` | Darwin-støtten i nixpkgs-metadata er usikker. |
 | `envchain` | Må testes mot macOS Keychain. |
-| `cocoapods` | Må testes med Xcode, plugins og Ruby-integrasjon. |
-| `maestro` | Må testes mot Simulator, ADB og macOS-rettigheter. |
 | `terminal-notifier` | Må testes mot notification permissions og appidentitet. |
 | `opencode` | Nix-utgaven deaktiverer selvoppdatering. |
-| `timg` | Tilgjengelig, men har en stor multimedia-closure. |
 | `coreutils` | Kan overskygge macOS-kommandoer og endre scriptoppførsel. |
 
 ## Språk og versjonshåndtering
@@ -70,7 +68,6 @@ Disse krever en egen designbeslutning fremfor mekanisk flytting:
 | `node` | NVM og Brew-Node har allerede overlappende ansvar. |
 | `ruby` | Repoet har hardkodede `/opt/homebrew/opt/ruby`-stier. |
 | `ghc` | Stor closure; prosjektverktøy bør testes. |
-| `kotlin` | Må ses sammen med valgt JDK. |
 | `tfenv` | Mutable Terraform-versjoner motarbeider Nix-modellen. |
 | `jenv` | Ikke godt tilgjengelig; repoet har omfattende integrasjon. |
 | `sdkman-cli` | Installerer mutable SDK-er og er en dårlig Nix-match. |
@@ -112,7 +109,6 @@ Fjern taps når siste tilhørende pakke er migrert:
 - `azure/kubelogin`: etter `kubelogin`.
 - `webstonehq/tap`: etter `tuxedo`.
 - `anomalyco/tap`: etter eventuell migrering av OpenCode.
-- `mobile-dev-inc/tap`: etter eventuell migrering av Maestro.
 - `sdkman/tap`: dersom SDKMAN fjernes.
 - `gromgit/brewtils`: dersom `taproom` fjernes.
 

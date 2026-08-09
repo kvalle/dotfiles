@@ -15,7 +15,6 @@ tap "1password/tap"
 tap "anomalyco/tap"
 tap "azure/kubelogin"
 tap "jakehilborn/jakehilborn"
-tap "mobile-dev-inc/tap"
 tap "navikt/tap"
 tap "sdkman/tap"
 tap "gromgit/brewtils"
@@ -63,8 +62,6 @@ brew "superfile"                   # Terminal-filbehandler
 brew "node"                        # JavaScript runtime
 brew "go"                          # Go-programmeringsspråk
 brew "ruby"                        # Ruby-programmeringsspråk
-brew "ghc"                         # Glasgow Haskell Compiler
-brew "kotlin"                      # Kotlin-programmeringsspråk
 brew "readline"                    # Bibliotek for linjeredigering (avhengighet)
 
 # ------------------------------------------------------------------------------
@@ -81,7 +78,6 @@ brew "sdkman-cli"                  # SDK-håndtering (Java, Gradle m.m.)
 
 brew "gradle"                      # Byggesystem for JVM
 brew "maven"                       # Byggesystem for Java
-brew "ktlint"                      # Kotlin-linter/formatter
 cask "temurin@8"                   # Eclipse Temurin JDK 8
 cask "temurin@11"                  # Eclipse Temurin JDK 11
 cask "temurin@17"                  # Eclipse Temurin JDK 17
@@ -111,8 +107,6 @@ brew "envchain"                    # Lagre env-variabler i Keychain
 # Mobilutvikling
 # ------------------------------------------------------------------------------
 
-brew "cocoapods"                   # iOS avhengighetshåndtering
-brew "mobile-dev-inc/tap/maestro" # Mobil UI-testing og automatisering
 cask "android-studio"              # Android IDE
 
 # ------------------------------------------------------------------------------
@@ -120,12 +114,9 @@ cask "android-studio"              # Android IDE
 # ------------------------------------------------------------------------------
 
 brew "coreutils"                   # GNU core utilities for macOS
-brew "exiftool"                    # Les/skriv EXIF-metadata i bilder
-brew "macchina"                    # Systeminformasjon i terminalen
 brew "terminal-notifier"           # macOS-varsler fra terminal
 brew "watch"                       # Kjør kommando gjentatte ganger
 brew "cmatrix"                     # Matrix-animasjon i terminalen
-brew "timg"                        # Vis bilder/video i terminalen
 brew "displayplacer"               # Styr skjermoppløsning/plassering
 brew "brew-cask-completion"        # Zsh-completion for brew cask
 brew "gromgit/brewtils/taproom"    # Oversikt over brew taps

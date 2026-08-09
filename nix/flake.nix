@@ -17,8 +17,17 @@
         { package = pkgs.carapace; verify-command = "carapace"; } # Shell-completions
 
         # Programmeringsspråk og runtime
+        { package = pkgs.kotlin; verify-command = "kotlin"; } # Kotlin-programmeringsspråk
+        { package = pkgs.ktlint; verify-command = "ktlint"; } # Kotlin-linter og formatter
         { package = pkgs.python313; verify-command = "python3"; } # Standard-Python for REPL og enkle skript
         { package = pkgs.uv; verify-command = "uv"; } # Python-versjoner, prosjektmiljøer og avhengigheter
+
+        # Database
+        { package = pkgs.flyway; verify-command = "flyway"; } # Database-migrering
+
+        # Mobilutvikling
+        { package = pkgs.cocoapods; verify-command = "pod"; } # iOS-avhengighetshåndtering
+        { package = pkgs.maestro; verify-command = "maestro"; } # Mobil UI-testing og automatisering
 
         # Git og versjonskontroll
         { package = pkgs.git; verify-command = "git"; } # Versjonskontroll
@@ -30,8 +39,12 @@
         # Filverktøy og søk
         { package = pkgs.ack; verify-command = "ack"; } # Søk i kildekode
         { package = pkgs.bat; verify-command = "bat"; } # cat med syntaksutheving
+        { package = pkgs.chafa; verify-command = "chafa"; } # Bilde-preview for fzf-preview.sh
         { package = pkgs.eza; verify-command = "eza"; } # Moderne ls
+        { package = pkgs.exiftool; verify-command = "exiftool"; } # Les og skriv metadata i mediefiler
         { package = pkgs.fd; verify-command = "fd"; } # Moderne find
+        { package = pkgs.ripgrep; verify-command = "rg"; } # Raskt tekstsøk
+        { package = pkgs.timg; verify-command = "timg"; } # Vis bilder og video i terminalen
         { package = pkgs.tree; verify-command = "tree"; } # Vis mappestruktur som tre
         { package = pkgs.cloc; verify-command = "cloc"; } # Tell kodelinjer per språk
         { package = pkgs.dust; verify-command = "dust"; } # Visuell diskbruk
@@ -48,9 +61,13 @@
         { package = pkgs.yamllint; verify-command = "yamllint"; } # YAML-linter
         { package = pkgs.jsonnet; verify-command = "jsonnet"; } # Templating for JSON/YAML
 
+        # Dokumentasjon og tekst
+        { package = pkgs.asciinema; verify-command = "asciinema"; } # Ta opptak av terminalsesjoner
+
         # Diverse CLI-verktøy
         { package = pkgs.btop; verify-command = "btop"; } # Ressursmonitor
         { package = pkgs.glow; verify-command = "glow"; } # Vis Markdown i terminalen
+        { package = pkgs.macchina; verify-command = "macchina"; } # Systeminformasjon i terminalen
         { package = pkgs.pastel; verify-command = "pastel"; } # Fargeverktøy
         { package = pkgs.tealdeer; verify-command = "tldr"; } # Forenklede man-sider
       ];
