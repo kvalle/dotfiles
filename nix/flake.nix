@@ -15,8 +15,10 @@
         { package = pkgs.tmux; verify-command = "tmux"; } # Terminal multiplexer
         { package = pkgs.neovim; verify-command = "nvim"; } # Teksteditor
         { package = pkgs.carapace; verify-command = "carapace"; } # Shell-completions
+        { package = pkgs.tuxedo; verify-command = "tuxedo"; } # Tastaturdrevet terminal-UI for todo.txt
 
         # Programmeringsspråk og runtime
+        { package = pkgs.go; verify-command = "go"; } # Go-programmeringsspråk
         { package = pkgs.kotlin; verify-command = "kotlin"; } # Kotlin-programmeringsspråk
         { package = pkgs.ktlint; verify-command = "ktlint"; } # Kotlin-linter og formatter
         { package = pkgs.python313; verify-command = "python3"; } # Standard-Python for REPL og enkle skript
@@ -24,6 +26,7 @@
 
         # Database
         { package = pkgs.flyway; verify-command = "flyway"; } # Database-migrering
+        { package = pkgs.postgresql_18; verify-command = "psql"; } # PostgreSQL-klientverktøy
 
         # Mobilutvikling
         { package = pkgs.cocoapods; verify-command = "pod"; } # iOS-avhengighetshåndtering
@@ -66,10 +69,14 @@
 
         # Diverse CLI-verktøy
         { package = pkgs.btop; verify-command = "btop"; } # Ressursmonitor
+        { package = pkgs.cbonsai; verify-command = "cbonsai"; } # Bonsai-animasjon i terminalen
+        { package = pkgs.cmatrix; verify-command = "cmatrix"; } # Matrix-animasjon i terminalen
         { package = pkgs.glow; verify-command = "glow"; } # Vis Markdown i terminalen
         { package = pkgs.macchina; verify-command = "macchina"; } # Systeminformasjon i terminalen
         { package = pkgs.pastel; verify-command = "pastel"; } # Fargeverktøy
         { package = pkgs.tealdeer; verify-command = "tldr"; } # Forenklede man-sider
+        { package = pkgs.terminal-notifier; verify-command = "terminal-notifier"; } # Send macOS-varsler fra terminalen
+        { package = pkgs.unixtools.watch; verify-command = "watch"; } # Kjør kommando gjentatte ganger
       ];
       commandManifest = pkgs.writeTextDir "share/dotfiles/nix-commands" (
         nixpkgs.lib.concatStringsSep "\n" (map (item: item.verify-command) managedPackages) + "\n"

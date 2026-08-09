@@ -16,9 +16,6 @@ tap "anomalyco/tap"
 tap "azure/kubelogin"
 tap "jakehilborn/jakehilborn"
 tap "navikt/tap"
-tap "sdkman/tap"
-tap "gromgit/brewtils"
-tap "webstonehq/tap"
 
 # ------------------------------------------------------------------------------
 # Shell og terminal
@@ -30,9 +27,8 @@ brew "thefuck"                     # [verify] Korrigerer forrige kommando
 brew "zoxide"                      # [verify] Smartere cd – husker mest brukte mapper
 brew "zsh-autosuggestions"         # [verify zsh-plugin] Autoforslag i zsh
 brew "zsh-syntax-highlighting"     # [verify zsh-plugin] Syntaksutheving i zsh
-brew "webstonehq/tap/tuxedo"       # Tastaturdriven terminal-UI for todo.txt
-cask "ghostty"                     # [self-updates] GPU-akselerert terminalemulator
-cask "kitty"                       # Alternativ terminal m/ innebygd bilde-paste-støtte
+cask "ghostty"                     # [self-updates] Alternativ GPU-akselerert terminalemulator
+cask "kitty"                       # Primær terminal m/ innebygd bilde-paste-støtte
 
 # ------------------------------------------------------------------------------
 # Git og versjonskontroll
@@ -44,6 +40,7 @@ cask "kitty"                       # Alternativ terminal m/ innebygd bilde-paste
 # ------------------------------------------------------------------------------
 
 brew "superfile"                   # Terminal-filbehandler
+
 
 # ------------------------------------------------------------------------------
 # Nedlasting og nettverksverktøy
@@ -60,23 +57,18 @@ brew "superfile"                   # Terminal-filbehandler
 # ------------------------------------------------------------------------------
 
 brew "node"                        # JavaScript runtime
-brew "go"                          # Go-programmeringsspråk
 brew "ruby"                        # Ruby-programmeringsspråk
-brew "readline"                    # Bibliotek for linjeredigering (avhengighet)
 
 # ------------------------------------------------------------------------------
 # Versjonshåndtering for språk/verktøy
 # ------------------------------------------------------------------------------
 
 brew "jenv"                        # [verify] Java-versjonshåndtering
-brew "tfenv"                       # Terraform-versjonshåndtering
-brew "sdkman-cli"                  # SDK-håndtering (Java, Gradle m.m.)
 
 # ------------------------------------------------------------------------------
 # Java/JVM-utvikling
 # ------------------------------------------------------------------------------
 
-brew "gradle"                      # Byggesystem for JVM
 brew "maven"                       # Byggesystem for Java
 cask "temurin@8"                   # Eclipse Temurin JDK 8
 cask "temurin@11"                  # Eclipse Temurin JDK 11
@@ -101,7 +93,6 @@ brew "helm"                        # Kubernetes pakkehåndtering
 
 brew "pass"                        # Unix-passordlagring (GPG-basert)
 brew "pinentry-mac"                # GPG PIN-dialog for macOS
-brew "envchain"                    # Lagre env-variabler i Keychain
 
 # ------------------------------------------------------------------------------
 # Mobilutvikling
@@ -113,13 +104,7 @@ cask "android-studio"              # Android IDE
 # Diverse CLI-verktøy
 # ------------------------------------------------------------------------------
 
-brew "coreutils"                   # GNU core utilities for macOS
-brew "terminal-notifier"           # macOS-varsler fra terminal
-brew "watch"                       # Kjør kommando gjentatte ganger
-brew "cmatrix"                     # Matrix-animasjon i terminalen
 brew "displayplacer"               # Styr skjermoppløsning/plassering
-brew "brew-cask-completion"        # Zsh-completion for brew cask
-brew "gromgit/brewtils/taproom"    # Oversikt over brew taps
 brew "anomalyco/tap/opencode"      # [self-updates] AI-drevet kodingsagent for terminalen
 brew "navikt/tap/cplt"             # Kernel-level sandbox for AI-agenter
 
@@ -147,10 +132,8 @@ cask "signal"                      # Kryptert meldingsapp
 
 cask "1password"                   # [self-updates] Passordbehandler
 cask "1password-cli"               # 1Password CLI
-cask "alfred"                      # Spotlight-erstatning og produktivitet
 cask "tuna"                        # [self-updates] Moderne app launcher (Quicksilver-inspirert)
 cask "notion"                      # Notater og wiki
-cask "obsidian"                    # Markdown-notater med linking
 cask "rectangle"                   # Vindusplassering med tastatur
 cask "jordanbaird-ice"             # Skjul ikoner i statusbaren
 

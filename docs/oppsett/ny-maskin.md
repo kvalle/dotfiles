@@ -16,8 +16,9 @@ git clone https://github.com/kjetil/dotfiles.git ~/dotfiles
   `Tools > Create Command Line Launcher`.
 - Rectangle: åpne appen etter setup og gi nødvendige rettigheter. Oppsett og
   oppstart ved innlogging importeres automatisk.
-- Fjern hurtigtastene for Spotlight (`cmd+space`) og
-  `App shortcuts > Show help menu` (`shift+cmd+/`).
+- Sett Spotlight til `option+space` manuelt under
+  `Keyboard > Keyboard Shortcuts > Spotlight`. Fjern eventuelt
+  `App shortcuts > Show help menu` (`shift+cmd+/`) manuelt.
 - Android Studio: hent `firstplayer_app.jks` fra Digipost til
   `~/dev/privat/keys`.
 - Generelt: aktiver `tap to click`, `ctrl to zoom` under Accessibility og vis

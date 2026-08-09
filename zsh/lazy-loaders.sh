@@ -33,11 +33,3 @@ _lazy_jenv() {
   eval "$(jenv init -)"
 }
 jenv() { _lazy_jenv; jenv "$@" }
-
-# sdkman - only loaded when you call sdk
-export SDKMAN_DIR=/opt/homebrew/opt/sdkman-cli/libexec
-_lazy_sdkman() {
-  unfunction sdk 2>/dev/null
-  [[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
-}
-sdk() { _lazy_sdkman; sdk "$@" }

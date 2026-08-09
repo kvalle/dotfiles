@@ -9,39 +9,33 @@ integrasjon eller pakken ikke finnes i nixpkgs.
 Følgende pakker håndteres nå av `nix/flake.nix`:
 
 - Shell og terminal: `atuin`, `direnv`, `starship`, `tmux`, `neovim`,
-  `carapace`.
-- Programmeringsspråk: `kotlin`, `ktlint`.
+  `carapace`, `tuxedo`.
+- Programmeringsspråk: `go`, `kotlin`, `ktlint`.
 - Git: `git`, `gh`, `lazygit`, `git-delta`, `bfg`.
 - Filverktøy: `ack`, `bat`, `chafa`, `eza`, `exiftool`, `fd`, `ripgrep`,
   `timg`, `tree`, `cloc`, `dust`, `peco`.
 - Nettverk: `curl`, `wget`, `yt-dlp`.
 - Data: `jq`, `yq`, `yamllint`, `jsonnet`.
-- Database: `flyway`.
+- Database: `flyway`, `postgresql_18` (`psql`, `pg_dump`, `pg_restore`).
 - Dokumentasjon og tekst: `asciinema`.
 - Mobilutvikling: `cocoapods`, `maestro`.
 - Python: `python313`, `uv`.
-- Diverse: `btop`, `glow`, `macchina`, `pastel`, `tealdeer`.
+- Diverse: `btop`, `cbonsai`, `cmatrix`, `glow`, `macchina`, `pastel`,
+  `tealdeer`, `terminal-notifier`, `watch`.
 
-## Trivielt å flytte
+## Utsatt migrering
 
 | Homebrew | Nix-attributt | Verifiseringskommando |
 | --- | --- | --- |
 | `bash` | `pkgs.bash` | `bash` |
-| `tuxedo` | `pkgs.tuxedo` | `tuxedo` |
-| `superfile` | `pkgs.superfile` | `superfile` |
-| `go` | `pkgs.go` | `go` |
-| `gradle` | `pkgs.gradle` | `gradle` |
 | `maven` | `pkgs.maven` | `mvn` |
-| `awscli` | `pkgs.awscli2` | `aws` |
 | `kubelogin` | `pkgs.kubelogin` | `kubelogin` |
 | `kubernetes-cli` | `pkgs.kubectl` | `kubectl` |
 | `kubectx` | `pkgs.kubectx` | `kubectx` |
 | `helm` | `pkgs.kubernetes-helm` | `helm` |
-| `watch` | `pkgs.unixtools.watch` | `watch` |
-| `cmatrix` | `pkgs.cmatrix` | `cmatrix` |
 
-Foreslått neste chunk: `tuxedo`, `superfile`, `awscli`, `kubelogin`,
-`kubernetes-cli`, `kubectx`, `helm`, `watch` og `cmatrix`.
+Kubernetes-verktøyene beholdes samlet i Homebrew inntil videre. `bash` beholdes
+for en moderne Bash-versjon, og Maven beholdes for Java-prosjekter.
 
 ## Krever særskilt testing
 
@@ -54,10 +48,7 @@ Foreslått neste chunk: `tuxedo`, `superfile`, `awscli`, `kubelogin`,
 | `azure-cli` | Nix-utgaven har mer immutable extension-håndtering. |
 | `pass` | Må testes sammen med GPG og pinentry. |
 | `pinentry-mac` | Darwin-støtten i nixpkgs-metadata er usikker. |
-| `envchain` | Må testes mot macOS Keychain. |
-| `terminal-notifier` | Må testes mot notification permissions og appidentitet. |
 | `opencode` | Nix-utgaven deaktiverer selvoppdatering. |
-| `coreutils` | Kan overskygge macOS-kommandoer og endre scriptoppførsel. |
 
 ## Språk og versjonshåndtering
 
@@ -65,13 +56,9 @@ Disse krever en egen designbeslutning fremfor mekanisk flytting:
 
 | Pakke | Årsak |
 | --- | --- |
-| `node` | NVM og Brew-Node har allerede overlappende ansvar. |
+| `node` | Brew-versjonen kreves av Brew-pakken `opencode`; NVM brukes ellers. |
 | `ruby` | Repoet har hardkodede `/opt/homebrew/opt/ruby`-stier. |
-| `ghc` | Stor closure; prosjektverktøy bør testes. |
-| `tfenv` | Mutable Terraform-versjoner motarbeider Nix-modellen. |
 | `jenv` | Ikke godt tilgjengelig; repoet har omfattende integrasjon. |
-| `sdkman-cli` | Installerer mutable SDK-er og er en dårlig Nix-match. |
-| `readline` | Bibliotek som bør komme transitivt, ikke som brukerpakke. |
 | Temurin 8-25 | Registreres ikke automatisk med `java_home` eller jenv. |
 
 Python følger en pragmatisk modell: Nix leverer `python313` for REPL og enkle
@@ -84,9 +71,10 @@ miljøer og avhengigheter. `pyenv` og `pyenv-virtualenv` er derfor fjernet.
 | --- | --- |
 | `thefuck` | Ingen aktuell nixpkgs-pakke. |
 | `displayplacer` | Ingen aktuell nixpkgs-pakke. |
-| `brew-cask-completion` | Homebrew-spesifikk og relevant mens casks beholdes. |
-| `taproom` | Homebrew-spesifikt tap-verktøy. |
 | `cplt` | Darwin-sandboxing, signering og systemintegrasjon. |
+| `awscli` | Beholdes etter eksplisitt bruksvurdering. |
+| `azure-cli` | Beholdes etter eksplisitt bruksvurdering. |
+| `superfile` | Nixpkgs ligger på 1.3.3, mens Homebrew leverer 1.6.0. |
 
 ## GUI-apper og fonter
 
@@ -95,21 +83,17 @@ Vanlige Nix-profiler gir ikke tilsvarende integrasjon med `/Applications`,
 Launch Services, fontaktivering, selvoppdatering og TCC-rettigheter.
 
 Teknisk tilgjengelige, men ikke anbefalt nå: Kitty, Firefox, VLC,
-GrandPerspective, Chrome, Discord, Teams, Signal, 1Password, Obsidian,
-Rectangle, Claude Code, IntelliJ, VS Code, Postman og fontene.
+GrandPerspective, Chrome, Discord, Teams, Signal, 1Password, Rectangle,
+Claude Code, IntelliJ, VS Code, Postman og fontene.
 
-Bør forbli i Homebrew: Ghostty, Android Studio, Arc, Helium, Zen, Alfred,
-Tuna, Notion, Ice, Docker Desktop, Sublime Text, Figma, Steam, noTunes og
-reMarkable.
+Bør forbli i Homebrew: Ghostty, Android Studio, Arc, Helium, Zen, Tuna, Notion,
+Ice, Docker Desktop, Sublime Text, Figma, Steam, noTunes og reMarkable.
 
 ## Taps
 
 Fjern taps når siste tilhørende pakke er migrert:
 
 - `azure/kubelogin`: etter `kubelogin`.
-- `webstonehq/tap`: etter `tuxedo`.
 - `anomalyco/tap`: etter eventuell migrering av OpenCode.
-- `sdkman/tap`: dersom SDKMAN fjernes.
-- `gromgit/brewtils`: dersom `taproom` fjernes.
 
 Behold foreløpig `1password/tap` og `navikt/tap`.
