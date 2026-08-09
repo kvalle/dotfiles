@@ -70,6 +70,14 @@ The source of truth for symlinks is `symlinks.conf`.
 - `Brewfile` — Declarative package list; add new packages here and run
   `brew bundle`
 
+`scripts/setup.sh`, `scripts/update.sh`, and `scripts/verify.sh` are stable
+entrypoints. Keep domain logic in `scripts/<domain>/` and shared shell helpers
+in `scripts/lib/`.
+
+Machine-changing operations such as Homebrew updates, Nix profile changes,
+symlink setup, macOS defaults, and secrets setup must be tested manually outside
+the sandbox.
+
 ## Repository structure
 
 | Directory/file | Purpose |
@@ -77,5 +85,5 @@ The source of truth for symlinks is `symlinks.conf`.
 | `bin/` | Custom scripts added to PATH |
 | `zsh/` | Modular zsh config (sourced by zshrc in order) |
 | `scripts/` | Bootstrap, update, and maintenance scripts |
-| `ai/` | AI agent skills and config (updated via `npx skills update -g -y`) |
+| `ai/` | AI agent skills and config (updated via `scripts/update.sh`) |
 | `<tool>/` | Configuration for that specific tool |
