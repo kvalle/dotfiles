@@ -37,9 +37,6 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 # Add bluetooth to status bar
 defaults -currentHost write com.apple.controlcenter.plist Bluetooth -int 18
 
-# Set macOS to dark mode
-osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true'
-
 # Disable annoying option-space keybinding from making nonbreaking spaces
 keybindings_file="$HOME/Library/KeyBindings/DefaultKeyBinding.dict"
 keybindings_contents='{
