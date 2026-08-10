@@ -2,21 +2,6 @@
 # Lazy-loaded version managers
 # ---------------------------------------------------------------------------
 
-# nvm - only loaded when you call nvm, node, npm, npx, etc.
-# nvm is installed by Homebrew (see Brewfile), which keeps nvm.sh in the brew
-# prefix instead of in NVM_DIR. NVM_DIR has to stay outside that prefix, or an
-# upgrade of the formula takes the installed node versions with it.
-export NVM_DIR="$HOME/.nvm"
-_lazy_nvm() {
-  unfunction nvm node npm npx 2>/dev/null
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-}
-nvm()  { _lazy_nvm; nvm "$@" }
-node() { _lazy_nvm; node "$@" }
-npm()  { _lazy_nvm; npm "$@" }
-npx()  { _lazy_nvm; npx "$@" }
-
 # jenv — lazy-loaded with smart JAVA_HOME updates
 # Instead of `eval "$(jenv init -)"` (which runs jenv rehash + sets a precmd hook
 # that calls `jenv javahome` on every prompt), we add shims to PATH directly and

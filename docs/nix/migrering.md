@@ -56,7 +56,7 @@ Disse krever en egen designbeslutning fremfor mekanisk flytting:
 
 | Pakke | Årsak |
 | --- | --- |
-| `node` | Brew-versjonen kreves av Brew-pakken `opencode`; NVM brukes ellers. |
+| `node` | Brew-versjonen kreves av Brew-pakken `opencode`; `fnm` fra Nix styrer versjoner per prosjekt. |
 | `ruby` | Repoet har hardkodede `/opt/homebrew/opt/ruby`-stier. |
 | `jenv` | Ikke godt tilgjengelig; repoet har omfattende integrasjon. |
 | Temurin 8-25 | Registreres ikke automatisk med `java_home` eller jenv. |

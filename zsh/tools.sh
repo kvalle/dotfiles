@@ -5,6 +5,11 @@
 # direnv
 eval "$(direnv hook zsh)"
 
+# fnm — Node versions, switched on cd from .nvmrc or .node-version
+# A fast init rather than a lazy-loader: fnm is a binary, so this costs a couple
+# of milliseconds. nvm was a shell script, which is why it had to be deferred.
+eval "$(fnm env --use-on-cd --shell zsh)"
+
 # thefuck — cached alias (saves ~60ms vs spawning Python on every shell start)
 # Regenerated weekly; equivalent to `eval $(thefuck --alias fix)`
 _thefuck_cache=~/.cache/zsh/thefuck-alias.zsh

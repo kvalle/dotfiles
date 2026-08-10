@@ -64,7 +64,6 @@ brew "ruby"                        # Ruby-programmeringsspråk
 # ------------------------------------------------------------------------------
 
 brew "jenv"                        # [verify] Java-versjonshåndtering
-brew "nvm"                         # Node-versjonshåndtering (lastes i zsh/lazy-loaders.sh)
 
 # ------------------------------------------------------------------------------
 # Java/JVM-utvikling

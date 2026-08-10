@@ -18,6 +18,7 @@
         { package = pkgs.tuxedo; verify-command = "tuxedo"; } # Tastaturdrevet terminal-UI for todo.txt
 
         # Programmeringsspråk og runtime
+        { package = pkgs.fnm; verify-command = "fnm"; } # Node-versjoner per prosjekt
         { package = pkgs.go; verify-command = "go"; } # Go-programmeringsspråk
         { package = pkgs.kotlin; verify-command = "kotlin"; } # Kotlin-programmeringsspråk
         { package = pkgs.ktlint; verify-command = "ktlint"; } # Kotlin-linter og formatter

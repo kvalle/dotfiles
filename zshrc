@@ -16,7 +16,7 @@ source ~/dotfiles/zsh/completions.sh
 # Shortcuts
 source ~/dotfiles/zsh/aliases.sh
 
-# Version managers (nvm, jenv) — lazy-loaded
+# Version managers (jenv) — lazy-loaded
 source ~/dotfiles/zsh/lazy-loaders.sh
 
 # Tool integrations (direnv, fzf, atuin, etc.)
