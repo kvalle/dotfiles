@@ -6,8 +6,12 @@
 eval "$(direnv hook zsh)"
 
 # fnm — Node versions, switched on cd from .nvmrc or .node-version
-# A fast init rather than a lazy-loader: fnm is a binary, so this costs a couple
-# of milliseconds. nvm was a shell script, which is why it had to be deferred.
+# Initialised eagerly rather than lazy-loaded: fnm is a binary, so this costs a
+# couple of milliseconds.
+#
+# fnm is the only source of Node — there is no system-wide install to fall back
+# to. This line puts the `default` version on PATH; scripts/setup.sh installs one
+# via dotfiles_use_node if none exists yet.
 eval "$(fnm env --use-on-cd --shell zsh)"
 
 # thefuck — cached alias (saves ~60ms vs spawning Python on every shell start)

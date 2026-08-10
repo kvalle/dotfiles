@@ -49,3 +49,18 @@ dotfiles_die() {
   dotfiles_warn "$1" >&2
   exit 1
 }
+
+# Put fnm's Node (and npm/npx) on PATH for the rest of the script.
+#
+# fnm comes from Nix, but ships no Node version until one is installed — and
+# these scripts run in bash, where zsh/tools.sh has not been evaluated. So both
+# steps happen here: install the latest LTS if there is no `default` yet (fnm
+# sets that alias itself on the first install), then apply `fnm env`.
+#
+# Returns non-zero when fnm is missing or no Node could be provided, so callers
+# can decide whether to skip or fall back to whatever is already on PATH.
+dotfiles_use_node() {
+  command -v fnm >/dev/null 2>&1 || return 1
+  fnm exec --using=default -- true 2>/dev/null || fnm install --lts || return 1
+  eval "$(fnm env --shell bash)"
+}

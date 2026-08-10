@@ -56,7 +56,6 @@ brew "superfile"                   # Terminal-filbehandler
 # Programmeringsspråk og runtime
 # ------------------------------------------------------------------------------
 
-brew "node"                        # JavaScript runtime
 brew "ruby"                        # Ruby-programmeringsspråk
 
 # ------------------------------------------------------------------------------

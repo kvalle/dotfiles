@@ -6,6 +6,9 @@ source "$SCRIPT_DIR/../lib/common.sh"
 
 echo "Installing agent skills..."
 
+# npx comes from fnm, so this runs after nix/setup.sh in scripts/setup.sh.
+dotfiles_use_node || echo "  fnm not available, trying the node already on PATH"
+
 if ! command -v npx >/dev/null 2>&1; then
   echo "  npx not available, skipping"
   exit 0

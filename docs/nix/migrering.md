@@ -56,7 +56,6 @@ Disse krever en egen designbeslutning fremfor mekanisk flytting:
 
 | Pakke | Årsak |
 | --- | --- |
-| `node` | Brew-versjonen kreves av Brew-pakken `opencode`; `fnm` fra Nix styrer versjoner per prosjekt. |
 | `ruby` | Repoet har hardkodede `/opt/homebrew/opt/ruby`-stier. |
 | `jenv` | Ikke godt tilgjengelig; repoet har omfattende integrasjon. |
 | Temurin 8-25 | Registreres ikke automatisk med `java_home` eller jenv. |
@@ -64,6 +63,13 @@ Disse krever en egen designbeslutning fremfor mekanisk flytting:
 Python følger en pragmatisk modell: Nix leverer `python313` for REPL og enkle
 skript, samt `uv` som håndterer prosjektspesifikke Python-versjoner, virtuelle
 miljøer og avhengigheter. `pyenv` og `pyenv-virtualenv` er derfor fjernet.
+
+Node følger samme modell, men uten en systemversjon ved siden av: Nix leverer
+`fnm`, som eier alle Node-versjoner. Brew-pakkene `node` og `nvm` er derfor
+fjernet. `fnm` installerer ingen versjon av seg selv, så `dotfiles_use_node` i
+`scripts/lib/common.sh` henter LTS første gang `scripts/skills/setup.sh` trenger
+`npx` – fnm setter samtidig `default`-aliaset, som er versjonen nye shell
+plukker opp via `fnm env` i `zsh/tools.sh`.
 
 ## Behold Homebrew
 

@@ -5,6 +5,9 @@ set -u
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/../lib/common.sh"
 
+# npx kommer fra fnm; se dotfiles_use_node i scripts/lib/common.sh.
+dotfiles_use_node || dotfiles_warn "fnm ikke tilgjengelig"
+
 if ! command -v npx >/dev/null 2>&1; then
   dotfiles_warn "npx ikke tilgjengelig, hopper over agent skills"
   exit 0
