@@ -3,11 +3,14 @@
 # ---------------------------------------------------------------------------
 
 # nvm - only loaded when you call nvm, node, npm, npx, etc.
+# nvm is installed by Homebrew (see Brewfile), which keeps nvm.sh in the brew
+# prefix instead of in NVM_DIR. NVM_DIR has to stay outside that prefix, or an
+# upgrade of the formula takes the installed node versions with it.
 export NVM_DIR="$HOME/.nvm"
 _lazy_nvm() {
   unfunction nvm node npm npx 2>/dev/null
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 }
 nvm()  { _lazy_nvm; nvm "$@" }
 node() { _lazy_nvm; node "$@" }

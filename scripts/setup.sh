@@ -12,7 +12,6 @@ nix/setup.sh
 source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 export PATH="$HOME/.local/state/nix/profiles/dotfiles/bin:$PATH"
 rectangle/setup.sh
-nvm/setup.sh
 macos/setup.sh
 symlinks/setup.sh
 bat/setup.sh
