@@ -34,9 +34,12 @@ if _has_uncommitted_changes; then
   echo ""
   git -C "$DOTFILES" status --short | sed 's/^/      /'
   echo ""
-  printf "    Vil du fortsette likevel? [y/N] "
-  read -r answer
-  if [[ ! "$answer" =~ ^[Yy]$ ]]; then
+  dotfiles_confirm "Vil du fortsette likevel?"
+  answer_status=$?
+  if (( answer_status != 0 )); then
+    if (( answer_status == 2 )); then
+      dotfiles_warn "Kan ikke spørre om å fortsette uten en interaktiv terminal."
+    fi
     echo "    Avbryter."
     exit 0
   fi

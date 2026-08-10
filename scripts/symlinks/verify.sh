@@ -28,7 +28,7 @@ while read -r type src dest; do
       verify_pass "$dest"
     fi
   fi
-done < <(grep -v '^\s*#' "$DOTFILES/symlinks.conf" | grep -v '^\s*$')
+done < <(conf_entries)
 
 ZEN_PROFILE=$(find "$HOME/Library/Application Support/zen/Profiles" \
   -maxdepth 1 -name "*.Default (release)" -type d 2>/dev/null | head -1)
@@ -47,6 +47,19 @@ if [ -n "$ZEN_PROFILE" ]; then
   fi
 else
   verify_warn "Zen Browser: profil ikke funnet, hopper over"
+fi
+
+if ! git_history_available; then
+  verify_warn "Kan ikke se etter foreldreløse symlinker uten git-historikken"
+else
+  orphans=$(orphan_symlinks)
+  if [ -z "$orphans" ]; then
+    verify_pass "Ingen foreldreløse symlinker"
+  else
+    while IFS=$'\t' read -r dest target; do
+      verify_warn "$dest -> $target (ikke i symlinks.conf, fjernes med scripts/symlinks/setup.sh --prune)"
+    done <<< "$orphans"
+  fi
 fi
 
 verify_finish

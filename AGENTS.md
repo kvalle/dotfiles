@@ -58,6 +58,13 @@ The source of truth for symlinks is `symlinks.conf`.
 2. Add the symlink to `symlinks.conf`
 3. If the tool is installed via Homebrew, add it to `Brewfile`
 
+## Removing tool configuration
+
+1. Remove the entry from `symlinks.conf`
+2. Delete the config file/directory from this repo
+3. Run `scripts/symlinks/setup.sh --prune` to clean up the symlink that is
+   otherwise left behind in the home directory
+
 ## Key scripts
 
 - `scripts/setup.sh` — Full bootstrap for a new machine (Homebrew, symlinks,
@@ -66,6 +73,11 @@ The source of truth for symlinks is `symlinks.conf`.
   tldr pages, jenv, and agent skills
 - `scripts/verify.sh` — Verify all domains, or one named domain such as
   `scripts/verify.sh symlinks`
+- `scripts/symlinks/setup.sh --prune` — Offer to remove symlinks that
+  `symlinks.conf` no longer declares. The candidates come from the removed
+  lines in the config's git history, so nothing under `$HOME` is scanned;
+  `scripts/verify.sh symlinks` warns about the same symlinks without touching
+  them
 - `symlinks.conf` — Declarative symlink table (source of truth)
 - `Brewfile` — Declarative package list; add new packages here and run
   `brew bundle`
