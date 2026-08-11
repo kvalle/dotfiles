@@ -1,0 +1,4 @@
+# Intentionally empty. Kept as a symlink target so that installers that append
+# to ~/.zprofile (Homebrew, rustup, conda) land in version control instead of
+# creating an untracked file in the home directory.
+
