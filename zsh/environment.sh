@@ -48,7 +48,7 @@ export DIGIPOST_HOME=$HOME/code/digipost
 source ~/.digipostrc
 export DIGIPOST_SETTINGSXML_GITHUB_USERNAME='kvalle'
 # Secret loaded from ~/.secrets (not version controlled)
-# Populate with: op read 'op://Private/Digipost GitHub secret/password' --account my.1password.com > ~/.secrets/digipost-github-secret
+# Declared in secrets.conf, populated by scripts/secrets/setup.sh
 [[ -f ~/.secrets/digipost-github-secret ]] && \
   export DIGIPOST_SETTINGSXML_GITHUB_SECRET="$(cat ~/.secrets/digipost-github-secret)"
 

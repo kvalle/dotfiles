@@ -79,6 +79,10 @@ The source of truth for symlinks is `symlinks.conf`.
   `scripts/verify.sh symlinks` warns about the same symlinks without touching
   them
 - `symlinks.conf` — Declarative symlink table (source of truth)
+- `secrets.conf` — Declarative secrets table: one line per secret with the file
+  name under `~/.secrets/` and the `op://` reference to read it from. Both
+  `scripts/secrets/setup.sh` and `scripts/verify.sh secrets` iterate over it,
+  so adding a secret is a one-line change
 - `Brewfile` — Declarative package list; add new packages here and run
   `brew bundle`
 
