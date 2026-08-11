@@ -11,7 +11,7 @@ defaults write com.apple.Dock appswitcher-all-displays -bool true
 # Only show active apps in the dock
 defaults write com.apple.dock "static-only" -bool "true"
 
-# Don't show recent or suggsested apps in dock
+# Don't show recent or suggested apps in dock
 defaults write com.apple.dock show-recents -bool false
 
 # Make dock tiny and hide it away
