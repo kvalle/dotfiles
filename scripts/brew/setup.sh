@@ -26,6 +26,6 @@ done
 echo "Installing apps"
 dotfiles_privileges_begin "Homebrew bundle install"
 brew bundle --file="$DOTFILES/Brewfile" || echo "Warning: some Brewfile dependencies failed to install"
-dotfiles_privileges_cleanup || dotfiles_die "Midlertidige adminrettigheter ble ikke fjernet."
+dotfiles_privileges_cleanup || dotfiles_die "Temporary admin privileges were not revoked."
 
 echo "Done installing and configuring Homebrew"

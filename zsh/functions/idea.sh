@@ -1,7 +1,7 @@
-# Funksjon for å åpne Intellij fra kommandolinja.
+# Function for opening IntelliJ from the command line.
 #
-# Laget fordi innebygget `idea` fører til en masse 
-# logg-støy i terminalen når jeg bruker den direkte.
+# Written because the bundled `idea` launcher floods the terminal with log
+# noise when used directly.
 idea() {
   if (( $# == 0 )); then
     open -a "IntelliJ IDEA"

@@ -1,53 +1,53 @@
 # dotfiles
 
-Konfigurasjon og oppsettscripts for macOS. Administrert som symlinker fra
-dette repoet til `~/.config/` og andre steder.
+Configuration and setup scripts for macOS. Managed as symlinks from this
+repository into `~/.config/` and other locations.
 
-## Oppsett på ny maskin
+## Setting up a new machine
 
-Repoet må klones til `~/dotfiles/`.
+The repository must be cloned to `~/dotfiles/`.
 
 ```sh
 git clone https://github.com/kjetil/dotfiles.git ~/dotfiles
 ~/dotfiles/scripts/setup.sh
 ```
 
-Dette installerer Determinate Nix og pakker fra `nix/`, installerer gjenværende
-pakker og apper fra `Brewfile`, setter opp utviklingsverktøy, konfigurerer
-macOS-defaults og oppretter symlinker.
+This installs Determinate Nix and the packages from `nix/`, installs the
+remaining packages and apps from `Brewfile`, sets up development tools,
+configures macOS defaults and creates the symlinks.
 
-Secrets er deklarert i `secrets.conf` og hentes fra 1Password CLI (`op`) via
-`scripts/secrets/setup.sh`, som kjøres til slutt. Scriptet starter interaktiv
-innlogging ved behov og lagrer hver fil i `~/.secrets/` med modus `600`.
+Secrets are declared in `secrets.conf` and fetched from the 1Password CLI (`op`)
+by `scripts/secrets/setup.sh`, which runs last. The script starts an interactive
+login when needed and stores each file in `~/.secrets/` with mode `600`.
 
-Symlink-oppsettet beholder korrekte lenker og reparerer brukne lenker automatisk.
-Feil symlinker og vanlige filer eller kataloger overskrives bare etter
-interaktiv bekreftelse.
+The symlink setup keeps correct links and repairs broken ones automatically.
+Wrong symlinks and regular files or directories are overwritten only after
+interactive confirmation.
 
-## Oppdatering
+## Updating
 
 ```sh
 ~/dotfiles/scripts/update.sh
 ```
 
-Oppdaterer Homebrew- og Nix-pakker, git submoduler, tldr-sider, jenv-shims og
-agent skills. Ved interaktiv kjøring spør skills-verktøyet før lokale kopier av
-skills som er fjernet upstream slettes.
+Updates Homebrew and Nix packages, git submodules, tldr pages, jenv shims and
+agent skills. When run interactively, the skills tool asks before deleting local
+copies of skills that have been removed upstream.
 
-## Dokumentasjon
+## Documentation
 
-Se [dokumentasjonsoversikten](docs/README.md) for oppsett, Nix, terminaltemaer
-og verktøyspesifikke instrukser.
+See the [documentation index](docs/README.md) for setup, Nix, terminal themes
+and tool-specific instructions.
 
-## Struktur
+## Structure
 
-| Katalog/fil  | Innhold                                  |
-| ------------ | ---------------------------------------- |
-| `bin/`       | Egne scripts (legges til i PATH)          |
-| `zsh/`       | Modulær zsh-konfig (sourcet av zshrc)    |
-| `scripts/`   | Bootstrap, oppdatering og vedlikehold    |
-| `docs/`      | Sjekklister og referansemateriale        |
-| `ai/`        | Konfigurasjon og manifest for AI-agenter |
-| `Brewfile`   | Deklarativ pakkeliste for Homebrew       |
-| `nix/`       | Deklarativ pakkeliste og låsefil for Nix |
-| `<tool>/`    | Konfigurasjon for det aktuelle verktøyet |
+| Directory/file | Contents                                      |
+| -------------- | --------------------------------------------- |
+| `bin/`         | Custom scripts (added to PATH)                |
+| `zsh/`         | Modular zsh config (sourced by zshrc)         |
+| `scripts/`     | Bootstrap, update and maintenance             |
+| `docs/`        | Checklists and reference material             |
+| `ai/`          | Configuration and manifest for AI agents      |
+| `Brewfile`     | Declarative package list for Homebrew         |
+| `nix/`         | Declarative package list and lockfile for Nix |
+| `<tool>/`      | Configuration for that specific tool          |

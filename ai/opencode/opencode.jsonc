@@ -1,8 +1,8 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  // Oppdateringer håndteres av brew - false skrur av all upgrade-prompting
+  // Updates are handled by brew - false disables all upgrade prompting
   "autoupdate": false,
   "instructions": ["~/.config/opencode/INSTRUCTIONS.md"],
-  // LSP gir agenten IDE-lignende kodenavigasjon (go-to-def, references, diagnostics)
+  // LSP gives the agent IDE-like code navigation (go-to-def, references, diagnostics)
   "lsp": true
 }

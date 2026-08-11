@@ -43,7 +43,7 @@
 	defaultBranch = main
 [interactive]
 	diffFilter = delta --color-only
-# Fallback-farger for diff uten delta (delta ignorerer disse)
+# Fallback colors for diff without delta (delta ignores these)
 [color "diff"]
 	meta = 11
 	frag = magenta bold

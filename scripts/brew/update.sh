@@ -4,15 +4,15 @@ SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/../lib/common.sh"
 source "$SCRIPT_DIR/../lib/privileges.sh"
 
-dotfiles_info "Oppdaterer Homebrew..."
+dotfiles_info "Updating Homebrew..."
 brew update
 
-dotfiles_info "Oppgraderer formulae..."
+dotfiles_info "Upgrading formulae..."
 if ! brew upgrade --formula --yes; then
-  dotfiles_warn "Noen formulae feilet under oppgradering (se over for detaljer)"
+  dotfiles_warn "Some formulae failed to upgrade (see above for details)"
 fi
 
-dotfiles_info "Oppgraderer casks..."
+dotfiles_info "Upgrading casks..."
 dotfiles_privileges_begin "Homebrew cask upgrade"
 dotfiles_sudo_keepalive_begin
 
@@ -45,17 +45,17 @@ done
 
 if [[ ${#_to_upgrade[@]} -gt 0 ]]; then
   if ! brew upgrade --cask --yes "${_to_upgrade[@]}"; then
-    dotfiles_warn "Noen casks feilet under oppgradering (se over for detaljer)"
+    dotfiles_warn "Some casks failed to upgrade (see above for details)"
   fi
 else
-  echo "    Fant ingen casks å oppgradere."
+  echo "    No casks to upgrade."
 fi
 
 if $_skipped_terminal; then
-  dotfiles_warn "Hoppet over $_current_terminal_cask (kjørende terminal). Oppgrader manuelt: brew upgrade --cask $_current_terminal_cask"
+  dotfiles_warn "Skipped $_current_terminal_cask (running terminal). Upgrade manually: brew upgrade --cask $_current_terminal_cask"
 fi
 
-dotfiles_privileges_cleanup || dotfiles_die "Midlertidige adminrettigheter ble ikke fjernet."
+dotfiles_privileges_cleanup || dotfiles_die "Temporary admin privileges were not revoked."
 
-dotfiles_info "Rydder gamle versjoner..."
+dotfiles_info "Cleaning up old versions..."
 brew cleanup --prune=30

@@ -6,7 +6,7 @@ source "$SCRIPT_DIR/../lib/common.sh"
 source "$SCRIPT_DIR/common.sh"
 
 if ! op whoami >/dev/null 2>&1; then
-  echo "1Password CLI er ikke autentisert. Logger inn..."
+  echo "1Password CLI is not authenticated. Signing in..."
   op signin
   op whoami >/dev/null
 fi
@@ -29,8 +29,8 @@ cleanup() {
 trap cleanup EXIT
 
 while read -r name ref; do
-  [[ "$name" != */* ]] || dotfiles_die "Målfilen må være et filnavn uten katalog: $name"
-  [[ "$ref" == op://* ]] || dotfiles_die "Ugyldig op-referanse for $name: $ref"
+  [[ "$name" != */* ]] || dotfiles_die "Target must be a file name without a directory: $name"
+  [[ "$ref" == op://* ]] || dotfiles_die "Invalid op reference for $name: $ref"
 
   echo "Fetching $name from 1Password..."
   tmp=$(mktemp "$SECRETS_DIR/.$name.XXXXXX")

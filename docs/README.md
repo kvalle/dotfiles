@@ -1,21 +1,21 @@
-# Dokumentasjon
+# Documentation
 
-## Oppsett
+## Setup
 
-- [Sjekkliste for ny maskin](oppsett/ny-maskin.md)
-- [Import av Rectangle-konfigurasjon](oppsett/rectangle.md)
+- [New machine checklist](setup/new-machine.md)
+- [Importing the Rectangle configuration](setup/rectangle.md)
 
 ## Nix
 
-- [Bruk av Nix](nix/bruk.md)
-- [Migreringsplan fra Homebrew til Nix](nix/migrering.md)
+- [Using Nix](nix/usage.md)
+- [Migration plan from Homebrew to Nix](nix/migrering.md)
 
-## Terminaltemaer
+## Terminal themes
 
-- [Arkitektur, drift og verifikasjon](temaer/README.md)
-- [Catppuccin Macchiato-palett](https://kvalle.github.io/dotfiles/temaer/paletter/catppuccin-macchiato.html)
-- [Everforest Light Contrast-palett](https://kvalle.github.io/dotfiles/temaer/paletter/everforest-light-contrast.html)
+- [Architecture, operation and verification](themes/README.md)
+- [Catppuccin Macchiato palette](https://kvalle.github.io/dotfiles/themes/palettes/catppuccin-macchiato.html)
+- [Everforest Light Contrast palette](https://kvalle.github.io/dotfiles/themes/palettes/everforest-light-contrast.html)
 
-## Verktøy
+## Tools
 
-- [Bat-temaer](verktøy/bat.md)
+- [Bat themes](tools/bat.md)

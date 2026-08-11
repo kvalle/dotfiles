@@ -13,31 +13,31 @@ verify_mode() {
   if [ "$mode" = "$expected" ]; then
     verify_pass "$path (mode $expected)"
   else
-    verify_fail "$path (mode $mode, forventet $expected)"
+    verify_fail "$path (mode $mode, expected $expected)"
   fi
 }
 
 if [ -d "$SECRETS_DIR" ]; then
   verify_mode "$SECRETS_DIR" 700
 else
-  verify_fail "$SECRETS_DIR (mangler)"
+  verify_fail "$SECRETS_DIR (missing)"
 fi
 
 while read -r name ref; do
   if [ -f "$SECRETS_DIR/$name" ]; then
     verify_mode "$SECRETS_DIR/$name" 600
   else
-    verify_fail "$SECRETS_DIR/$name (mangler)"
+    verify_fail "$SECRETS_DIR/$name (missing)"
   fi
 done < <(secret_entries)
 
-# Filer fra linjer som er fjernet fra secrets.conf blir liggende igjen, og et
-# avbrutt setup kan etterlate en temp-fil med et ekte secret. Begge deler er
-# verdt å vite om, men ingen av dem er en feil i oppsettet slik det er deklarert.
+# Files from lines removed from secrets.conf are left behind, and an interrupted
+# setup can leave a temp file holding a real secret. Both are worth knowing
+# about, but neither is a fault in the setup as it is declared.
 declared=$(declared_secrets)
 while IFS= read -r path; do
   printf '%s\n' "$declared" | grep -Fxq -- "${path##*/}" && continue
-  verify_warn "$path står ikke i secrets.conf"
+  verify_warn "$path is not declared in secrets.conf"
 done < <(find "$SECRETS_DIR" -mindepth 1 -maxdepth 1 2>/dev/null)
 
 verify_finish

@@ -11,7 +11,7 @@ dotfiles_privileges_begin() {
     DOTFILES_PRIVILEGES_CLI="/Applications/Privileges.app/Contents/MacOS/PrivilegesCLI"
 
   if [[ ! -x "$DOTFILES_PRIVILEGES_CLI" ]]; then
-    dotfiles_die "PrivilegesCLI ikke funnet. Kan ikke eskalere privilegier."
+    dotfiles_die "PrivilegesCLI not found. Cannot escalate privileges."
   fi
 
   trap 'dotfiles_privileges_cleanup' EXIT
@@ -21,13 +21,13 @@ dotfiles_privileges_begin() {
   if ! "$DOTFILES_PRIVILEGES_CLI" --add --reason "$reason"; then
     DOTFILES_PRIVILEGES_ACTIVE=false
     trap - EXIT INT TERM
-    dotfiles_die "Kunne ikke aktivere midlertidige adminrettigheter."
+    dotfiles_die "Could not grant temporary admin privileges."
   fi
 }
 
 dotfiles_sudo_keepalive_begin() {
   if ! sudo -v; then
-    dotfiles_die "Kunne ikke autentisere sudo."
+    dotfiles_die "Could not authenticate sudo."
   fi
   while true; do
     sudo -v -n || exit
@@ -51,7 +51,7 @@ dotfiles_privileges_cleanup() {
 
   if [[ "$DOTFILES_PRIVILEGES_ACTIVE" == true ]]; then
     if ! "$DOTFILES_PRIVILEGES_CLI" --remove; then
-      dotfiles_warn "Kunne ikke fjerne midlertidige adminrettigheter."
+      dotfiles_warn "Could not revoke temporary admin privileges."
       cleanup_failed=true
     fi
     DOTFILES_PRIVILEGES_ACTIVE=false

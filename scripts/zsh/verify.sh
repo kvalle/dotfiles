@@ -11,15 +11,15 @@ for mod in "${zsh_modules[@]}"; do
   if [ -f "$DOTFILES/zsh/$mod.sh" ]; then
     verify_pass "zsh/$mod.sh"
   else
-    verify_fail "zsh/$mod.sh (mangler)"
+    verify_fail "zsh/$mod.sh (missing)"
   fi
 done
 
 func_count=$(find "$DOTFILES/zsh/functions" -name "*.sh" 2>/dev/null | wc -l | tr -d ' ')
 if [ "$func_count" -gt 0 ]; then
-  verify_pass "zsh/functions/ ($func_count funksjoner)"
+  verify_pass "zsh/functions/ ($func_count functions)"
 else
-  verify_fail "zsh/functions/ (tom eller mangler)"
+  verify_fail "zsh/functions/ (empty or missing)"
 fi
 
 verify_finish

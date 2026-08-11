@@ -21,19 +21,19 @@ usage() {
 
 generate_manifest() {
   if [ ! -f "$LOCK_FILE" ]; then
-    echo "Skill-lockfil mangler: $LOCK_FILE" >&2
+    echo "Skill lockfile missing: $LOCK_FILE" >&2
     return 1
   fi
 
   if ! jq -e '.version and (.skills | type == "object")' "$LOCK_FILE" >/dev/null 2>&1; then
-    echo "Ugyldig skill-lockfil: $LOCK_FILE" >&2
+    echo "Invalid skill lockfile: $LOCK_FILE" >&2
     return 1
   fi
 
   cat <<'EOF'
-# Agent skills - generert fra ~/.agents/.skill-lock.json
-# Ikke rediger manuelt. Kjor scripts/skills/manifest.sh --write.
-# Format: kilde<TAB>skill
+# Agent skills - generated from ~/.agents/.skill-lock.json
+# Do not edit by hand. Run scripts/skills/manifest.sh --write.
+# Format: source<TAB>skill
 
 EOF
 
@@ -59,14 +59,14 @@ case "${1:-}" in
     chmod 644 "$tmp"
     mv "$tmp" "$MANIFEST"
     trap - EXIT
-    echo "Oppdaterte $MANIFEST"
+    echo "Updated $MANIFEST"
     ;;
   --check)
     tmp=$(mktemp "${TMPDIR:-/tmp}/skills-manifest.XXXXXX")
     trap 'rm -f "$tmp"' EXIT
     generate_manifest > "$tmp"
     if ! diff -u "$MANIFEST" "$tmp"; then
-      echo "Manifestet er utdatert. Kjor scripts/skills/manifest.sh --write." >&2
+      echo "The manifest is out of date. Run scripts/skills/manifest.sh --write." >&2
       exit 1
     fi
     ;;

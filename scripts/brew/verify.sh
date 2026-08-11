@@ -17,13 +17,13 @@ while IFS= read -r line; do
     if command -v "$cmd" >/dev/null 2>&1; then
       verify_pass "$pkg_short ($cmd)"
     else
-      verify_fail "$pkg_short ($cmd ikke i PATH)"
+      verify_fail "$pkg_short ($cmd not on PATH)"
     fi
   elif echo "$line" | grep -q '\[verify\]'; then
     if command -v "$pkg_short" >/dev/null 2>&1; then
       verify_pass "$pkg_short"
     else
-      verify_fail "$pkg_short (ikke i PATH)"
+      verify_fail "$pkg_short (not on PATH)"
     fi
   fi
 done < <(grep '\[verify' "$DOTFILES/Brewfile" | grep -v '^\s*#')
@@ -40,11 +40,11 @@ if command -v brew >/dev/null 2>&1; then
     if [ -f "$plugin_file" ]; then
       verify_pass "$pkg_short"
     else
-      verify_fail "$pkg_short ($plugin_file mangler)"
+      verify_fail "$pkg_short ($plugin_file missing)"
     fi
   done < <(grep '\[verify zsh-plugin\]' "$DOTFILES/Brewfile" | grep -v '^\s*#')
 else
-  verify_fail "brew (ikke i PATH)"
+  verify_fail "brew (not on PATH)"
 fi
 
 verify_finish

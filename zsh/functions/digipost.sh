@@ -7,15 +7,15 @@ cddp() {
 
   if [[ "$1" == "--help" || "$1" == "-h" ]]; then
     cat <<EOF
-${_c_bold}cddp${_c_reset} ${_c_dim}–${_c_reset} hurtig-cd til ${_c_cyan}\$DIGIPOST_HOME${_c_reset} ${_c_dim}($base)${_c_reset}
+${_c_bold}cddp${_c_reset} ${_c_dim}–${_c_reset} quick cd to ${_c_cyan}\$DIGIPOST_HOME${_c_reset} ${_c_dim}($base)${_c_reset}
 
-${_c_bold}Bruk:${_c_reset}
-  ${_c_green}cddp${_c_reset}              Velg mappe interaktivt via fzf ${_c_dim}("." = rot)${_c_reset}
-  ${_c_green}cddp${_c_reset} ${_c_yellow}<mappe>${_c_reset}      Gå direkte til \$DIGIPOST_HOME/${_c_yellow}<mappe>${_c_reset}
-  ${_c_green}cddp${_c_reset} ${_c_yellow}--help${_c_reset}       Vis denne hjelpeteksten
+${_c_bold}Usage:${_c_reset}
+  ${_c_green}cddp${_c_reset}              Pick a directory interactively via fzf ${_c_dim}("." = root)${_c_reset}
+  ${_c_green}cddp${_c_reset} ${_c_yellow}<dir>${_c_reset}        Go straight to \$DIGIPOST_HOME/${_c_yellow}<dir>${_c_reset}
+  ${_c_green}cddp${_c_reset} ${_c_yellow}--help${_c_reset}       Show this help text
 
-${_c_bold}TAB-completion:${_c_reset}
-  ${_c_green}cddp${_c_reset} ${_c_yellow}<TAB>${_c_reset}        Standard zsh-completion over undermapper
+${_c_bold}TAB completion:${_c_reset}
+  ${_c_green}cddp${_c_reset} ${_c_yellow}<TAB>${_c_reset}        Standard zsh completion over subdirectories
 EOF
     return 0
   fi

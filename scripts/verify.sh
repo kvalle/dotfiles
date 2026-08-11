@@ -1,5 +1,5 @@
 #!/bin/bash
-# Dotfiles Verify - diagnostisk sjekk av oppsett
+# Dotfiles Verify - diagnostic check of the setup
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/lib/common.sh"
@@ -22,9 +22,9 @@ run_domain() {
     skills)
       printf '\n%bAgent skills%b\n' "$BOLD" "$RESET"
       if output=$("$SCRIPT_DIR/skills/verify.sh" 2>&1); then
-        printf '  %b✓%b  ai/skills.txt er oppdatert\n' "$GREEN" "$RESET"
+        printf '  %b✓%b  ai/skills.txt is up to date\n' "$GREEN" "$RESET"
       else
-        printf '  %b✗%b  ai/skills.txt samsvarer ikke med skill-lockfilen\n' "$RED" "$RESET"
+        printf '  %b✗%b  ai/skills.txt does not match the skill lockfile\n' "$RED" "$RESET"
         [ -z "$output" ] || printf '      %s\n' "$output"
         return 1
       fi
@@ -49,8 +49,8 @@ fi
 
 echo ""
 if (( ${#failed[@]} == 0 )); then
-  printf '%bAlt OK - ingen problemer funnet.%b\n\n' "${GREEN}${BOLD}" "$RESET"
+  printf '%bAll OK - no problems found.%b\n\n' "${GREEN}${BOLD}" "$RESET"
 else
-  printf '%bVerifikasjon feilet for: %s%b\n\n' "${RED}${BOLD}" "${failed[*]}" "$RESET"
+  printf '%bVerification failed for: %s%b\n\n' "${RED}${BOLD}" "${failed[*]}" "$RESET"
   exit 1
 fi

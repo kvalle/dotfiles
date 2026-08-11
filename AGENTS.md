@@ -13,13 +13,25 @@ When this repository is the workspace, also read configuration and logs from
 `symlinks.conf` to locate the source. If required data is not stored in the
 repository, ask the user instead of reading it from the home directory.
 
-## Sandbox-begrensning
+## Language
 
-AI-agenter i dette repoet kjøres i en sandbox som kun har skrivetilgang
-til `~/dotfiles/`. Alt som krever endringer utenfor — som å kjøre
-`scripts/symlinks/setup.sh`, opprette/slette kataloger under `~/.config/`,
-eller kjøre `brew` — må brukeren utføre selv. Agenten kan oppgi kommandoene,
-men ikke kjøre dem.
+Everything written in this repository is English: documentation, comments,
+identifiers, and every string the scripts print. There is no split by category —
+one language means there is never a question about which side of a line a given
+string falls on.
+
+Norwegian remains only where the text is data rather than prose: 1Password entry
+titles such as `Digipost GitHub secret`, and quoted upstream strings.
+
+File and directory names are ASCII.
+
+## Sandbox limitation
+
+AI agents in this repository run in a sandbox with write access to `~/dotfiles/`
+only. Anything that requires changes outside it — running
+`scripts/symlinks/setup.sh`, creating or deleting directories under `~/.config/`,
+or running `brew` — must be done by the user. The agent can supply the commands
+but not run them.
 
 ## Symlink mapping
 

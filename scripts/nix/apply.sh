@@ -9,18 +9,18 @@ FLAKE="$DOTFILES/nix"
 PROFILE="${NIX_DOTFILES_PROFILE:-$HOME/.local/state/nix/profiles/dotfiles}"
 
 if ! command -v nix >/dev/null 2>&1; then
-  echo "Nix er ikke installert eller finnes ikke i PATH." >&2
+  echo "Nix is not installed or not on PATH." >&2
   exit 1
 fi
 
 if [[ "$(uname -m)" != "arm64" ]]; then
-  echo "Nix-konfigurasjonen støtter foreløpig bare Apple Silicon." >&2
+  echo "The Nix configuration currently supports Apple Silicon only." >&2
   exit 1
 fi
 
 mkdir -p "$(dirname "$PROFILE")"
 
-# Opprett låsefilen første gang, men ikke oppdater en eksisterende lås.
+# Create the lock file on the first run, but do not update an existing lock.
 nix flake lock "$FLAKE"
 
 if [[ -e "$PROFILE" || -L "$PROFILE" ]]; then
@@ -32,5 +32,5 @@ else
     "path:$FLAKE"
 fi
 
-echo "Aktiv profil: $PROFILE"
+echo "Active profile: $PROFILE"
 echo "Rollback: nix profile rollback --profile $PROFILE"

@@ -11,7 +11,7 @@ for theme in 'everforest-light-contrast' 'Catppuccin Macchiato'; do
   if grep -qx "$theme" <<< "$bat_themes"; then
     verify_pass "$theme"
   else
-    verify_fail "$theme (kjør: bat cache --build)"
+    verify_fail "$theme (run: bat cache --build)"
   fi
 done
 

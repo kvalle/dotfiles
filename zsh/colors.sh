@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# Felles ANSI-fargevariabler for hjelpetekst og output
+# Shared ANSI color variables for help text and output
 # ---------------------------------------------------------------------------
 
 typeset -g _c_bold=$'\e[1m'

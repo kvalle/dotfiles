@@ -6,36 +6,36 @@ DEFAULT_PROFILE="${NIX_DEFAULT_PROFILE:-$HOME/.local/state/nix/profiles/profile}
 DOTFILES_PROFILE="${NIX_DOTFILES_PROFILE:-$HOME/.local/state/nix/profiles/dotfiles}"
 
 if ! command -v nix >/dev/null 2>&1; then
-  echo "Nix er ikke installert eller finnes ikke i PATH." >&2
+  echo "Nix is not installed or not on PATH." >&2
   exit 1
 fi
 
-echo "Standardprofil"
+echo "Default profile"
 echo "  $DEFAULT_PROFILE"
 if [[ -e "$DEFAULT_PROFILE" || -L "$DEFAULT_PROFILE" ]]; then
   nix profile list --profile "$DEFAULT_PROFILE"
 else
-  echo "  Ingen standardprofil funnet."
+  echo "  No default profile found."
 fi
 
 echo ""
-echo "Dotfiles-profil"
+echo "Dotfiles profile"
 echo "  $DOTFILES_PROFILE"
 if [[ -e "$DOTFILES_PROFILE" || -L "$DOTFILES_PROFILE" ]]; then
   nix profile list --profile "$DOTFILES_PROFILE"
 else
-  echo "  Ingen dotfiles-profil funnet."
+  echo "  No dotfiles profile found."
 fi
 
 echo ""
-echo "Overlappende kommandoer"
+echo "Overlapping commands"
 if [[ ! -d "$DEFAULT_PROFILE/bin" ]]; then
-  echo "  Ingen standardprofil å sammenligne med."
+  echo "  No default profile to compare against."
   exit 0
 fi
 
 if [[ ! -d "$DOTFILES_PROFILE/bin" ]]; then
-  echo "  Ingen dotfiles-profil å sammenligne med."
+  echo "  No dotfiles profile to compare against."
   exit 0
 fi
 
@@ -47,10 +47,10 @@ for default_command in "$DEFAULT_PROFILE"/bin/*; do
     overlap_found=true
     resolved=$(command -v "$command_name" 2>/dev/null || true)
     echo "  $command_name"
-    echo "    PATH: ${resolved:-ikke funnet}"
+    echo "    PATH: ${resolved:-not found}"
   fi
 done
 
 if [[ "$overlap_found" == false ]]; then
-  echo "  Ingen overlapp funnet."
+  echo "  No overlap found."
 fi

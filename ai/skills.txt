@@ -1,6 +1,6 @@
-# Agent skills - generert fra ~/.agents/.skill-lock.json
-# Ikke rediger manuelt. Kjor scripts/skills/manifest.sh --write.
-# Format: kilde<TAB>skill
+# Agent skills - generated from ~/.agents/.skill-lock.json
+# Do not edit by hand. Run scripts/skills/manifest.sh --write.
+# Format: source<TAB>skill
 
 digipost/digipost-skills	digipost
 digipost/digipost-skills	digipost-auth-and-signing

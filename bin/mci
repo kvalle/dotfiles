@@ -7,61 +7,61 @@ test_filter=""
 
 print_help() {
   cat <<'EOF'
-mci · kjør 'mvn clean install' med støtte for modulbygg og enkelttester
+mci · run 'mvn clean install' with support for module builds and single tests
 
-Bruk:
-  mci                              # Full bygg, uten tester
-  mci -t                           # Full bygg, med tester
-  mci <modul>                      # Modulbygg, uten tester
-  mci <modul> -t                   # Modulbygg, med alle tester
-  mci <modul> <Test>               # Kjør enkelt testklasse
-  mci <modul> <Test#metode>        # Kjør enkelt testmetode
+Usage:
+  mci                              # Full build, without tests
+  mci -t                           # Full build, with tests
+  mci <module>                     # Module build, without tests
+  mci <module> -t                  # Module build, with all tests
+  mci <module> <Test>              # Run a single test class
+  mci <module> <Test#method>       # Run a single test method
 
-Flagg:
-  -t, --test              Kjør tester
-  -h, --help              Vis denne hjelpen
+Flags:
+  -t, --test              Run tests
+  -h, --help              Show this help
 
-Testfilter-eksempler:
+Test filter examples:
   mci dpost-web-server SendForsendelseConcurrencyIT
-  mci dpost-web-server 'SendForsendelseConcurrencyIT#metodeNavn'
+  mci dpost-web-server 'SendForsendelseConcurrencyIT#methodName'
   mci dpost-web-server 'SendForsendelseConcurrencyIT#samtidig_*'
 
-Når testfilter er oppgitt kjøres tester automatisk (uten behov for -t):
-  mvn clean install -pl <modul> -am -Dtest='<filter>' -Dsurefire.failIfNoSpecifiedTests=false
+When a test filter is given, tests run automatically (no need for -t):
+  mvn clean install -pl <module> -am -Dtest='<filter>' -Dsurefire.failIfNoSpecifiedTests=false
 
 EOF
 }
 
-# Argument-parsing
+# Argument parsing
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -h|--help) print_help; exit 0 ;;
     -t|--test) skip_tests=false; shift ;;
     --) shift; break ;;
-    -*) echo "Ukjent flagg: $1" >&2; exit 2 ;;
+    -*) echo "Unknown flag: $1" >&2; exit 2 ;;
     *)  if [[ -z "$module" ]]; then
           module="$1"; shift
         elif [[ -z "$test_filter" ]]; then
           test_filter="$1"; shift
         else
-          echo "For mange argumenter." >&2; exit 2
+          echo "Too many arguments." >&2; exit 2
         fi
         ;;
   esac
 done
 
-# Validering
+# Validation
 if [[ -n "$test_filter" && -z "$module" ]]; then
-  echo "Feil: Testfilter krever at modul er oppgitt." >&2
+  echo "Error: a test filter requires a module." >&2
   exit 2
 fi
 
-# Testfilter impliserer at tester skal kjøres
+# A test filter implies that tests should run
 if [[ -n "$test_filter" ]]; then
   skip_tests=false
 fi
 
-# Kjøring
+# Run
 cmd=(mvn clean install)
 if [[ -n "$module" ]]; then
   cmd+=(-pl "$module" -am)

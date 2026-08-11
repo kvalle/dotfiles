@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # ---------------------------------------------------------------------------
-# git-history-search – søk i git-historikken (pickaxe)
+# git-history-search – search the git history (pickaxe)
 # ---------------------------------------------------------------------------
 
 _c_bold=$'\e[1m'
@@ -49,22 +49,22 @@ trap handle_signal INT TERM
 
 print_help() {
   cat <<EOF
-${_c_bold}git history-search${_c_reset} ${_c_dim}–${_c_reset} søk i git-historikken (pickaxe)
+${_c_bold}git history-search${_c_reset} ${_c_dim}–${_c_reset} search the git history (pickaxe)
 
-Finner alle commits der en tekststreng ble lagt til eller fjernet (git log -S),
-og viser diff-utdraget med treffet uthevet.
+Finds every commit where a text string was added or removed (git log -S),
+and shows the diff excerpt with the match highlighted.
 
-${_c_bold}Bruk:${_c_reset}
-  ${_c_green}git history-search${_c_reset} ${_c_yellow}<søkestreng>${_c_reset}
-  ${_c_green}git history-search${_c_reset} ${_c_yellow}<søkestreng>${_c_reset} ${_c_yellow}<kontekst>${_c_reset}
+${_c_bold}Usage:${_c_reset}
+  ${_c_green}git history-search${_c_reset} ${_c_yellow}<pattern>${_c_reset}
+  ${_c_green}git history-search${_c_reset} ${_c_yellow}<pattern>${_c_reset} ${_c_yellow}<context>${_c_reset}
 
-${_c_bold}Argumenter:${_c_reset}
-  ${_c_yellow}<søkestreng>${_c_reset}       Teksten det søkes etter ${_c_dim}(git log -S)${_c_reset}
-  ${_c_yellow}<kontekst>${_c_reset}         Antall kontekstlinjer ${_c_dim}(standard: 0)${_c_reset}
-  ${_c_yellow}-h${_c_reset}                 Vis denne hjelpeteksten
+${_c_bold}Arguments:${_c_reset}
+  ${_c_yellow}<pattern>${_c_reset}          The text to search for ${_c_dim}(git log -S)${_c_reset}
+  ${_c_yellow}<context>${_c_reset}          Number of context lines ${_c_dim}(default: 0)${_c_reset}
+  ${_c_yellow}-h${_c_reset}                 Show this help text
 
-${_c_bold}Eksempel:${_c_reset}
-  ${_c_green}git hs${_c_reset} ${_c_yellow}"TODO"${_c_reset} ${_c_yellow}3${_c_reset}    ${_c_dim}Finn commits som la til/fjernet "TODO", vis 3 linjer kontekst${_c_reset}
+${_c_bold}Example:${_c_reset}
+  ${_c_green}git hs${_c_reset} ${_c_yellow}"TODO"${_c_reset} ${_c_yellow}3${_c_reset}    ${_c_dim}Find commits that added/removed "TODO", show 3 lines of context${_c_reset}
 EOF
 }
 
@@ -73,7 +73,7 @@ case "${1:-}" in
 esac
 
 if [[ -z "${1:-}" ]]; then
-  echo "Mangler søkestreng." >&2
+  echo "Missing search pattern." >&2
   echo >&2
   print_help >&2
   exit 1
@@ -82,7 +82,7 @@ fi
 search="$1"
 context="${2:-0}"
 
-# Samle commits der strengen ble lagt til/fjernet
+# Collect the commits where the string was added or removed
 _commits_file=$(mktemp "${TMPDIR:-/tmp}/git-history-search.XXXXXX")
 _error_file=$(mktemp "${TMPDIR:-/tmp}/git-history-search.XXXXXX")
 git log -S"$search" --format="%H" >"$_commits_file" 2>"$_error_file" &
@@ -93,7 +93,7 @@ if [[ -t 2 && "${TERM:-dumb}" != dumb ]]; then
   frame=0
   _spinner_active=true
   while kill -0 "$_search_pid" 2>/dev/null; do
-    printf '\r\033[K%s Søker i historikken...' "${frames[frame++ % ${#frames[@]}]}" >&2
+    printf '\r\033[K%s Searching the history...' "${frames[frame++ % ${#frames[@]}]}" >&2
     sleep 0.08
   done
   clear_spinner
@@ -111,28 +111,28 @@ fi
 mapfile -t commits <"$_commits_file"
 
 if [[ ${#commits[@]} -eq 0 ]]; then
-  echo "${_c_dim}Ingen treff for${_c_reset} \"$search\" ${_c_dim}i historikken.${_c_reset}" >&2
+  echo "${_c_dim}No matches for${_c_reset} \"$search\" ${_c_dim}in the history.${_c_reset}" >&2
   exit 0
 fi
 
-# Produser output, pipe gjennom pager
+# Produce the output, piped through the pager
 set +e
 {
   for i in "${!commits[@]}"; do
     commit_id="${commits[$i]}"
 
-    # Separator mellom commits (ikke før første)
+    # Separator between commits (not before the first)
     if [[ $i -gt 0 ]]; then
       echo
       echo "${_c_dim}───────────────────────────────────────────────────${_c_reset}"
       echo
     fi
 
-    # Commit-info: hash, forfatter, dato, melding
+    # Commit info: hash, author, date, message
     git log -1 --format="${_c_bold}${_c_blue}%H${_c_reset}%n${_c_yellow}%an${_c_reset} ${_c_dim}%ar${_c_reset}%n%s" "$commit_id"
     echo
 
-    # Diff-utdrag: viser kun filer med treff, filnavn dimmet, treff uthevet
+    # Diff excerpt: only files with matches, file names dimmed, matches highlighted
     git show --format="" "$commit_id" \
       | awk -v pat="$search" -v ctx="$context" \
             -v dim="${_c_dim}" -v reset="${_c_reset}" \
@@ -205,7 +205,7 @@ set -e
 producer_status=${pipeline_status[0]}
 pager_status=${pipeline_status[1]}
 
-# Å avslutte pageren tidlig lukker pipen og gir produsenten SIGPIPE (141).
+# Quitting the pager early closes the pipe and gives the producer SIGPIPE (141).
 if [[ $producer_status -eq 141 && $pager_status -eq 0 ]]; then
   exit 0
 fi

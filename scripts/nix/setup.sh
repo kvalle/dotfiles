@@ -13,16 +13,16 @@ if ! command -v nix >/dev/null 2>&1; then
   curl --proto '=https' --tlsv1.2 -fsSL https://install.determinate.systems/nix | \
     sh -s -- install
 
-  dotfiles_privileges_cleanup || dotfiles_die "Midlertidige adminrettigheter ble ikke fjernet."
+  dotfiles_privileges_cleanup || dotfiles_die "Temporary admin privileges were not revoked."
 
   if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
-    # Gjør Nix tilgjengelig uten å kreve en ny terminal.
+    # Make Nix available without requiring a new terminal.
     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   fi
 fi
 
 if ! command -v nix >/dev/null 2>&1; then
-  echo "Nix ble installert, men finnes ikke i PATH. Åpne en ny terminal og kjør scriptet på nytt." >&2
+  echo "Nix was installed but is not on PATH. Open a new terminal and run the script again." >&2
   exit 1
 fi
 

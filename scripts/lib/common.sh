@@ -17,7 +17,7 @@ dotfiles_info() {
 }
 
 dotfiles_warn() {
-  printf '%b\n' "    ${BOLD}${YELLOW}ADVARSEL:${RESET} $1"
+  printf '%b\n' "    ${BOLD}${YELLOW}WARNING:${RESET} $1"
 }
 
 dotfiles_success() {

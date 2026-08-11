@@ -1,19 +1,19 @@
 ## cplt sandbox
 
-OpenCode kjører gjennom cplt-sandkassen, som begrenser tilgang til filsystemet,
-nettverket, systemtjenester og enkelte kommandoer eller operasjoner. Feil som
-manglende tilgang, skrivebeskyttelse, blokkerte forbindelser eller mislykkede
-systemendringer kan derfor skyldes sandkassen.
+OpenCode runs inside the cplt sandbox, which restricts access to the file
+system, the network, system services and certain commands or operations. Errors
+such as missing access, read-only paths, blocked connections or failed system
+changes may therefore be caused by the sandbox.
 
-Vurder alltid sandkassebegrensninger som mulig årsak før du antar feil ved
-vertsmaskinens konfigurasjon, eierskap, rettigheter eller installasjon. Ikke
-foreslå systemendringer for å omgå en sannsynlig sandkassebegrensning. Oppgi
-heller hva brukeren må kjøre utenfor sandkassen.
+Always consider sandbox restrictions as a possible cause before assuming a fault
+in the host machine's configuration, ownership, permissions or installation. Do
+not propose system changes to work around a likely sandbox restriction. State
+instead what the user has to run outside the sandbox.
 
-Når du kjører `npx skills` i cplt-sandkassen, bruk alltid
-`NPM_CONFIG_CACHE="$TMPDIR/npm-cache" npx skills ...`, slik at den nedlastede
-CLI-en kan kjøres fra cplt sin godkjente scratch-katalog.
+When running `npx skills` inside the cplt sandbox, always use
+`NPM_CONFIG_CACHE="$TMPDIR/npm-cache" npx skills ...`, so that the downloaded
+CLI can be executed from cplt's approved scratch directory.
 
-`.git/config` er skrivebeskyttet i cplt. Ved publisering av en feature branch,
-bruk `git push origin HEAD`, ikke `git push -u`. Senere `git push` fungerer uten
-upstream fordi global Git-konfigurasjon har `push.default = current`.
+`.git/config` is read-only in cplt. When publishing a feature branch, use
+`git push origin HEAD`, not `git push -u`. Later `git push` calls work without
+an upstream because the global Git configuration sets `push.default = current`.

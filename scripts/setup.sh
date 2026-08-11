@@ -18,5 +18,5 @@ bat/setup.sh
 skills/setup.sh
 secrets/setup.sh
 
-# Verifiser at alt er korrekt satt opp
+# Verify that everything is set up correctly
 ./verify.sh

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # ---------------------------------------------------------------------------
-# git-rebase-branch – interaktiv rebase av alle commits på branchen
+# git-rebase-branch – interactive rebase of every commit on the branch
 # ---------------------------------------------------------------------------
 
 _c_bold=$'\e[1m'
@@ -13,23 +13,23 @@ _c_yellow=$'\e[33m'
 
 print_help() {
   cat <<EOF
-${_c_bold}git rebase-branch${_c_reset} ${_c_dim}–${_c_reset} interaktiv rebase av alle commits på branchen
+${_c_bold}git rebase-branch${_c_reset} ${_c_dim}–${_c_reset} interactive rebase of every commit on the branch
 
-Finner forgreningspunktet fra en base-branch (main/master) og starter
-interaktiv rebase derfra. Nyttig for å squashe, omorganisere, eller
-redigere commits før merge.
+Finds the branch point from a base branch (main/master) and starts an
+interactive rebase from there. Useful for squashing, reordering, or
+editing commits before merging.
 
-${_c_bold}Bruk:${_c_reset}
+${_c_bold}Usage:${_c_reset}
   ${_c_green}git rebase-branch${_c_reset}
   ${_c_green}git rebase-branch${_c_reset} ${_c_yellow}<base-branch>${_c_reset}
 
-${_c_bold}Argumenter:${_c_reset}
-  ${_c_yellow}<base-branch>${_c_reset}       Branchen å rebase mot ${_c_dim}(standard: main eller master)${_c_reset}
-  ${_c_yellow}-h${_c_reset}                  Vis denne hjelpeteksten
+${_c_bold}Arguments:${_c_reset}
+  ${_c_yellow}<base-branch>${_c_reset}       The branch to rebase against ${_c_dim}(default: main or master)${_c_reset}
+  ${_c_yellow}-h${_c_reset}                  Show this help text
 
-${_c_bold}Eksempel:${_c_reset}
-  ${_c_green}git rebase-branch${_c_reset}              ${_c_dim}Rebase alle commits siden forgrening fra main/master${_c_reset}
-  ${_c_green}git rebase-branch${_c_reset} ${_c_yellow}develop${_c_reset}      ${_c_dim}Rebase alle commits siden forgrening fra develop${_c_reset}
+${_c_bold}Example:${_c_reset}
+  ${_c_green}git rebase-branch${_c_reset}              ${_c_dim}Rebase every commit since branching from main/master${_c_reset}
+  ${_c_green}git rebase-branch${_c_reset} ${_c_yellow}develop${_c_reset}      ${_c_dim}Rebase every commit since branching from develop${_c_reset}
 EOF
 }
 
