@@ -29,8 +29,9 @@ that are already running normally have to be restarted after a switch.
 - btop, Superfile and Tuxedo select their theme through small wrappers with
   temporary configuration. No general Kitty palette restoration is needed.
 - Bat registers custom themes by file name; the technical ID is
-  `everforest-light-contrast`. Its cache has to be rebuilt after a theme change —
-  see [Bat themes](../tools/bat.md).
+  `everforest-light-contrast`. Its cache has to be rebuilt after a theme change
+  using `bat cache --build`. Always re-run the command after changing anything
+  under `bat/themes/`.
 
 ## Verification
 

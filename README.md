@@ -36,8 +36,7 @@ copies of skills that have been removed upstream.
 
 ## Documentation
 
-See the [documentation index](docs/README.md) for setup, Nix, terminal themes
-and tool-specific instructions.
+See the [documentation index](docs/README.md).
 
 ## Structure
 
