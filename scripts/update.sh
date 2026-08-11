@@ -3,21 +3,7 @@
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/lib/common.sh"
 
-# --------------------------------------------------------------------------
-# Header formatting
-# --------------------------------------------------------------------------
-
-# Header: top = bright + bold
-MUTED='\033[38;2;128;128;128m'     # #808080
-# Header: bottom = muted grey
-BRIGHT='\033[38;2;238;238;238m'    # #eeeeee
-
-echo ""
-printf "  ${BRIGHT}${BOLD}█▀▀█ █▀▀█ █▀▀█ █▀▀▄ █▀▀█ ▀▀█▀▀ █▀▀▀ █▀▀█${RESET}\n"
-printf "  ${MUTED}█  █ █▀▀▀ █▀▀▀ █  █ █▀▀█   █   █▀▀▀ █▀█▀${RESET}\n"
-printf "  ${MUTED}▀▀▀▀ ▀    ▀    ▀▀▀  ▀  ▀   ▀   ▀▀▀▀ ▀  ▀${RESET}\n"
-printf "                 ${DIM}DOTFILES${RESET}\n"
-echo ""
+dotfiles_banner "updating"
 
 # --------------------------------------------------------------------------
 _has_uncommitted_changes() {

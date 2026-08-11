@@ -5,6 +5,8 @@ SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/lib/common.sh"
 cd "$SCRIPT_DIR"
 
+dotfiles_banner "setting up"
+
 git -C "$DOTFILES" submodule init && git -C "$DOTFILES" submodule update
 
 brew/setup.sh

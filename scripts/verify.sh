@@ -38,6 +38,10 @@ if [[ "$selection" != all && ! " ${DOMAINS[*]} " =~ " $selection " ]] || (( $# >
   exit 2
 fi
 
+if [[ "$selection" == all ]]; then
+  dotfiles_banner "verifying"
+fi
+
 failed=()
 if [[ "$selection" == all ]]; then
   for domain in "${DOMAINS[@]}"; do

@@ -12,6 +12,22 @@ YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 RESET='\033[0m'
 
+# Wordmark for the three entrypoint scripts. The caller passes what the run is
+# doing — "setting up", "updating", "verifying" — and it sits above the
+# wordmark, so the two read as one phrase: "updating DOTFILES".
+dotfiles_banner() {
+  local subtitle=$1
+  local muted='\033[38;2;128;128;128m'   # #808080
+  local bright='\033[38;2;238;238;238m'  # #eeeeee
+
+  echo ""
+  printf '  %b\n' "${DIM}${subtitle}${RESET}"
+  printf '  %b\n' "${bright}${BOLD}█▀▀▄ █▀▀█ ▀▀█▀▀ █▀▀▀ █ █    █▀▀▀ █▀▀▀${RESET}"
+  printf '  %b\n' "${muted}█  █ █  █   █   █▀▀▀ █ █    █▀▀▀ ▀▀▀█${RESET}"
+  printf '  %b\n' "${muted}▀▀▀  ▀▀▀▀   ▀   ▀    ▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀${RESET}"
+  echo ""
+}
+
 dotfiles_info() {
   printf '\n%b\n' "${BOLD}${BLUE}▸ ${RESET}${BOLD}$1${RESET}"
 }
