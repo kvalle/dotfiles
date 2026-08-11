@@ -81,8 +81,8 @@
 	gpgsign = true
 	template = ~/dotfiles/git/message
 
-[includeIf "gitdir:~/dev/digipost/"]
-	path = ~/dev/digipost/.gitconfig
+[includeIf "gitdir:~/code/digipost/"]
+	path = ~/code/digipost/.gitconfig
 [pull]
 	ff = only
 [fetch]
