@@ -35,40 +35,20 @@ but not run them.
 
 ## Symlink mapping
 
-The source of truth for symlinks is `symlinks.conf`.
+The source of truth for symlinks is `symlinks.conf`: one line per symlink, with
+the source path in this repository and its destination, grouped by purpose. Read
+the mapping there — a copy in this file would drift from it.
 
-| Source (this repo) | Symlink destination |
-| --- | --- |
-| `zshrc` | `~/.zshrc` |
-| `zprofile` | `~/.zprofile` |
-| `git/` | `~/.config/git` |
-| `python/pythonrc.py` | `~/.config/python/pythonrc.py` |
-| `ghci/ghci.conf` | `~/.config/ghci/ghci.conf` |
-| `starship/starship.toml` | `~/.config/starship.toml` |
-| `lazygit/` | `~/.config/lazygit` |
-| `ghostty/` | `~/.config/ghostty` |
-| `kitty/` | `~/.config/kitty` |
-| `atuin/` | `~/.config/atuin` |
-| `cplt/config.toml` | `~/.config/cplt/config.toml` |
-| `ai/opencode/opencode.jsonc` | `~/.config/opencode/opencode.jsonc` |
-| `ai/opencode/tui.jsonc` | `~/.config/opencode/tui.jsonc` |
-| `ai/opencode/INSTRUCTIONS.md` | `~/.config/opencode/INSTRUCTIONS.md` |
-| `ai/opencode/themes/` | `~/.config/opencode/themes` |
-| `tealdeer/` | `~/.config/tealdeer` |
-| `bat/` | `~/.config/bat` |
-| `tuxedo/` | `~/.config/tuxedo` |
-| `superfile/config.toml` | `~/Library/Application Support/superfile/config.toml` |
-| `superfile/hotkeys.toml` | `~/Library/Application Support/superfile/hotkeys.toml` |
-| `superfile/theme/everforest-light-contrast.toml` | `~/Library/Application Support/superfile/theme/everforest-light-contrast.toml` |
-| `superfile/theme/catppuccin-macchiato.toml` | `~/Library/Application Support/superfile/theme/catppuccin-macchiato.toml` |
-| `ai/claude/settings.json` | `~/.claude/settings.json` |
-| `zen/user.js` | `<Zen profile dir>/user.js` |
+Zen Browser is the one exception, special-cased in `scripts/symlinks/setup.sh`
+because its profile path is dynamic.
 
 ## Adding new tool configuration
 
 1. Create the config file/directory in this repo
 2. Add the symlink to `symlinks.conf`
-3. If the tool is installed via Homebrew, add it to `Brewfile`
+3. Add the package where it belongs: `nix/flake.nix` for CLI tools, `Brewfile`
+   for casks, macOS-integrated software, and anything not in nixpkgs. See
+   `docs/nix/usage.md`
 
 ## Removing tool configuration
 
@@ -79,10 +59,10 @@ The source of truth for symlinks is `symlinks.conf`.
 
 ## Key scripts
 
-- `scripts/setup.sh` — Full bootstrap for a new machine (Homebrew, symlinks,
-  macOS defaults, secrets)
-- `scripts/update.sh` — Ongoing maintenance: updates Homebrew, git submodules,
-  tldr pages, jenv, and agent skills
+- `scripts/setup.sh` — Full bootstrap for a new machine. It calls one setup
+  script per domain and ends with `scripts/verify.sh`; read it for the
+  authoritative list of domains and the order they run in
+- `scripts/update.sh` — Ongoing maintenance. Read it for what it updates
 - `scripts/verify.sh` — Verify all domains, or one named domain such as
   `scripts/verify.sh symlinks`
 - `scripts/symlinks/setup.sh --prune` — Offer to remove symlinks that
@@ -95,8 +75,11 @@ The source of truth for symlinks is `symlinks.conf`.
   name under `~/.secrets/` and the `op://` reference to read it from. Both
   `scripts/secrets/setup.sh` and `scripts/verify.sh secrets` iterate over it,
   so adding a secret is a one-line change
-- `Brewfile` — Declarative package list; add new packages here and run
-  `brew bundle`
+- `nix/flake.nix` — Declarative package list for CLI tools, the primary package
+  source; applied with `scripts/nix/apply.sh`. The dotfiles profile comes before
+  Homebrew on `PATH`. See `docs/nix/usage.md`
+- `Brewfile` — Declarative package list for casks, macOS-integrated software,
+  and packages not available in nixpkgs; applied with `brew bundle`
 
 `scripts/setup.sh`, `scripts/update.sh`, and `scripts/verify.sh` are stable
 entrypoints. Keep domain logic in `scripts/<domain>/` and shared shell helpers
@@ -108,10 +91,4 @@ the sandbox.
 
 ## Repository structure
 
-| Directory/file | Purpose |
-| --- | --- |
-| `bin/` | Custom scripts added to PATH |
-| `zsh/` | Modular zsh config (sourced by zshrc in order) |
-| `scripts/` | Bootstrap, update, and maintenance scripts |
-| `ai/` | AI agent skills and config (updated via `scripts/update.sh`) |
-| `<tool>/` | Configuration for that specific tool |
+See the structure table in `README.md`.

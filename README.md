@@ -41,13 +41,16 @@ and tool-specific instructions.
 
 ## Structure
 
-| Directory/file | Contents                                      |
-| -------------- | --------------------------------------------- |
-| `bin/`         | Custom scripts (added to PATH)                |
-| `zsh/`         | Modular zsh config (sourced by zshrc)         |
-| `scripts/`     | Bootstrap, update and maintenance             |
-| `docs/`        | Checklists and reference material             |
-| `ai/`          | Configuration and manifest for AI agents      |
-| `Brewfile`     | Declarative package list for Homebrew         |
-| `nix/`         | Declarative package list and lockfile for Nix |
-| `<tool>/`      | Configuration for that specific tool          |
+| Directory/file  | Contents                                                  |
+| --------------- | --------------------------------------------------------- |
+| `bin/`          | Custom scripts (added to PATH)                            |
+| `zsh/`          | Modular zsh config (sourced by zshrc in order)            |
+| `scripts/`      | Bootstrap, update and maintenance                         |
+| `docs/`         | Checklists and reference material                         |
+| `ai/`           | Configuration and manifest for AI agents                  |
+| `Brewfile`      | Declarative package list for Homebrew                     |
+| `nix/`          | Declarative package list and lockfile for Nix             |
+| `fzf-git.sh/`   | Third-party submodule; updated from upstream, do not edit |
+| `symlinks.conf` | Declarative symlink table (source of truth)               |
+| `secrets.conf`  | Declarative secrets table, fetched from 1Password         |
+| `<tool>/`       | Configuration for that specific tool                      |
