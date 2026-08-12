@@ -2,7 +2,6 @@
 # Taps
 # ------------------------------------------------------------------------------
 
-tap "1password/tap"
 tap "anomalyco/tap"
 tap "azure/kubelogin"
 tap "jakehilborn/jakehilborn"
@@ -78,7 +77,7 @@ cask "android-studio"              # Android IDE
 # Miscellaneous CLI tools
 # ------------------------------------------------------------------------------
 
-brew "displayplacer"               # Control display resolution/placement
+brew "jakehilborn/jakehilborn/displayplacer" # Control display resolution/placement
 brew "anomalyco/tap/opencode"      # AI-powered coding agent for the terminal
 brew "navikt/tap/cplt"             # Kernel-level sandbox for AI agents
 
