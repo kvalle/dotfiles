@@ -19,5 +19,18 @@
     "deny": [
       "AskUserQuestion"
     ]
+  },
+  "hooks": {
+    "SubagentStart": [
+      {
+        "matcher": "tldraw-offline",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "# Requires tldraw offline: Develop > Install Agent Skills\nsh \"$HOME/skills/tldraw-offline/inject-server-context.sh\" SubagentStart"
+          }
+        ]
+      }
+    ]
   }
 }
