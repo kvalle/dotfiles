@@ -19,16 +19,7 @@ run_domain() {
     zsh)      "$SCRIPT_DIR/zsh/verify.sh" ;;
     secrets)  "$SCRIPT_DIR/secrets/verify.sh" ;;
     themes)   "$SCRIPT_DIR/themes/verify.sh" ;;
-    skills)
-      printf '\n%bAgent skills%b\n' "$BOLD" "$RESET"
-      if output=$("$SCRIPT_DIR/skills/verify.sh" 2>&1); then
-        printf '  %b✓%b  ai/skills.txt is up to date\n' "$GREEN" "$RESET"
-      else
-        printf '  %b✗%b  ai/skills.txt does not match the skill lockfile\n' "$RED" "$RESET"
-        [ -z "$output" ] || printf '      %s\n' "$output"
-        return 1
-      fi
-      ;;
+    skills)   "$SCRIPT_DIR/skills/verify.sh" ;;
   esac
 }
 
