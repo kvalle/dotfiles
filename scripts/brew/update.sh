@@ -16,35 +16,28 @@ dotfiles_info "Upgrading casks..."
 dotfiles_privileges_begin "Homebrew cask upgrade"
 dotfiles_sudo_keepalive_begin
 
-_excluded_casks=()
-while IFS= read -r line; do
-  cask=$(echo "$line" | sed -n 's/^cask "\([^"]*\)".*/\1/p')
-  [[ -n "$cask" ]] && _excluded_casks+=("$cask")
-done < <(grep '\[self-updates\]' "$DOTFILES/Brewfile")
-
+# Replacing a terminal's own app while it runs breaks the session, so the running
+# terminal is held back and reported instead. kitty sets no TERM_PROGRAM —
+# KITTY_PID is the documented way to detect it — while ghostty does set it.
 _current_terminal_cask=""
-case "${TERM_PROGRAM:-}" in
-  ghostty) _current_terminal_cask="ghostty" ;;
-  kitty)   _current_terminal_cask="kitty" ;;
-esac
+if [[ -n "${KITTY_PID:-}" ]]; then
+  _current_terminal_cask="kitty"
+elif [[ "${TERM_PROGRAM:-}" == "ghostty" ]]; then
+  _current_terminal_cask="ghostty"
+fi
 
-_outdated_casks=$(brew outdated --cask --quiet)
-_to_upgrade=()
+_casks_to_upgrade=()
 _skipped_terminal=false
-for cask in $_outdated_casks; do
-  _skip=false
-  for excluded in "${_excluded_casks[@]}"; do
-    [[ "$cask" == "$excluded" ]] && _skip=true && break
-  done
+for cask in $(brew outdated --cask --quiet); do
   if [[ "$cask" == "$_current_terminal_cask" ]]; then
-    _skip=true
     _skipped_terminal=true
+  else
+    _casks_to_upgrade+=("$cask")
   fi
-  $_skip || _to_upgrade+=("$cask")
 done
 
-if [[ ${#_to_upgrade[@]} -gt 0 ]]; then
-  if ! brew upgrade --cask --yes "${_to_upgrade[@]}"; then
+if [[ ${#_casks_to_upgrade[@]} -gt 0 ]]; then
+  if ! brew upgrade --cask --yes "${_casks_to_upgrade[@]}"; then
     dotfiles_warn "Some casks failed to upgrade (see above for details)"
   fi
 else

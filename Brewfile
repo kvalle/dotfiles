@@ -1,13 +1,4 @@
 # ------------------------------------------------------------------------------
-# Packages can be annotated with tags in the comment field:
-#
-#   [verify]            Checked by verify.sh (that the command exists on PATH)
-#   [verify cmd:<cmd>]  Like [verify], but checks <cmd> instead of the package name
-#   [verify zsh-plugin] Checked as a loaded zsh plugin
-#   [self-updates]      The app updates itself; excluded from scripts/brew/update.sh
-# ------------------------------------------------------------------------------
-
-# ------------------------------------------------------------------------------
 # Taps
 # ------------------------------------------------------------------------------
 
@@ -22,12 +13,12 @@ tap "navikt/tap"
 # ------------------------------------------------------------------------------
 
 brew "bash"                        # Newer bash than the one macOS ships
-brew "fzf"                         # [verify] Fuzzy finder for the terminal
-brew "thefuck"                     # [verify] Corrects the previous command
-brew "zoxide"                      # [verify] Smarter cd – remembers most-used directories
-brew "zsh-autosuggestions"         # [verify zsh-plugin] Autosuggestions in zsh
-brew "zsh-syntax-highlighting"     # [verify zsh-plugin] Syntax highlighting in zsh
-cask "ghostty"                     # [self-updates] Alternative GPU-accelerated terminal emulator
+brew "fzf"                         # Fuzzy finder for the terminal
+brew "thefuck"                     # Corrects the previous command
+brew "zoxide"                      # Smarter cd – remembers most-used directories
+brew "zsh-autosuggestions"         # Autosuggestions in zsh
+brew "zsh-syntax-highlighting"     # Syntax highlighting in zsh
+cask "ghostty"                     # Alternative GPU-accelerated terminal emulator
 cask "kitty"                       # Primary terminal with built-in image paste support
 
 # ------------------------------------------------------------------------------
@@ -46,7 +37,7 @@ brew "ruby"                        # Ruby programming language
 # Version management for languages/tools
 # ------------------------------------------------------------------------------
 
-brew "jenv"                        # [verify] Java version management
+brew "jenv"                        # Java version management
 
 # ------------------------------------------------------------------------------
 # Java/JVM development
@@ -66,7 +57,7 @@ cask "temurin@25"                  # Eclipse Temurin JDK 25
 brew "awscli"                      # AWS command line tools
 brew "azure-cli"                   # Azure command line tools
 brew "Azure/kubelogin/kubelogin"   # Azure Kubernetes login
-brew "kubernetes-cli"              # [verify cmd:kubectl] kubectl
+brew "kubernetes-cli"              # kubectl
 brew "kubectx"                     # Switch between k8s contexts/namespaces
 brew "helm"                        # Kubernetes package management
 
@@ -88,14 +79,14 @@ cask "android-studio"              # Android IDE
 # ------------------------------------------------------------------------------
 
 brew "displayplacer"               # Control display resolution/placement
-brew "anomalyco/tap/opencode"      # [self-updates] AI-powered coding agent for the terminal
+brew "anomalyco/tap/opencode"      # AI-powered coding agent for the terminal
 brew "navikt/tap/cplt"             # Kernel-level sandbox for AI agents
 
 # ------------------------------------------------------------------------------
 # Casks – Browsers
 # ------------------------------------------------------------------------------
 
-cask "arc"                         # [self-updates] Arc browser
+cask "arc"                         # Arc browser
 cask "firefox"                     # Mozilla Firefox
 cask "google-chrome"               # Google Chrome
 cask "helium-browser"              # Lightweight Chromium browser
@@ -113,9 +104,9 @@ cask "signal"                      # Encrypted messaging app
 # Casks – Productivity and notes
 # ------------------------------------------------------------------------------
 
-cask "1password"                   # [self-updates] Password manager
+cask "1password"                   # Password manager
 cask "1password-cli"               # 1Password CLI
-cask "tuna"                        # [self-updates] Modern app launcher (Quicksilver-inspired)
+cask "tuna"                        # Modern app launcher (Quicksilver-inspired)
 cask "notion"                      # Notes and wiki
 cask "rectangle"                   # Window placement with the keyboard
 cask "jordanbaird-ice"             # Hide icons in the menu bar
