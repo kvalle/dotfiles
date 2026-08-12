@@ -56,7 +56,7 @@ cask "temurin@25"                  # Eclipse Temurin JDK 25
 
 brew "awscli"                      # AWS command line tools
 brew "azure-cli"                   # Azure command line tools
-brew "Azure/kubelogin/kubelogin"   # Azure Kubernetes login
+brew "azure/kubelogin/kubelogin"   # Azure Kubernetes login
 brew "kubernetes-cli"              # kubectl
 brew "kubectx"                     # Switch between k8s contexts/namespaces
 brew "helm"                        # Kubernetes package management
