@@ -18,10 +18,20 @@ echo "Updating Homebrew"
 brew update
 
 echo "Trusting third-party taps from Brewfile"
-grep '^tap ' "$DOTFILES/Brewfile" | sed 's/tap "//;s/".*//' | while read -r t; do
-  brew tap "$t" 2>/dev/null || true
-  brew trust "$t"
-done
+# Read via process substitution, not a pipe: a piped while loop runs in a
+# subshell, so a failure inside it would abort the whole script under `set -e`
+# and leave the taps that follow untouched. Collect failures and carry on —
+# `brew bundle` below reports any package that could not be installed anyway.
+_failed_taps=()
+while read -r t; do
+  if ! brew tap "$t" 2>/dev/null || ! brew trust --tap "$t"; then
+    _failed_taps+=("$t")
+  fi
+done < <(grep '^tap ' "$DOTFILES/Brewfile" | sed 's/tap "//;s/".*//')
+
+if [[ ${#_failed_taps[@]} -gt 0 ]]; then
+  dotfiles_warn "Could not tap/trust: ${_failed_taps[*]}"
+fi
 
 echo "Installing apps"
 dotfiles_privileges_begin "Homebrew bundle install"
