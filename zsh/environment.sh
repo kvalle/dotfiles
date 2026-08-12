@@ -48,7 +48,9 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 # Digipost
 # ---------------------------------------------------------------------------
 export DIGIPOST_HOME=$HOME/code/digipost
-source ~/.digipostrc
+# Not version controlled here. This file is from the Digipost specific 
+# dotfiles setup.
+[[ -f ~/.digipostrc ]] && source ~/.digipostrc
 export DIGIPOST_SETTINGSXML_GITHUB_USERNAME='kvalle'
 # Secret loaded from ~/.secrets (not version controlled)
 # Declared in secrets.conf, populated by scripts/secrets/setup.sh
