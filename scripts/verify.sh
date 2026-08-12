@@ -4,7 +4,7 @@
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/lib/common.sh"
 
-DOMAINS=(symlinks brew nix bat zsh secrets themes skills)
+DOMAINS=(symlinks brew nix bat rectangle zsh secrets configs themes skills)
 
 usage() {
   echo "Usage: ${0##*/} [all|${DOMAINS[*]}]" >&2
@@ -12,14 +12,16 @@ usage() {
 
 run_domain() {
   case "$1" in
-    symlinks) "$SCRIPT_DIR/symlinks/verify.sh" ;;
-    brew)     "$SCRIPT_DIR/brew/verify.sh" ;;
-    nix)      "$SCRIPT_DIR/nix/verify.sh" ;;
-    bat)      "$SCRIPT_DIR/bat/verify.sh" ;;
-    zsh)      "$SCRIPT_DIR/zsh/verify.sh" ;;
-    secrets)  "$SCRIPT_DIR/secrets/verify.sh" ;;
-    themes)   "$SCRIPT_DIR/themes/verify.sh" ;;
-    skills)   "$SCRIPT_DIR/skills/verify.sh" ;;
+    symlinks)  "$SCRIPT_DIR/symlinks/verify.sh" ;;
+    brew)      "$SCRIPT_DIR/brew/verify.sh" ;;
+    nix)       "$SCRIPT_DIR/nix/verify.sh" ;;
+    bat)       "$SCRIPT_DIR/bat/verify.sh" ;;
+    rectangle) "$SCRIPT_DIR/rectangle/verify.sh" ;;
+    zsh)       "$SCRIPT_DIR/zsh/verify.sh" ;;
+    secrets)   "$SCRIPT_DIR/secrets/verify.sh" ;;
+    configs)   "$SCRIPT_DIR/configs/verify.sh" ;;
+    themes)    "$SCRIPT_DIR/themes/verify.sh" ;;
+    skills)    "$SCRIPT_DIR/skills/verify.sh" ;;
   esac
 }
 

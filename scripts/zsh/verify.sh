@@ -22,6 +22,24 @@ else
   verify_fail "zsh/functions/ (empty or missing)"
 fi
 
+# `zsh -n file...` parses only the first file and turns the rest into positional
+# parameters, so every file gets its own invocation.
+zsh_syntax() {
+  local file status=0
+  for file in "$@"; do
+    zsh -n "$file" || status=1
+  done
+  return $status
+}
+
+if output=$(zsh_syntax "$DOTFILES"/zsh/zshrc "$DOTFILES"/zsh/zprofile \
+              "$DOTFILES"/zsh/*.sh "$DOTFILES"/zsh/functions/*.sh 2>&1); then
+  verify_pass "Syntax of all zsh files"
+else
+  verify_fail "Syntax of all zsh files"
+  [ -z "$output" ] || sed 's/^/      /' <<< "$output"
+fi
+
 verify_header "Zsh plugins"
 
 # Check the paths zsh/plugins.sh actually sources, so this cannot drift from what
