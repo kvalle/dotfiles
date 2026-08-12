@@ -82,12 +82,63 @@ because its profile path is dynamic.
   and packages not available in nixpkgs; applied with `brew bundle`
 
 `scripts/setup.sh`, `scripts/update.sh`, and `scripts/verify.sh` are stable
-entrypoints. Keep domain logic in `scripts/<domain>/` and shared shell helpers
-in `scripts/lib/`.
+entrypoints.
 
 Machine-changing operations such as Homebrew updates, Nix profile changes,
 symlink setup, macOS defaults, and secrets setup must be tested manually outside
 the sandbox.
+
+## Script domains
+
+Keep domain logic in `scripts/<domain>/` and shared shell helpers in
+`scripts/lib/`. A domain — `brew`, `nix`, `symlinks`, `secrets`, and so on —
+owns one area of the setup. There is no registration step: the entrypoints know
+nothing about a domain beyond the file names below, so the file name *is* the
+contract.
+
+- **`setup.sh`** — brings the domain from nothing to configured. Run by
+  `scripts/setup.sh`. Idempotent: running it on an already configured machine
+  is a no-op, not a second install. It fails fast (`set -euo pipefail`), since
+  a half-finished install is worse than none, and a non-zero exit stops the
+  bootstrap.
+- **`update.sh`** — refreshes what is already installed. Run by
+  `scripts/update.sh`. Optional; most domains have nothing to update. A partial
+  failure must not abort the rest of the update, so it reports what went wrong
+  and continues where it can. A missing optional tool is a `dotfiles_warn` and
+  `exit 0`; a real failure exits non-zero, for the caller to record and report.
+- **`verify.sh`** — answers whether the domain is correctly set up. Run by
+  `scripts/verify.sh`, either as part of a full run or on its own
+  (`scripts/verify.sh symlinks`). It only reads: it changes nothing and is safe
+  to run at any time. It sources `lib/common.sh` and `lib/verify.sh`, writes its
+  own `verify_header`, reports every finding with `verify_pass`, `verify_fail`
+  or `verify_warn`, and ends with `verify_finish`, which returns 0 when nothing
+  failed and 1 otherwise. It collects all findings rather than stopping at the
+  first. Running it directly must look exactly like running it through
+  `scripts/verify.sh`.
+- **`common.sh`** — helpers shared between that domain's own scripts. Sourced,
+  never executed.
+- **Anything else** — a tool belonging to the domain, named after what it does:
+  `nix/apply.sh`, `skills/manifest.sh`, `themes/generate-starship.rb`. It may
+  take flags and be run by hand; the scripts above call it.
+
+Every script resolves its own directory and works from any working directory.
+Apart from documented flags such as `symlinks/setup.sh --prune`, the entrypoints
+call them without arguments.
+
+Files in `scripts/lib/` are sourced, never run. They define functions and
+variables, have no side effects at load time, and set no error policy of their
+own — they inherit the caller's, as `lib/common.sh` states at the top. A file
+there is never a domain, whatever it is named.
+
+`scripts/setup.sh` and `scripts/verify.sh` each list the domains they run.
+Verification order is arbitrary; the bootstrap order in `scripts/setup.sh` is
+not, and encodes real dependencies.
+
+Not every script follows this yet: `bat`, `macos` and `rectangle` are `sh`
+scripts that print with raw `echo` instead of the helpers in `lib/common.sh`,
+and the error policies vary across the tree. Bring a script into line when you
+touch it, one at a time — a single sweep risks `set -u` uncovering latent bugs
+in scripts that nothing tests.
 
 ## Repository structure
 
