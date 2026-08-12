@@ -8,7 +8,7 @@ repository into `~/.config/` and other locations.
 The repository must be cloned to `~/dotfiles/`.
 
 ```sh
-git clone https://github.com/kjetil/dotfiles.git ~/dotfiles
+git clone https://github.com/kvalle/dotfiles.git ~/dotfiles
 ~/dotfiles/scripts/setup.sh
 ```
 

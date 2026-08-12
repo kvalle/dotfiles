@@ -3,7 +3,7 @@
 ## Automated setup
 
 ```sh
-git clone https://github.com/kjetil/dotfiles.git ~/dotfiles
+git clone https://github.com/kvalle/dotfiles.git ~/dotfiles
 ~/dotfiles/scripts/setup.sh
 ```
 
