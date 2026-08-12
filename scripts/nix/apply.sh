@@ -6,7 +6,7 @@ SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/../lib/common.sh"
 
 FLAKE="$DOTFILES/nix"
-PROFILE="${NIX_DOTFILES_PROFILE:-$HOME/.local/state/nix/profiles/dotfiles}"
+PROFILE="$DOTFILES_NIX_PROFILE"
 
 if ! command -v nix >/dev/null 2>&1; then
   echo "Nix is not installed or not on PATH." >&2

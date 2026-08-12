@@ -2,8 +2,11 @@
 
 set -euo pipefail
 
-DEFAULT_PROFILE="${NIX_DEFAULT_PROFILE:-$HOME/.local/state/nix/profiles/profile}"
-DOTFILES_PROFILE="${NIX_DOTFILES_PROFILE:-$HOME/.local/state/nix/profiles/dotfiles}"
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "$SCRIPT_DIR/../lib/common.sh"
+
+DEFAULT_PROFILE="$HOME/.local/state/nix/profiles/profile"
+DOTFILES_PROFILE="$DOTFILES_NIX_PROFILE"
 
 if ! command -v nix >/dev/null 2>&1; then
   echo "Nix is not installed or not on PATH." >&2

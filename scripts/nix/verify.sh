@@ -6,7 +6,7 @@ source "$SCRIPT_DIR/../lib/verify.sh"
 
 verify_header "Nix"
 
-NIX_PROFILE="$HOME/.local/state/nix/profiles/dotfiles"
+NIX_PROFILE="$DOTFILES_NIX_PROFILE"
 NIX_COMMANDS="$NIX_PROFILE/share/dotfiles/nix-commands"
 if ! command -v nix >/dev/null 2>&1; then
   verify_fail "nix (not on PATH)"

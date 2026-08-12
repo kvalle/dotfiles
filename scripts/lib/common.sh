@@ -4,6 +4,13 @@
 DOTFILES="${DOTFILES:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 export DOTFILES
 
+# The Nix profile the dotfiles flake is installed into. Defined once here for
+# every script; zsh/environment.sh holds the only other copy, because it cannot
+# source this file — $BASH_SOURCE is empty in zsh, so $DOTFILES above would
+# resolve to the wrong directory.
+DOTFILES_NIX_PROFILE="$HOME/.local/state/nix/profiles/dotfiles"
+export DOTFILES_NIX_PROFILE
+
 BOLD='\033[1m'
 DIM='\033[2m'
 RED='\033[0;31m'

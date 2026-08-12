@@ -21,6 +21,9 @@ export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 export PATH="/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
+# Kept in sync by hand with $DOTFILES_NIX_PROFILE in scripts/lib/common.sh,
+# which this file cannot source: it is bash-only and would drag its helpers into
+# every interactive shell.
 export PATH="$HOME/.local/state/nix/profiles/dotfiles/bin:$PATH"
 
 # ---------------------------------------------------------------------------

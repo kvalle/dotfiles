@@ -12,7 +12,7 @@ git -C "$DOTFILES" submodule init && git -C "$DOTFILES" submodule update
 brew/setup.sh
 nix/setup.sh
 source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-export PATH="$HOME/.local/state/nix/profiles/dotfiles/bin:$PATH"
+export PATH="$DOTFILES_NIX_PROFILE/bin:$PATH"
 rectangle/setup.sh
 macos/setup.sh
 symlinks/setup.sh
