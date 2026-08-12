@@ -2,7 +2,7 @@
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/../lib/common.sh"
-source "$SCRIPT_DIR/../lib/verify.sh"
+source "$SCRIPT_DIR/../lib/verify-output.sh"
 source "$SCRIPT_DIR/common.sh"
 
 verify_header "Secrets"

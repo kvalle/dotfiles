@@ -109,12 +109,12 @@ contract.
 - **`verify.sh`** — answers whether the domain is correctly set up. Run by
   `scripts/verify.sh`, either as part of a full run or on its own
   (`scripts/verify.sh symlinks`). It only reads: it changes nothing and is safe
-  to run at any time. It sources `lib/common.sh` and `lib/verify.sh`, writes its
-  own `verify_header`, reports every finding with `verify_pass`, `verify_fail`
-  or `verify_warn`, and ends with `verify_finish`, which returns 0 when nothing
-  failed and 1 otherwise. It collects all findings rather than stopping at the
-  first. Running it directly must look exactly like running it through
-  `scripts/verify.sh`.
+  to run at any time. It sources `lib/common.sh` and `lib/verify-output.sh`,
+  writes its own `verify_header`, reports every finding with `verify_pass`,
+  `verify_fail` or `verify_warn`, and ends with `verify_finish`, which returns 0
+  when nothing failed and 1 otherwise. It collects all findings rather than
+  stopping at the first. Running it directly must look exactly like running it
+  through `scripts/verify.sh`.
 - **`common.sh`** — helpers shared between that domain's own scripts. Sourced,
   never executed.
 - **Anything else** — a tool belonging to the domain, named after what it does:
