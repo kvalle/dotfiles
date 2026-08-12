@@ -4,26 +4,20 @@
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/lib/common.sh"
 
-DOMAINS=(symlinks brew nix bat rectangle zsh secrets configs themes skills)
+DOMAINS=()
+for script in "$SCRIPT_DIR"/*/verify.sh; do
+  [[ -x "$script" ]] || continue   # also skips the unexpanded glob if none match
+  domain=${script%/verify.sh}
+  DOMAINS+=("${domain##*/}")
+done
 
 usage() {
   echo "Usage: ${0##*/} [all|${DOMAINS[*]}]" >&2
 }
 
-run_domain() {
-  case "$1" in
-    symlinks)  "$SCRIPT_DIR/symlinks/verify.sh" ;;
-    brew)      "$SCRIPT_DIR/brew/verify.sh" ;;
-    nix)       "$SCRIPT_DIR/nix/verify.sh" ;;
-    bat)       "$SCRIPT_DIR/bat/verify.sh" ;;
-    rectangle) "$SCRIPT_DIR/rectangle/verify.sh" ;;
-    zsh)       "$SCRIPT_DIR/zsh/verify.sh" ;;
-    secrets)   "$SCRIPT_DIR/secrets/verify.sh" ;;
-    configs)   "$SCRIPT_DIR/configs/verify.sh" ;;
-    themes)    "$SCRIPT_DIR/themes/verify.sh" ;;
-    skills)    "$SCRIPT_DIR/skills/verify.sh" ;;
-  esac
-}
+if (( ${#DOMAINS[@]} == 0 )); then
+  dotfiles_die "Found no verify scripts in $SCRIPT_DIR"
+fi
 
 selection=${1:-all}
 if [[ "$selection" != all && ! " ${DOMAINS[*]} " =~ " $selection " ]] || (( $# > 1 )); then
@@ -33,16 +27,15 @@ fi
 
 if [[ "$selection" == all ]]; then
   dotfiles_banner "verifying"
+  targets=("${DOMAINS[@]}")
+else
+  targets=("$selection")
 fi
 
 failed=()
-if [[ "$selection" == all ]]; then
-  for domain in "${DOMAINS[@]}"; do
-    run_domain "$domain" || failed+=("$domain")
-  done
-else
-  run_domain "$selection" || failed+=("$selection")
-fi
+for domain in "${targets[@]}"; do
+  "$SCRIPT_DIR/$domain/verify.sh" || failed+=("$domain")
+done
 
 echo ""
 if (( ${#failed[@]} == 0 )); then
