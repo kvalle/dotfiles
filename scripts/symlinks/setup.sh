@@ -32,7 +32,7 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
-echo "Setting up symlinks"
+dotfiles_info "Setting up symlinks..."
 
 confirm_overwrite() {
     local dest=$1 prompt=$2
@@ -129,8 +129,7 @@ else
 fi
 
 if (( PRUNE )); then
-    echo
-    echo "Pruning symlinks that symlinks.conf no longer declares"
+    dotfiles_info "Pruning symlinks that symlinks.conf no longer declares..."
     prune_orphans
     printf "\n%d symlinks created, %d skipped (already correct), %d removed, %d failed.\n" \
         "$CREATED" "$SKIPPED" "$PRUNED" "$FAILED"

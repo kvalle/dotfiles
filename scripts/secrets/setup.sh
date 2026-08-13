@@ -6,12 +6,12 @@ source "$SCRIPT_DIR/../lib/common.sh"
 source "$SCRIPT_DIR/common.sh"
 
 if ! op whoami >/dev/null 2>&1; then
-  echo "1Password CLI is not authenticated. Signing in..."
+  dotfiles_info "1Password CLI is not authenticated. Signing in..."
   op signin
   op whoami >/dev/null
 fi
 
-echo "Setting up secrets..."
+dotfiles_info "Setting up secrets..."
 
 mkdir -p "$SECRETS_DIR"
 chmod 700 "$SECRETS_DIR"
@@ -32,7 +32,7 @@ while read -r name ref; do
   [[ "$name" != */* ]] || dotfiles_die "Target must be a file name without a directory: $name"
   [[ "$ref" == op://* ]] || dotfiles_die "Invalid op reference for $name: $ref"
 
-  echo "Fetching $name from 1Password..."
+  dotfiles_info "Fetching $name from 1Password..."
   tmp=$(mktemp "$SECRETS_DIR/.$name.XXXXXX")
   chmod 600 "$tmp"
   op read "$ref" --account "$OP_ACCOUNT" > "$tmp"
@@ -40,4 +40,4 @@ while read -r name ref; do
   tmp=""
 done < <(secret_entries)
 
-echo "Done setting up secrets"
+dotfiles_success "Secrets are in place."

@@ -2,7 +2,10 @@
 
 set -euo pipefail
 
-echo "Starting configuring MacOS"
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+source "$SCRIPT_DIR/../lib/common.sh"
+
+dotfiles_info "Configuring macOS..."
 
 osascript -e 'tell application "System Settings" to quit'
 
@@ -45,8 +48,7 @@ keybindings_contents='{
 }'
 if [ -s "${keybindings_file}" ]; then
 	if ! grep -q '"~ " = ("insertText:", " ");' "${keybindings_file}"; then
-		echo "${keybindings_file} already exists but is missing the keybinding."
-		echo "Please add the following contents manually:"
+		dotfiles_warn "${keybindings_file} exists but is missing the keybinding. Add it manually:"
 		echo
 		echo "${keybindings_contents}"
 	fi
@@ -58,7 +60,4 @@ fi
 # Don't show icons on the desktop
 defaults write com.apple.finder CreateDesktop -bool false
 
-echo "Done configuring MacOS"
-echo
-echo "(Might need to log out/in to see all changes take effect)"
-echo
+dotfiles_success "macOS configured. Log out and back in to see all changes take effect."

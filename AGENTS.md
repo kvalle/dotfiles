@@ -139,9 +139,10 @@ verification order is arbitrary.
 Every script is bash and states one of the three policies above; `lib/` states
 none. Keep it that way when adding a script.
 
-Not every script follows the rest of this yet: `bat`, `macos` and `rectangle`
-print with raw `echo` instead of the helpers in `lib/common.sh`. Bring a script
-into line when you touch it.
+Every setup script sources `lib/common.sh` and reports through it: a step opens
+with `dotfiles_info` and closes with `dotfiles_success`, a skipped or partial
+step is a `dotfiles_warn`, and a fatal one is `dotfiles_die`. Raw `echo` is for
+data the user is meant to read or copy, not for status.
 
 ## Repository structure
 
