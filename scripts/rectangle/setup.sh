@@ -1,5 +1,6 @@
-#!/bin/sh
-set -e
+#!/bin/bash
+
+set -euo pipefail
 
 repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
 target_dir="$HOME/Library/Application Support/Rectangle"

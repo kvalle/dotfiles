@@ -1,6 +1,8 @@
 #!/bin/bash
 # Dotfiles Verify - diagnostic check of the setup
 
+set -o pipefail
+
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/lib/common.sh"
 

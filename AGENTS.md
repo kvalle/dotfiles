@@ -104,8 +104,9 @@ contract.
 - **`update.sh`** — refreshes what is already installed. Run by
   `scripts/update.sh`. Optional; most domains have nothing to update. A partial
   failure must not abort the rest of the update, so it reports what went wrong
-  and continues where it can. A missing optional tool is a `dotfiles_warn` and
-  `exit 0`; a real failure exits non-zero, for the caller to record and report.
+  and continues where it can (`set -uo pipefail`, deliberately without `-e`). A
+  missing optional tool is a `dotfiles_warn` and `exit 0`; a real failure exits
+  non-zero, for the caller to record and report.
 - **`verify.sh`** — answers whether the domain is correctly set up. Run by
   `scripts/verify.sh`, either as part of a full run or on its own
   (`scripts/verify.sh symlinks`). It only reads: it changes nothing and is safe
@@ -113,8 +114,8 @@ contract.
   writes its own `verify_header`, reports every finding with `verify_pass`,
   `verify_fail` or `verify_warn`, and ends with `verify_finish`, which returns 0
   when nothing failed and 1 otherwise. It collects all findings rather than
-  stopping at the first. Running it directly must look exactly like running it
-  through `scripts/verify.sh`.
+  stopping at the first, so it sets `set -o pipefail` and never `-e`. Running it
+  directly must look exactly like running it through `scripts/verify.sh`.
 - **`common.sh`** — helpers shared between that domain's own scripts. Sourced,
   never executed.
 - **Anything else** — a tool belonging to the domain, named after what it does:
@@ -130,15 +131,17 @@ variables, have no side effects at load time, and set no error policy of their
 own — they inherit the caller's, as `lib/common.sh` states at the top. A file
 there is never a domain, whatever it is named.
 
-`scripts/setup.sh` and `scripts/verify.sh` each list the domains they run.
-Verification order is arbitrary; the bootstrap order in `scripts/setup.sh` is
-not, and encodes real dependencies.
+`scripts/verify.sh` discovers its domains from `scripts/*/verify.sh` and runs
+them alphabetically, so a new domain needs no entry anywhere. `scripts/setup.sh`
+still lists them explicitly: bootstrap order encodes real dependencies, while
+verification order is arbitrary.
 
-Not every script follows this yet: `bat`, `macos` and `rectangle` are `sh`
-scripts that print with raw `echo` instead of the helpers in `lib/common.sh`,
-and the error policies vary across the tree. Bring a script into line when you
-touch it, one at a time — a single sweep risks `set -u` uncovering latent bugs
-in scripts that nothing tests.
+Every script is bash and states one of the three policies above; `lib/` states
+none. Keep it that way when adding a script.
+
+Not every script follows the rest of this yet: `bat`, `macos` and `rectangle`
+print with raw `echo` instead of the helpers in `lib/common.sh`. Bring a script
+into line when you touch it.
 
 ## Repository structure
 
