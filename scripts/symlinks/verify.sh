@@ -30,9 +30,7 @@ while read -r type src dest; do
   fi
 done < <(conf_entries)
 
-ZEN_PROFILE=$(find "$HOME/Library/Application Support/zen/Profiles" \
-  -maxdepth 1 -name "*.Default (release)" -type d 2>/dev/null | head -1)
-if [ -n "$ZEN_PROFILE" ]; then
+if ZEN_PROFILE=$(zen_profile); then
   zen_dest="$ZEN_PROFILE/user.js"
   zen_src="$DOTFILES/zen/user.js"
   if [ ! -L "$zen_dest" ]; then

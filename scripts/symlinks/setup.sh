@@ -121,13 +121,11 @@ while read -r type src dest; do
     link_config "$src" "$dest"
 done < <(conf_entries)
 
-# Special case: Zen Browser (dynamic profile path)
-ZEN_PROFILE=$(find "$HOME/Library/Application Support/zen/Profiles" \
-    -maxdepth 1 -name "*.Default (release)" -type d 2>/dev/null | head -1 || true)
-if [ -n "$ZEN_PROFILE" ]; then
+# Special case: Zen Browser (dynamic profile path, see zen_profile in common.sh)
+if ZEN_PROFILE=$(zen_profile); then
     link_config "$DOTFILES/zen/user.js" "$ZEN_PROFILE/user.js"
 else
-    echo "  Zen Browser: profile not found, skipping"
+    dotfiles_warn "Zen Browser: profile not found, skipping"
 fi
 
 if (( PRUNE )); then

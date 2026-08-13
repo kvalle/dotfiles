@@ -18,6 +18,22 @@ git_history_available() {
   git -C "$DOTFILES" rev-parse --git-dir >/dev/null 2>&1
 }
 
+# Zen Browser cannot be expressed in symlinks.conf: the profile directory is
+# named per install. Setup and verify need the same search, so the pattern lives
+# here as one string in one place.
+#
+# Prints the profile directory and returns 0 when one is found, prints nothing
+# and returns 1 otherwise. `head` closing the pipe early makes `find` fail under
+# `pipefail`, so that is absorbed here rather than at each call site — the two
+# callers run under different error policies.
+zen_profile() {
+  local profile
+  profile=$(find "$HOME/Library/Application Support/zen/Profiles" \
+    -maxdepth 1 -name "*.Default (release)" -type d 2>/dev/null | head -1) || true
+  [ -n "$profile" ] || return 1
+  printf '%s\n' "$profile"
+}
+
 # Destinations the current symlinks.conf declares, expanded to absolute paths.
 declared_destinations() {
   local type src dest
