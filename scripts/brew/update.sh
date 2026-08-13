@@ -6,12 +6,18 @@ SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/../lib/common.sh"
 source "$SCRIPT_DIR/../lib/privileges.sh"
 
+# A step that fails reports here rather than aborting: a cask that will not
+# upgrade should not stop the cleanup. The exit code carries the failures up to
+# scripts/update.sh, which lists the steps that went wrong.
+failed=()
+
 dotfiles_info "Updating Homebrew..."
-brew update
+brew update || failed+=("update")
 
 dotfiles_info "Upgrading formulae..."
 if ! brew upgrade --formula --yes; then
   dotfiles_warn "Some formulae failed to upgrade (see above for details)"
+  failed+=("formulae")
 fi
 
 dotfiles_info "Upgrading casks..."
@@ -41,6 +47,7 @@ done
 if [[ ${#_casks_to_upgrade[@]} -gt 0 ]]; then
   if ! brew upgrade --cask --yes "${_casks_to_upgrade[@]}"; then
     dotfiles_warn "Some casks failed to upgrade (see above for details)"
+    failed+=("casks")
   fi
 else
   echo "    No casks to upgrade."
@@ -53,4 +60,9 @@ fi
 dotfiles_privileges_cleanup || dotfiles_die "Temporary admin privileges were not revoked."
 
 dotfiles_info "Cleaning up old versions..."
-brew cleanup --prune=30
+brew cleanup --prune=30 || failed+=("cleanup")
+
+if (( ${#failed[@]} > 0 )); then
+  dotfiles_warn "Homebrew had problems with: ${failed[*]}"
+  exit 1
+fi

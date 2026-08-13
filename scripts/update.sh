@@ -7,6 +7,13 @@ source "$SCRIPT_DIR/lib/common.sh"
 
 dotfiles_banner "updating"
 
+# Every step reports here instead of aborting: an update that cannot reach
+# Homebrew should still refresh the skills. The names collected are what the
+# summary prints and what decides the exit code. A step that is skipped because
+# its tool is not installed is a warning, not a failure — the same distinction
+# verify.sh draws between verify_warn and verify_fail.
+failed=()
+
 # --------------------------------------------------------------------------
 _has_uncommitted_changes() {
   ! git -C "$DOTFILES" diff --quiet 2>/dev/null || \
@@ -37,32 +44,37 @@ fi
 # Homebrew
 # --------------------------------------------------------------------------
 
-"$SCRIPT_DIR/brew/update.sh" || exit $?
+"$SCRIPT_DIR/brew/update.sh" || failed+=("brew")
 
 # --------------------------------------------------------------------------
 # Nix
 # --------------------------------------------------------------------------
 
 dotfiles_info "Updating Nix packages..."
-"$SCRIPT_DIR/nix/update.sh" || true
+"$SCRIPT_DIR/nix/update.sh" || failed+=("nix")
 
 # --------------------------------------------------------------------------
 # Git submodules
 # --------------------------------------------------------------------------
 
 dotfiles_info "Updating git submodules..."
-git -C "$DOTFILES" submodule update --remote
-dotfiles_success "Submodules updated."
+if git -C "$DOTFILES" submodule update --remote; then
+  dotfiles_success "Submodules updated."
+else
+  failed+=("submodules")
+fi
 
 # --------------------------------------------------------------------------
 # tealdeer (tldr pages)
 # --------------------------------------------------------------------------
 
 dotfiles_info "Updating tldr pages..."
-if tldr --update; then
+if ! command -v tldr >/dev/null 2>&1; then
+  dotfiles_warn "tldr is not installed, skipping"
+elif tldr --update; then
   dotfiles_success "tldr pages updated."
 else
-  dotfiles_warn "Could not update tldr pages"
+  failed+=("tldr")
 fi
 
 # --------------------------------------------------------------------------
@@ -71,16 +83,29 @@ fi
 
 dotfiles_info "Running jenv rehash..."
 export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)" 2>/dev/null
-jenv rehash
-dotfiles_success "jenv shims updated."
+if ! command -v jenv >/dev/null 2>&1; then
+  dotfiles_warn "jenv is not installed, skipping"
+else
+  # jenv init writes shell code meant for an interactive rc file; its noise is
+  # not interesting here, but a rehash that fails is. `set -u` covers this
+  # script, not what jenv generates — something in it reads an unset variable,
+  # which under -u would end the whole run.
+  set +u
+  eval "$(jenv init -)" 2>/dev/null
+  set -u
+  if jenv rehash; then
+    dotfiles_success "jenv shims updated."
+  else
+    failed+=("jenv")
+  fi
+fi
 
 # --------------------------------------------------------------------------
 # Agent skills
 # --------------------------------------------------------------------------
 
 dotfiles_info "Updating agent skills..."
-"$SCRIPT_DIR/skills/update.sh" || true
+"$SCRIPT_DIR/skills/update.sh" || failed+=("skills")
 
 # --------------------------------------------------------------------------
 # Check for changes that should be committed
@@ -104,7 +129,9 @@ fi
 # --------------------------------------------------------------------------
 
 echo ""
-echo -e "${BOLD}${GREEN}==============================${RESET}"
-echo -e "${BOLD}${GREEN}  Update complete!${RESET}"
-echo -e "${BOLD}${GREEN}==============================${RESET}"
-echo ""
+if (( ${#failed[@]} == 0 )); then
+  printf '%bUpdate complete - no problems found.%b\n\n' "${GREEN}${BOLD}" "$RESET"
+else
+  printf '%bUpdate failed for: %s%b\n\n' "${RED}${BOLD}" "${failed[*]}" "$RESET"
+  exit 1
+fi

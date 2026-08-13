@@ -17,8 +17,10 @@ update_args=(--yes skills update -g)
 [[ -t 0 ]] || update_args+=(-y)
 
 if NPM_CONFIG_CACHE="${TMPDIR:-/tmp}/npm-cache" npx "${update_args[@]}"; then
-  "$SCRIPT_DIR/manifest.sh" --write || \
+  if ! "$SCRIPT_DIR/manifest.sh" --write; then
     dotfiles_warn "Could not update the skills manifest"
+    exit 1
+  fi
 else
   dotfiles_warn "Could not update agent skills"
   exit 1
