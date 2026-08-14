@@ -47,15 +47,23 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 # ---------------------------------------------------------------------------
 # Digipost
 # ---------------------------------------------------------------------------
-export DIGIPOST_HOME=$HOME/code/digipost
-# Not version controlled here. This file is from the Digipost specific 
-# dotfiles setup.
-[[ -f ~/.digipostrc ]] && source ~/.digipostrc
-export DIGIPOST_SETTINGSXML_GITHUB_USERNAME='kvalle'
-# Secret loaded from ~/.secrets (not version controlled)
-# Declared in secrets.conf, populated by scripts/secrets/setup.sh
-[[ -f ~/.secrets/digipost-github-secret ]] && \
-  export DIGIPOST_SETTINGSXML_GITHUB_SECRET="$(cat ~/.secrets/digipost-github-secret)"
+# ~/.digipostrc is not version controlled here; it comes from the Digipost
+# specific dotfiles setup. Its presence is what marks this as a work machine,
+# so the whole block is conditional on it: on a machine without it, none of
+# these variables should exist at all.
+if [[ -f ~/.digipostrc ]]; then
+  # Must be set before sourcing .digipostrc, which reads this value.
+  export DIGIPOST_HOME=$HOME/code/digipost
+  source ~/.digipostrc
 
-export AZURE_USER="developer.kjetil.valle"
-export AZURE_PASSWORD_STORE_DIR="$DPOST_REPOS_PATH/azure-passwords"
+  export DIGIPOST_SETTINGSXML_GITHUB_USERNAME='kvalle'
+  # Secret loaded from ~/.secrets (not version controlled)
+  # Declared in secrets.conf, populated by scripts/secrets/setup.sh
+  [[ -f ~/.secrets/digipost-github-secret ]] && \
+    export DIGIPOST_SETTINGSXML_GITHUB_SECRET="$(cat ~/.secrets/digipost-github-secret)"
+
+  export AZURE_USER="developer.kjetil.valle"
+  # $DPOST_REPOS_PATH comes from .digipostrc, sourced above. Without the guard
+  # it would be empty here and this would expand to /azure-passwords.
+  export AZURE_PASSWORD_STORE_DIR="$DPOST_REPOS_PATH/azure-passwords"
+fi
