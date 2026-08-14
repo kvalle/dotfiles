@@ -9,14 +9,21 @@ allow_gpg_signing = false
 allow_cache_exec = ["gradle"]
 pass_env = ["GH_TOKEN"]
 
-# ~/dotfiles/git is symlinked from ~/.config/git — cplt must be able to read the original
-# ~/dotfiles/ai/opencode is symlinked from ~/.config/opencode/opencode.jsonc
+# cplt canonicalizes allow.read paths, so a symlink here grants what it points at.
+# That keeps this file free of the repo location — both entries below are symlinks
+# into the repo, declared in symlinks.conf.
+# ~/.config/git — git config, read through the ~/.config/git directory symlink.
+# ~/.config/cplt/opencode-config — ai/opencode. cplt already grants opencode its
+#   own dirs (config, data, state, cache); this is only needed because the
+#   symlinks in ~/.config/opencode point out of that dir and into the repo.
 # ~/.claude/skills and ~/.agents/skills — agent skills (real directories)
 # ~/.agents/.skill-lock.json — used to verify ai/skills.txt
 # ~/Library/Application Support/tldraw — the tldraw-offline skill reads server.json
 # The Nix profile points on to packages and libraries under /nix/store
+# Keep every entry ~/-prefixed: relative paths resolve against the config file's
+# directory, which zsh/functions/opencode.sh moves to $TMPDIR via CPLT_CONFIG.
 [allow]
-read = ["~/dotfiles/git", "~/dotfiles/ai/opencode", "~/.claude/skills", "~/.agents/skills", "~/.agents/.skill-lock.json", "~/Library/Application Support/tldraw", "~/.local/state/nix/profiles/dotfiles", "/nix/store"]
+read = ["~/.config/git", "~/.config/cplt/opencode-config", "~/.claude/skills", "~/.agents/skills", "~/.agents/.skill-lock.json", "~/Library/Application Support/tldraw", "~/.local/state/nix/profiles/dotfiles", "/nix/store"]
 localhost = [7236]
 
 [proxy]
