@@ -4,6 +4,7 @@ set -euo pipefail
 
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/../lib/common.sh"
+source "$SCRIPT_DIR/common.sh"
 
 MANIFEST="${SKILLS_MANIFEST_FILE:-$DOTFILES/ai/skills.txt}"
 
@@ -22,12 +23,12 @@ usage() {
 generate_manifest() {
   if [ ! -f "$LOCK_FILE" ]; then
     echo "Skill lockfile missing: $LOCK_FILE" >&2
-    return 1
+    return "$SKILLS_EXIT_NO_LOCK"
   fi
 
   if ! jq -e '.version and (.skills | type == "object")' "$LOCK_FILE" >/dev/null 2>&1; then
     echo "Invalid skill lockfile: $LOCK_FILE" >&2
-    return 1
+    return "$SKILLS_EXIT_INVALID_LOCK"
   fi
 
   cat <<'EOF'
@@ -67,11 +68,11 @@ case "${1:-}" in
     generate_manifest > "$tmp"
     if ! diff -u "$MANIFEST" "$tmp"; then
       echo "The manifest is out of date. Run scripts/skills/manifest.sh --write." >&2
-      exit 1
+      exit "$SKILLS_EXIT_DRIFT"
     fi
     ;;
   *)
     usage >&2
-    exit 2
+    exit "$SKILLS_EXIT_USAGE"
     ;;
 esac
