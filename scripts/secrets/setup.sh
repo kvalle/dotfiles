@@ -13,7 +13,13 @@ fi
 
 dotfiles_info "Setting up secrets..."
 
+if [[ -L "$SECRETS_DIR" ]]; then
+  dotfiles_die "$SECRETS_DIR must not be a symbolic link."
+fi
 mkdir -p "$SECRETS_DIR"
+[[ -d "$SECRETS_DIR" ]] || dotfiles_die "$SECRETS_DIR must be a directory."
+[[ "$(stat -f "%u" "$SECRETS_DIR")" == "$(id -u)" ]] || \
+  dotfiles_die "$SECRETS_DIR must be owned by the current user."
 chmod 700 "$SECRETS_DIR"
 
 # Each secret is written to a mode 600 temp file and moved into place, so a
