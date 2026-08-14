@@ -100,13 +100,17 @@ contract.
   `scripts/setup.sh`. Idempotent: running it on an already configured machine
   is a no-op, not a second install. It fails fast (`set -euo pipefail`), since
   a half-finished install is worse than none, and a non-zero exit stops the
-  bootstrap.
+  bootstrap. The top-level script reports the failed domain and the domains
+  already completed before returning the original failure status.
 - **`update.sh`** — refreshes what is already installed. Run by
   `scripts/update.sh`. Optional; most domains have nothing to update. A partial
   failure must not abort the rest of the update, so it reports what went wrong
   and continues where it can (`set -uo pipefail`, deliberately without `-e`). A
-  missing optional tool is a `dotfiles_warn` and `exit 0`; a real failure exits
-  non-zero, for the caller to record and report.
+  missing optional tool is a `dotfiles_warn` and
+  `exit "$DOTFILES_EXIT_SKIPPED"`; a non-fatal partial result uses
+  `DOTFILES_EXIT_WARNING`, and a real failure exits with another non-zero status.
+  The top-level script records `OK`, `SKIPPED`, `WARNING`, and `FAILED` steps,
+  verifies the resulting state, and returns 1 when anything failed.
 - **`verify.sh`** — answers whether the domain is correctly set up. Run by
   `scripts/verify.sh`, either as part of a full run or on its own
   (`scripts/verify.sh symlinks`). It only reads: it changes nothing and is safe

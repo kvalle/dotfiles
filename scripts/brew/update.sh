@@ -36,20 +36,28 @@ fi
 
 _casks_to_upgrade=()
 _skipped_terminal=false
-for cask in $(brew outdated --cask --quiet); do
-  if [[ "$cask" == "$_current_terminal_cask" ]]; then
-    _skipped_terminal=true
-  else
-    _casks_to_upgrade+=("$cask")
-  fi
-done
+_cask_inventory_ok=false
+if outdated_casks=$(brew outdated --cask --quiet); then
+  _cask_inventory_ok=true
+  while IFS= read -r cask; do
+    [[ -n "$cask" ]] || continue
+    if [[ "$cask" == "$_current_terminal_cask" ]]; then
+      _skipped_terminal=true
+    else
+      _casks_to_upgrade+=("$cask")
+    fi
+  done <<< "$outdated_casks"
+else
+  dotfiles_warn "Could not determine which casks are outdated"
+  failed+=("cask inventory")
+fi
 
 if [[ ${#_casks_to_upgrade[@]} -gt 0 ]]; then
   if ! brew upgrade --cask --yes "${_casks_to_upgrade[@]}"; then
     dotfiles_warn "Some casks failed to upgrade (see above for details)"
     failed+=("casks")
   fi
-else
+elif $_cask_inventory_ok; then
   echo "    No casks to upgrade."
 fi
 
@@ -65,4 +73,8 @@ brew cleanup --prune=30 || failed+=("cleanup")
 if (( ${#failed[@]} > 0 )); then
   dotfiles_warn "Homebrew had problems with: ${failed[*]}"
   exit 1
+fi
+
+if $_skipped_terminal; then
+  exit "$DOTFILES_EXIT_WARNING"
 fi

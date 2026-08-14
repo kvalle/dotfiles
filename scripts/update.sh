@@ -8,26 +8,43 @@ source "$SCRIPT_DIR/lib/common.sh"
 dotfiles_banner "updating"
 
 # Every step reports here instead of aborting: an update that cannot reach
-# Homebrew should still refresh the skills. The names collected are what the
-# summary prints and what decides the exit code. A step that is skipped because
-# its tool is not installed is a warning, not a failure — the same distinction
-# verify.sh draws between verify_warn and verify_fail.
+# Homebrew should still refresh the skills. The collected statuses form the
+# authoritative summary and decide the exit code.
+ok=()
+skipped=()
+warnings=()
 failed=()
 
 # --------------------------------------------------------------------------
-_has_uncommitted_changes() {
-  ! git -C "$DOTFILES" diff --quiet 2>/dev/null || \
-  ! git -C "$DOTFILES" diff --cached --quiet 2>/dev/null
+_git_status() {
+  git -C "$DOTFILES" status --porcelain
+}
+
+_run_update() {
+  local name=$1
+  shift
+
+  "$@"
+  local status=$?
+  case $status in
+    0) ok+=("$name") ;;
+    "$DOTFILES_EXIT_SKIPPED") skipped+=("$name") ;;
+    "$DOTFILES_EXIT_WARNING") warnings+=("$name") ;;
+    *) failed+=("$name") ;;
+  esac
 }
 
 # --------------------------------------------------------------------------
 # Check for uncommitted changes before starting
 # --------------------------------------------------------------------------
 
-if _has_uncommitted_changes; then
+if ! git_status=$(_git_status); then
+  dotfiles_die "Could not read the dotfiles Git status."
+fi
+if [[ -n "$git_status" ]]; then
   dotfiles_warn "There are uncommitted changes in $DOTFILES:"
   echo ""
-  git -C "$DOTFILES" status --short | sed 's/^/      /'
+  sed 's/^/      /' <<< "$git_status"
   echo ""
   dotfiles_confirm "Continue anyway?"
   answer_status=$?
@@ -44,14 +61,14 @@ fi
 # Homebrew
 # --------------------------------------------------------------------------
 
-"$SCRIPT_DIR/brew/update.sh" || failed+=("brew")
+_run_update "brew" "$SCRIPT_DIR/brew/update.sh"
 
 # --------------------------------------------------------------------------
 # Nix
 # --------------------------------------------------------------------------
 
 dotfiles_info "Updating Nix packages..."
-"$SCRIPT_DIR/nix/update.sh" || failed+=("nix")
+_run_update "nix" "$SCRIPT_DIR/nix/update.sh"
 
 # --------------------------------------------------------------------------
 # Git submodules
@@ -60,6 +77,7 @@ dotfiles_info "Updating Nix packages..."
 dotfiles_info "Updating git submodules..."
 if git -C "$DOTFILES" submodule update --remote; then
   dotfiles_success "Submodules updated."
+  ok+=("submodules")
 else
   failed+=("submodules")
 fi
@@ -71,8 +89,10 @@ fi
 dotfiles_info "Updating tldr pages..."
 if ! command -v tldr >/dev/null 2>&1; then
   dotfiles_warn "tldr is not installed, skipping"
+  skipped+=("tldr")
 elif tldr --update; then
   dotfiles_success "tldr pages updated."
+  ok+=("tldr")
 else
   failed+=("tldr")
 fi
@@ -85,16 +105,27 @@ dotfiles_info "Running jenv rehash..."
 export PATH="$HOME/.jenv/bin:$PATH"
 if ! command -v jenv >/dev/null 2>&1; then
   dotfiles_warn "jenv is not installed, skipping"
+  skipped+=("jenv")
 else
   # jenv init writes shell code meant for an interactive rc file; its noise is
   # not interesting here, but a rehash that fails is. `set -u` covers this
   # script, not what jenv generates — something in it reads an unset variable,
   # which under -u would end the whole run.
-  set +u
-  eval "$(jenv init -)" 2>/dev/null
-  set -u
-  if jenv rehash; then
+  if jenv_init=$(jenv init - 2>/dev/null); then
+    set +u
+    eval "$jenv_init" 2>/dev/null
+    init_status=$?
+    set -u
+  else
+    init_status=$?
+  fi
+
+  if (( init_status != 0 )); then
+    dotfiles_warn "jenv init failed"
+    failed+=("jenv")
+  elif jenv rehash; then
     dotfiles_success "jenv shims updated."
+    ok+=("jenv")
   else
     failed+=("jenv")
   fi
@@ -105,7 +136,13 @@ fi
 # --------------------------------------------------------------------------
 
 dotfiles_info "Updating agent skills..."
-"$SCRIPT_DIR/skills/update.sh" || failed+=("skills")
+_run_update "skills" "$SCRIPT_DIR/skills/update.sh"
+
+# --------------------------------------------------------------------------
+# Verify the resulting machine state
+# --------------------------------------------------------------------------
+
+_run_update "verification" "$SCRIPT_DIR/verify.sh"
 
 # --------------------------------------------------------------------------
 # Check for changes that should be committed
@@ -113,15 +150,24 @@ dotfiles_info "Updating agent skills..."
 
 dotfiles_info "Checking for changes in dotfiles..."
 
-if ! _has_uncommitted_changes; then
-  dotfiles_success "No changes to commit."
+if git_status=$(_git_status); then
+  git_status_ok=true
 else
-  echo ""
-  dotfiles_warn "The update produced changes that should be committed:"
-  echo ""
-  git -C "$DOTFILES" diff --name-only | sed 's/^/      /'
-  git -C "$DOTFILES" diff --cached --name-only | sed 's/^/      /'
-  echo ""
+  git_status_ok=false
+  dotfiles_warn "Could not read the dotfiles Git status."
+  failed+=("git status")
+fi
+
+if $git_status_ok; then
+  if [[ -z "$git_status" ]]; then
+    dotfiles_success "No changes to commit."
+  else
+    echo ""
+    dotfiles_warn "There are changes in dotfiles that should be committed:"
+    echo ""
+    sed 's/^/      /' <<< "$git_status"
+    echo ""
+  fi
 fi
 
 # --------------------------------------------------------------------------
@@ -130,8 +176,18 @@ fi
 
 echo ""
 if (( ${#failed[@]} == 0 )); then
-  printf '%bUpdate complete - no problems found.%b\n\n' "${GREEN}${BOLD}" "$RESET"
+  if (( ${#warnings[@]} == 0 )); then
+    printf '%bUpdate complete.%b\n' "${GREEN}${BOLD}" "$RESET"
+  else
+    printf '%bUpdate complete with warnings.%b\n' "${YELLOW}${BOLD}" "$RESET"
+  fi
 else
-  printf '%bUpdate failed for: %s%b\n\n' "${RED}${BOLD}" "${failed[*]}" "$RESET"
-  exit 1
+  printf '%bUpdate complete with errors.%b\n' "${RED}${BOLD}" "$RESET"
 fi
+(( ${#ok[@]} == 0 )) || printf '  OK: %s\n' "${ok[*]}"
+(( ${#skipped[@]} == 0 )) || printf '  SKIPPED: %s\n' "${skipped[*]}"
+(( ${#warnings[@]} == 0 )) || printf '  WARNING: %s\n' "${warnings[*]}"
+(( ${#failed[@]} == 0 )) || printf '  FAILED: %s\n' "${failed[*]}"
+echo ""
+
+(( ${#failed[@]} == 0 )) || exit 1

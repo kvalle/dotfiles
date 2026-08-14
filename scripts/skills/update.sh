@@ -10,7 +10,7 @@ dotfiles_use_node || dotfiles_warn "fnm not available"
 
 if ! command -v npx >/dev/null 2>&1; then
   dotfiles_warn "npx not available, skipping agent skills"
-  exit 0
+  exit "$DOTFILES_EXIT_SKIPPED"
 fi
 
 update_args=(--yes skills update -g)

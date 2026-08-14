@@ -36,7 +36,16 @@ fi
 
 dotfiles_info "Installing apps from the Brewfile..."
 dotfiles_privileges_begin "Homebrew bundle install"
-brew bundle --file="$DOTFILES/Brewfile" || dotfiles_warn "Some Brewfile dependencies failed to install"
+if brew bundle --file="$DOTFILES/Brewfile"; then
+  bundle_status=0
+else
+  bundle_status=$?
+  dotfiles_warn "Some Brewfile dependencies failed to install"
+fi
 dotfiles_privileges_cleanup || dotfiles_die "Temporary admin privileges were not revoked."
+
+if (( bundle_status != 0 )); then
+  exit "$bundle_status"
+fi
 
 dotfiles_success "Homebrew configured."

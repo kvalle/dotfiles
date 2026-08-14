@@ -11,6 +11,13 @@ export DOTFILES
 DOTFILES_NIX_PROFILE="$HOME/.local/state/nix/profiles/dotfiles"
 export DOTFILES_NIX_PROFILE
 
+# Update scripts use this exit code to distinguish an optional unavailable step
+# from a real failure. The top-level update script turns it into SKIPPED.
+DOTFILES_EXIT_SKIPPED=3
+export DOTFILES_EXIT_SKIPPED
+DOTFILES_EXIT_WARNING=4
+export DOTFILES_EXIT_WARNING
+
 BOLD='\033[1m'
 DIM='\033[2m'
 RED='\033[0;31m'
