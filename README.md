@@ -5,7 +5,7 @@ repository into `~/.config/` and other locations.
 
 ## Setting up a new machine
 
-The repository must be cloned to `~/dotfiles/`.
+Clone the repository somewhere, for example to `~/dotfiles/`:
 
 ```sh
 git clone https://github.com/kvalle/dotfiles.git ~/dotfiles
