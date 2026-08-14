@@ -1,40 +1,49 @@
 # ===========================================================================
 # zsh configuration
-# Sources modules from ~/dotfiles/zsh/ in the correct order.
+# Sources the modules in zsh/ in the correct order.
 # ===========================================================================
+
+# Repository root, derived from this file so the repo can live anywhere.
+# %N is the file being sourced; :A resolves it through the ~/.zshrc symlink to
+# the real file in the repo, and :h:h strips zsh/zshrc off the end.
+# $0 cannot be used here: in .zshrc it holds the shell name, not a path — it
+# only becomes the file path inside the modules sourced below.
+# Deliberately not exported, so scripts/lib/common.sh keeps deriving its own
+# $DOTFILES from its location instead of inheriting this one.
+typeset -g DOTFILES="${${(%):-%N}:A:h:h}"
 
 # Homebrew (must be first — other tools depend on it)
 [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Environment, PATH, and exports
-source ~/dotfiles/zsh/environment.sh
+source "$DOTFILES/zsh/environment.sh"
 
 # Core shell behaviour
-source ~/dotfiles/zsh/options.sh
-source ~/dotfiles/zsh/completions.sh
+source "$DOTFILES/zsh/options.sh"
+source "$DOTFILES/zsh/completions.sh"
 
 # Shortcuts
-source ~/dotfiles/zsh/aliases.sh
+source "$DOTFILES/zsh/aliases.sh"
 
 # Version managers (jenv) — lazy-loaded
-source ~/dotfiles/zsh/lazy-loaders.sh
+source "$DOTFILES/zsh/lazy-loaders.sh"
 
 # Tool integrations (direnv, fzf, atuin, etc.)
-source ~/dotfiles/zsh/tools.sh
+source "$DOTFILES/zsh/tools.sh"
 
 # Colors (shared ANSI variables used by functions below)
-source ~/dotfiles/zsh/colors.sh
+source "$DOTFILES/zsh/colors.sh"
 
 # Custom functions
-for f in ~/dotfiles/zsh/functions/*.sh; do
+for f in "$DOTFILES"/zsh/functions/*.sh; do
   source "$f"
 done
 
 # Plugins (must be near end)
-source ~/dotfiles/zsh/plugins.sh
+source "$DOTFILES/zsh/plugins.sh"
 
 # Appearance must load after plugins that define mode-dependent styles.
-source ~/dotfiles/zsh/appearance.sh
+source "$DOTFILES/zsh/appearance.sh"
 
 # Prompt (must be last)
 eval "$(starship init zsh)"

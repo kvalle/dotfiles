@@ -1,6 +1,6 @@
 # Select a Superfile theme without duplicating the main configuration.
 spf() {
-  local config="$HOME/dotfiles/superfile/config.toml"
+  local config="$DOTFILES/superfile/config.toml"
   local theme='catppuccin-macchiato'
   local runtime_config exit_status
 

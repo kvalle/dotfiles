@@ -16,7 +16,7 @@ export DONE_FILE="$TODO_DIR/done.txt"
 # ---------------------------------------------------------------------------
 typeset -U path PATH
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/dotfiles/bin:$PATH"
+export PATH="$DOTFILES/bin:$PATH"
 export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 export PATH="/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"

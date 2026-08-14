@@ -1,7 +1,7 @@
 # Select a btop theme without letting runtime changes modify the tracked config.
 btop() {
-  local config="$HOME/dotfiles/btop/btop.conf"
-  local themes="$HOME/dotfiles/btop/themes"
+  local config="$DOTFILES/btop/btop.conf"
+  local themes="$DOTFILES/btop/themes"
   local theme='catppuccin_macchiato'
   local runtime_config saved_config exit_status
 

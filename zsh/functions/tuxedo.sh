@@ -1,7 +1,7 @@
 # Select a Tuxedo theme without letting runtime changes modify the tracked theme choice.
 tuxedo() {
-  local config="$HOME/dotfiles/tuxedo/config.toml"
-  local themes="$HOME/dotfiles/tuxedo/themes"
+  local config="$DOTFILES/tuxedo/config.toml"
+  local themes="$DOTFILES/tuxedo/themes"
   local theme='Catppuccin Macchiato'
   local runtime_home runtime_config saved_config exit_status
 

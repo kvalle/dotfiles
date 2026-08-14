@@ -32,7 +32,7 @@ export FZF_CTRL_T_OPTS="--preview 'fzf-preview.sh {}'"
 export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always --level=2 --icons {} | head -200'"
 source <(fzf --zsh)
-source ~/dotfiles/fzf-git.sh/fzf-git.sh
+source "$DOTFILES/fzf-git.sh/fzf-git.sh"
 
 # atuin
 eval "$(atuin init zsh --disable-up-arrow)"

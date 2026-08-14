@@ -15,16 +15,16 @@ _update_terminal_appearance() {
 
   [[ $_terminal_appearance_applied == $appearance ]] && return
 
-  local starship_config="$HOME/dotfiles/starship/starship.toml"
-  local lazygit_config="$HOME/dotfiles/lazygit/config.yml"
+  local starship_config="$DOTFILES/starship/starship.toml"
+  local lazygit_config="$DOTFILES/lazygit/config.yml"
   local bat_theme='Catppuccin Macchiato'
   local delta_features='catppuccin-macchiato'
   local fzf_colors='bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796,fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6,marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796'
   local autosuggest_style='fg=8'
 
   if [[ $appearance == light ]]; then
-    starship_config="$HOME/dotfiles/starship/starship-light.toml"
-    lazygit_config+=",$HOME/dotfiles/lazygit/themes/everforest-light-contrast.yml"
+    starship_config="$DOTFILES/starship/starship-light.toml"
+    lazygit_config+=",$DOTFILES/lazygit/themes/everforest-light-contrast.yml"
     bat_theme='everforest-light-contrast'
     delta_features='everforest-light-contrast'
     fzf_colors='bg+:#e4e8bd,bg:#fffbef,spinner:#b34d08,hl:#ad3430,fg:#3d413d,header:#ad3430,info:#9d397c,pointer:#b34d08,marker:#606d00,fg+:#3d413d,prompt:#32618b,hl+:#ad3430'
