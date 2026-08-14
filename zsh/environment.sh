@@ -19,7 +19,10 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$DOTFILES/bin:$PATH"
 export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 export PATH="/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+# $HOMEBREW_PREFIX comes from `brew shellenv` in zshrc; empty if brew is absent.
+# This line must stay above the Nix profile below: both prepend, so whichever
+# comes last wins, and Nix is meant to win for packages found in both places.
+[[ -n "$HOMEBREW_PREFIX" ]] && export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
 # Kept in sync by hand with $DOTFILES_NIX_PROFILE in scripts/lib/common.sh,
 # which this file cannot source: it is bash-only and would drag its helpers into
@@ -40,9 +43,13 @@ export PYTHONSTARTUP=~/.config/python/pythonrc.py
 # ---------------------------------------------------------------------------
 # Ruby
 # ---------------------------------------------------------------------------
-export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
+# Build flags for the brew-installed Ruby. Pointless without brew, so they are
+# skipped entirely rather than expanding to /opt/ruby/... with an empty prefix.
+if [[ -n "$HOMEBREW_PREFIX" ]]; then
+  export LDFLAGS="-L$HOMEBREW_PREFIX/opt/ruby/lib"
+  export CPPFLAGS="-I$HOMEBREW_PREFIX/opt/ruby/include"
+  export PKG_CONFIG_PATH="$HOMEBREW_PREFIX/opt/ruby/lib/pkgconfig"
+fi
 
 # ---------------------------------------------------------------------------
 # Digipost

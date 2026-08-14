@@ -13,7 +13,14 @@
 typeset -g DOTFILES="${${(%):-%N}:A:h:h}"
 
 # Homebrew (must be first — other tools depend on it)
-[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+# Both locations are checked so the config works on Apple Silicon and Intel:
+# shellenv exports $HOMEBREW_PREFIX, which the modules below use instead of
+# repeating the path. Nothing sets it if brew is missing entirely, so anything
+# depending on it must handle an empty value.
+for _brew in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+  [ -x "$_brew" ] && eval "$("$_brew" shellenv)" && break
+done
+unset _brew
 
 # Environment, PATH, and exports
 source "$DOTFILES/zsh/environment.sh"
