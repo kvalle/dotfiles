@@ -18,7 +18,6 @@ typeset -U path PATH
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$DOTFILES/bin:$PATH"
 export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
-export PATH="/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
 # $HOMEBREW_PREFIX comes from `brew shellenv` in zshrc; empty if brew is absent.
 # This line must stay above the Nix profile below: both prepend, so whichever
 # comes last wins, and Nix is meant to win for packages found in both places.
