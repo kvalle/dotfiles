@@ -27,7 +27,6 @@ alias kge="kubectl get events --sort-by=.metadata.creationTimestamp"
 
 alias lg="lazygit"
 alias tux="tuxedo"
-alias idea.='idea .'
 
 # Digipost
 alias dpai="dp ai run claude"
