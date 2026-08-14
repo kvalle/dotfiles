@@ -12,7 +12,16 @@ git -C "$DOTFILES" submodule init && git -C "$DOTFILES" submodule update
 
 brew/setup.sh
 nix/setup.sh
-source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+
+# Puts the `nix` command on PATH.
+NIX_DAEMON_SCRIPT=/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+if [[ -f "$NIX_DAEMON_SCRIPT" ]]; then
+  source "$NIX_DAEMON_SCRIPT"
+else
+  dotfiles_warn "Nix profile script not found: $NIX_DAEMON_SCRIPT"
+  dotfiles_warn "The nix command will not be on PATH - verify.sh will report it."
+fi
+
 export PATH="$DOTFILES_NIX_PROFILE/bin:$PATH"
 rectangle/setup.sh
 macos/setup.sh
