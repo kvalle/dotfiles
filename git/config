@@ -76,10 +76,10 @@
 	format = ssh
 [gpg "ssh"]
 	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-	allowedSignersFile = ~/dotfiles/git/allowed_signers
+	allowedSignersFile = ~/.config/git/allowed_signers
 [commit]
 	gpgsign = true
-	template = ~/dotfiles/git/message
+	template = ~/.config/git/message
 
 [includeIf "gitdir:~/code/digipost/"]
 	path = ~/code/digipost/.gitconfig
