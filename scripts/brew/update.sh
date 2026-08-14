@@ -6,9 +6,9 @@ SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/../lib/common.sh"
 source "$SCRIPT_DIR/../lib/privileges.sh"
 
-# A step that fails reports here rather than aborting: a cask that will not
-# upgrade should not stop the cleanup. The exit code carries the failures up to
-# scripts/update.sh, which lists the steps that went wrong.
+# A step that fails reports here rather than aborting, so all safe update steps
+# are attempted. The exit code carries the failures up to scripts/update.sh,
+# which lists the steps that went wrong.
 failed=()
 
 dotfiles_info "Updating Homebrew..."
@@ -67,8 +67,12 @@ fi
 
 dotfiles_privileges_cleanup || dotfiles_die "Temporary admin privileges were not revoked."
 
-dotfiles_info "Cleaning up old versions..."
-brew cleanup --prune=30 || failed+=("cleanup")
+if (( ${#failed[@]} == 0 )); then
+  dotfiles_info "Cleaning up old versions..."
+  brew cleanup --prune=30 || failed+=("cleanup")
+else
+  dotfiles_warn "Skipping Homebrew cleanup because the update had problems"
+fi
 
 if (( ${#failed[@]} > 0 )); then
   dotfiles_warn "Homebrew had problems with: ${failed[*]}"
