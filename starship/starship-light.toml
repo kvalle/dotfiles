@@ -2,7 +2,7 @@
 # Starship prompt configuration for Everforest Light Contrast
 # Docs: https://starship.rs/config/
 
-command_timeout = 1000
+command_timeout = 2000
 palette = "everforest_light_contrast"
 add_newline = true
 

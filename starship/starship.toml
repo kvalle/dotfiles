@@ -2,7 +2,7 @@
 # Starship prompt configuration for Catppuccin Macchiato dark mode
 # Docs: https://starship.rs/config/
 
-command_timeout = 1000
+command_timeout = 2000
 palette = "catppuccin_macchiato"
 add_newline = true
 
