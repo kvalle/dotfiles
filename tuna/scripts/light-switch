@@ -5,4 +5,7 @@
 # @tuna.mode inline
 # @tuna.input none
 
-exec "$HOME/dotfiles/bin/mac-light-switch"
+# Tuna runs this via ~/Library/Scripts, a symlink to tuna/scripts in the repo.
+# pwd -P resolves that symlink, so ../.. reaches the repo root wherever it is.
+scripts_dir="$(cd "$(dirname "$0")" && pwd -P)"
+exec "$scripts_dir/../../bin/mac-light-switch"
