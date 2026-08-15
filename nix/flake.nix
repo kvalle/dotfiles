@@ -39,6 +39,7 @@
         { package = pkgs.lazygit; verify-command = "lazygit"; } # Terminal UI for Git
         { package = pkgs.delta; verify-command = "delta"; } # Nicer Git diffs
         { package = pkgs.bfg-repo-cleaner; verify-command = "bfg"; } # Clean up Git history
+        { package = pkgs.shellcheck; verify-command = "shellcheck"; } # Static analysis for shell scripts
 
         # File tools and search
         { package = pkgs.ack; verify-command = "ack"; } # Search source code

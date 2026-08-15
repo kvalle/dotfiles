@@ -9,7 +9,7 @@ source "$SCRIPT_DIR/common.sh"
 
 verify_header "Symlinks"
 
-while read -r type src dest; do
+while read -r _ src dest; do
   src="$DOTFILES/$src"
   if ! dest=$(expand_destination "$dest"); then
     verify_fail "$dest (invalid relative destination path)"

@@ -22,7 +22,7 @@ if (( ${#DOMAINS[@]} == 0 )); then
 fi
 
 selection=${1:-all}
-if [[ "$selection" != all && ! " ${DOMAINS[*]} " =~ " $selection " ]] || (( $# > 1 )); then
+if (( $# > 1 )) || [[ "$selection" != all && " ${DOMAINS[*]} " != *" $selection "* ]]; then
   usage
   exit 2
 fi

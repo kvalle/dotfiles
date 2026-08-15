@@ -38,7 +38,7 @@ verify_path() {
 directory_type=$(stat -f "%HT" "$SECRETS_DIR" 2>/dev/null)
 verify_path "$SECRETS_DIR" "Directory" 700 false
 
-while read -r name ref; do
+while read -r name _; do
   verify_path "$SECRETS_DIR/$name" "Regular File" 600 true
 done < <(secret_entries)
 

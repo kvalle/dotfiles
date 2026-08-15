@@ -8,7 +8,7 @@ source "$SCRIPT_DIR/../lib/privileges.sh"
 
 dotfiles_info "Installing and configuring Homebrew..."
 
-if test ! $(which brew); then
+if ! command -v brew >/dev/null 2>&1; then
   dotfiles_info "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
