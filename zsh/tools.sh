@@ -14,16 +14,6 @@ eval "$(direnv hook zsh)"
 # via dotfiles_use_node if none exists yet.
 eval "$(fnm env --use-on-cd --shell zsh)"
 
-# thefuck — cached alias (saves ~60ms vs spawning Python on every shell start)
-# Regenerated weekly; equivalent to `eval $(thefuck --alias fix)`
-_thefuck_cache=~/.cache/zsh/thefuck-alias.zsh
-if [[ ! -f "$_thefuck_cache" ]] || [[ -n "$_thefuck_cache"(#qN.mh+168) ]]; then
-  mkdir -p ~/.cache/zsh
-  thefuck --alias fix > "$_thefuck_cache"
-fi
-source "$_thefuck_cache"
-unset _thefuck_cache
-
 # fzf
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 typeset -g FZF_BASE_OPTS='--height 40% --layout=reverse --border'

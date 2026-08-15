@@ -13,7 +13,6 @@ tap "navikt/tap"
 
 brew "bash"                        # Newer bash than the one macOS ships
 brew "fzf"                         # Fuzzy finder for the terminal
-brew "thefuck"                     # Corrects the previous command
 brew "zoxide"                      # Smarter cd – remembers most-used directories
 brew "zsh-autosuggestions"         # Autosuggestions in zsh
 brew "zsh-syntax-highlighting"     # Syntax highlighting in zsh
