@@ -134,7 +134,7 @@ _oc_new_worktree_path() {
 # Check that fzf is available
 _oc_require_fzf() {
   if ! command -v fzf &>/dev/null; then
-    echo "fzf is required for this function. Install it with: brew install fzf"
+    echo "fzf is required for this function. Run the dotfiles Nix setup."
     return 1
   fi
 }

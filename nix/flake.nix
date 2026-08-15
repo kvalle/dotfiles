@@ -16,6 +16,8 @@
         { package = pkgs.neovim; verify-command = "nvim"; } # Text editor
         { package = pkgs.carapace; verify-command = "carapace"; } # Shell completions
         { package = pkgs.tuxedo; verify-command = "tuxedo"; } # Keyboard-driven terminal UI for todo.txt
+        { package = pkgs.fzf; verify-command = "fzf"; } # Fuzzy finder
+        { package = pkgs.zoxide; verify-command = "zoxide"; } # Smarter cd based on directory history
 
         # Programming languages and runtimes
         { package = pkgs.fnm; verify-command = "fnm"; } # Per-project Node versions
