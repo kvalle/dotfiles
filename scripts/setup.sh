@@ -30,6 +30,8 @@ run_setup() {
   exit "$status"
 }
 
+run_setup "preflight" "$SCRIPT_DIR/preflight.sh"
+
 load_nix_profile() {
   if [[ -f "$NIX_DAEMON_SCRIPT" ]]; then
     source "$NIX_DAEMON_SCRIPT"
