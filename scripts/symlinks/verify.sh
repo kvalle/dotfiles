@@ -9,26 +9,33 @@ source "$SCRIPT_DIR/common.sh"
 
 verify_header "Symlinks"
 
-while read -r _ src dest; do
-  src="$DOTFILES/$src"
-  if ! dest=$(expand_destination "$dest"); then
-    verify_fail "$dest (invalid relative destination path)"
-    continue
-  fi
+manifest_valid=1
+if ! validation_errors=$(validate_conf); then
+  manifest_valid=0
+  while IFS= read -r error; do
+    verify_fail "$error"
+  done <<< "$validation_errors"
+fi
 
-  if [ ! -e "$dest" ] && [ ! -L "$dest" ]; then
-    verify_fail "$dest (missing)"
-  elif [ ! -L "$dest" ]; then
-    verify_fail "$dest (exists but is not a symlink)"
-  else
-    actual=$(readlink "$dest")
-    if [ "$actual" != "$src" ]; then
-      verify_fail "$dest -> $actual (expected $src)"
+if (( manifest_valid )); then
+  while read -r _ src dest; do
+    src="$DOTFILES/$src"
+    dest=$(expand_destination "$dest")
+
+    if [ ! -e "$dest" ] && [ ! -L "$dest" ]; then
+      verify_fail "$dest (missing)"
+    elif [ ! -L "$dest" ]; then
+      verify_fail "$dest (exists but is not a symlink)"
     else
-      verify_pass "$dest"
+      actual=$(readlink "$dest")
+      if [ "$actual" != "$src" ]; then
+        verify_fail "$dest -> $actual (expected $src)"
+      else
+        verify_pass "$dest"
+      fi
     fi
-  fi
-done < <(conf_entries)
+  done < <(conf_entries)
+fi
 
 if ZEN_PROFILE=$(zen_profile); then
   zen_dest="$ZEN_PROFILE/user.js"
@@ -47,7 +54,9 @@ else
   verify_warn "Zen Browser: profile not found, skipping"
 fi
 
-if ! git_history_available; then
+if (( ! manifest_valid )); then
+  verify_warn "Skipped orphaned symlink check because symlinks.conf is invalid"
+elif ! git_history_available; then
   verify_warn "Cannot look for orphaned symlinks without the git history"
 else
   orphans=$(orphan_symlinks)

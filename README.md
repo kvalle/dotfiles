@@ -22,7 +22,10 @@ login when needed and stores each file in `~/.secrets/` with mode `600`.
 
 The symlink setup keeps correct links and repairs broken ones automatically.
 Wrong symlinks and regular files or directories are overwritten only after
-interactive confirmation.
+an explicit warning and interactive confirmation. Directory conflicts list
+their contents before confirmation. Pass `--force` to
+`scripts/symlinks/setup.sh` to replace conflicting content without prompting;
+the content is permanently deleted.
 
 ## Updating
 

@@ -11,7 +11,80 @@ expand_destination() {
 
 # The lines of symlinks.conf that declare a symlink.
 conf_entries() {
-  grep -v '^\s*#' "$DOTFILES/symlinks.conf" | grep -v '^\s*$'
+  grep -v '^[[:space:]]*#' "$DOTFILES/symlinks.conf" | grep -v '^[[:space:]]*$'
+}
+
+path_has_dot_component() {
+  case "/$1/" in
+    */./*|*/../*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+# Print every manifest error and return non-zero if symlinks.conf is unsafe to
+# apply. Destinations may contain spaces, so the third field is the rest of the
+# line rather than a single whitespace-delimited word.
+validate_conf() {
+  local line_number=0 errors=0 type src dest expanded_src expanded_dest
+  local seen_destinations=""
+
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    line_number=$((line_number + 1))
+    [[ "$line" =~ ^[[:space:]]*(#|$) ]] && continue
+
+    type=""
+    src=""
+    dest=""
+    read -r type src dest <<< "$line"
+
+    if [[ -z "$type" || -z "$src" || -z "$dest" ]]; then
+      printf 'symlinks.conf:%d: expected type, source and destination\n' "$line_number"
+      errors=$((errors + 1))
+      continue
+    fi
+
+    if [[ "$type" != f && "$type" != d ]]; then
+      printf 'symlinks.conf:%d: unknown symlink type: %s\n' "$line_number" "$type"
+      errors=$((errors + 1))
+    fi
+
+    if [[ "$src" == /* || "$src" == '~'* ]] || path_has_dot_component "$src"; then
+      printf 'symlinks.conf:%d: source must be a safe relative path: %s\n' "$line_number" "$src"
+      errors=$((errors + 1))
+    else
+      expanded_src="$DOTFILES/$src"
+      if [[ ! -e "$expanded_src" ]]; then
+        printf 'symlinks.conf:%d: source does not exist: %s\n' "$line_number" "$src"
+        errors=$((errors + 1))
+      elif [[ "$type" == f && ! -f "$expanded_src" ]]; then
+        printf 'symlinks.conf:%d: source is not a file: %s\n' "$line_number" "$src"
+        errors=$((errors + 1))
+      elif [[ "$type" == d && ! -d "$expanded_src" ]]; then
+        printf 'symlinks.conf:%d: source is not a directory: %s\n' "$line_number" "$src"
+        errors=$((errors + 1))
+      fi
+    fi
+
+    if path_has_dot_component "$dest" || ! expanded_dest=$(expand_destination "$dest"); then
+      printf 'symlinks.conf:%d: destination must be an absolute path without . or .. components: %s\n' "$line_number" "$dest"
+      errors=$((errors + 1))
+      continue
+    fi
+
+    if [[ "$expanded_dest" != "$HOME"/* ]]; then
+      printf 'symlinks.conf:%d: destination must be below HOME: %s\n' "$line_number" "$dest"
+      errors=$((errors + 1))
+    fi
+
+    if printf '%s\n' "$seen_destinations" | grep -Fxq -- "$expanded_dest"; then
+      printf 'symlinks.conf:%d: duplicate destination: %s\n' "$line_number" "$dest"
+      errors=$((errors + 1))
+    else
+      seen_destinations="${seen_destinations}${seen_destinations:+$'\n'}${expanded_dest}"
+    fi
+  done < "$DOTFILES/symlinks.conf"
+
+  (( errors == 0 ))
 }
 
 git_history_available() {

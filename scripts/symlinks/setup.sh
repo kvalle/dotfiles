@@ -10,13 +10,15 @@ SKIPPED=0
 FAILED=0
 PRUNE=0
 PRUNED=0
+FORCE=0
 
 usage() {
     cat <<EOF
-Usage: ${0##*/} [--prune]
+Usage: ${0##*/} [--force] [--prune]
 
 Creates the symlinks declared in symlinks.conf.
 
+  --force     Delete and replace conflicting content without confirmation.
   --prune     Look for symlinks that symlinks.conf used to be responsible
               for but no longer declares, and offer to remove them.
   -h, --help  Show this help text.
@@ -25,6 +27,7 @@ EOF
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        --force) FORCE=1 ;;
         --prune) PRUNE=1 ;;
         -h|--help) usage; exit 0 ;;
         *) dotfiles_die "Unknown argument: $1" ;;
@@ -34,9 +37,18 @@ done
 
 dotfiles_info "Setting up symlinks..."
 
+if ! validation_errors=$(validate_conf); then
+    while IFS= read -r error; do
+        dotfiles_warn "$error"
+    done <<< "$validation_errors"
+    dotfiles_die "symlinks.conf is invalid; no symlinks were changed."
+fi
+
 confirm_overwrite() {
     local dest=$1 prompt=$2
     local status=0
+
+    (( FORCE )) && return 0
 
     dotfiles_confirm "$prompt" && return 0
     status=$?
@@ -48,6 +60,17 @@ confirm_overwrite() {
     dotfiles_warn "Kept $dest unchanged"
     FAILED=$((FAILED + 1))
     return 1
+}
+
+warn_existing_content() {
+    local dest=$1
+
+    if [[ -d "$dest" ]]; then
+        dotfiles_warn "The directory $dest and all of its contents will be permanently deleted:"
+        find "$dest" -mindepth 1 -print
+    else
+        dotfiles_warn "The file $dest will be permanently deleted."
+    fi
 }
 
 link_config() {
@@ -68,13 +91,13 @@ link_config() {
         if [[ ! -e "$dest" ]]; then
             dotfiles_warn "Replacing broken symlink: $dest -> $actual"
         else
-            dotfiles_warn "$dest points to $actual, expected $src"
-            confirm_overwrite "$dest" "Overwrite the symlink?" || return 0
+            dotfiles_warn "$dest points to $actual, expected $src."
+            confirm_overwrite "$dest" "Delete and replace this symlink?" || return 0
         fi
         rm -f "$dest"
     elif [[ -e "$dest" ]]; then
-        dotfiles_warn "$dest is an existing file or directory"
-        confirm_overwrite "$dest" "Overwrite existing content?" || return 0
+        warn_existing_content "$dest"
+        confirm_overwrite "$dest" "Delete this content and replace it with a symlink?" || return 0
         rm -rf "$dest"
     fi
 
@@ -104,7 +127,7 @@ prune_orphans() {
 
     while IFS=$'\t' read -r dest target; do
         dotfiles_warn "$dest -> $target is not declared in symlinks.conf"
-        if dotfiles_confirm "Remove the symlink?"; then
+        if (( FORCE )) || dotfiles_confirm "Remove the symlink?"; then
             rm -f "$dest"
             printf "  %b✓%b Removed: %s\n" "$GREEN" "$RESET" "$dest"
             PRUNED=$((PRUNED + 1))
@@ -114,10 +137,9 @@ prune_orphans() {
     done <<< "$orphans"
 }
 
-while read -r type src dest; do
+while read -r _ src dest; do
     src="$DOTFILES/$src"
-    dest=$(expand_destination "$dest") || dotfiles_die "Invalid relative destination path in symlinks.conf: $dest"
-    [[ "$type" == f || "$type" == d ]] || dotfiles_die "Unknown symlink type: $type"
+    dest=$(expand_destination "$dest")
     link_config "$src" "$dest"
 done < <(conf_entries)
 
