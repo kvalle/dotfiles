@@ -11,7 +11,6 @@ tap "navikt/tap"
 # Shell and terminal
 # ------------------------------------------------------------------------------
 
-brew "bash"                        # Newer bash than the one macOS ships
 brew "zsh-autosuggestions"         # Autosuggestions in zsh
 brew "zsh-syntax-highlighting"     # Syntax highlighting in zsh
 cask "ghostty"                     # Alternative GPU-accelerated terminal emulator
@@ -39,7 +38,6 @@ brew "jenv"                        # Java version management
 # Java/JVM development
 # ------------------------------------------------------------------------------
 
-brew "maven"                       # Build system for Java
 cask "temurin@8"                   # Eclipse Temurin JDK 8
 cask "temurin@11"                  # Eclipse Temurin JDK 11
 cask "temurin@17"                  # Eclipse Temurin JDK 17

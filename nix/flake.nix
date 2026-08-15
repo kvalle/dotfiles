@@ -9,6 +9,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
       managedPackages = [
         # Shell and terminal
+        { package = pkgs.bash; verify-command = "bash"; } # Modern Bash
         { package = pkgs.atuin; verify-command = "atuin"; } # Shell history with search and sync
         { package = pkgs.direnv; verify-command = "direnv"; } # Per-directory environment variables
         { package = pkgs.starship; verify-command = "starship"; } # Shell prompt
@@ -24,6 +25,7 @@
         { package = pkgs.go; verify-command = "go"; } # Go programming language
         { package = pkgs.kotlin; verify-command = "kotlin"; } # Kotlin programming language
         { package = pkgs.ktlint; verify-command = "ktlint"; } # Kotlin linter and formatter
+        { package = pkgs.maven; verify-command = "mvn"; } # Java build system
         { package = pkgs.python313; verify-command = "python3"; } # Default Python for the REPL and simple scripts
         { package = pkgs.uv; verify-command = "uv"; } # Python versions, project environments and dependencies
 
