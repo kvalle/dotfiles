@@ -5,7 +5,14 @@
 # @tuna.mode inline
 # @tuna.input none
 
-# Tuna runs this via ~/Library/Scripts, a symlink to tuna/scripts in the repo.
-# pwd -P resolves that symlink, so ../.. reaches the repo root wherever it is.
-scripts_dir="$(cd "$(dirname "$0")" && pwd -P)"
+# Resolve the per-file symlink in ~/Library/Scripts before locating the repo.
+script_path=$0
+while [ -L "$script_path" ]; do
+  link_target=$(readlink "$script_path")
+  case "$link_target" in
+    /*) script_path=$link_target ;;
+    *) script_path="$(dirname "$script_path")/$link_target" ;;
+  esac
+done
+scripts_dir="$(cd "$(dirname "$script_path")" && pwd -P)"
 exec "$scripts_dir/../../bin/mac-light-switch"
