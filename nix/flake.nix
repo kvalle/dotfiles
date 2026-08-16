@@ -29,6 +29,12 @@
         { package = pkgs.python313; verify-command = "python3"; } # Default Python for the REPL and simple scripts
         { package = pkgs.uv; verify-command = "uv"; } # Python versions, project environments and dependencies
 
+        # Cloud, Kubernetes and infrastructure
+        { package = pkgs.kubelogin; verify-command = "kubelogin"; } # Azure Kubernetes login
+        { package = pkgs.kubectl; verify-command = "kubectl"; } # Kubernetes command line client
+        { package = pkgs.kubectx; verify-command = "kubectx"; } # Switch between Kubernetes contexts
+        { package = pkgs.kubernetes-helm; verify-command = "helm"; } # Kubernetes package management
+
         # Database
         { package = pkgs.flyway; verify-command = "flyway"; } # Database migration
         { package = pkgs.postgresql_18; verify-command = "psql"; } # PostgreSQL client tools
