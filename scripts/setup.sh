@@ -55,6 +55,7 @@ run_setup "rectangle" "$SCRIPT_DIR/rectangle/setup.sh"
 run_setup "macos" "$SCRIPT_DIR/macos/setup.sh"
 run_setup "symlinks" "$SCRIPT_DIR/symlinks/setup.sh"
 run_setup "bat" "$SCRIPT_DIR/bat/setup.sh"
+run_setup "GitHub CLI extensions" "$SCRIPT_DIR/gh/setup.sh"
 run_setup "skills" "$SCRIPT_DIR/skills/setup.sh"
 run_setup "secrets" "$SCRIPT_DIR/secrets/setup.sh"
 

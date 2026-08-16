@@ -1,0 +1,5 @@
+# GitHub CLI extensions managed by this repository.
+# Format: owner/repository
+
+dlvhdr/gh-dash
+seachicken/gh-poi
