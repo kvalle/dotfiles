@@ -47,11 +47,12 @@ verify_header "Zsh plugins"
 # Check the paths zsh/plugins.sh actually sources, so this cannot drift from what
 # zsh loads.
 while IFS= read -r plugin_file; do
+  plugin_file=${plugin_file/'$HOME'/$HOME}
   if [ -f "$plugin_file" ]; then
     verify_pass "${plugin_file##*/}"
   else
     verify_fail "${plugin_file##*/} ($plugin_file missing)"
   fi
-done < <(sed -n 's/^source \(.*\.zsh\)$/\1/p' "$DOTFILES/zsh/plugins.sh")
+done < <(sed -n 's/^source "\(.*\.zsh\)"$/\1/p' "$DOTFILES/zsh/plugins.sh")
 
 verify_finish

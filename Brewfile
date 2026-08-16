@@ -10,8 +10,6 @@ tap "navikt/tap"
 # Shell and terminal
 # ------------------------------------------------------------------------------
 
-brew "zsh-autosuggestions"         # Autosuggestions in zsh
-brew "zsh-syntax-highlighting"     # Syntax highlighting in zsh
 cask "ghostty"                     # Alternative GPU-accelerated terminal emulator
 cask "kitty"                       # Primary terminal with built-in image paste support
 

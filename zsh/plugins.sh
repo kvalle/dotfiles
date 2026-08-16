@@ -3,5 +3,5 @@
 # ---------------------------------------------------------------------------
 # Deliberately unguarded: if a plugin is missing, the error names the file,
 # which beats silently losing autosuggestions and syntax highlighting.
-source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$HOME/.local/state/nix/profiles/dotfiles/share/dotfiles/zsh-plugins/zsh-autosuggestions.zsh"
+source "$HOME/.local/state/nix/profiles/dotfiles/share/dotfiles/zsh-plugins/zsh-syntax-highlighting.zsh"

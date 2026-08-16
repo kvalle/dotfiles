@@ -19,6 +19,8 @@
         { package = pkgs.tuxedo; verify-command = "tuxedo"; } # Keyboard-driven terminal UI for todo.txt
         { package = pkgs.fzf; verify-command = "fzf"; } # Fuzzy finder
         { package = pkgs.zoxide; verify-command = "zoxide"; } # Smarter cd based on directory history
+        { package = pkgs.zsh-autosuggestions; } # Autosuggestions in zsh
+        { package = pkgs.zsh-syntax-highlighting; } # Syntax highlighting in zsh
 
         # Programming languages and runtimes
         { package = pkgs.fnm; verify-command = "fnm"; } # Per-project Node versions
@@ -91,13 +93,22 @@
         { package = pkgs.unixtools.watch; verify-command = "watch"; } # Run a command repeatedly
       ];
       commandManifest = pkgs.writeTextDir "share/dotfiles/nix-commands" (
-        nixpkgs.lib.concatStringsSep "\n" (map (item: item.verify-command) managedPackages) + "\n"
+        nixpkgs.lib.concatStringsSep "\n" (
+          map (item: item.verify-command) (builtins.filter (item: item ? verify-command) managedPackages)
+        ) + "\n"
       );
+      zshPlugins = pkgs.runCommand "dotfiles-zsh-plugins" { } ''
+        mkdir -p $out/share/dotfiles/zsh-plugins
+        ln -s ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+          $out/share/dotfiles/zsh-plugins/zsh-autosuggestions.zsh
+        ln -s ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+          $out/share/dotfiles/zsh-plugins/zsh-syntax-highlighting.zsh
+      '';
     in
     {
       packages.${system}.default = pkgs.buildEnv {
         name = "dotfiles-packages";
-        paths = map (item: item.package) managedPackages ++ [ commandManifest ];
+        paths = map (item: item.package) managedPackages ++ [ commandManifest zshPlugins ];
       };
     };
 }
