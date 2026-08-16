@@ -49,13 +49,6 @@ brew "awscli"                      # AWS command line tools
 brew "azure-cli"                   # Azure command line tools
 
 # ------------------------------------------------------------------------------
-# Security and passwords
-# ------------------------------------------------------------------------------
-
-brew "pass"                        # Unix password store (GPG-based)
-brew "pinentry-mac"                # GPG PIN dialog for macOS
-
-# ------------------------------------------------------------------------------
 # Mobile development
 # ------------------------------------------------------------------------------
 

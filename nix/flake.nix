@@ -37,6 +37,11 @@
         { package = pkgs.kubectx; verify-command = "kubectx"; } # Switch between Kubernetes contexts
         { package = pkgs.kubernetes-helm; verify-command = "helm"; } # Kubernetes package management
 
+        # Security and passwords
+        { package = pkgs.pass; verify-command = "pass"; } # GPG-based password store
+        { package = pkgs.gnupg; verify-command = "gpg"; } # Encryption used by pass
+        { package = pkgs.pinentry_mac; verify-command = "pinentry-mac"; } # Native macOS passphrase dialog
+
         # Database
         { package = pkgs.flyway; verify-command = "flyway"; } # Database migration
         { package = pkgs.postgresql_18; verify-command = "psql"; } # PostgreSQL client tools
