@@ -24,6 +24,7 @@
 
         # Programming languages and runtimes
         { package = pkgs.fnm; verify-command = "fnm"; } # Per-project Node versions
+        { package = pkgs.pnpm; verify-command = "pnpm"; } # JavaScript package manager
         { package = pkgs.go; verify-command = "go"; } # Go programming language
         { package = pkgs.kotlin; verify-command = "kotlin"; } # Kotlin programming language
         { package = pkgs.ktlint; verify-command = "ktlint"; } # Kotlin linter and formatter
