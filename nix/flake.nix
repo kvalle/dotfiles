@@ -33,6 +33,7 @@
         { package = pkgs.uv; verify-command = "uv"; } # Python versions, project environments and dependencies
 
         # Cloud, Kubernetes and infrastructure
+        { package = pkgs.lazydocker; verify-command = "lazydocker"; } # Terminal UI for Docker
         { package = pkgs.kubelogin; verify-command = "kubelogin"; } # Azure Kubernetes login
         { package = pkgs.kubectl; verify-command = "kubectl"; } # Kubernetes command line client
         { package = pkgs.kubectx; verify-command = "kubectx"; } # Switch between Kubernetes contexts
