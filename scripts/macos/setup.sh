@@ -22,6 +22,9 @@ defaults write com.apple.dock show-recents -bool false
 defaults write com.apple.dock "tilesize" -int "24"
 defaults write com.apple.dock "autohide" -bool "true"
 
+# Automatically hide and show the menu bar
+defaults write NSGlobalDomain "_HIHideMenuBar" -bool "true"
+
 # Set column view as default for Finder
 defaults write com.apple.finder "FXPreferredViewStyle" -string "clmv"
 

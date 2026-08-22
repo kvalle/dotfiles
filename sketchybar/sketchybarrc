@@ -1,0 +1,36 @@
+#!/bin/bash
+
+set -euo pipefail
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+sketchybar --bar \
+  position=top \
+  height=32 \
+  color=0xdd1e2326 \
+  shadow=off
+
+defaults=(
+  icon.font="JetBrainsMono Nerd Font:Bold:14.0"
+  label.font="JetBrainsMono Nerd Font:Medium:13.0"
+  icon.color=0xffd3c6aa
+  label.color=0xffd3c6aa
+  icon.padding_left=8
+  icon.padding_right=4
+  label.padding_left=4
+  label.padding_right=8
+)
+sketchybar --default "${defaults[@]}"
+
+sketchybar --add item front_app left \
+  --set front_app icon.drawing=off script="$PLUGIN_DIR/front-app.sh" \
+  --subscribe front_app front_app_switched
+
+sketchybar --add item battery right \
+  --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+  --subscribe battery system_woke power_source_change
+
+sketchybar --add item clock right \
+  --set clock icon="󰥔" update_freq=30 script="$PLUGIN_DIR/clock.sh"
+
+sketchybar --update
