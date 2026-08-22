@@ -7,14 +7,11 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 sketchybar --bar \
   position=top \
   height=32 \
-  color=0xdd1e2326 \
   shadow=off
 
 defaults=(
   icon.font="JetBrainsMono Nerd Font:Bold:14.0"
   label.font="JetBrainsMono Nerd Font:Medium:13.0"
-  icon.color=0xffd3c6aa
-  label.color=0xffd3c6aa
   icon.padding_left=8
   icon.padding_right=4
   label.padding_left=4
@@ -32,5 +29,10 @@ sketchybar --add item battery right \
 
 sketchybar --add item clock right \
   --set clock icon="󰥔" update_freq=30 script="$PLUGIN_DIR/clock.sh"
+
+sketchybar --add event appearance_changed AppleInterfaceThemeChangedNotification \
+  --add item appearance_listener left \
+  --set appearance_listener drawing=off script="$PLUGIN_DIR/appearance.sh" \
+  --subscribe appearance_listener appearance_changed system_woke
 
 sketchybar --update
