@@ -179,10 +179,10 @@
       "float" : 0
     },
     "screenEdgeGapTop" : {
-      "float" : 0
+      "float" : 32
     },
     "screenEdgeGapTopNotch" : {
-      "float" : 0
+      "float" : 32
     },
     "screenEdgeGapsOnMainScreenOnly" : {
       "bool" : false
