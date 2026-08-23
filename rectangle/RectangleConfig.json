@@ -182,7 +182,7 @@
       "float" : 32
     },
     "screenEdgeGapTopNotch" : {
-      "float" : 32
+      "float" : -0.00001
     },
     "screenEdgeGapsOnMainScreenOnly" : {
       "bool" : false
