@@ -43,7 +43,8 @@ dotfiles_banner() {
 }
 
 dotfiles_info() {
-  printf '\n%b\n' "${BOLD}${BLUE}▸ ${RESET}${BOLD}$1${RESET}"
+  printf '\n%b\n' "${DIM}────────────────────────────────────────${RESET}"
+  printf '%b\n' "${BOLD}${BLUE}▸ ${RESET}${BOLD}$1${RESET}"
 }
 
 dotfiles_warn() {
