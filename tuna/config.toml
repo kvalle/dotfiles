@@ -6,7 +6,8 @@ sortOrders = []
     catalogIdentifier = 'tuna.effects'
 
         [catalogs.globalScopes.scope]
-        kind = 'none'
+        itemIDs = [ 'Confetti', 'Confetti Rain', 'Math', 'Rain', 'This is fine', 'WASTED' ]
+        kind = 'only'
 
     [[catalogs.globalScopes]]
     catalogIdentifier = 'tuna.emoji'
@@ -114,3 +115,4 @@ custom = []
 
 [settings]
 screenPreference = 'activeWindow'
+shelfCatalogEnabled = false
