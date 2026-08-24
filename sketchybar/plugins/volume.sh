@@ -46,4 +46,9 @@ icon_color="$FG"
 label_color="$FG"
 
 show=$(sketchybar_label_visible "$NAME" "on")
+if [[ "$muted" == "true" ]]; then
+  # Show 0% with mute icon when toggle is on – consistent with volume==0 behaviour.
+  sketchybar_apply_label "$show" "$icon" "0%" "$icon_color" "$label_color"
+  exit 0
+fi
 sketchybar_apply_label "$show" "$icon" "${volume_int}%" "$icon_color" "$label_color"
