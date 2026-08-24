@@ -74,4 +74,7 @@ sketchybar --add event appearance_changed AppleInterfaceThemeChangedNotification
   --set appearance_listener drawing=off script="$PLUGIN_DIR/appearance.sh" \
   --subscribe appearance_listener appearance_changed system_woke
 
+# Re-apply battery color after theme change (appearance.sh resets '/.*/')
+sketchybar --subscribe battery appearance_changed
+
 sketchybar --update
