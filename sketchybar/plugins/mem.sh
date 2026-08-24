@@ -49,6 +49,29 @@ if (( usage > 100 )); then usage=100; fi
 
 icon="󰑭"
 
+# Color grading — theme-aware (same palette as appearance.sh / battery.sh)
+# MEM: <70 FG, 70-85 MID, >85 RED (konservativ)
+if [[ $(defaults read -g AppleInterfaceStyle 2>/dev/null) == Dark ]]; then
+  FG=0xffcad3f5
+  RED=0xffed8796
+  MID=0xfff5a97f
+else
+  FG=0xff3d413d
+  RED=0xffd20f39
+  MID=0xfffe640b
+fi
+
+if (( usage > 85 )); then
+  icon_color="$RED"
+  label_color="$RED"
+elif (( usage >= 70 )); then
+  icon_color="$MID"
+  label_color="$MID"
+else
+  icon_color="$FG"
+  label_color="$FG"
+fi
+
 # Determine label visibility — persisted via toggle-label.sh, default off for mem
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/sketchybar"
 SHOW_FILE="$CACHE_DIR/$NAME.show"
@@ -61,8 +84,8 @@ if [[ "$show" != "on" ]]; then
 fi
 
 if [[ "$show" == "on" ]]; then
-  sketchybar --set "$NAME" drawing=on icon="$icon" label="${usage}%" label.drawing=on icon.padding_left=8 icon.padding_right=4
+  sketchybar --set "$NAME" drawing=on icon="$icon" label="${usage}%" label.drawing=on icon.padding_left=8 icon.padding_right=4 icon.color="$icon_color" label.color="$label_color"
 else
   # icon-only: symmetric padding to center icon in hover box (like wifi/bluetooth)
-  sketchybar --set "$NAME" drawing=on icon="$icon" label="${usage}%" label.drawing=off icon.padding_left=8 icon.padding_right=8
+  sketchybar --set "$NAME" drawing=on icon="$icon" label="${usage}%" label.drawing=off icon.padding_left=8 icon.padding_right=8 icon.color="$icon_color" label.color="$label_color"
 fi
