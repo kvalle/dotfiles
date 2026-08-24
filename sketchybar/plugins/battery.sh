@@ -29,10 +29,7 @@ sketchybar_theme_colors
 if (( percentage <= 20 )); then
   icon_color="$RED"
   label_color="$RED"
-elif (( percentage == 100 )); then
-  icon_color="$FG"
-  label_color="$FG"
-elif [[ "$charging" == true ]]; then
+elif [[ "$charging" == true ]] || (( percentage > 50 )); then
   icon_color="$FG"
   label_color="$FG"
 else
