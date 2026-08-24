@@ -5,6 +5,10 @@
 
 set -u
 
+CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
+source "$CONFIG_DIR/plugins/helpers.sh"
+sketchybar_handle_hover
+
 # Prefer event payload, fall back to querying the system.
 if [[ -n "${INFO:-}" ]]; then
   volume="$INFO"
@@ -25,7 +29,9 @@ if ! [[ "$volume_int" =~ ^[0-9]+$ ]]; then
   volume_int=0
 fi
 
-if [[ "$muted" == "true" ]] || (( volume_int == 0 )); then
+if [[ "$muted" == "true" ]]; then
+  icon="󰖁"
+elif (( volume_int == 0 )); then
   icon="󰖁"
 elif (( volume_int <= 30 )); then
   icon="󰕿"
@@ -35,4 +41,9 @@ else
   icon="󰕾"
 fi
 
-sketchybar --set "$NAME" drawing=on icon="$icon" label="${volume_int}%"
+sketchybar_theme_colors
+icon_color="$FG"
+label_color="$FG"
+
+show=$(sketchybar_label_visible "$NAME" "on")
+sketchybar_apply_label "$show" "$icon" "${volume_int}%" "$icon_color" "$label_color"

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# toggle-label.sh — click_script for cpu/mem/battery
+# toggle-label.sh — click_script for cpu/mem/battery/volume
 # Toggles label.drawing individually per item and persists state across restarts.
-# Defaults: battery=on (show %), cpu/mem=off (icon only)
+# Defaults: battery/volume=on (show %), cpu/mem=off (icon only)
 
 set -u
 
@@ -11,7 +11,7 @@ source "$CONFIG_DIR/plugins/helpers.sh"
 
 # Derive default per item (must match metric plugins)
 case "$NAME" in
-  battery) default="on" ;;
+  battery|volume) default="on" ;;
   *) default="off" ;;
 esac
 
