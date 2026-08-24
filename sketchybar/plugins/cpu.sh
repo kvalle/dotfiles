@@ -4,9 +4,13 @@
 
 set -u
 
-# Hover — vis at det kan trykkes (samme som wifi/bluetooth)
+# Hover — vis at det kan trykkes (samme som wifi/bluetooth) — theme-aware
 if [[ "${SENDER:-}" == "mouse.entered" ]]; then
-  sketchybar --set "$NAME" background.color=0x44ffffff
+  if [[ $(defaults read -g AppleInterfaceStyle 2>/dev/null) == Dark ]]; then
+    sketchybar --set "$NAME" background.color=0x44ffffff
+  else
+    sketchybar --set "$NAME" background.color=0x33000000
+  fi
   exit 0
 elif [[ "${SENDER:-}" == "mouse.exited" ]]; then
   sketchybar --set "$NAME" background.color=0x00000000
