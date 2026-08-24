@@ -1,6 +1,9 @@
 #!/bin/bash
 
-if [[ $(defaults read -g AppleInterfaceStyle 2>/dev/null) == Dark ]]; then
+CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
+source "$CONFIG_DIR/plugins/helpers.sh"
+
+if sketchybar_is_dark; then
   background=0xff24273a
   foreground=0xffcad3f5
 else

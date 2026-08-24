@@ -6,21 +6,20 @@
 
 set -u
 
+CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
+source "$CONFIG_DIR/plugins/helpers.sh"
+
+# Derive default per item (must match metric plugins)
+case "$NAME" in
+  battery) default="on" ;;
+  *) default="off" ;;
+esac
+
+current=$(sketchybar_label_visible "$NAME" "$default")
+
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/sketchybar"
 mkdir -p "$CACHE_DIR"
 SHOW_FILE="$CACHE_DIR/$NAME.show"
-
-current=""
-if [[ -f "$SHOW_FILE" ]]; then
-  current=$(cat "$SHOW_FILE" 2>/dev/null || echo "")
-fi
-
-if [[ -z "$current" ]]; then
-  case "$NAME" in
-    battery) current="on" ;;
-    *) current="off" ;;
-  esac
-fi
 
 if [[ "$current" == "on" ]]; then
   echo "off" > "$SHOW_FILE"

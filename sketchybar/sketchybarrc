@@ -19,13 +19,29 @@ defaults=(
 )
 sketchybar --default "${defaults[@]}"
 
+# Shared item background (hover shows clickability via helpers.sh)
+item_bg=(
+  background.color=0x00000000
+  background.corner_radius=6
+  background.height=26
+  background.padding_left=4
+  background.padding_right=4
+)
+item_bg_wide=(
+  background.color=0x00000000
+  background.corner_radius=6
+  background.height=26
+  background.padding_left=6
+  background.padding_right=6
+)
+
 sketchybar --add item front_app left \
   --set front_app icon.font="sketchybar-app-font:Regular:14.0" icon.padding_right=6 script="$PLUGIN_DIR/front-app.sh" \
   --subscribe front_app front_app_switched
 
 sketchybar --add item clock right \
   --set clock icon="󰥔" update_freq=30 script="$PLUGIN_DIR/clock.sh" \
-  background.color=0x00000000 background.corner_radius=6 background.height=26 background.padding_left=6 background.padding_right=6 \
+  "${item_bg_wide[@]}" \
   click_script="open https://kalender.no" \
   --subscribe clock mouse.entered mouse.exited
 
@@ -35,7 +51,7 @@ sketchybar --add item volume right \
 
 sketchybar --add item wifi right \
   --set wifi update_freq=10 script="$PLUGIN_DIR/wifi.sh" \
-  background.color=0x00000000 background.corner_radius=6 background.height=26 background.padding_left=4 background.padding_right=4 \
+  "${item_bg[@]}" \
   icon.padding_left=8 icon.padding_right=8 label.drawing=off \
   click_script="open x-apple.systempreferences:com.apple.Network-Settings" \
   --subscribe wifi wifi_change system_woke mouse.entered mouse.exited
@@ -46,26 +62,26 @@ sketchybar --add event bluetooth_status "com.apple.bluetooth.status" \
 
 sketchybar --add item bluetooth right \
   --set bluetooth update_freq=4 script="$PLUGIN_DIR/bluetooth.sh" \
-  background.color=0x00000000 background.corner_radius=6 background.height=26 background.padding_left=4 background.padding_right=4 \
+  "${item_bg[@]}" \
   icon.padding_left=8 icon.padding_right=8 label.drawing=off \
   click_script="open x-apple.systempreferences:com.apple.BluetoothSettings" \
   --subscribe bluetooth system_woke bluetooth_status bluetooth_power_on bluetooth_power_off mouse.entered mouse.exited
 
 sketchybar --add item battery right \
   --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" click_script="$PLUGIN_DIR/toggle-label.sh" \
-  background.color=0x00000000 background.corner_radius=6 background.height=26 background.padding_left=4 background.padding_right=4 \
+  "${item_bg[@]}" \
   icon.padding_left=8 icon.padding_right=4 \
   --subscribe battery system_woke power_source_change mouse.entered mouse.exited
 
 sketchybar --add item mem right \
   --set mem update_freq=30 script="$PLUGIN_DIR/mem.sh" click_script="$PLUGIN_DIR/toggle-label.sh" \
-  background.color=0x00000000 background.corner_radius=6 background.height=26 background.padding_left=4 background.padding_right=4 \
+  "${item_bg[@]}" \
   icon.padding_left=8 icon.padding_right=8 label.drawing=off \
   --subscribe mem mouse.entered mouse.exited
 
 sketchybar --add item cpu right \
   --set cpu update_freq=5 script="$PLUGIN_DIR/cpu.sh" click_script="$PLUGIN_DIR/toggle-label.sh" \
-  background.color=0x00000000 background.corner_radius=6 background.height=26 background.padding_left=4 background.padding_right=4 \
+  "${item_bg[@]}" \
   icon.padding_left=8 icon.padding_right=8 label.drawing=off \
   --subscribe cpu mouse.entered mouse.exited
 
