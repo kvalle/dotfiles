@@ -16,6 +16,20 @@ else
   verify_fail "Nix package"
 fi
 
+if [[ -f "$HOME/Library/Fonts/sketchybar-app-font.ttf" ]]; then
+  verify_pass "sketchybar-app-font"
+else
+  verify_fail "sketchybar-app-font (run scripts/sketchybar/setup.sh)"
+fi
+
+# icon_map.sh is generated from https://github.com/kvndrsslr/sketchybar-app-font/releases
+# Regenerate: curl -fsSL https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.82/icon_map.sh -o sketchybar/plugins/icon_map.sh
+if grep -q "START-OF-ICON-MAP" "$DOTFILES/sketchybar/plugins/icon_map.sh" 2>/dev/null; then
+  verify_pass "icon_map.sh (generated, v2.0.82)"
+else
+  verify_fail "icon_map.sh (missing or not generated)"
+fi
+
 for script in \
   "$DOTFILES/sketchybar/start.sh" \
   "$DOTFILES/sketchybar/sketchybarrc" \
