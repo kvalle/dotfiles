@@ -1,15 +1,90 @@
 #!/bin/bash
 
 # Wi-Fi plugin — icon-only, hover shows clickability.
-# Determines SSID/connected state via multiple methods (airport, ipconfig, networksetup)
-# to handle redacted SSID and 6GHz networksetup bug. Event wifi_change is broken
-# since Sonoma, so we poll.
+# Determines SSID/connected state via multiple methods (ipconfig, networksetup, CoreWLAN)
+# to handle redacted SSID, 6GHz networksetup bug, and removed `airport` CLI (Sonoma+).
+# Event wifi_change is broken since Sonoma, so we poll (update_freq=10).
+# Signal strength is shown via tiered icons using RSSI from CoreWLAN (helpers/wifi-signal.m).
+# Fallback is generic 󰖩/󰖪 when the helper cannot be built.
 
 set -u
 
 CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
 source "$CONFIG_DIR/plugins/helpers.sh"
 sketchybar_handle_hover
+
+# ── Signal strength via CoreWLAN helper ──────────────────────────────
+# Helper source: $CONFIG_DIR/helpers/wifi-signal.m
+# Binary candidates (first executable wins):
+#   1. ${XDG_CACHE_HOME:-$HOME/.cache}/sketchybar/wifi-signal  (standard cache)
+#   2. $CONFIG_DIR/helpers/wifi-signal                         (dotfiles fallback, works inside cplt sandbox)
+wifi_rssi=""
+wifi_helper_src="$CONFIG_DIR/helpers/wifi-signal.m"
+wifi_helper_candidates=(
+  "${XDG_CACHE_HOME:-$HOME/.cache}/sketchybar/wifi-signal"
+  "$CONFIG_DIR/helpers/wifi-signal"
+)
+# Auto-build helper if source is newer than any candidate (requires Xcode CLT).
+# Prefer cache location, but fall back to dotfiles location if cache not writable/executable.
+if [[ -f "$wifi_helper_src" ]]; then
+  for wifi_bin in "${wifi_helper_candidates[@]}"; do
+    if [[ ! -x "$wifi_bin" || "$wifi_helper_src" -nt "$wifi_bin" ]]; then
+      mkdir -p "$(dirname "$wifi_bin")" 2>/dev/null || true
+      if clang -framework CoreWLAN -framework Foundation "$wifi_helper_src" -o "$wifi_bin" 2>/dev/null; then
+        chmod +x "$wifi_bin" 2>/dev/null || true
+        # If this candidate is now executable, break — we have a usable binary
+        if [[ -x "$wifi_bin" ]]; then
+          break
+        fi
+      fi
+    else
+      # Already up-to-date and executable
+      break
+    fi
+  done
+fi
+# Try each candidate until one executes successfully
+for wifi_bin in "${wifi_helper_candidates[@]}"; do
+  if [[ -x "$wifi_bin" ]]; then
+    wifi_rssi=$("$wifi_bin" 2>/dev/null || true)
+    wifi_rssi=$(printf '%s' "$wifi_rssi" | tr -d ' \t\r\n')
+    if [[ -n "$wifi_rssi" ]]; then
+      break
+    fi
+  fi
+done
+
+# If helper gave us a usable result, map RSSI → icon and exit early.
+# Numeric RSSI is negative dBm (e.g. -54). Thresholds follow Apple's guidance:
+#   >= -50 excellent, >= -60 good, >= -67 fair (roaming threshold), >= -75 weak.
+if [[ -n "$wifi_rssi" ]]; then
+  case "$wifi_rssi" in
+    off|disconnected|no-iface)
+      sketchybar --set "$NAME" drawing=on icon="󰖪" label.drawing=off
+      exit 0
+      ;;
+    -*)
+      # Numeric — verify it is an integer
+      if [[ "$wifi_rssi" =~ ^-[0-9]+$ ]]; then
+        rssi_val=$wifi_rssi
+        if (( rssi_val >= -50 )); then
+          icon="󰤨"  # mdi:wifi-strength-4 — excellent
+        elif (( rssi_val >= -60 )); then
+          icon="󰤥"  # mdi:wifi-strength-3 — good
+        elif (( rssi_val >= -67 )); then
+          icon="󰤢"  # mdi:wifi-strength-2 — fair
+        elif (( rssi_val >= -75 )); then
+          icon="󰤟"  # mdi:wifi-strength-1 — weak
+        else
+          icon="󰤟"  # very weak (same glyph, could use 󰤫 alert if desired)
+        fi
+        sketchybar --set "$NAME" drawing=on icon="$icon" label.drawing=off
+        exit 0
+      fi
+      ;;
+  esac
+  # If helper returned something unexpected, fall through to SSID fallback.
+fi
 
 ssid=""
 
