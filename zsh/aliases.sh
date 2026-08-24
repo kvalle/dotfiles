@@ -7,7 +7,8 @@ alias ls='eza'
 alias l='eza -1 --icons --git'
 alias ll='eza -l --icons --git'
 alias la='eza -la --icons --git'
-alias lt='eza --tree --level=2 --icons=always'
+alias lt='eza -l --icons --git --sort time'
+alias ltr='eza -l --icons --git --sort time --reverse'
 
 alias hl='rg -i --passthru'
 
