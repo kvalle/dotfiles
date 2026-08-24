@@ -23,7 +23,10 @@ SHOW_FILE="$CACHE_DIR/$NAME.show"
 
 if [[ "$current" == "on" ]]; then
   echo "off" > "$SHOW_FILE"
-  sketchybar --set "$NAME" label.drawing=off icon.padding_left=8 icon.padding_right=8
+  # Reset hover highlight — when label hides the item shrinks and the
+  # cursor can end up outside the new bounds without a mouse.exited
+  # event, leaving background.color stuck highlighted (see cpu/mem/battery/volume).
+  sketchybar --set "$NAME" label.drawing=off icon.padding_left=8 icon.padding_right=8 background.color=0x00000000
 else
   echo "on" > "$SHOW_FILE"
   sketchybar --set "$NAME" label.drawing=on icon.padding_left=8 icon.padding_right=4
