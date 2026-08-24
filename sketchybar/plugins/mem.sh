@@ -4,6 +4,15 @@
 
 set -u
 
+# Hover — vis at det kan trykkes (samme som wifi/bluetooth)
+if [[ "${SENDER:-}" == "mouse.entered" ]]; then
+  sketchybar --set "$NAME" background.color=0x44ffffff
+  exit 0
+elif [[ "${SENDER:-}" == "mouse.exited" ]]; then
+  sketchybar --set "$NAME" background.color=0x00000000
+  exit 0
+fi
+
 usage=""
 
 # memory_pressure prints "System-wide memory free percentage: 42%"
@@ -39,4 +48,21 @@ if (( usage < 0 )); then usage=0; fi
 if (( usage > 100 )); then usage=100; fi
 
 icon="󰑭"
-sketchybar --set "$NAME" drawing=on icon="$icon" label="${usage}%"
+
+# Determine label visibility — persisted via toggle-label.sh, default off for mem
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/sketchybar"
+SHOW_FILE="$CACHE_DIR/$NAME.show"
+show="off"
+if [[ -f "$SHOW_FILE" ]]; then
+  show=$(cat "$SHOW_FILE" 2>/dev/null || echo "off")
+fi
+if [[ "$show" != "on" ]]; then
+  show="off"
+fi
+
+if [[ "$show" == "on" ]]; then
+  sketchybar --set "$NAME" drawing=on icon="$icon" label="${usage}%" label.drawing=on icon.padding_left=8 icon.padding_right=4
+else
+  # icon-only: symmetric padding to center icon in hover box (like wifi/bluetooth)
+  sketchybar --set "$NAME" drawing=on icon="$icon" label="${usage}%" label.drawing=off icon.padding_left=8 icon.padding_right=8
+fi
