@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
-source "$CONFIG_DIR/plugins/icon_map.sh"
+source "$CONFIG_DIR/plugins/common/icon_map.sh"
 
 app=${INFO:-}
 if [[ -z "$app" ]]; then

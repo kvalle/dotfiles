@@ -6,7 +6,7 @@
 set -u
 
 CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
-source "$CONFIG_DIR/plugins/helpers.sh"
+source "$CONFIG_DIR/plugins/common/helpers.sh"
 sketchybar_handle_hover
 
 # Prefer event payload, fall back to querying the system.

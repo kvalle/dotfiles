@@ -4,25 +4,25 @@
 # Determines SSID/connected state via multiple methods (ipconfig, networksetup, CoreWLAN)
 # to handle redacted SSID, 6GHz networksetup bug, and removed `airport` CLI (Sonoma+).
 # Event wifi_change is broken since Sonoma, so we poll (update_freq=10).
-# Signal strength is shown via tiered icons using RSSI from CoreWLAN (helpers/wifi-signal.m).
+# Signal strength is shown via tiered icons using RSSI from CoreWLAN (native/wifi-signal.m).
 # Fallback is generic 󰖩/󰖪 when the helper cannot be built.
 
 set -u
 
 CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
-source "$CONFIG_DIR/plugins/helpers.sh"
+source "$CONFIG_DIR/plugins/common/helpers.sh"
 sketchybar_handle_hover
 
 # ── Signal strength via CoreWLAN helper ──────────────────────────────
-# Helper source: $CONFIG_DIR/helpers/wifi-signal.m
+# Helper source: $CONFIG_DIR/native/wifi-signal.m
 # Binary candidates (first executable wins):
 #   1. ${XDG_CACHE_HOME:-$HOME/.cache}/sketchybar/wifi-signal  (standard cache)
-#   2. $CONFIG_DIR/helpers/wifi-signal                         (dotfiles fallback, works inside cplt sandbox)
+#   2. $CONFIG_DIR/native/wifi-signal                         (dotfiles fallback, works inside cplt sandbox)
 wifi_rssi=""
-wifi_helper_src="$CONFIG_DIR/helpers/wifi-signal.m"
+wifi_helper_src="$CONFIG_DIR/native/wifi-signal.m"
 wifi_helper_candidates=(
   "${XDG_CACHE_HOME:-$HOME/.cache}/sketchybar/wifi-signal"
-  "$CONFIG_DIR/helpers/wifi-signal"
+  "$CONFIG_DIR/native/wifi-signal"
 )
 # Auto-build helper if source is newer than any candidate (requires Xcode CLT).
 # Prefer cache location, but fall back to dotfiles location if cache not writable/executable.

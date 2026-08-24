@@ -1,7 +1,7 @@
 #!/bin/bash
 # helpers.sh — shared helpers for sketchybar plugins.
 # Source only; do not execute directly.
-# Sourced as: source "$CONFIG_DIR/plugins/helpers.sh"
+# Sourced as: source "$CONFIG_DIR/plugins/common/helpers.sh"
 # Freshness: no generation step, hand-maintained alongside plugins.
 
 # Returns 0 if macOS is in Dark Mode, 1 otherwise.

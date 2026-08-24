@@ -23,21 +23,21 @@ else
 fi
 
 # icon_map.sh is generated from https://github.com/kvndrsslr/sketchybar-app-font/releases
-# Regenerate: curl -fsSL https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.82/icon_map.sh -o sketchybar/plugins/icon_map.sh
-if grep -q "START-OF-ICON-MAP" "$DOTFILES/sketchybar/plugins/icon_map.sh" 2>/dev/null; then
+# Regenerate: curl -fsSL https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.82/icon_map.sh -o sketchybar/plugins/common/icon_map.sh
+if grep -q "START-OF-ICON-MAP" "$DOTFILES/sketchybar/plugins/common/icon_map.sh" 2>/dev/null; then
   verify_pass "icon_map.sh (generated, v2.0.82)"
 else
   verify_fail "icon_map.sh (missing or not generated)"
 fi
 
 # wifi-signal helper — CoreWLAN RSSI (replaces removed `airport` CLI in Sonoma+)
-# Source: sketchybar/helpers/wifi-signal.m
-# Build: clang -framework CoreWLAN -framework Foundation sketchybar/helpers/wifi-signal.m -o ${XDG_CACHE_HOME:-$HOME/.cache}/sketchybar/wifi-signal
+# Source: sketchybar/native/wifi-signal.m
+# Build: clang -framework CoreWLAN -framework Foundation sketchybar/native/wifi-signal.m -o ${XDG_CACHE_HOME:-$HOME/.cache}/sketchybar/wifi-signal
 # Binary is built on demand by plugins/wifi.sh; verify checks prerequisites and freshness.
-if [[ -f "$DOTFILES/sketchybar/helpers/wifi-signal.m" ]]; then
+if [[ -f "$DOTFILES/sketchybar/native/wifi-signal.m" ]]; then
   verify_pass "wifi-signal.m (CoreWLAN helper source)"
 else
-  verify_fail "wifi-signal.m (missing: sketchybar/helpers/wifi-signal.m)"
+  verify_fail "wifi-signal.m (missing: sketchybar/native/wifi-signal.m)"
 fi
 
 if command -v clang >/dev/null 2>&1; then
@@ -53,9 +53,9 @@ else
 fi
 
 # Binary freshness — cache first, then dotfiles fallback (used inside cplt sandbox)
-helper_src="$DOTFILES/sketchybar/helpers/wifi-signal.m"
+helper_src="$DOTFILES/sketchybar/native/wifi-signal.m"
 helper_bin="${XDG_CACHE_HOME:-$HOME/.cache}/sketchybar/wifi-signal"
-helper_fallback="$DOTFILES/sketchybar/helpers/wifi-signal"
+helper_fallback="$DOTFILES/sketchybar/native/wifi-signal"
 if [[ -x "$helper_bin" ]]; then
   if [[ "$helper_src" -nt "$helper_bin" ]]; then
     verify_fail "wifi-signal binary (outdated — will rebuild on next wifi poll)"
@@ -76,7 +76,8 @@ fi
 for script in \
   "$DOTFILES/sketchybar/start.sh" \
   "$DOTFILES/sketchybar/sketchybarrc" \
-  "$DOTFILES/sketchybar/plugins/"*.sh; do
+  "$DOTFILES/sketchybar/plugins/"*.sh \
+  "$DOTFILES/sketchybar/plugins/common/"*.sh; do
   if [[ -x "$script" ]]; then
     verify_pass "${script#"$DOTFILES/"}"
   else

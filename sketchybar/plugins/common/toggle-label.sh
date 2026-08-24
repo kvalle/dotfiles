@@ -7,7 +7,7 @@
 set -u
 
 CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
-source "$CONFIG_DIR/plugins/helpers.sh"
+source "$CONFIG_DIR/plugins/common/helpers.sh"
 
 # Derive default per item (must match metric plugins)
 case "$NAME" in

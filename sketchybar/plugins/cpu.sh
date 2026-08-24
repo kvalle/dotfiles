@@ -5,7 +5,7 @@
 set -u
 
 CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
-source "$CONFIG_DIR/plugins/helpers.sh"
+source "$CONFIG_DIR/plugins/common/helpers.sh"
 sketchybar_handle_hover
 
 cores=$(sysctl -n hw.ncpu 2>/dev/null || echo 1)

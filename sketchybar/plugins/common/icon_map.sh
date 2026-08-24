@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Generated from https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.82/icon_map.sh
-# Regenerate: curl -fsSL https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.82/icon_map.sh -o sketchybar/plugins/icon_map.sh
+# Regenerate: curl -fsSL https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.82/icon_map.sh -o sketchybar/plugins/common/icon_map.sh
 # Do not edit the function body manually — it is replaced wholesale on update.
 # Freshness check: scripts/sketchybar/verify.sh verifies START-OF-ICON-MAP marker.
 

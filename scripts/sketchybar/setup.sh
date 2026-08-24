@@ -20,7 +20,7 @@ fi
 # Install sketchybar-app-font if missing (needed for front_app icons).
 # Source: https://github.com/kvndrsslr/sketchybar-app-font/releases
 # Regenerate: curl -fsSL https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.82/sketchybar-app-font.ttf -o ~/Library/Fonts/sketchybar-app-font.ttf
-#            curl -fsSL https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.82/icon_map.sh -o sketchybar/plugins/icon_map.sh
+#            curl -fsSL https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.82/icon_map.sh -o sketchybar/plugins/common/icon_map.sh
 font="$HOME/Library/Fonts/sketchybar-app-font.ttf"
 if [[ ! -f "$font" ]]; then
   version="v2.0.82"
