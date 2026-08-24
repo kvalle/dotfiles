@@ -62,13 +62,15 @@ sketchybar_label_visible() {
 }
 
 # Applies icon/label with correct padding and colors.
+# Keeps label.drawing=on and animates label.width 0 <-> dynamic for a smooth
+# slide; icon padding animates together.
 # $1 = on|off, $2 = icon, $3 = label, $4 = icon_color, $5 = label_color
 sketchybar_apply_label() {
   local show="$1" icon="$2" label="$3" icon_color="$4" label_color="$5"
   if [[ "$show" == "on" ]]; then
-    sketchybar --set "$NAME" drawing=on icon="$icon" label="$label" label.drawing=on icon.padding_left=8 icon.padding_right=4 icon.color="$icon_color" label.color="$label_color"
+    sketchybar --set "$NAME" drawing=on icon="$icon" label="$label" label.drawing=on label.width=dynamic icon.padding_left=8 icon.padding_right=4 icon.color="$icon_color" label.color="$label_color"
   else
-    # icon-only: symmetric padding to center icon in hover box (like wifi/bluetooth)
-    sketchybar --set "$NAME" drawing=on icon="$icon" label="$label" label.drawing=off icon.padding_left=8 icon.padding_right=8 icon.color="$icon_color" label.color="$label_color"
+    # icon-only: symmetric padding + width 0 hides label but keeps it animatable
+    sketchybar --set "$NAME" drawing=on icon="$icon" label="$label" label.drawing=on label.width=0 icon.padding_left=8 icon.padding_right=8 icon.color="$icon_color" label.color="$label_color"
   fi
 }

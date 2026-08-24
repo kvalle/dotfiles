@@ -25,9 +25,10 @@ if [[ "$current" == "on" ]]; then
   echo "off" > "$SHOW_FILE"
   # Reset hover highlight — when label hides the item shrinks and the
   # cursor can end up outside the new bounds without a mouse.exited
-  # event, leaving background.color stuck highlighted (see cpu/mem/battery/volume).
-  sketchybar --set "$NAME" label.drawing=off icon.padding_left=8 icon.padding_right=8 background.color=0x00000000
+  # event, leaving background.color stuck highlighted.
+  # Smooth width slide (sin 15 ≈ 250ms) keeps label.drawing=on and animates label.width.
+  sketchybar --animate sin 15 --set "$NAME" label.width=0 icon.padding_left=8 icon.padding_right=8 background.color=0x00000000 label.drawing=on
 else
   echo "on" > "$SHOW_FILE"
-  sketchybar --set "$NAME" label.drawing=on icon.padding_left=8 icon.padding_right=4
+  sketchybar --animate sin 15 --set "$NAME" label.width=dynamic label.drawing=on icon.padding_left=8 icon.padding_right=4
 fi
