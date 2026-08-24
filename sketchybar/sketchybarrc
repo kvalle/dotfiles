@@ -45,12 +45,6 @@ sketchybar --add item clock right \
   click_script="open https://kalender.no" \
   --subscribe clock mouse.entered mouse.exited
 
-sketchybar --add item volume right \
-  --set volume script="$PLUGIN_DIR/volume.sh" click_script="$PLUGIN_DIR/toggle-label.sh" \
-  "${item_bg[@]}" \
-  icon.padding_left=8 icon.padding_right=4 \
-  --subscribe volume volume_change system_woke mouse.entered mouse.exited
-
 sketchybar --add item wifi right \
   --set wifi update_freq=10 script="$PLUGIN_DIR/wifi.sh" \
   "${item_bg[@]}" \
@@ -68,6 +62,12 @@ sketchybar --add item bluetooth right \
   icon.padding_left=8 icon.padding_right=8 label.drawing=off \
   click_script="open x-apple.systempreferences:com.apple.BluetoothSettings" \
   --subscribe bluetooth system_woke bluetooth_status bluetooth_power_on bluetooth_power_off mouse.entered mouse.exited
+
+sketchybar --add item volume right \
+  --set volume script="$PLUGIN_DIR/volume.sh" click_script="$PLUGIN_DIR/toggle-label.sh" \
+  "${item_bg[@]}" \
+  icon.padding_left=8 icon.padding_right=4 \
+  --subscribe volume volume_change system_woke mouse.entered mouse.exited
 
 sketchybar --add item battery right \
   --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" click_script="$PLUGIN_DIR/toggle-label.sh" \
