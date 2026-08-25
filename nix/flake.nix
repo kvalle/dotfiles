@@ -98,6 +98,7 @@
         { package = pkgs.tealdeer; verify-command = "tldr"; } # Simplified man pages
         { package = pkgs.terminal-notifier; verify-command = "terminal-notifier"; } # Send macOS notifications from the terminal
         { package = pkgs.sketchybar; verify-command = "sketchybar"; } # Customizable macOS status bar
+        { package = pkgs.jankyborders; verify-command = "borders"; } # Window borders for macOS
         { package = pkgs.blueutil; verify-command = "blueutil"; } # Bluetooth CLI used by SketchyBar bluetooth plugin (faster than system_profiler)
         { package = pkgs.unixtools.watch; verify-command = "watch"; } # Run a command repeatedly
       ];
