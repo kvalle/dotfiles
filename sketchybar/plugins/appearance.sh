@@ -5,9 +5,9 @@ source "$CONFIG_DIR/plugins/common/helpers.sh"
 
 if sketchybar_is_dark; then
   background=0xff24273a
-  foreground=0xffcad3f5
+  foreground=0xffb7bdf8
 else
-  background=0xfffffbef
+  background=0xffe4e8bd
   foreground=0xff3d413d
 fi
 

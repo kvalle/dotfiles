@@ -11,12 +11,12 @@ sketchybar_is_dark() {
 
 # Handles hover feedback for clickable items. Exits the caller on
 # mouse.entered / mouse.exited so the plugin does not continue.
-# Theme-aware: light overlay on dark, dark overlay on light.
+# Theme-aware: an elevated surface on dark, dark overlay on light.
 sketchybar_handle_hover() {
   case "${SENDER:-}" in
     mouse.entered)
       if sketchybar_is_dark; then
-        sketchybar --set "$NAME" background.color=0x44ffffff
+        sketchybar --set "$NAME" background.color=0xff363a4f
       else
         sketchybar --set "$NAME" background.color=0x33000000
       fi
@@ -29,17 +29,17 @@ sketchybar_handle_hover() {
   esac
 }
 
-# Sets FG, RED, MID globals to the shared Catppuccin-derived palette.
+# Sets foreground and status colors from the active theme palette.
 # Same palette used in battery.sh / cpu.sh / mem.sh / appearance.sh.
 sketchybar_theme_colors() {
   if sketchybar_is_dark; then
-    FG=0xffcad3f5
+    FG=0xffb7bdf8
     RED=0xffed8796
     MID=0xfff5a97f
   else
     FG=0xff3d413d
-    RED=0xffd20f39
-    MID=0xfffe640b
+    RED=0xffad3430
+    MID=0xffb34d08
   fi
 }
 
