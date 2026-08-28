@@ -6,7 +6,7 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 sketchybar --bar \
   position=top \
-  height=46 \
+  height=42 \
   shadow=off
 
 defaults=(
@@ -75,15 +75,24 @@ sketchybar --add item battery right \
   icon.padding_left=8 icon.padding_right=4 \
   --subscribe battery system_woke power_source_change mouse.entered mouse.exited
 
+sketchybar --add graph mem.graph right 48 \
+  --set mem.graph drawing=off graph.line_width=1.5 \
+  background.drawing=on background.color=0x00000000 background.height=20 y_offset=3 \
+  icon.drawing=off label.padding_left=4 label.padding_right=8 label.y_offset=-3 \
+  script="$PLUGIN_DIR/mem.sh" click_script="NAME=mem $PLUGIN_DIR/common/toggle-label.sh" \
+  --subscribe mem.graph mouse.entered mouse.exited
+
 sketchybar --add item mem right \
   --set mem update_freq=30 script="$PLUGIN_DIR/mem.sh" click_script="$PLUGIN_DIR/common/toggle-label.sh" \
-  "${item_bg[@]}" \
-  icon.padding_left=8 icon.padding_right=8 label.drawing=off \
+  icon.padding_left=8 icon.padding_right=2 label.drawing=off \
   --subscribe mem mouse.entered mouse.exited
+
+sketchybar --add bracket mem.background mem mem.graph \
+  --set mem.background "${item_bg[@]}"
 
 sketchybar --add graph cpu.graph right 48 \
   --set cpu.graph drawing=off graph.line_width=1.5 \
-  background.drawing=on background.color=0x00000000 background.height=26 y_offset=3 \
+  background.drawing=on background.color=0x00000000 background.height=20 y_offset=3 \
   icon.drawing=off label.padding_left=4 label.padding_right=8 label.y_offset=-3 \
   script="$PLUGIN_DIR/cpu.sh" click_script="NAME=cpu $PLUGIN_DIR/common/toggle-label.sh" \
   --subscribe cpu.graph mouse.entered mouse.exited
@@ -94,7 +103,7 @@ sketchybar --add item cpu right \
   --subscribe cpu mouse.entered mouse.exited
 
 sketchybar --add bracket cpu.background cpu cpu.graph \
-  --set cpu.background "${item_bg[@]}" background.height=32
+  --set cpu.background "${item_bg[@]}"
 
 sketchybar --add event appearance_changed AppleInterfaceThemeChangedNotification \
   --add item appearance_listener left \

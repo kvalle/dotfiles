@@ -6,7 +6,12 @@ set -u
 
 CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
 source "$CONFIG_DIR/plugins/common/helpers.sh"
-sketchybar_handle_hover
+sketchybar_handle_hover mem.background
+
+# mem.graph uses this script only to forward hover events to the shared bracket.
+if [[ "$NAME" == "mem.graph" ]]; then
+  exit 0
+fi
 
 usage=""
 
@@ -60,4 +65,15 @@ else
 fi
 
 show=$(sketchybar_label_visible "$NAME" "off")
-sketchybar_apply_label "$show" "$icon" "${usage}%" "$icon_color" "$label_color"
+if [[ "$show" == "on" ]]; then
+  icon_padding_right=2
+else
+  icon_padding_right=8
+fi
+sketchybar --set "$NAME" drawing=on icon="$icon" icon.color="$icon_color" \
+  icon.padding_right="$icon_padding_right" label.drawing=off
+
+graph_fill="${icon_color:0:2}33${icon_color:4}"
+sketchybar --push mem.graph "$(awk -v u="$usage" 'BEGIN { printf "%.2f", u / 100 }')" \
+  --set mem.graph drawing="$show" label="${usage}%" label.color="$label_color" \
+  graph.color="$icon_color" graph.fill_color="$graph_fill"

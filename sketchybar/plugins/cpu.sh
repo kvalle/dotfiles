@@ -45,7 +45,13 @@ else
 fi
 
 show=$(sketchybar_label_visible "$NAME" "off")
-sketchybar --set "$NAME" drawing=on icon="$icon" icon.color="$icon_color" label.drawing=off
+if [[ "$show" == "on" ]]; then
+  icon_padding_right=2
+else
+  icon_padding_right=8
+fi
+sketchybar --set "$NAME" drawing=on icon="$icon" icon.color="$icon_color" \
+  icon.padding_right="$icon_padding_right" label.drawing=off
 
 graph_fill="${icon_color:0:2}33${icon_color:4}"
 sketchybar --push cpu.graph "$(awk -v u="$usage" 'BEGIN { printf "%.2f", u / 100 }')" \
