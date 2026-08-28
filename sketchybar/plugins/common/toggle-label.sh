@@ -27,8 +27,16 @@ if [[ "$current" == "on" ]]; then
   # cursor can end up outside the new bounds without a mouse.exited
   # event, leaving background.color stuck highlighted.
   # Smooth width slide (sin 15 ≈ 250ms) keeps label.drawing=on and animates label.width.
-  sketchybar --animate sin 15 --set "$NAME" label.width=0 icon.padding_left=8 icon.padding_right=8 background.color=0x00000000 label.drawing=on
+  if [[ "$NAME" == "cpu" ]]; then
+    sketchybar --set cpu.graph drawing=off --set cpu.background background.color=0x00000000
+  else
+    sketchybar --animate sin 15 --set "$NAME" label.width=0 icon.padding_left=8 icon.padding_right=8 background.color=0x00000000 label.drawing=on
+  fi
 else
   echo "on" > "$SHOW_FILE"
-  sketchybar --animate sin 15 --set "$NAME" label.width=dynamic label.drawing=on icon.padding_left=8 icon.padding_right=4
+  if [[ "$NAME" == "cpu" ]]; then
+    sketchybar --set cpu.graph drawing=on
+  else
+    sketchybar --animate sin 15 --set "$NAME" label.width=dynamic label.drawing=on icon.padding_left=8 icon.padding_right=4
+  fi
 fi

@@ -9,21 +9,22 @@ sketchybar_is_dark() {
   [[ $(defaults read -g AppleInterfaceStyle 2>/dev/null) == Dark ]]
 }
 
-# Handles hover feedback for clickable items. Exits the caller on
-# mouse.entered / mouse.exited so the plugin does not continue.
+# Handles hover feedback for clickable items. An optional item name lets
+# grouped items target a shared bracket. Exits the caller on hover events.
 # Theme-aware: an elevated surface on dark, dark overlay on light.
 sketchybar_handle_hover() {
+  local target="${1:-$NAME}"
   case "${SENDER:-}" in
     mouse.entered)
       if sketchybar_is_dark; then
-        sketchybar --set "$NAME" background.color=0xff363a4f
+        sketchybar --set "$target" background.color=0xff363a4f
       else
-        sketchybar --set "$NAME" background.color=0x33000000
+        sketchybar --set "$target" background.color=0x33000000
       fi
       exit 0
       ;;
     mouse.exited)
-      sketchybar --set "$NAME" background.color=0x00000000
+      sketchybar --set "$target" background.color=0x00000000
       exit 0
       ;;
   esac
