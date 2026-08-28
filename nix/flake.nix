@@ -23,6 +23,7 @@
         { package = pkgs.zsh-syntax-highlighting; } # Syntax highlighting in zsh
 
         # Programming languages and runtimes
+        { package = pkgs.dotnet-sdk_10; verify-command = "dotnet"; } # .NET 10 SDK
         { package = pkgs.fnm; verify-command = "fnm"; } # Per-project Node versions
         { package = pkgs.pnpm; verify-command = "pnpm"; } # JavaScript package manager
         { package = pkgs.go; verify-command = "go"; } # Go programming language
