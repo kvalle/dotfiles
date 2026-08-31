@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Memory plugin — percentage used, via memory_pressure if available.
+# Memory plugin — percentage used, via memory_pressure query mode if available.
 
 set -u
 
@@ -15,9 +15,14 @@ fi
 
 usage=""
 
-# memory_pressure prints "System-wide memory free percentage: 42%"
+# Query mode prints "System-wide memory free percentage: 42%" and exits.
 if command -v memory_pressure >/dev/null 2>&1; then
-  free_pct=$(memory_pressure 2>/dev/null | grep -o "System-wide memory free percentage: [0-9]*%" | grep -o "[0-9]*" || true)
+  pressure_output=$(memory_pressure -Q 2>/dev/null || true)
+  if [[ "$pressure_output" =~ System-wide\ memory\ free\ percentage:\ ([0-9]+)% ]]; then
+    free_pct="${BASH_REMATCH[1]}"
+  else
+    free_pct=""
+  fi
   if [[ -n "$free_pct" ]]; then
     usage=$((100 - free_pct))
   fi
