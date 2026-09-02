@@ -71,6 +71,7 @@
         { package = pkgs.ripgrep; verify-command = "rg"; } # Fast text search
         { package = pkgs.timg; verify-command = "timg"; } # Show images and video in the terminal
         { package = pkgs.tree; verify-command = "tree"; } # Show directory structure as a tree
+        { package = pkgs.yazi; verify-command = "yazi"; } # Terminal file manager
         { package = pkgs.cloc; verify-command = "cloc"; } # Count lines of code per language
         { package = pkgs.dust; verify-command = "dust"; } # Visual disk usage
         { package = pkgs.peco; verify-command = "peco"; } # Interactive filtering
