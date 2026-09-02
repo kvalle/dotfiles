@@ -75,6 +75,9 @@ sketchybar --add item battery right \
   icon.padding_left=8 icon.padding_right=4 \
   --subscribe battery system_woke power_source_change mouse.entered mouse.exited
 
+sketchybar --add item power-metrics.separator right \
+  --set power-metrics.separator width=4 icon.drawing=off label.drawing=off
+
 sketchybar --add graph mem.graph right 48 \
   --set mem.graph drawing=off graph.line_width=1.5 \
   background.drawing=on background.color=0x00000000 background.height=20 y_offset=3 \
@@ -89,6 +92,9 @@ sketchybar --add item mem right \
 
 sketchybar --add bracket mem.background mem mem.graph \
   --set mem.background "${item_bg[@]}"
+
+sketchybar --add item metrics.separator right \
+  --set metrics.separator width=8 icon.drawing=off label.drawing=off
 
 sketchybar --add graph cpu.graph right 48 \
   --set cpu.graph drawing=off graph.line_width=1.5 \
