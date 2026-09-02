@@ -12,6 +12,7 @@ set -u
 CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
 source "$CONFIG_DIR/plugins/common/helpers.sh"
 sketchybar_handle_hover
+sketchybar_theme_colors
 
 # ── Signal strength via CoreWLAN helper ──────────────────────────────
 # Helper source: $CONFIG_DIR/native/wifi-signal.m
@@ -60,7 +61,7 @@ done
 if [[ -n "$wifi_rssi" ]]; then
   case "$wifi_rssi" in
     off|disconnected|no-iface)
-      sketchybar --set "$NAME" drawing=on icon="󰖪" label.drawing=off
+      sketchybar --set "$NAME" drawing=on icon="󰖪" icon.color="$MID" label.drawing=off
       exit 0
       ;;
     -*)
@@ -78,7 +79,7 @@ if [[ -n "$wifi_rssi" ]]; then
         else
           icon="󰤟"  # very weak (same glyph, could use 󰤫 alert if desired)
         fi
-        sketchybar --set "$NAME" drawing=on icon="$icon" label.drawing=off
+        sketchybar --set "$NAME" drawing=on icon="$icon" icon.color="$FG" label.drawing=off
         exit 0
       fi
       ;;
@@ -164,11 +165,14 @@ fi
 if [[ -z "$ssid" ]]; then
   if [[ "$wifi_connected" == true ]]; then
     icon="󰖩"
+    icon_color="$FG"
   else
     icon="󰖪"
+    icon_color="$MID"
   fi
 else
   icon="󰖩"
+  icon_color="$FG"
 fi
 # Ikon-only (label skjules via sketchybarrc label.drawing=off) — behold label for a11y men vis ikke
-sketchybar --set "$NAME" drawing=on icon="$icon" label.drawing=off
+sketchybar --set "$NAME" drawing=on icon="$icon" icon.color="$icon_color" label.drawing=off

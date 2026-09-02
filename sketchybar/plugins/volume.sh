@@ -42,8 +42,13 @@ else
 fi
 
 sketchybar_theme_colors
-icon_color="$FG"
-label_color="$FG"
+if [[ "$muted" == "true" ]]; then
+  icon_color="$FG"
+  label_color="$FG"
+else
+  icon_color="$MID"
+  label_color="$MID"
+fi
 
 show=$(sketchybar_label_visible "$NAME" "on")
 if [[ "$muted" == "true" ]]; then
