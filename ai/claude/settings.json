@@ -13,6 +13,9 @@
       ""
     ]
   },
+  "enabledPlugins": {
+    "mattpocock-skills@claude-plugins-official": true
+  },
   "spinnerTipsEnabled": false,
   "prefersReducedMotion": true,
   "permissions": {
