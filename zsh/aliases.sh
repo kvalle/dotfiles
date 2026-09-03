@@ -23,6 +23,7 @@ alias imageclean="docker images --filter dangling=true -q | xargs docker rmi"
 
 alias cls='echo -en "\ec"'
 alias dns-flush='sudo killall -HUP mDNSResponder'
+alias kitty-reload='kill -SIGUSR1 "$KITTY_PID"'
 alias ukenummer='date +%V'
 
 alias k="kubectl"
