@@ -27,6 +27,7 @@ _oc_launch() {
       GIT_CONFIG_VALUE_2='ssh://git@github.com/' \
       CPLT_CONFIG="$cplt_config" \
       cplt \
+        --no-gh-guard \
         --allow-localhost 5037 \
         --pass-env GIT_CONFIG_COUNT \
         --pass-env GIT_CONFIG_KEY_0 \
