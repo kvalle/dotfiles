@@ -72,4 +72,7 @@ fi
 if [[ -n "$test_filter" ]]; then
   cmd+=(-Dtest="$test_filter" -Dsurefire.failIfNoSpecifiedTests=false)
 fi
+printf 'Running:'
+printf ' %q' "${cmd[@]}"
+printf '\n'
 exec "${cmd[@]}"
