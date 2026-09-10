@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "# Requires tldraw offline: Develop > Install Agent Skills\nsh \"$HOME/skills/tldraw-offline/inject-server-context.sh\" SubagentStart"
+            "command": "node '/Users/kjetil/skills/tldraw-offline/inject-server-context.mjs' SubagentStart"
           }
         ]
       }
