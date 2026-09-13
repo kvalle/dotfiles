@@ -61,6 +61,7 @@ cask "android-studio"              # Android IDE
 brew "jakehilborn/jakehilborn/displayplacer" # Control display resolution/placement
 brew "anomalyco/tap/opencode"      # AI-powered coding agent for the terminal
 brew "navikt/tap/cplt"             # Kernel-level sandbox for AI agents
+brew "leaf-markdown-viewer"        # Preview Markdown in the terminal
 
 # ------------------------------------------------------------------------------
 # Casks – Browsers
