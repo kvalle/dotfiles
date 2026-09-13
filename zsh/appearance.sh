@@ -19,6 +19,7 @@ _update_terminal_appearance() {
   local lazygit_config="$DOTFILES/lazygit/config.yml"
   local bat_theme='Catppuccin Macchiato'
   local delta_features='catppuccin-macchiato'
+  local leaf_theme="$DOTFILES/leaf/themes/catppuccin-macchiato.toml"
   local fzf_colors='bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796,fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6,marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796'
   local autosuggest_style='fg=8'
 
@@ -27,6 +28,7 @@ _update_terminal_appearance() {
     lazygit_config+=",$DOTFILES/lazygit/themes/everforest-light-contrast.yml"
     bat_theme='everforest-light-contrast'
     delta_features='everforest-light-contrast'
+    leaf_theme="$DOTFILES/leaf/themes/everforest-light-contrast.toml"
     fzf_colors='bg+:#e4e8bd,bg:#fffbef,spinner:#b34d08,hl:#ad3430,fg:#3d413d,header:#ad3430,info:#9d397c,pointer:#b34d08,marker:#606d00,fg+:#3d413d,prompt:#32618b,hl+:#ad3430'
     autosuggest_style='fg=#bbc1aa'
   fi
@@ -36,10 +38,13 @@ _update_terminal_appearance() {
   export LG_CONFIG_FILE=$lazygit_config
   export BAT_THEME=$bat_theme
   export DELTA_FEATURES=$delta_features
+  export LEAF_THEME=$leaf_theme
   export FZF_DEFAULT_OPTS="$FZF_BASE_OPTS --color=$fzf_colors"
   typeset -g ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=$autosuggest_style
   typeset -g _terminal_appearance_applied=$appearance
 }
 
+# Re-sourcing this file must apply newly added or changed settings immediately.
+unset _terminal_appearance_applied
 _update_terminal_appearance
 add-zsh-hook precmd _update_terminal_appearance

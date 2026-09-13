@@ -24,7 +24,7 @@ if grep -R -E -i \
     'Catppuccin Latte|Flexoki|Rose Pine|Tokyo Night|TokyoNight|Monokai Extended Light' \
     "$ROOT"/kitty "$ROOT"/ghostty "$ROOT"/starship "$ROOT"/lazygit \
     "$ROOT"/bat "$ROOT"/btop "$ROOT"/superfile "$ROOT"/tuxedo \
-    "$ROOT"/atuin "$ROOT"/tealdeer "$ROOT"/glow "$ROOT"/ai \
+    "$ROOT"/atuin "$ROOT"/tealdeer "$ROOT"/glow "$ROOT"/leaf "$ROOT"/ai \
     "$ROOT"/zsh >/dev/null 2>&1; then
   verify_fail "No obsolete active theme references"
 else
@@ -40,6 +40,7 @@ if grep -E -i \
     "$ROOT/lazygit/themes/everforest-light-contrast.yml" \
     "$ROOT/bat/themes/everforest-light-contrast.tmTheme" \
     "$ROOT/btop/themes/everforest-light-contrast.theme" \
+    "$ROOT/leaf/themes/everforest-light-contrast.toml" \
     "$ROOT/superfile/theme/everforest-light-contrast.toml" \
     "$ROOT/tuxedo/themes/everforest-light-contrast.toml" >/dev/null 2>&1; then
   verify_fail "No Macchiato colors in light-only configs"

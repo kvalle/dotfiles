@@ -28,6 +28,8 @@ that are already running normally have to be restarted after a switch.
   light overlay.
 - btop, Superfile and Tuxedo select their theme through small wrappers with
   temporary configuration. No general Kitty palette restoration is needed.
+- Leaf uses explicit custom themes selected through `LEAF_THEME`. Restart a
+  running Leaf process after switching macOS appearance.
 - Bat registers custom themes by file name; the technical ID is
   `everforest-light-contrast`. Its cache has to be rebuilt after a theme change
   using `bat cache --build`. Always re-run the command after changing anything

@@ -37,6 +37,9 @@ if command -v yq >/dev/null 2>&1; then
     "$ROOT/atuin/config.toml" \
     "$ROOT/atuin/themes/terminal.toml" \
     "$ROOT/tealdeer/config.toml" \
+    "$ROOT/leaf/config.toml" \
+    "$ROOT/leaf/themes/catppuccin-macchiato.toml" \
+    "$ROOT/leaf/themes/everforest-light-contrast.toml" \
     "$ROOT/cplt/config.toml" \
     "$ROOT/tuna/config.toml"
   check "YAML configs" yq -oy -p=yaml '.' \

@@ -1,0 +1,2 @@
+# LEAF_THEME, set by zsh/appearance.sh, overrides this dark-mode fallback.
+theme = "themes/catppuccin-macchiato.toml"
