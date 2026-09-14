@@ -5,16 +5,21 @@
 # Shortcut for resuming the last session
 alias occ="oc -c"
 
+_OC_WEB_PORT=4096
+_OC_WEB_PASSWORD_REF='op://Private/opencode-remote-web/password'
+
 # ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
 
 _oc_launch() {
-  local remote token
+  local remote token cplt_config exit_status
   remote=$(git remote get-url origin 2>/dev/null)
 
   if [[ "$remote" == (git@github.com:|https://github.com/|ssh://git@github.com/)kvalle/trene(|.git) ]]; then
     token=$(op read 'op://Private/GitHub cplt trene token/credential') || return
+    cplt_config=$(mktemp "${TMPDIR:-/tmp}/cplt-trene.XXXXXX") || return
+    sed 's/^allow_api_write = false$/allow_api_write = true/' "$DOTFILES/cplt/config.toml" > "$cplt_config"
     GH_TOKEN="$token" \
       GIT_CONFIG_COUNT=3 \
       GIT_CONFIG_KEY_0='credential.https://github.com.helper' \
@@ -23,8 +28,8 @@ _oc_launch() {
       GIT_CONFIG_VALUE_1='git@github.com:' \
       GIT_CONFIG_KEY_2='url.https://github.com/.insteadOf' \
       GIT_CONFIG_VALUE_2='ssh://git@github.com/' \
+      CPLT_CONFIG="$cplt_config" \
       cplt \
-        --allow-api-write \
         --allow-localhost 5037 \
         --pass-env GIT_CONFIG_COUNT \
         --pass-env GIT_CONFIG_KEY_0 \
@@ -34,9 +39,47 @@ _oc_launch() {
         --pass-env GIT_CONFIG_KEY_2 \
         --pass-env GIT_CONFIG_VALUE_2 \
         "$@"
+    exit_status=$?
+    rm -f "$cplt_config"
+    return $exit_status
   else
     cplt "$@"
   fi
+}
+
+_oc_web_password() {
+  op read "$_OC_WEB_PASSWORD_REF"
+}
+
+_oc_web() {
+  local password encoded_path local_url network_ip
+  password=$(_oc_web_password) || return
+  encoded_path=$(printf '%s' "$PWD" | base64 | tr '/+' '_-' | tr -d '=\n')
+  local_url="http://localhost:${_OC_WEB_PORT}/${encoded_path}/session"
+  network_ip=$(ipconfig getifaddr en0 2>/dev/null)
+
+  echo "OpenCode project links:"
+  echo "  $local_url"
+  [[ -n "$network_ip" ]] && echo "  http://${network_ip}:${_OC_WEB_PORT}/${encoded_path}/session"
+  echo
+
+  OPENCODE_SERVER_PASSWORD="$password" \
+    _oc_launch --pass-env OPENCODE_SERVER_PASSWORD -- \
+      web --hostname 0.0.0.0 --port "$_OC_WEB_PORT"
+}
+
+_oc_attach() {
+  local password
+
+  if ! lsof -nP -iTCP:"$_OC_WEB_PORT" -sTCP:LISTEN >/dev/null 2>&1; then
+    echo "No OpenCode web server is listening on port $_OC_WEB_PORT."
+    echo "Start one with 'oc web'."
+    return 1
+  fi
+
+  password=$(_oc_web_password) || return
+  OPENCODE_SERVER_PASSWORD="$password" \
+    command opencode attach "http://localhost:${_OC_WEB_PORT}" "$@"
 }
 
 _oc_help() {
@@ -46,6 +89,8 @@ ${_c_bold}oc${_c_reset} ${_c_dim}–${_c_reset} OpenCode (runs in a cplt sandbox
 ${_c_bold}Usage:${_c_reset}
   ${_c_green}oc${_c_reset}                  Start opencode.
   ${_c_green}oc${_c_reset} ${_c_yellow}s${_c_reset} ${_c_yellow}<id>${_c_reset}           Resume a specific session.
+  ${_c_green}oc${_c_reset} ${_c_yellow}web${_c_reset}              Start a sandboxed web server on port ${_OC_WEB_PORT}.
+  ${_c_green}oc${_c_reset} ${_c_yellow}attach${_c_reset}           Attach a local TUI to that web server.
   ${_c_green}oc${_c_reset} ${_c_yellow}--${_c_reset} ${_c_yellow}[args]${_c_reset}        Pass arguments straight to opencode.
   ${_c_green}oc${_c_reset} ${_c_yellow}-<flag>${_c_reset}          Opencode flags are passed through ${_c_dim}(e.g. oc -c)${_c_reset}.
 
@@ -374,6 +419,14 @@ oc() {
     s)
       shift
       _oc_session "$@"
+      ;;
+    web)
+      shift
+      _oc_web "$@"
+      ;;
+    attach)
+      shift
+      _oc_attach "$@"
       ;;
     w)
       shift
