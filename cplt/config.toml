@@ -20,8 +20,8 @@ pass_env = ["GH_TOKEN"]
 # ~/.agents/.skill-lock.json — used to verify ai/skills.txt
 # ~/Library/Application Support/tldraw — the tldraw-offline skill reads server.json
 # The Nix profile points on to packages and libraries under /nix/store
-# Keep every entry ~/-prefixed: relative paths resolve against the config file's
-# directory, which zsh/functions/opencode.sh moves to $TMPDIR via CPLT_CONFIG.
+# Keep every entry ~/-prefixed so paths do not depend on the config file's
+# directory.
 [allow]
 read = ["~/.config/git", "~/.config/cplt/opencode-config", "~/.claude/skills", "~/.agents/skills", "~/.agents/.skill-lock.json", "~/Library/Application Support/tldraw", "~/.local/state/nix/profiles/dotfiles", "/nix/store"]
 localhost = [7236]
