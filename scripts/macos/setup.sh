@@ -44,6 +44,13 @@ defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 # Add bluetooth to status bar
 defaults -currentHost write com.apple.controlcenter.plist Bluetooth -int 18
 
+# Use cmd+option+space for Spotlight and release the same shortcut from Finder.
+# Symbolic hotkey parameters are character code, Carbon key code, and modifiers.
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 \
+  '{ enabled = 1; value = { parameters = (32, 49, 1572864); type = standard; }; }'
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 \
+  '{ enabled = 0; }'
+
 # Disable annoying option-space keybinding from making nonbreaking spaces
 keybindings_file="$HOME/Library/KeyBindings/DefaultKeyBinding.dict"
 keybindings_contents='{
