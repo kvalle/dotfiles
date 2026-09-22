@@ -8,6 +8,8 @@ yes = true
 allow_gpg_signing = false
 allow_cache_exec = ["gradle"]
 pass_env = ["GH_TOKEN"]
+# OpenCode reads image data directly from the macOS pasteboard on Ctrl+V.
+deny_clipboard = false
 
 # cplt canonicalizes allow.read paths, so a symlink here grants what it points at.
 # That keeps this file free of the repo location — both entries below are symlinks
