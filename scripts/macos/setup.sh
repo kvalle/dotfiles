@@ -46,10 +46,18 @@ defaults -currentHost write com.apple.controlcenter.plist Bluetooth -int 18
 
 # Use cmd+option+space for Spotlight and release the same shortcut from Finder.
 # Symbolic hotkey parameters are character code, Carbon key code, and modifiers.
+# XML fragments preserve the Boolean and integer types required by macOS.
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 \
-  '{ enabled = 1; value = { parameters = (32, 49, 1572864); type = standard; }; }'
+  '<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>32</integer><integer>49</integer><integer>1572864</integer></array><key>type</key><string>standard</string></dict></dict>'
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 \
-  '{ enabled = 0; }'
+  '<dict><key>enabled</key><false/><key>value</key><dict><key>parameters</key><array><integer>32</integer><integer>49</integer><integer>1572864</integer></array><key>type</key><string>standard</string></dict></dict>'
+
+activate_settings=/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings
+if [ -x "$activate_settings" ]; then
+  "$activate_settings" -u
+else
+  dotfiles_warn "Unable to activate keyboard shortcuts immediately; log out and back in."
+fi
 
 # Disable annoying option-space keybinding from making nonbreaking spaces
 keybindings_file="$HOME/Library/KeyBindings/DefaultKeyBinding.dict"
