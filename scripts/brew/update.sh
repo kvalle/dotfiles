@@ -52,8 +52,22 @@ else
   failed+=("cask inventory")
 fi
 
+# auto_updates casks whose built-in updater is disabled. No names are passed,
+# since `brew outdated <name>` exits 1 when the cask is outdated.
+_self_update_disabled_casks=(zen)
+if greedy_outdated=$(brew outdated --cask --greedy --quiet); then
+  for cask in "${_self_update_disabled_casks[@]}"; do
+    if grep -qxF "$cask" <<< "$greedy_outdated"; then
+      _casks_to_upgrade+=("$cask")
+    fi
+  done
+else
+  dotfiles_warn "Could not determine whether ${_self_update_disabled_casks[*]} are outdated"
+  failed+=("greedy cask inventory")
+fi
+
 if [[ ${#_casks_to_upgrade[@]} -gt 0 ]]; then
-  if ! brew upgrade --cask --yes "${_casks_to_upgrade[@]}"; then
+  if ! brew upgrade --cask --greedy --yes "${_casks_to_upgrade[@]}"; then
     dotfiles_warn "Some casks failed to upgrade (see above for details)"
     failed+=("casks")
   fi
