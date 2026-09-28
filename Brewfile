@@ -89,7 +89,13 @@ cask "1password"                   # Password manager
 cask "1password-cli"               # 1Password CLI
 cask "tuna"                        # Modern app launcher (Quicksilver-inspired)
 cask "notion"                      # Notes and wiki
-cask "rectangle"                   # Window placement with the keyboard
+# Rectangle is pinned to v1.100, installed manually from GitHub releases.
+# Upstream commit 507c48a (2026-09-16, first released in v2.0) dropped the
+# safeAreaInsets check in ScreenDetection.swift, so screenEdgeGapTopNotch is
+# applied to every display and screenEdgeGapTop is ignored. Windows then
+# overlap Sketchybar on external displays. Re-enable this line once a release
+# restores the notch check.
+# cask "rectangle"                 # Window placement with the keyboard
 cask "jordanbaird-ice"             # Hide icons in the menu bar
 
 # ------------------------------------------------------------------------------

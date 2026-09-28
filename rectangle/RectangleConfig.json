@@ -2,7 +2,7 @@
   "bundleId" : "com.knollsoft.Rectangle",
   "defaults" : {
     "SUEnableAutomaticChecks" : {
-      "bool" : true
+      "bool" : false
     },
     "allowAnyShortcut" : {
       "bool" : false
