@@ -109,7 +109,21 @@
         { package = pkgs.jankyborders; verify-command = "borders"; } # Window borders for macOS
         { package = pkgs.blueutil; verify-command = "blueutil"; } # Bluetooth CLI used by SketchyBar bluetooth plugin (faster than system_profiler)
         { package = pkgs.unixtools.watch; verify-command = "watch"; } # Run a command repeatedly
+
+        # GUI applications
+        { package = rapidraw; verify-command = "rapidraw"; } # RAW photo editor
       ];
+      # On Darwin, nixpkgs' rapidraw ships only Applications/RapidRAW.app and
+      # no bin/ entry, so expose a launcher on PATH.
+      rapidraw = pkgs.symlinkJoin {
+        name = "rapidraw-with-launcher";
+        paths = [
+          pkgs.rapidraw
+          (pkgs.writeShellScriptBin "rapidraw" ''
+            exec ${pkgs.rapidraw}/Applications/RapidRAW.app/Contents/MacOS/rapidraw "$@"
+          '')
+        ];
+      };
       commandManifest = pkgs.writeTextDir "share/dotfiles/nix-commands" (
         nixpkgs.lib.concatStringsSep "\n" (
           map (item: item.verify-command) (builtins.filter (item: item ? verify-command) managedPackages)
