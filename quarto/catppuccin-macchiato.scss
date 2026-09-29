@@ -1,0 +1,105 @@
+/*-- scss:defaults --*/
+// Catppuccin Macchiato dark layer on top of litera, used by quarto/markdown.yml.
+// Colors come from docs/themes/palettes/catppuccin-macchiato.html.
+
+$rosewater: #f4dbd6;
+$mauve: #c6a0f6;
+$red: #ed8796;
+$peach: #f5a97f;
+$yellow: #eed49f;
+$green: #a6da95;
+$teal: #8bd5ca;
+$sky: #91d7e3;
+$blue: #8aadf4;
+$lavender: #b7bdf8;
+$text: #cad3f5;
+$subtext1: #b8c0e0;
+$subtext0: #a5adcb;
+$overlay0: #6e738d;
+$surface1: #494d64;
+$surface0: #363a4f;
+$base: #24273a;
+$mantle: #1e2030;
+$crust: #181926;
+
+// Bootstrap
+$body-bg: $base;
+$body-color: $text;
+$body-secondary-color: $subtext0;
+$headings-color: $lavender;
+$link-color: $blue;
+$link-hover-color: $sky;
+$border-color: $surface1;
+$hr-border-color: $surface1;
+$text-muted: $subtext0;
+
+$primary: $blue;
+$secondary: $surface1;
+$success: $green;
+$info: $sky;
+$warning: $yellow;
+$danger: $red;
+$light: $surface0;
+$dark: $crust;
+
+$blockquote-footer-color: $subtext0;
+$table-color: $text;
+$table-border-color: $surface1;
+$table-striped-bg: rgba($surface0, 0.5);
+
+$code-color: $peach;
+$code-bg: $surface0;
+$kbd-bg: $surface0;
+$kbd-color: $text;
+
+// Quarto
+$code-block-bg: $mantle;
+$code-block-border-left: $mauve;
+$toc-color: $subtext1;
+$toc-active-border: $mauve;
+$toc-inactive-border: $surface0;
+$navbar-bg: $mantle;
+$navbar-fg: $text;
+$footer-bg: $mantle;
+$footer-fg: $subtext0;
+$callout-color-note: $blue;
+$callout-color-tip: $green;
+$callout-color-important: $mauve;
+$callout-color-caution: $peach;
+$callout-color-warning: $yellow;
+
+/*-- scss:rules --*/
+::selection {
+  background: rgba($surface1, 0.8);
+  color: $rosewater;
+}
+
+blockquote {
+  border-left-color: $surface1;
+  color: $subtext1;
+}
+
+// Inline code; litera otherwise keeps a light background here.
+:not(pre) > code {
+  background-color: $surface0;
+  color: $peach;
+}
+
+// Code blocks without a language get no highlighting wrapper, so style them
+// like the highlighted ones.
+pre:not(.sourceCode) {
+  background-color: $mantle;
+  color: $text;
+  border-left: 3px solid $mauve;
+  padding: 0.6em 0.8em;
+
+  code {
+    background-color: transparent;
+    color: inherit;
+  }
+}
+
+mark {
+  background: rgba($yellow, 0.25);
+  color: $text;
+}

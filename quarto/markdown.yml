@@ -1,0 +1,11 @@
+# Shared Quarto metadata for md-preview and md-render in zsh/functions/markdown.sh.
+# Quarto resolves theme files relative to the rendered document, so the
+# functions replace @QUARTO_DIR@ with this directory's absolute path.
+theme:
+  light: litera
+  dark: [litera, "@QUARTO_DIR@/catppuccin-macchiato.scss"]
+respect-user-color-scheme: true
+toc: true
+toc-title: Innhold
+lang: nb
+embed-resources: true

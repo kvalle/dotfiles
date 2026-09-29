@@ -2,11 +2,16 @@
   description = "Packages managed by the dotfiles repository";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  # Quarto is taken from a stable release because nixpkgs-unstable has shipped
+  # Quarto 1.10 wrapped with pandoc 3.7, which rejects "syntax-highlighting".
+  # Drop this input once unstable pairs Quarto with a compatible pandoc.
+  inputs.nixpkgs-quarto.url = "github:NixOS/nixpkgs/25.11";
 
-  outputs = { nixpkgs, ... }:
+  outputs = { nixpkgs, nixpkgs-quarto, ... }:
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
+      quartoPkgs = nixpkgs-quarto.legacyPackages.${system};
       managedPackages = [
         # Shell and terminal
         { package = pkgs.bash; verify-command = "bash"; } # Modern Bash
@@ -89,6 +94,7 @@
 
         # Documentation and text
         { package = pkgs.asciinema; verify-command = "asciinema"; } # Record terminal sessions
+        { package = quartoPkgs.quartoMinimal; verify-command = "quarto"; } # Render Markdown to HTML (md-preview, md-render)
 
         # Miscellaneous CLI tools
         { package = pkgs.btop; verify-command = "btop"; } # Resource monitor
