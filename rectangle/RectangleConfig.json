@@ -1,6 +1,9 @@
 {
   "bundleId" : "com.knollsoft.Rectangle",
   "defaults" : {
+    "SUAutomaticallyUpdate" : {
+      "bool" : false
+    },
     "SUEnableAutomaticChecks" : {
       "bool" : false
     },

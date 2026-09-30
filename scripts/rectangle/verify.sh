@@ -31,4 +31,16 @@ if [ -f "$IMPORT_PATH" ]; then
   fi
 fi
 
+# Rectangle is pinned (see Brewfile), so Sparkle must neither check for nor
+# silently install updates. SUAutomaticallyUpdate installs a downloaded update
+# on the next quit even when scheduled checks are off.
+for key in SUEnableAutomaticChecks SUAutomaticallyUpdate; do
+  value=$(defaults read com.knollsoft.Rectangle "$key" 2>/dev/null)
+  if [ "$value" = "0" ]; then
+    verify_pass "$key is off"
+  else
+    verify_fail "$key is ${value:-unset} (should be 0; run scripts/rectangle/setup.sh and restart Rectangle)"
+  fi
+done
+
 verify_finish
