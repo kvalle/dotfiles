@@ -28,4 +28,18 @@ else
   done < "$NIX_COMMANDS"
 fi
 
+NIX_APPS_DIR="$HOME/Applications/Nix Apps"
+for app in "$NIX_PROFILE/Applications"/*.app; do
+  [ -e "$app" ] || continue
+  name=$(basename "$app")
+  marker="$NIX_APPS_DIR/.$name.store-path"
+  if [ ! -d "$NIX_APPS_DIR/$name" ] || [ ! -f "$marker" ]; then
+    verify_fail "$name (not copied to $NIX_APPS_DIR, run scripts/nix/sync-apps.sh)"
+  elif [ "$(cat "$marker")" != "$(readlink -f "$app")" ]; then
+    verify_fail "$name (stale copy in $NIX_APPS_DIR, run scripts/nix/sync-apps.sh)"
+  else
+    verify_pass "$name (in $NIX_APPS_DIR)"
+  fi
+done
+
 verify_finish

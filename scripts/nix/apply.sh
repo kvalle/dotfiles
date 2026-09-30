@@ -32,5 +32,7 @@ else
     "path:$FLAKE"
 fi
 
+"$SCRIPT_DIR/sync-apps.sh"
+
 echo "Active profile: $PROFILE"
 echo "Rollback: nix profile rollback --profile $PROFILE"
