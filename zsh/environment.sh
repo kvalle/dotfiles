@@ -60,7 +60,10 @@ fi
 if [[ -f ~/.digipostrc ]]; then
   # Must be set before sourcing .digipostrc, which reads this value.
   export DIGIPOST_HOME=$HOME/code/digipost
-  source ~/.digipostrc
+  # .digipostrc calls `dp`, which would otherwise run an update check on every
+  # shell startup. The prefix assignment applies only while the file is being
+  # sourced, so `dp` run manually later still checks for updates.
+  DP_SKIP_UPDATE_CHECK=1 source ~/.digipostrc
 
   export DIGIPOST_SETTINGSXML_GITHUB_USERNAME='kvalle'
   # Secret loaded from ~/.secrets (not version controlled)
