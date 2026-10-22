@@ -20,7 +20,6 @@ mattpocock/skills	implement
 mattpocock/skills	improve-codebase-architecture
 mattpocock/skills	prototype
 mattpocock/skills	research
-mattpocock/skills	resolving-merge-conflicts
 mattpocock/skills	setup-matt-pocock-skills
 mattpocock/skills	tdd
 mattpocock/skills	teach
