@@ -15,7 +15,7 @@
       managedPackages = [
         # Shell and terminal
         { package = pkgs.bash; verify-command = "bash"; } # Modern Bash
-        { package = pkgs.atuin; verify-command = "atuin"; } # Shell history with search and sync
+        { package = atuin; verify-command = "atuin"; } # Shell history with search and sync
         { package = pkgs.direnv; verify-command = "direnv"; } # Per-directory environment variables
         { package = pkgs.starship; verify-command = "starship"; } # Shell prompt
         { package = pkgs.tmux; verify-command = "tmux"; } # Terminal multiplexer
@@ -113,6 +113,10 @@
         # GUI applications
         { package = rapidraw; verify-command = "rapidraw"; } # RAW photo editor
       ];
+      # atuin 18.24.4's atuin-daemon unit tests get SIGTERM in the Darwin build
+      # sandbox (nixpkgs d357a2b, 2026-11-01). Skip the check phase; remove this
+      # override once nixpkgs builds atuin cleanly again.
+      atuin = pkgs.atuin.overrideAttrs (_: { doCheck = false; });
       # On Darwin, nixpkgs' rapidraw ships only Applications/RapidRAW.app and
       # no bin/ entry, so expose a launcher on PATH.
       rapidraw = pkgs.symlinkJoin {
