@@ -122,5 +122,6 @@ sketchybar --subscribe cpu appearance_changed
 sketchybar --subscribe mem appearance_changed
 sketchybar --subscribe volume appearance_changed
 sketchybar --subscribe wifi appearance_changed
+sketchybar --subscribe bluetooth appearance_changed
 
 sketchybar --update

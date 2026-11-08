@@ -63,14 +63,18 @@ if [[ "$powered" == "unknown" ]]; then
   fi
 fi
 
+sketchybar_theme_colors
+
+# Icon-only; the icon is highlighted (same color as unmuted volume) while powered on.
 if [[ "$powered" == "off" ]]; then
   icon="󰂲"
+  icon_color="$FG"
 else
-  # Ikon-only — vis kun ikon, ingen tekst (hover viser klikkbarhet)
+  icon_color="$MID"
   if (( connected_count > 0 )); then
     icon="󰂱"
   else
     icon="󰂯"
   fi
 fi
-sketchybar --set "$NAME" drawing=on icon="$icon" label.drawing=off
+sketchybar --set "$NAME" drawing=on icon="$icon" icon.color="$icon_color" label.drawing=off
