@@ -67,7 +67,6 @@ brew "leaf-markdown-viewer"        # Preview Markdown in the terminal
 # Casks – Browsers
 # ------------------------------------------------------------------------------
 
-cask "arc"                         # Arc browser
 cask "firefox"                     # Mozilla Firefox
 cask "google-chrome"               # Google Chrome
 cask "helium-browser"              # Lightweight Chromium browser
@@ -77,9 +76,9 @@ cask "zen"                         # Zen Browser
 # Casks – Communication
 # ------------------------------------------------------------------------------
 
-cask "discord"                     # Chat and voice for gaming/community
 cask "microsoft-teams"             # Microsoft Teams
 cask "signal"                      # Encrypted messaging app
+cask "slack"                       # Team chat
 
 # ------------------------------------------------------------------------------
 # Casks – Productivity and notes
