@@ -62,6 +62,7 @@ brew "jakehilborn/jakehilborn/displayplacer" # Control display resolution/placem
 brew "anomalyco/tap/opencode"      # AI-powered coding agent for the terminal
 brew "navikt/tap/cplt"             # Kernel-level sandbox for AI agents
 brew "leaf-markdown-viewer"        # Preview Markdown in the terminal
+brew "fileicon"                    # Set custom app icons (scripts/zen/)
 
 # ------------------------------------------------------------------------------
 # Casks – Browsers
