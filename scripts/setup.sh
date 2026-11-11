@@ -57,6 +57,14 @@ run_setup "symlinks" "$SCRIPT_DIR/symlinks/setup.sh"
 run_setup "sketchybar" "$SCRIPT_DIR/sketchybar/setup.sh"
 run_setup "jankyborders" "$SCRIPT_DIR/jankyborders/setup.sh"
 run_setup "bat" "$SCRIPT_DIR/bat/setup.sh"
+
+# Zen is optional; a missing Zen.app is not a setup failure.
+_zen_icon_setup() {
+  local status=0
+  "$SCRIPT_DIR/zen/setup.sh" || status=$?
+  (( status == 0 || status == DOTFILES_EXIT_SKIPPED ))
+}
+run_setup "zen icon" _zen_icon_setup
 run_setup "GitHub CLI extensions" "$SCRIPT_DIR/gh/setup.sh"
 run_setup "skills" "$SCRIPT_DIR/skills/setup.sh"
 run_setup "secrets" "$SCRIPT_DIR/secrets/setup.sh"

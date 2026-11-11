@@ -63,6 +63,9 @@ fi
 
 _run_update "brew" "$SCRIPT_DIR/brew/update.sh"
 
+# A Zen cask upgrade replaces Zen.app and drops the custom icon.
+_run_update "zen icon" "$SCRIPT_DIR/zen/setup.sh"
+
 # --------------------------------------------------------------------------
 # Nix
 # --------------------------------------------------------------------------
