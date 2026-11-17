@@ -2,8 +2,14 @@
 # Quarto resolves theme files relative to the rendered document, so the
 # functions replace @QUARTO_DIR@ with this directory's absolute path.
 theme:
-  light: litera
-  dark: [litera, "@QUARTO_DIR@/catppuccin-macchiato.scss"]
+  light: [litera, "@QUARTO_DIR@/layout.scss"]
+  dark: [litera, "@QUARTO_DIR@/catppuccin-macchiato.scss", "@QUARTO_DIR@/layout.scss"]
+# Wider body column than the default 750px; the TOC keeps its margin column.
+grid:
+  body-width: 1000px
+  margin-width: 300px
+# Click an image to let it grow beyond the text column.
+include-after-body: "@QUARTO_DIR@/image-toggle.html"
 respect-user-color-scheme: true
 toc: true
 toc-title: Innhold

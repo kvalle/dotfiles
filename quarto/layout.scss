@@ -1,0 +1,31 @@
+/*-- scss:rules --*/
+// Layout rules shared by the light and dark themes in quarto/markdown.yml.
+
+// Wide tables scroll horizontally inside the body column instead of
+// spilling over the table of contents in the margin.
+#quarto-document-content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+// Images toggled by quarto/image-toggle.html. Wide mode centers the image on
+// the viewport and stays above the table of contents.
+img.md-image-toggle {
+  cursor: zoom-in;
+  max-width: 100%;
+  position: relative;
+  left: 0;
+  transform: translateX(0);
+  transition: max-width 0.3s ease, left 0.3s ease, transform 0.3s ease;
+}
+
+img.md-image-wide {
+  cursor: zoom-out;
+  position: relative;
+  z-index: 1100;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  max-width: 95vw;
+}
