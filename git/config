@@ -13,6 +13,7 @@
 	autocrlf = false
 [push]
 	default = current
+	autoSetupRemote = true
 [github]
 	user = kvalle
 [alias]
@@ -89,3 +90,5 @@
 	ff = only
 [fetch]
 	prune = true
+[branch]
+	autoSetupMerge = simple
