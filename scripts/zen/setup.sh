@@ -20,7 +20,16 @@ fi
 command -v fileicon >/dev/null 2>&1 || dotfiles_die "fileicon is not installed (see Brewfile)"
 [[ -f "$ZEN_ICON" ]] || dotfiles_die "Icon not found: $ZEN_ICON"
 # A cask installed or upgraded under sudo can leave Zen.app owned by root.
-[[ -w "$ZEN_APP" ]] || dotfiles_die "$ZEN_APP is not writable (owner: $(stat -f %Su "$ZEN_APP")). Run: sudo chown -R \"\$USER\":admin $ZEN_APP"
+# Reclaim it with sudo when someone is at the terminal to enter a password.
+if [[ ! -w "$ZEN_APP" ]]; then
+  fix_cmd="sudo chown -R \"\$USER\":admin $ZEN_APP"
+  owner=$(stat -f %Su "$ZEN_APP")
+  dotfiles_tty_available \
+    || dotfiles_die "$ZEN_APP is not writable (owner: $owner). Run: $fix_cmd"
+  dotfiles_info "$ZEN_APP is owned by $owner; reclaiming it with sudo..."
+  sudo chown -R "$USER":admin "$ZEN_APP" < /dev/tty \
+    || dotfiles_die "Could not change owner of $ZEN_APP. Run: $fix_cmd"
+fi
 
 fileicon set "$ZEN_APP" "$ZEN_ICON" >/dev/null
 # The Dock caches icons; restarting it shows the new one immediately.
