@@ -49,6 +49,15 @@ dotfiles_info() {
 
 dotfiles_warn() {
   printf '%b\n' "    ${BOLD}${YELLOW}WARNING:${RESET} $1"
+  dotfiles_record_issue "WARNING" "$1"
+}
+
+# When a caller (update.sh) exports DOTFILES_ISSUE_LOG, warnings and failures
+# from every child script are appended there so they can be summarised at the
+# end. Without it, this is a no-op.
+dotfiles_record_issue() {
+  [[ -n "${DOTFILES_ISSUE_LOG:-}" ]] || return 0
+  printf '%s: %s\n' "$1" "$2" >> "$DOTFILES_ISSUE_LOG"
 }
 
 dotfiles_success() {

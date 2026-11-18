@@ -5,6 +5,20 @@ set -uo pipefail
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 source "$SCRIPT_DIR/lib/common.sh"
 
+# Mirror all output to a log in the repository so a run can be inspected
+# afterwards. The terminal keeps colours; the log gets them stripped.
+# logs/ ignores itself, and only the newest runs are kept.
+LOG_DIR="$DOTFILES/logs"
+LOG_KEEP=10
+mkdir -p "$LOG_DIR"
+[[ -f "$LOG_DIR/.gitignore" ]] || printf '*\n' > "$LOG_DIR/.gitignore"
+LOG_FILE="$LOG_DIR/update-$(date +%Y%m%d-%H%M%S).log"
+exec > >(tee >(perl -pe 's/\e\[[0-9;]*[A-Za-z]//g' > "$LOG_FILE")) 2>&1
+ln -sf "$(basename "$LOG_FILE")" "$LOG_DIR/update-latest.log"
+ls -1t "$LOG_DIR"/update-2*.log 2>/dev/null | tail -n +$((LOG_KEEP + 1)) | while IFS= read -r old; do
+  rm -f "$old"
+done
+
 dotfiles_banner "updating"
 
 # Every step reports here instead of aborting: an update that cannot reach
@@ -56,6 +70,13 @@ if [[ -n "$git_status" ]]; then
     exit 0
   fi
 fi
+
+# Collect warnings and failures from every step for the final summary. The
+# git-status warnings before and after the steps are left out on purpose:
+# they already stand on their own.
+issue_log=$(mktemp)
+trap 'rm -f "$issue_log"' EXIT
+export DOTFILES_ISSUE_LOG=$issue_log
 
 # --------------------------------------------------------------------------
 # Homebrew
@@ -153,6 +174,7 @@ _run_update "skills" "$SCRIPT_DIR/skills/update.sh"
 # --------------------------------------------------------------------------
 
 _run_update "verification" "$SCRIPT_DIR/verify.sh"
+unset DOTFILES_ISSUE_LOG
 
 # --------------------------------------------------------------------------
 # Check for changes that should be committed
@@ -198,6 +220,13 @@ fi
 (( ${#skipped[@]} == 0 )) || printf '  SKIPPED: %s\n' "${skipped[*]}"
 (( ${#warnings[@]} == 0 )) || printf '  WARNING: %s\n' "${warnings[*]}"
 (( ${#failed[@]} == 0 )) || printf '  FAILED: %s\n' "${failed[*]}"
+if [[ -s "$issue_log" ]]; then
+  echo ""
+  printf '%bIssues reported during the run:%b\n' "$BOLD" "$RESET"
+  sed 's/^/  - /' "$issue_log"
+fi
+echo ""
+printf '  Log: %s\n' "$LOG_FILE"
 echo ""
 
 (( ${#failed[@]} == 0 )) || exit 1

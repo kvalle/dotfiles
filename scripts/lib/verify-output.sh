@@ -9,10 +9,12 @@ verify_pass() {
 verify_fail() {
   printf '  %b✗%b  %s\n' "$RED" "$RESET" "$1"
   VERIFY_ISSUES=$((VERIFY_ISSUES + 1))
+  dotfiles_record_issue "FAILED" "$1"
 }
 
 verify_warn() {
   printf '  %b!%b  %s\n' "$YELLOW" "$RESET" "$1"
+  dotfiles_record_issue "WARNING" "$1"
 }
 
 verify_header() {
